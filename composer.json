@@ -19,7 +19,10 @@
         "laravel": {
             "providers": [
                 "LaraPages\\Admin\\ServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "LaraPages": "LaraPages\\Admin\\Facade"
+            }
         }
     },  
     "autoload": {

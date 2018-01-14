@@ -94,4 +94,9 @@ class BaseController extends Controller
         }
         return view($view, ['user' => $this->user, 'slug' => $slug, 'message' => $message]);
     }
+
+    public function loginroutes()
+    {
+        return LoginController::routes();
+    }
 }
