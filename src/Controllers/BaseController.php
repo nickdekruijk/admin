@@ -1,6 +1,6 @@
 <?php
 
-namespace NickDeKruijk\LaraPages\Controllers;
+namespace LaraPages\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use Auth;

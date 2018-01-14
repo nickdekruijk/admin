@@ -1,6 +1,6 @@
 <?php
 
-namespace NickDeKruijk\LaraPages\Controllers;
+namespace LaraPages\Admin\Controllers;
 
 use Route;
 
@@ -8,9 +8,9 @@ class LoginController extends \App\Http\Controllers\Auth\LoginController
 {
     static public function routes()
     {
-        Route::get(config('larapages.adminpath').'/login', '\NickDeKruijk\LaraPages\Controllers\LoginController@showLoginForm')->name('login');
-        Route::post(config('larapages.adminpath').'/login', '\NickDeKruijk\LaraPages\Controllers\LoginController@login');
-        Route::post(config('larapages.adminpath').'/logout', '\NickDeKruijk\LaraPages\Controllers\LoginController@logout')->name('logout');
+        Route::get(config('larapages.adminpath').'/login', '\LaraPages\Admin\Controllers\LoginController@showLoginForm')->name('login');
+        Route::post(config('larapages.adminpath').'/login', '\LaraPages\Admin\Controllers\LoginController@login');
+        Route::post(config('larapages.adminpath').'/logout', '\LaraPages\Admin\Controllers\LoginController@logout')->name('logout');
     }
 
     /**

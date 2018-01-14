@@ -1,6 +1,6 @@
 <?php
 
-namespace NickDeKruijk\LaraPages;
+namespace LaraPages\Admin;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
