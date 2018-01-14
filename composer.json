@@ -1,0 +1,30 @@
+{
+    "name": "larapages/admin",
+    "description": "A simple, lightweight yet complete Laravel 5.5+ admin panel and backend",
+    "license": "MIT",
+    "keywords": [ "cms", "laravel", "admin", "panel", "backend" ],
+    "homepage": "http://www.larapages.nl",
+    "authors": [
+        {
+            "name": "Nick de Kruijk",
+            "email": "git@larapages.nl"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0.0",
+        "laravel/framework": "^5.5"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaraPages\\Admin\\ServiceProvider"
+            ]
+        }
+    },  
+    "autoload": {
+        "psr-4": {
+            "LaraPages\\Admin\\": "src/"
+        }
+    }
+}
