@@ -17,6 +17,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         ], 'config');
         $this->loadRoutesFrom(__DIR__.'/routes.php');
         $this->loadTranslationsFrom(__DIR__.'/lang', 'larapages');
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                UserCommand::class,
+            ]);
+        }
     }
 
     /**
