@@ -11,7 +11,7 @@ After installing for the first time publish the config with
 `php artisan vendor:publish --tag=config --provider="LaraPages\Admin\ServiceProvider"`
 
 ## Requirements
-LaraPages uses the auth middleware from Laravel. To determine if a user has permission you need to add a `admin_role` column to your User model. The value must match one of the roles defined in the configuration. If your application already uses authentication this is probably the only change you need to make.
+LaraPages uses the auth middleware from Laravel. To determine if a user has permission you need to add a `admin_role` column to your User model. The value must match one of the roles defined in the [configuration](#configuration). If your application already uses authentication this is probably the only change you need to make.
 
 If your app doesn't use authentication yet you might need to run `php artisan make:auth` and optionally customise the views/routes or, if you only want a simple login screen without registration, 'Remember me' or password resets, you can add `LaraPages\Admin\LoginController::routes();` to your routes/web.php file.
 
