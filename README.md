@@ -19,7 +19,7 @@ If your app doesn't use authentication yet you might need to run `php artisan ma
 After installation (if you did `php artisan vendor:publish`) a default config file called `larapages.php` will be available in your Laravel `app/config` folder. See this file for more details.
 
 ## Creating a new user
-LaraPages provides an artisan console command to create or update a user with a random password and assign a role.
+When starting a new project or your project didn't use authentication yet you probably don't have any users yet. LaraPages provides an artisan console command to create or update a user with a random password and assign a role.
 `php artisan larapages:user <email> [<role>]`
 Role must match one of the roles defined in the [configuration](#configuration). The default role for a new user is "admin". 
 
