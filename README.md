@@ -17,3 +17,6 @@ If your app doesn't use authentication yet you might need to run `php artisan ma
 
 ## Configuration
 After installation (if you did `php artisan vendor:publish`) a default config file called `larapages.php` will be available in your Laravel `app/config` folder. See this file for more details.
+
+## License
+LaraPages is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
