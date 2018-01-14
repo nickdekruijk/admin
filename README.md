@@ -3,7 +3,7 @@ A simple, lightweight yet complete Laravel 5.5+ admin panel/backend and media/fi
 Basically it's a web-based content editor for your Laravel models. Edit the config/larapages.php file to specify the models you want to manage.
 It's very easy to integrate it in your current Laravel application.
 
-larapages/admin is the new repo for [nickdekruijk/larapages](https://github.com/nickdekruijk/larapages)! which won't be updated anymore.
+larapages/admin is the new repo for [nickdekruijk/larapages](https://github.com/nickdekruijk/larapages) which won't be updated anymore.
 
 ## Installation
 To install the package use  
