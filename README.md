@@ -1,3 +1,6 @@
+# In early development, missing core functionality
+For now see [nickdekruijk/larapages](https://github.com/nickdekruijk/larapages) to get an idea where this is heading.
+
 # LaraPages
 A simple, lightweight yet complete Laravel 5.5+ admin panel/backend and media/filemanager.
 Basically it's a web-based content editor for your Laravel models. Edit the config/larapages.php file to specify the models you want to manage.
