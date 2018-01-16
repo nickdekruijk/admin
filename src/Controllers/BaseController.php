@@ -24,10 +24,10 @@ class BaseController extends Controller
     }
 
     // Return the items localized title
-    private function title(Array $item, $default)
+    private function locale($key, Array $item, $default)
     {
-        if (isset($item['title_'.App::getlocale()])) return $item['title_'.App::getlocale()];
-        if (isset($item['title'])) return $item['title'];
+        if (isset($item[$key.'_'.App::getlocale()])) return $item[$key.'_'.App::getlocale()];
+        if (isset($item[$key])) return $item[$key];
         return ucfirst($default);
     }
 
@@ -61,7 +61,7 @@ class BaseController extends Controller
         $role['modules'] = [];
         foreach(config('larapages.modules') as $id => $nav) {
             // Localize title when available
-            $nav['title'] = $this->title($nav, $id);
+            $nav['title'] = $this->locale('title', $nav, $id);
 
             // If 'index' is not set but there are column definitions add them all to index
             if (!isset($nav['index']) && isset($nav['columns']) && is_array($nav['columns'])) {
@@ -157,7 +157,7 @@ class BaseController extends Controller
     {
         $response = '';
         foreach (explode(',', $this->navItem()['index']) as $column) {
-            $response .='<span>'.$this->title($this->navItem($column), $column).'</span>';
+            $response .='<span>'.$this->locale('title', $this->navItem('columns', $column), $column).'</span>';
         }
         return $response;
     }
