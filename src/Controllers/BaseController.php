@@ -164,4 +164,34 @@ class BaseController extends Controller
         return $response;
     }
 
+    // Return an instance of the model
+    public function model()
+    {
+        $model = $this->module('model');
+        return class_exists($model) ? new $model : "Model $model not found";
+    }
+
+    // Return the listview data formated with <ul>
+    public function listviewData()
+    {
+        $model = $this->model();
+        if (is_string($model)) {
+            return '<div>'.$model.'</div>';
+        }
+        if ($this->module('orderBy')) {
+            $data = $model::orderBy($this->module('orderBy'))->get();
+        } else {
+            $data = $model::all();
+        }
+        $response = '<ul>';
+        foreach($model::all() as $row) {
+            $response .= '<li><div><i></i>';
+            foreach (explode(',', $this->module('index')) as $column) {
+                $response .='<span>'.$row[$column].'</span>';
+            }
+            $response .= '</div></li>';
+        }
+        $response .= '</ul>';
+        return $response;
+    }
 }
