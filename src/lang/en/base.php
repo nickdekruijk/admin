@@ -8,4 +8,10 @@ return [
     'welcome_back' => 'Welcome back',
     'somethingwrong' => 'Something went wrong',
     'notfound' => 'not found',
+    'new' => 'New',
+    'add' => 'Add',
+    'save' => 'Save',
+    'savecopy' => 'Save as copy',
+    'delete' => 'Delete',
+    'close' => 'Close',
 ];
