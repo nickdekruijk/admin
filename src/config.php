@@ -20,10 +20,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | nav
+    | modules
     |--------------------------------------------------------------------------
-    | This describes the main navigation menu. 
     | All editable models, dashboard, reports, etc. should be defined here.
+    | The main navigation will be build with this too.
     | 'icon' should be a valid http://fontawesome.io/icons/ icon.
     */
     'modules' => [
