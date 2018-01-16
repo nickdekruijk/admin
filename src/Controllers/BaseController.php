@@ -11,7 +11,7 @@ class BaseController extends Controller
 {
     // Current user, permissions and navigation is stored in here by __construct
     protected $user;
-    // Current slug/navigation item will be stored here
+    // Current slug/module will be stored here
     protected $slug;
 
     public function __construct()
