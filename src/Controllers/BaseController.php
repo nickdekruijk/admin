@@ -11,6 +11,8 @@ class BaseController extends Controller
 {
     // Current user, permissions and navigation is stored in here by __construct
     protected $user;
+    // Current slug/navigation item will be stored here
+    protected $slug;
 
     public function __construct()
     {
@@ -48,21 +50,21 @@ class BaseController extends Controller
         $role['id'] = $roleId;
         
         // Create user specific navigation based on role permissions
-        $role['nav'] = [];
-        foreach(config('larapages.nav') as $id => $nav) {
             // Set some defaults
             if (empty($nav['title'])) $nav['title'] = ucfirst($id);
             // If localized title if available
             if (isset($nav['title_'.App::getlocale()])) $nav['title'] = $nav['title_'.App::getlocale()];
+        $role['modules'] = [];
+        foreach(config('larapages.modules') as $id => $nav) {
 
             if (!isset($role['permissions'])) {
                 // No permissions defined on role, add navigation item with all permissions
-                $role['nav'][$id] = $nav;
-                $role['nav'][$id]['permissions'] = [ 'create', 'read', 'update', 'delete' ];
+                $role['modules'][$id] = $nav;
+                $role['modules'][$id]['permissions'] = [ 'create', 'read', 'update', 'delete' ];
             } elseif (isset($role['permissions'][$id])) {
                 // User has permissions for this navigation, add it
-                $role['nav'][$id] = $nav;
-                $role['nav'][$id]['permissions'] = $role['permissions'][$id];
+                $role['modules'][$id] = $nav;
+                $role['modules'][$id]['permissions'] = $role['permissions'][$id];
             }
         }
         
@@ -75,24 +77,23 @@ class BaseController extends Controller
     // Load the view for the selected nav item
     public function show($slug = null)
     {
-        // No slug given, fetch the first
-        if (!$slug) {
-            $slug = key($this->user['nav']);
-        }
+        // If no slug given fetch the first
+        $this->slug = $slug ?: key($this->user['modules']);
         
         // Check if user has this item in navigation, if not then user has no permissions for this or the item does not exist at all. Either way raise 404 error.
-        if (!isset($this->user['nav'][$slug])) {
+        if (!isset($this->user['modules'][$this->slug])) {
             abort(404);
         }
 
-        // Show the view associated with the navigation item and passthru the user
+        // Show the view associated with the navigation item and pass the controller and optional message
         $message = null;
-        $view = $this->user['nav'][$slug]['view'];
+        $view = $this->user['modules'][$this->slug]['view'];
         if (!View::exists($view)) {
             $message = 'View '.$view.' '.trans('larapages::base.notfound').'.';
             $view = 'larapages::error';
         }
-        return view($view, ['user' => $this->user, 'slug' => $slug, 'message' => $message]);
+        
+        return view($view, ['lp' => $this, 'message' => $message]);
     }
 
     public function loginroutes()

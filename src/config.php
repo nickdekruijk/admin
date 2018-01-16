@@ -26,7 +26,7 @@ return [
     | All editable models, dashboard, reports, etc. should be defined here.
     | 'icon' should be a valid http://fontawesome.io/icons/ icon.
     */
-    'nav' => [
+    'modules' => [
         'dashboard' => [
             'icon' => 'fa-dashboard',
             'view' => 'larapages::dashboard',
@@ -84,7 +84,7 @@ return [
     | roles
     |--------------------------------------------------------------------------
     | The roles the users can be assigned to.
-    | Must match 'nav' items (see above).
+    | Must match 'modules' items (see above).
     | Make sure the User model has a column matching the 'role_column' value
     | The 'role_column' of a user determines if a user has access to LaraPages
     */
