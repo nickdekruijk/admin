@@ -23,6 +23,14 @@ class BaseController extends Controller
         }]);
     }
 
+    // Return the items localized title
+    private function title(Array $item, $default)
+    {
+        if (isset($item['title_'.App::getlocale()])) return $item['title_'.App::getlocale()];
+        if (isset($item['title'])) return $item['title'];
+        return ucfirst($default);
+    }
+
     // Check if authenticated user has a valid role
     public function checkRole($abort = true)
     {
@@ -50,12 +58,9 @@ class BaseController extends Controller
         $role['id'] = $roleId;
         
         // Create user specific navigation based on role permissions
-            // Set some defaults
-            if (empty($nav['title'])) $nav['title'] = ucfirst($id);
-            // If localized title if available
-            if (isset($nav['title_'.App::getlocale()])) $nav['title'] = $nav['title_'.App::getlocale()];
         $role['modules'] = [];
         foreach(config('larapages.modules') as $id => $nav) {
+            $nav['title'] = $this->title($nav, $id);
 
             if (!isset($role['permissions'])) {
                 // No permissions defined on role, add navigation item with all permissions
