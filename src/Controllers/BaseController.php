@@ -117,8 +117,8 @@ class BaseController extends Controller
         return LoginController::routes();
     }
 
-    // Return current navigation item
-    public function navItem($key1 = null, $key2 = null)
+    // Return current loaded module
+    public function module($key1 = null, $key2 = null)
     {
         if ($key2) {
             return isset($this->user['modules'][$this->slug][$key1][$key2]) ? $this->user['modules'][$this->slug][$key1][$key2] : [];
@@ -158,8 +158,8 @@ class BaseController extends Controller
     public function listviewIndex()
     {
         $response = '';
-        foreach (explode(',', $this->navItem()['index']) as $column) {
-            $response .='<span>'.$this->locale('title', $this->navItem('columns', $column), $column).'</span>';
+        foreach (explode(',', $this->module()['index']) as $column) {
+            $response .='<span>'.$this->locale('title', $this->module('columns', $column), $column).'</span>';
         }
         return $response;
     }

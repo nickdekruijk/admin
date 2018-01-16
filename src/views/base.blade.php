@@ -14,7 +14,7 @@
         <header>
             <label class="nav-hamburger" for="nav-toggle"><span></span><span></span><span></span></label>
             @yield('header')
-            <h2>{{ $lp->navItem()['title'] }}</h2>
+            <h2>{{ $lp->module('title') }}</h2>
         </header>
 @yield('view')
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
