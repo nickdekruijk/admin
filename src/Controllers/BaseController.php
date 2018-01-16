@@ -56,7 +56,7 @@ class BaseController extends Controller
 
         $role = config('larapages.roles')[$roleId];
         $role['id'] = $roleId;
-        
+
         // Create user specific navigation based on role permissions
         $role['modules'] = [];
         foreach(config('larapages.modules') as $id => $nav) {
@@ -72,10 +72,10 @@ class BaseController extends Controller
                 $role['modules'][$id]['permissions'] = $role['permissions'][$id];
             }
         }
-        
+
         // Unset the config permissions to avoid confusion since permissions are in navigation too
         unset($role['permissions']);
-        
+
         return $role;
     }
 
