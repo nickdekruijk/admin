@@ -10,7 +10,11 @@ function str_slug(text) {
 function listviewSetColumnWidth() {
     var widths = new Array();
     var maxdepth = 0;
-    $('#listview LI SPAN').css('width', 'auto');
+    $('#listview LI SPAN, #listview .header SPAN').css('width', 'auto');
+    $('#listview .header SPAN').each(function(e) {
+        var w = Math.ceil($(this).width());
+        if (!widths[e] || w > widths[e]) widths[e] = w;
+    });
     $('#listview LI > DIV').each(function() {
         var l = $(this).position().left;
         if (l > maxdepth) maxdepth = l;
