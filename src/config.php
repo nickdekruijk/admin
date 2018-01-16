@@ -91,7 +91,7 @@ return [
                     'title_nl' => 'Waarde',
                 ],
             ],
-            'orderBy' => 'key',
+            'orderBy' => 'value',
         ],
     ],
 

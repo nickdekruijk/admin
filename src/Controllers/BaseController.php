@@ -184,7 +184,7 @@ class BaseController extends Controller
             $data = $model::all();
         }
         $response = '<ul>';
-        foreach($model::all() as $row) {
+        foreach($data as $row) {
             $response .= '<li><div><i></i>';
             foreach (explode(',', $this->module('index')) as $column) {
                 $response .='<span>'.$row[$column].'</span>';
