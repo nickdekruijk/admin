@@ -68,7 +68,7 @@ nav li.open > ul > li,
 nav li:hover > ul > li {max-height:40px}
 
 #listview {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .4s;background-color:#d3d3d3}
-#listview .header {text-transform:capitalize;line-height:28px;white-space:nowrap}
+#listview .header {line-height:28px;white-space:nowrap}
 #listview .header SPAN {display:inline-block;margin-left:18px}
 #listview .button.add {margin:7px}
 
