@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\View;
 use App;
+use Schema;
 
 class BaseController extends Controller
 {
@@ -62,15 +63,6 @@ class BaseController extends Controller
         foreach(config('larapages.modules') as $id => $module) {
             // Localize title when available
             $module['title'] = $this->locale('title', $module, $id);
-
-            // If 'index' is not set but there are column definitions add them all to index
-            if (!isset($module['index']) && isset($module['columns']) && is_array($module['columns'])) {
-                $module['index'] = '';
-                foreach($module['columns'] as $column_id => $column) {
-                    if ($module['index']) $module['index'] .= ',';
-                    $module['index'] .= $column_id;
-                }
-            }
 
             if (!isset($role['permissions'])) {
                 // No permissions defined on role, add navigation item with all permissions
@@ -163,9 +155,23 @@ class BaseController extends Controller
     // Show the column index for listview header
     public function listviewIndex()
     {
+        if ($this->module('index')) {
+            $index = explode(',', $this->module('index'));
+        } else {
+            $index = [];
+            foreach($this->columns() as $id => $column) {
+                $index[] = $id;
+            }
+        }
         $response = '';
-        foreach (explode(',', $this->module()['index']) as $column) {
-            $response .='<span>'.$this->locale('title', $this->module('columns', $column), $column).'</span>';
+        foreach ($index as $column) {
+            $response .='<span>';
+            if ($column == 'id') {
+                $response .= 'id';
+            } else {
+                $response .= $this->locale('title', $this->columns('columns')[$column], $column);
+            }
+            $response .='</span>';
         }
         return $response;
     }
@@ -199,5 +205,24 @@ class BaseController extends Controller
         }
         $response .= '</ul>';
         return $response;
+    }
+
+    // Get the module columns
+    public function columns($getType = false)
+    {
+        $columns = [];
+        $model = $this->model();
+            
+        foreach($this->module('columns') as $id => $column) {
+            if (!is_array($column)) {
+                $id = $column;
+                $column = [];
+            }
+            $columns[$id] = $column;
+            if (empty($column['type']) && $getType) {
+                $columns[$id]['type'] = Schema::getColumnType($model->getTable(), $id);
+            }
+        }
+        return $columns;
     }
 }
