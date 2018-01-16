@@ -37,14 +37,13 @@
                 <input type="checkbox" id="input_{{ $id }}">
                 @endif
                 {{ $lp->locale('title', $column, $id) }}</label>
-                @if ($column['type'] == 'boolean')
-                @elseif ($column['type'] == 'string')
+                @if ($column['type'] == 'string')
                 <input type="text" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
                 @elseif ($column['type'] == 'date')
                 <input type="date" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
                 @elseif ($column['type'] == 'text')
                 <textarea id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
-                @else
+                @elseif ($column['type']!='boolean')
                 {{$column['type']}}
                 @endif
                 @endforeach
