@@ -100,10 +100,12 @@ nav li:hover > ul > li {max-height:40px}
 #editview .content LABEL {display:block;color:rgba(0,0,0,0.5);padding:7px 0 1px;font-size:0.85em}
 #editview .content LABEL:first-of-type {padding-top:0}
 #editview .content TEXTAREA,
-#editview .content INPUT {width:100%;display:block;margin:0;padding:4px 6px;background-color:rgba(255,255,255,0.5);box-sizing:border-box;font:inherit;border-radius:3px;border:1px solid rgba(0,0,0,0.2)}
-#editview .content TEXTAREA {min-height:20em}
+#editview .content INPUT[type=password],
+#editview .content INPUT[type=date],
+#editview .content INPUT[type=text] {width:100%;display:block;margin:0;padding:4px 6px;background-color:rgba(255,255,255,0.5);box-sizing:border-box;font:inherit;border-radius:3px;border:1px solid rgba(0,0,0,0.2)}
+#editview .content TEXTAREA {min-height:20em;resize:vertical}
 #editview .content TEXTAREA:focus,
-#editview .content INPUT:focus {outline:none;border-color:rgba(0,0,0,0.4);background-color:#fff}
+#editview .content INPUT[type=text]:focus {outline:none;border-color:rgba(0,0,0,0.4);background-color:#fff}
 
 .fullpage {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .4s;background-color:#d3d3d3;padding:1em}
 .fullpage H2 {margin:0;font-weight:300}
