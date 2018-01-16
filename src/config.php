@@ -115,6 +115,7 @@ return [
                 'dashboard' => [ 'read' ],
                 'pages' => [ 'create', 'read', 'update' ],
                 'media' => [ 'create', 'read', 'update' ],
+                'settings' => [ 'read', 'update' ],
                 'reports' => [ 'read' ],
             ],
         ],
