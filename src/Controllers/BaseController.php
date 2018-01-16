@@ -33,39 +33,32 @@ class BaseController extends Controller
     }
 
     // Check if authenticated user has a valid role
-    public function checkRole($abort = true)
+    public function checkRole()
     {
         // Check if User has admin_role column
         if (!isset(Auth::user()[config('larapages.role_column')])) {
-            if ($abort) {
-                abort(403, 'User has no role ("'.config('larapages.role_column').'" columns missing in model)');
-            } else {
-                return false;
-            }
+            abort(403, 'User has no role ("'.config('larapages.role_column').'" columns missing in model)');
         }
 
+        // Get User roleId from User model based 'role_column' config
         $roleId = Auth::user()[config('larapages.role_column')];
 
         // Check if admin_role matches a valid role
         if (!isset(config('larapages.roles')[$roleId])) {
-            if ($abort) {
-                abort(403, 'User role "'.$roleId.'" does not exist');
-            } else {
-                return false;
-            }
+            abort(403, 'User role "'.$roleId.'" does not exist');
         }
 
+        // Get the role from config
         $role = config('larapages.roles')[$roleId];
-        $role['id'] = $roleId;
 
-        // Create user specific navigation based on role permissions
+        // Get all modules the user has access to
         $role['modules'] = [];
         foreach(config('larapages.modules') as $id => $module) {
             // Localize title when available
             $module['title'] = $this->locale('title', $module, $id);
 
             if (!isset($role['permissions'])) {
-                // No permissions defined on role, add navigation item with all permissions
+                // No permissions defined on role, assume administrator and add module with all permissions
                 $role['modules'][$id] = $module;
                 $role['modules'][$id]['permissions'] = [ 'create', 'read', 'update', 'delete' ];
             } elseif (isset($role['permissions'][$id])) {
@@ -75,7 +68,7 @@ class BaseController extends Controller
             }
         }
 
-        // Unset the config permissions to avoid confusion since permissions are in navigation too
+        // Unset the config permissions to avoid confusion since permissions are in modules now too
         unset($role['permissions']);
 
         return $role;
