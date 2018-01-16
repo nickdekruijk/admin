@@ -28,7 +28,7 @@ class BaseController extends Controller
     {
         if (isset($item[$key.'_'.App::getlocale()])) return $item[$key.'_'.App::getlocale()];
         if (isset($item[$key])) return $item[$key];
-        return ucfirst($default);
+        return ucfirst(str_replace('_', ' ', $default));
     }
 
     // Check if authenticated user has a valid role
