@@ -118,10 +118,12 @@ class BaseController extends Controller
     }
 
     // Return current navigation item
-    public function navItem($column = null)
+    public function navItem($key1 = null, $key2 = null)
     {
-        if ($column) {
-            return isset($this->user['modules'][$this->slug]['columns'][$column]) ? $this->user['modules'][$this->slug]['columns'][$column] : [];
+        if ($key2) {
+            return isset($this->user['modules'][$this->slug][$key1][$key2]) ? $this->user['modules'][$this->slug][$key1][$key2] : [];
+        } elseif ($key1) {
+            return isset($this->user['modules'][$this->slug][$key1]) ? $this->user['modules'][$this->slug][$key1] : [];
         } else {
             return $this->user['modules'][$this->slug];        
         }
