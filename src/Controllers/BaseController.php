@@ -7,6 +7,7 @@ use Auth;
 use Illuminate\Support\Facades\View;
 use App;
 use Schema;
+use Route;
 
 class BaseController extends Controller
 {
@@ -136,7 +137,9 @@ class BaseController extends Controller
         }
         
         // Add logout 'form'
-        $response .= '<li><form id="logout-form" action="'.route('logout').'" method="POST" style="display: none;">'.csrf_field().'</form><a href="'.route('logout').'" onclick="event.preventDefault(); document.getElementById(\'logout-form\').submit();"><i class="fa fa-sign-out"></i>'.trans('larapages::base.logout').'</a></li>';
+        if (Route::has('logout')) {
+            $response .= '<li><form id="logout-form" action="'.route('logout').'" method="POST" style="display: none;">'.csrf_field().'</form><a href="'.route('logout').'" onclick="event.preventDefault(); document.getElementById(\'logout-form\').submit();"><i class="fa fa-sign-out"></i>'.trans('larapages::base.logout').'</a></li>';
+        }
         
         // Closing <ul>
         $response .= '</ul>';
