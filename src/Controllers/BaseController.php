@@ -191,7 +191,7 @@ class BaseController extends Controller
         }
         $response = '<ul>';
         foreach($data as $row) {
-            $response .= '<li><div><i></i>';
+            $response .= '<li><div data-id="'.$row['id'].'"><i></i>';
             foreach (explode(',', $this->module('index')) as $column) {
                 $response .='<span>'.$row[$column].'</span>';
             }
