@@ -36,7 +36,7 @@ function listviewSetColumnWidth() {
 
 listviewSetColumnWidth();
 
-$('#listview > .content > UL').nestedSortable({
+$('#listview > .content.sortable.treeview > UL').nestedSortable({
 	forcePlaceholderSize: true,
 	items: 'li',
 	handle: 'div',

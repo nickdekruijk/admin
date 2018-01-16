@@ -40,6 +40,8 @@ return [
             'treeview' => 'parent',
             'index' => 'title,id,head,subhead,slug,seo_title',
             'model' => 'App\Page',
+            'orderBy' => 'sort',
+            'sortable' => true,
         ],
         'media' => [
             'icon' => 'fa-picture-o',

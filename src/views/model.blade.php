@@ -14,7 +14,7 @@
                 {!! $lp->listviewIndex() !!}
             </div>
             @endif
-            <div class="content">
+            <div class="content{{ $lp->module('sortable')?' sortable':'' }}{{ $lp->module('treeview')?' treeview':'' }}">
                 @if ($lp->can('read'))
                 {!! $lp->listviewData() !!}
                 @endif
