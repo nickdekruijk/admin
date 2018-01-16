@@ -99,7 +99,6 @@ nav li:hover > ul > li {max-height:40px}
 #editview .content {position:absolute;top:40px;bottom:0;left:0;right:0;padding:7px;overflow:auto;border-left:1px solid #d3d3d3}
 #editview .content LABEL {display:block;color:rgba(0,0,0,0.5);padding:7px 0 1px;font-size:0.85em}
 #editview .content LABEL:first-of-type {padding-top:0}
-.login INPUT,
 #editview .content TEXTAREA,
 #editview .content INPUT {width:100%;display:block;margin:0;padding:4px 6px;background-color:rgba(255,255,255,0.5);box-sizing:border-box;font:inherit;border-radius:3px;border:1px solid rgba(0,0,0,0.2)}
 #editview .content TEXTAREA {min-height:20em}
