@@ -40,7 +40,7 @@ return [
             'treeview' => 'parent',
             'index' => 'title,id,head,slug,html_title',
             'model' => 'App\Page',
-            'orderBy' => 'sort',
+            'orderBy' => 'sort,id',
             'columns' => [
                 'active' => [
                     'default' => true,
