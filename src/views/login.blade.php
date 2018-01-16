@@ -15,6 +15,20 @@
             form {padding:10px}
             input {font:inherit;background:none;display:block;width:100%;box-sizing:border-box;outline:none;margin:5px 0 10px;padding:5px 10px;border:1px solid rgba(255,255,255,0.25);color:#fff;border-radius:4px}
             input:focus {background-color:rgba(255,255,255,0.25)}
+            input:-webkit-autofill {
+                border:1px solid rgba(255,255,255,0.5);
+                -webkit-text-fill-color: #fff;
+                background-color:transparent;
+                -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+                transition: background-color 5000s ease-in-out 0s;
+            }
+            input:-webkit-autofill:focus {
+                border:1px solid rgba(255,255,255,0.5);
+                background-color:transparent;
+                -webkit-text-fill-color: #fff;
+                -webkit-box-shadow: 0 0 0px 1000px rgba(255,255,255,0.25) inset;
+                transition: background-color 5000s ease-in-out 0s;
+            }
             button {display:inline-block;border:1px solid rgba(255,255,255,0.25);color:#fff;font:inherit;padding:4px 10px;border-radius:4px;cursor:pointer;margin:10px 0 0;background-color:transparent}
             button:hover {background-color:#0cb}
             button i {margin-right:5px}
