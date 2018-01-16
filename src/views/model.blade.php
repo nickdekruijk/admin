@@ -8,13 +8,13 @@
 
 @section('view')
     <input type="checkbox" id="edit-toggle">
-        <section id="listview">
+        <section id="listview" class="{{ $lp->module('treeview')?'treeview':'' }}">
             @if ($lp->can('read'))
             <div class="header">
                 {!! $lp->listviewIndex() !!}
             </div>
             @endif
-            <div class="content{{ $lp->module('sortable')?' sortable':'' }}{{ $lp->module('treeview')?' treeview':'' }}">
+            <div class="content{{ $lp->module('sortable')?' sortable':'' }}">
                 @if ($lp->can('read'))
                 {!! $lp->listviewData() !!}
                 @endif

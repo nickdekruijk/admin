@@ -69,16 +69,18 @@ nav li:hover > ul > li {max-height:40px}
 
 #listview {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .4s;background-color:#d3d3d3}
 #listview .header {line-height:28px;white-space:nowrap}
-#listview .header SPAN {display:inline-block;margin-left:18px}
+#listview .header SPAN {display:inline-block;margin:0 6px}
+#listview.treeview .header SPAN:first-child {margin-left:18px}
 #listview .button.add {margin:7px}
 
 #listview .content {position:absolute;top:40px;bottom:0;left:0;right:0;overflow:hidden;overflow-y:auto}
 #listview UL {display:block;margin:0;padding:0;white-space:nowrap}
 #listview LI {display:block;margin:0;padding:0}
 #listview LI > DIV  {margin:0 -4px 0 0;padding:7px;border-bottom:1px solid rgba(0,0,0,0.05);border-top:1px solid rgba(255,255,255,0.35);background-color:#eee;position:relative;cursor:pointer;height:20px;transition:height .25s,padding .25s,opacity .25s}
-#listview LI > DIV > SPAN {display:inline-block;color:rgba(0,0,0,0.4);font-size:0.85em;font-weight:400;margin-left:18px}
+#listview LI > DIV > SPAN {display:inline-block;color:rgba(0,0,0,0.4);font-size:0.85em;font-weight:400;margin:0 6px}
 #listview SPAN.right {text-align:right}
 #listview LI > DIV > SPAN:first-of-type {font-weight:400;color:#000;font-size:1em}
+#listview.treeview LI > DIV > SPAN:first-of-type {margin-left:18px}
 #listview LI > DIV > I {display:block;position:absolute;width:25px;height:100%;top:0;left:0;cursor:pointer;z-index:1}
 #listview UL UL {margin-left:25px}
 #listview LI UL:before {content:'\f078';display:block;position:absolute;margin:-23px 0 0 -25px;font-family:FontAwesome;width:25px;text-align:center;color:rgba(0,0,0,0.5);font-size:0.7em;transition:transform .25s, margin .25s, opacity .25s}
