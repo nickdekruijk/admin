@@ -23,11 +23,18 @@
                 @endif
             </div>
         </section>
+        @if ($lp->can('read'))
         <section id="editview">
             <div class="header">
+                @if ($lp->can('update'))
                 <button class="button border is-green is-primary"><i class="fa fa-save"></i>{{ trans('larapages::base.save') }}</button>
+                @endif
+                @if ($lp->can('create'))
                 <button class="button border"><i class="fa fa-clone"></i>{{ trans('larapages::base.savecopy') }}</button>
+                @endif
+                @if ($lp->can('delete'))
                 <button class="button border is-red"><i class="fa fa-trash"></i>{{ trans('larapages::base.delete') }}</button>
+                @endif
                 <label class="button border" for="edit-toggle"><i class="fa fa-ban"></i>{{ trans('larapages::base.close') }}</label>
             </div>
             <div class="content">
@@ -49,4 +56,5 @@
                 @endforeach
             </div>
         </section>
+        @endif
 @endsection
