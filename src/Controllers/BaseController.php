@@ -89,6 +89,12 @@ class BaseController extends Controller
         return $role;
     }
 
+    // Check if user has permission for current module
+    public function can($permission)
+    {
+        return in_array($permission, $this->module('permissions'));
+    }
+
     // Load the view for the current module
     public function show($slug = null)
     {
