@@ -102,7 +102,7 @@ class BaseController extends Controller
 
         // Show the view associated with the module and pass the controller and optional message
         $message = null;
-        $view = $this->user['modules'][$this->slug]['view'];
+        $view = $this->module('view');
         if (!View::exists($view)) {
             $message = 'View '.$view.' '.trans('larapages::base.notfound').'.';
             $view = 'larapages::error';
