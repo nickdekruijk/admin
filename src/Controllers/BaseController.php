@@ -59,26 +59,26 @@ class BaseController extends Controller
 
         // Create user specific navigation based on role permissions
         $role['modules'] = [];
-        foreach(config('larapages.modules') as $id => $nav) {
+        foreach(config('larapages.modules') as $id => $module) {
             // Localize title when available
-            $nav['title'] = $this->locale('title', $nav, $id);
+            $module['title'] = $this->locale('title', $module, $id);
 
             // If 'index' is not set but there are column definitions add them all to index
-            if (!isset($nav['index']) && isset($nav['columns']) && is_array($nav['columns'])) {
-                $nav['index'] = '';
-                foreach($nav['columns'] as $column_id => $column) {
-                    if ($nav['index']) $nav['index'] .= ',';
-                    $nav['index'] .= $column_id;
+            if (!isset($module['index']) && isset($module['columns']) && is_array($module['columns'])) {
+                $module['index'] = '';
+                foreach($module['columns'] as $column_id => $column) {
+                    if ($module['index']) $module['index'] .= ',';
+                    $module['index'] .= $column_id;
                 }
             }
 
             if (!isset($role['permissions'])) {
                 // No permissions defined on role, add navigation item with all permissions
-                $role['modules'][$id] = $nav;
+                $role['modules'][$id] = $module;
                 $role['modules'][$id]['permissions'] = [ 'create', 'read', 'update', 'delete' ];
             } elseif (isset($role['permissions'][$id])) {
                 // User has permissions for this navigation, add it
-                $role['modules'][$id] = $nav;
+                $role['modules'][$id] = $module;
                 $role['modules'][$id]['permissions'] = $role['permissions'][$id];
             }
         }
@@ -89,7 +89,7 @@ class BaseController extends Controller
         return $role;
     }
 
-    // Load the view for the selected nav item
+    // Load the view for the current module
     public function show($slug = null)
     {
         // If no slug given fetch the first
@@ -100,7 +100,7 @@ class BaseController extends Controller
             abort(404);
         }
 
-        // Show the view associated with the navigation item and pass the controller and optional message
+        // Show the view associated with the module and pass the controller and optional message
         $message = null;
         $view = $this->user['modules'][$this->slug]['view'];
         if (!View::exists($view)) {
