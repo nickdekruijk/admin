@@ -101,6 +101,7 @@ class BaseController extends Controller
         return view($view, ['lp' => $this, 'message' => $message]);
     }
 
+    // For LaraPages::loginroutes() Facade function
     public function loginroutes()
     {
         return LoginController::routes();
