@@ -24,7 +24,7 @@ class BaseController extends Controller
     }
 
     // Return the items localized title
-    private function locale($key, Array $item, $default)
+    public function locale($key, Array $item, $default)
     {
         if (isset($item[$key.'_'.App::getlocale()])) return $item[$key.'_'.App::getlocale()];
         if (isset($item[$key])) return $item[$key];
