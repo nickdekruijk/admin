@@ -60,6 +60,7 @@ class BaseController extends Controller
         // Create user specific navigation based on role permissions
         $role['modules'] = [];
         foreach(config('larapages.modules') as $id => $nav) {
+            // Localize title when available
             $nav['title'] = $this->title($nav, $id);
 
             if (!isset($role['permissions'])) {
