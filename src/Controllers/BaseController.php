@@ -63,6 +63,15 @@ class BaseController extends Controller
             // Localize title when available
             $nav['title'] = $this->title($nav, $id);
 
+            // If 'index' is not set but there are column definitions add them all to index
+            if (!isset($nav['index']) && isset($nav['columns']) && is_array($nav['columns'])) {
+                $nav['index'] = '';
+                foreach($nav['columns'] as $column_id => $column) {
+                    if ($nav['index']) $nav['index'] .= ',';
+                    $nav['index'] .= $column_id;
+                }
+            }
+
             if (!isset($role['permissions'])) {
                 // No permissions defined on role, add navigation item with all permissions
                 $role['modules'][$id] = $nav;
