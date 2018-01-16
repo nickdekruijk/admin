@@ -106,4 +106,50 @@ class BaseController extends Controller
     {
         return LoginController::routes();
     }
+
+    // Return current navigation item
+    public function navItem($column = null)
+    {
+        if ($column) {
+            return isset($this->user['modules'][$this->slug]['columns'][$column]) ? $this->user['modules'][$this->slug]['columns'][$column] : [];
+        } else {
+            return $this->user['modules'][$this->slug];        
+        }
+    }
+
+    // Return current users navigation items
+    public function navigation()
+    {
+        // Start output with ul
+        $response = '<ul>';
+        
+        // Add each navigation item the user has access to
+        foreach ($this->user['modules'] as $id => $item) {
+            $response .= '<li class="'.($id == $this->slug ? 'active' : '').'">';
+            $response .= '<a href="'.url(config('larapages.adminpath').'/'.str_slug($id)).'">';
+            $response .= '<i class="fa '.$item['icon'].'"></i>';
+            $response .= isset($item['title']) ? $item['title'] : ucfirst($id);
+            $response .= '</a></li>';
+        }
+        
+        // Add logout 'form'
+        $response .= '<li><form id="logout-form" action="'.route('logout').'" method="POST" style="display: none;">'.csrf_field().'</form><a href="'.route('logout').'" onclick="event.preventDefault(); document.getElementById(\'logout-form\').submit();"><i class="fa fa-sign-out"></i>'.trans('larapages::base.logout').'</a></li>';
+        
+        // Closing <ul>
+        $response .= '</ul>';
+        
+        // Return the html
+        return $response;
+    }
+
+    // Show the column index for listview header
+    public function listviewIndex()
+    {
+        $response = '';
+        foreach (explode(',', $this->navItem()['index']) as $column) {
+            $response .='<span>'.$this->title($this->navItem($column), $column).'</span>';
+        }
+        return $response;
+    }
+
 }

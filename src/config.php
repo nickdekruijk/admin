@@ -76,6 +76,22 @@ return [
             'icon' => 'fa-cog',
             'view' => 'larapages::model',
             'model' => 'App\Setting',
+            'index' => 'key,value,description',
+            'new' => 'Add new setting',
+            'new_nl' => 'Instelling toevoegen',
+            'columns' => [
+                'key' => [
+                    'title' => 'Setting',
+                    'title_nl' => 'Instelling',
+                ],
+                'description' => [
+                    'title_nl' => 'Omschrijving',
+                ],
+                'value' => [
+                    'title_nl' => 'Waarde',
+                ],
+            ],
+            'orderby' => 'key',
         ],
     ],
 
