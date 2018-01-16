@@ -180,26 +180,42 @@ class BaseController extends Controller
     }
 
     // Return the listview data formated with <ul>
-    public function listviewData()
+    public function listviewData($parent = null)
     {
+        // Get model or return error
         $model = $this->model();
         if (is_string($model)) {
             return '<div>'.$model.'</div>';
         }
-        if ($this->module('orderBy')) {
-            $data = $model::orderBy($this->module('orderBy'))->get();
-        } else {
-            $data = $model::all();
+        
+        // Does model have treeview then only fetch the children
+        if ($this->module('treeview')) {
+            $model = $model->where($this->module('treeview'), $parent);
         }
-        $response = '<ul>';
-        foreach($data as $row) {
+        // Order the results if needed
+        if ($this->module('orderBy')) {
+            $model = $model->orderBy($this->module('orderBy'));
+        }
+        
+        // Initialize the response
+        $response = '';
+        
+        foreach($model->get() as $row) {
+            // First row, add <ul>
+            if (!$response) $response .= '<ul>';
             $response .= '<li><div data-id="'.$row['id'].'"><i></i>';
             foreach (explode(',', $this->module('index')) as $column) {
                 $response .='<span>'.$row[$column].'</span>';
             }
-            $response .= '</div></li>';
+            $response .= '</div>';
+            if ($this->module('treeview')) {
+                // Add children if any
+                $response .= $this->listviewData($row->id);
+            }
+            $response .= '</li>';
         }
-        $response .= '</ul>';
+        // Add closing </ul> if there was anything added
+        if ($response) $response .= '</ul>';
         return $response;
     }
 
