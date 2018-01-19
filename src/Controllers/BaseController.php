@@ -38,7 +38,11 @@ class BaseController extends Controller
     {
         // Check if User has admin_role column
         if (!isset(Auth::user()[config('larapages.role_column')])) {
-            abort(403, 'User has no role ("'.config('larapages.role_column').'" columns missing in model)');
+            if (Schema::hasColumn(Auth::user()->getTable(), config('larapages.role_column'))) {
+                abort(403, 'User has no role (null)');
+            } else {
+                abort(403, 'Table `'.Auth::user()->getTable().'` has no `'.config('larapages.role_column').'` column');                
+            }
         }
 
         // Get User roleId from User model based 'role_column' config
