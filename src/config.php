@@ -134,8 +134,10 @@ return [
     | Must match 'modules' items (see above).
     | Make sure the User model has a column matching the 'role_column' value
     | The 'role_column' of a user determines if a user has access to LaraPages
+    | The 'role_column_migration' enables or disables the included migration
     */
     'role_column' => 'admin_role',
+    'role_column_migration' => true,
     'roles' => [
         'admin' => [
             'title' => 'Administrator',

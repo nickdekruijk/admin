@@ -16,6 +16,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             __DIR__.'/config.php' => config_path('larapages.php'),
         ], 'config');
         $this->loadRoutesFrom(__DIR__.'/routes.php');
+        if (config('larapages.role_column_migration')) {
+            $this->loadMigrationsFrom(__DIR__.'/migrations/role_column');
+        }
         $this->loadTranslationsFrom(__DIR__.'/lang', 'larapages');
         if ($this->app->runningInConsole()) {
             $this->commands([
