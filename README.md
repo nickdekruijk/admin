@@ -19,6 +19,10 @@ After installing for the first time publish the config file with
 
 A default config file called `larapages.php` will be available in your Laravel `app/config` folder. See this file for more details. Some important configuration options are highlighted below.
 
+### /lp-admin
+By default you access LaraPages by adding /lp-admin to the URL of your website/application. For example https://www.domain.com/lp-admin
+You can change this path by changing the `adminpath` configuration option.
+
 ### Add 'admin_role' to your users
 LaraPages uses the auth middleware from Laravel. To determine if a user has permission you need to add a `admin_role` column to your User model and table. You can change the column name with the `role_column` configuration option.
 A migration is included with the package so you can run `php artisan migrate` to add the column. If you don't want to use the included migration you can disable it by changing the configuration option `role_column_migration` to false. 
