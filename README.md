@@ -27,6 +27,9 @@ You can change this path by changing the `adminpath` configuration option.
 LaraPages uses the auth middleware from Laravel. To determine if a user has permission you need to add a `admin_role` column to your User model and table. You can change the column name with the `role_column` configuration option.
 A migration is included with the package so you can run `php artisan migrate` to add the column. If you don't want to use the included migration you can disable it by changing the configuration option `role_column_migration` to false. 
 
+### Configure modules and roles
+The most important configuration option is the `modules` array. The default will get you started but you most likely need to change a lot depending on your application. Each module is identified by a unique slug and it has a [fontawesome.io](http://fontawesome.io/icons/) icon and opens a view. It also has a title (defaults to the slug) that you can localise (e.g. title_nl). All other options are view/module specific and will be documented in the future. The slugs are also used to define the permissions in the `roles` array so if you add or remove modules you probably need to change the roles too.
+
 ### Login routes
 By default LaraPages will register login and logout routes and use a simple login screen without registration, 'Remember me' or password resets.
 If your application already uses authentication your routes/web.php file will probably overwrite these routes but you probably want to disable the LaraPages routes by changing configuration option `auth_routes` to false.

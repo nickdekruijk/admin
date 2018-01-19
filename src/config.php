@@ -37,15 +37,15 @@ return [
     */
     'modules' => [
         'dashboard' => [
-            'icon' => 'fa-dashboard',
             'view' => 'larapages::dashboard',
+            'icon' => 'fa-dashboard',
         ],
         'pages' => [
+            'view' => 'larapages::model',
+            'icon' => 'fa-sitemap',
             'title' => 'Website pages', # If ommited defaults to ucfirst(id)
             'title_nl' => 'Website pagina\'s',
             'button_new' => 'Create new page', # If ommited defaults to 'New'
-            'icon' => 'fa-sitemap',
-            'view' => 'larapages::model',
             'treeview' => 'parent',
             'index' => 'title,id,head,slug,html_title',
             'model' => 'App\Page',
@@ -73,24 +73,24 @@ return [
             'sortable' => true,
         ],
         'media' => [
-            'icon' => 'fa-picture-o',
             'view' => 'larapages::media',
+            'icon' => 'fa-picture-o',
             'maxUploadSize' => '12', # Maximum size of an uploaded file in megabytes, still limited by php.ini upload_max_filesize and post_max_size
             'folder' => 'media',     # Base folder to store uploaded files. Will be public_path(this)
         ],
         'reports' => [
+            'view' => 'larapages::reports',
             'icon' => 'fa-print',
             'title_nl' => 'Rapporten',
             'disabled' => false,
-            'view' => 'larapages::reports',
             'queries' => [
                 'All pages' => 'SELECT * FROM pages',
             ],
         ],
         'users' => [
+            'view' => 'larapages::model',
             'icon' => 'fa-users',
             'title_nl' => 'Gebruikers',
-            'view' => 'larapages::model',
             'model' => 'App\User',
             'columns' => [
                 'name',
@@ -103,9 +103,9 @@ return [
             'orderBy' => 'created_at desc',
         ],
         'settings' => [
-            'title_nl' => 'Instellingen',
-            'icon' => 'fa-cog',
             'view' => 'larapages::model',
+            'icon' => 'fa-cog',
+            'title_nl' => 'Instellingen',
             'model' => 'App\Setting',
             'index' => 'key,value,description',
             'new' => 'Add new setting',
