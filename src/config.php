@@ -20,6 +20,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | auth_routes
+    |--------------------------------------------------------------------------
+    | Register authentication routes for login and logout. Disable these if you
+    | want to use Laravels Auth::routes() or customize it yourself
+    */
+    'auth_routes' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | modules
     |--------------------------------------------------------------------------
     | All editable models, dashboard, reports, etc. should be defined here.
