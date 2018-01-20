@@ -99,11 +99,17 @@ class BaseController extends Controller
         // Show the view associated with the module and pass the controller and optional message
         $message = null;
         $view = $this->module('view');
+        // Return error if view doesn't exist
         if (!View::exists($view)) {
             $message = 'View '.$view.' '.trans('larapages::base.notfound').'.';
             $view = 'larapages::error';
         }
-        
+        // Return error if model doesn't exist
+        if ($view == 'larapages::model') {
+            $message = 'Model '.$this->module('model').' '.trans('larapages::base.notfound').'.';
+            $view = 'larapages::error';
+        }
+
         return view($view, ['lp' => $this, 'message' => $message]);
     }
 
@@ -174,18 +180,14 @@ class BaseController extends Controller
     public function model()
     {
         $model = $this->module('model');
-        return class_exists($model) ? new $model : "Model $model not found";
+        return class_exists($model) ? new $model : false;
     }
 
     // Return the listview data formated with <ul>
     public function listviewData($parent = null)
     {
-        // Get model or return error
+        // Get model
         $model = $this->model();
-        if (is_string($model)) {
-            return '<div>'.$model.'</div>';
-        }
-        
         // Does model have treeview then only fetch the children
         if ($this->module('treeview')) {
             $model = $model->where($this->module('treeview'), $parent);
@@ -194,7 +196,6 @@ class BaseController extends Controller
         if ($this->module('orderBy')) {
             $model = $model->orderBy($this->module('orderBy'));
         }
-        
         // Initialize the response
         $response = '';
         
