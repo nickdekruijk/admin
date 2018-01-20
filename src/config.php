@@ -106,7 +106,7 @@ return [
             'view' => 'larapages::model',
             'icon' => 'fa-cog',
             'title_nl' => 'Instellingen',
-            'model' => 'App\Setting',
+            'model' => 'LaraPages\Settings\Setting',
             'index' => 'key,value,description',
             'new' => 'Add new setting',
             'new_nl' => 'Instelling toevoegen',
