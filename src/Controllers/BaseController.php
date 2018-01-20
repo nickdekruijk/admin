@@ -105,7 +105,7 @@ class BaseController extends Controller
             $view = 'larapages::error';
         }
         // Return error if model doesn't exist
-        if ($view == 'larapages::model') {
+        if ($view == 'larapages::model' && !$this->model()) {
             $message = 'Model '.$this->module('model').' '.trans('larapages::base.notfound').'.';
             $view = 'larapages::error';
         }
