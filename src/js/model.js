@@ -43,7 +43,7 @@ function modelDelete(slug, id) {
 function modelListViewClick(slug) {
     $('#listview LI').click(function() {
         $('#listview LI.active').removeClass('active');
-        $(this).parent().addClass('active');
+        $(this).addClass('active');
         $('#edit-toggle').prop('checked', true);
         modelEditViewReset();
         $('#input_id').text($(this).data('id'));
