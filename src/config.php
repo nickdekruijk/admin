@@ -56,7 +56,9 @@ return [
                 ],
                 'hidden',
                 'home',
-                'title',
+                'title' => [
+                    'validate' => 'required',
+                ],
                 'view',
                 'head',
                 'html_title',
@@ -65,7 +67,9 @@ return [
                     'placeholder_nl' => 'Unieke \'slug\'',
                 ],
                 'description',
-                'date',
+                'date' => [
+                    'validate' => 'nullable|date',
+                ],
                 'pictures',
                 'background',
                 'body',
@@ -114,12 +118,14 @@ return [
                 'key' => [
                     'title' => 'Setting',
                     'title_nl' => 'Instelling',
+                    'validate' => 'required',
                 ],
                 'description' => [
                     'title_nl' => 'Omschrijving',
                 ],
                 'value' => [
                     'title_nl' => 'Waarde',
+                    'validate' => 'required',
                 ],
             ],
             'orderBy' => 'key',
