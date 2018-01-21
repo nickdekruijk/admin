@@ -42,9 +42,10 @@ var isLoading = false;
 function loading(done) {
     if (done) {
         clearTimeout(isLoading);
-        $('.loading').hide();
+        $('.loading').removeClass('show').removeClass('full');
     } else {
-        isLoading = setTimeout(function() { $('.loading').show() }, 250);
+        $('.loading').addClass('show');
+        isLoading = setTimeout(function() { $('.loading').addClass('full') }, 100);
     }
 }
 function loadingDone() {
