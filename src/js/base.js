@@ -63,8 +63,3 @@ $('#listview LI > DIV > I').click(function() {
         return false;
     }
 });
-// If a buttons has a data-confirm attribute ask user to confirm
-$('.button').click(function() {
-    if ($(this).data('confirm')) return confirm($(this).data('confirm'));
-});
-
