@@ -54,6 +54,7 @@ function modelCreate(slug) {
         data: $('#model_form').serialize(),
         method: 'post',
     }).done(function(data,status,xhr) {
+        $('#listview LI.active').removeClass('active');
         $('#listview .content > UL').append('<li data-id="'+data.id+'" class="active"><div><i></i>'+data.li+'</div></li>');
         modelId(data.id);
         modelListViewAddClick(slug, $('#listview LI[data-id='+data.id+']'));
@@ -141,6 +142,9 @@ function modelEditViewClick(slug) {
             modelUpdate(slug, modelId());
         else
             modelCreate(slug);
+    });
+    $('#model_clone').click(function() {
+        modelCreate(slug);
     });
     $('#model_close').click(function() {
         modelEditViewReset(false);
