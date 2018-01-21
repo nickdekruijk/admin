@@ -45,7 +45,7 @@ function modelEditViewReset() {
     $('#model_form')[0].reset();
 }
 
-function modelEditViewClick() {
+function modelEditViewClick(slug) {
     $('#model_close').click(function() {
         $('#edit-toggle').prop('checked', false);
         modelEditViewReset();
@@ -55,5 +55,5 @@ function modelEditViewClick() {
 function modelInit(slug) {
     modelNestedSortable();
     modelListViewClick(slug);
-    modelEditViewClick();
+    modelEditViewClick(slug);
 }
