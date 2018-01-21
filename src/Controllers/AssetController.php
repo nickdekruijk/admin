@@ -3,6 +3,7 @@
 
 namespace LaraPages\Admin\Controllers;
 
+use App;
 use Illuminate\Http\Response;
 
 class AssetController extends BaseController
@@ -10,7 +11,7 @@ class AssetController extends BaseController
     // Return all javascript files as one
     public function js()
     {
-        $content = file_get_contents(__DIR__.'/../js/base.js');
+        $content = file_get_contents(__DIR__.'/../js/base.js') . file_get_contents(__DIR__.'/../js/model.js');
 
         $response = new Response(
             $content, 200, [
@@ -18,7 +19,7 @@ class AssetController extends BaseController
             ]
         );
 
-        return $this->cacheResponse($response);
+        return App::isLocal() ? $response : $this->cacheResponse($response);        
     }
 
     // Return all stylesheet files as one
@@ -32,7 +33,7 @@ class AssetController extends BaseController
             ]
         );
 
-        return $this->cacheResponse($response);
+        return App::isLocal() ? $response : $this->cacheResponse($response);        
     }
 
     // Cache the response 1 year (31536000 sec)

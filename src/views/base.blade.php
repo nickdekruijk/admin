@@ -21,5 +21,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/nestedSortable/2.0.0/jquery.mjs.nestedSortable.min.js"></script>
         <script src="{{ asset(config('larapages.adminpath') . '/all.js') }}"></script>
+        @yield('scripts')
     </body>
 </html>

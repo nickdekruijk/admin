@@ -58,3 +58,9 @@
         </section>
         @endif
 @endsection
+
+@section('scripts')
+<script>
+    modelInit();
+</script>
+@endsection
