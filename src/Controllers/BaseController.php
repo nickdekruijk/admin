@@ -194,6 +194,15 @@ class BaseController extends Controller
         return class_exists($model) ? new $model : false;
     }
 
+    public function listviewRow($row)
+    {
+        $response = '<i></i>';
+        foreach (explode(',', $this->module('index')) as $column) {
+            $response .='<span>'.$row[$column].'</span>';
+        }
+        return $response;
+    }
+
     // Return the listview data formated with <ul>
     public function listviewData($parent = null)
     {
@@ -213,10 +222,8 @@ class BaseController extends Controller
         foreach($model->get() as $row) {
             // First row, add <ul>
             if (!$response) $response .= '<ul>';
-            $response .= '<li data-id="'.$row['id'].'"><div><i></i>';
-            foreach (explode(',', $this->module('index')) as $column) {
-                $response .='<span>'.$row[$column].'</span>';
-            }
+            $response .= '<li data-id="'.$row['id'].'"><div>';
+            $response .= $this->listviewRow($row);
             $response .= '</div>';
             if ($this->module('treeview')) {
                 // Add children if any
@@ -249,11 +256,14 @@ class BaseController extends Controller
     }
 
     // Return the validation rules from the columns
-    public function validationRules()
+    public function validationRules(Array $replace = [])
     {
         $rules = [];
         foreach ($this->columns() as $columnId => $column) {
             if (isset($column['validate'])) {
+                foreach($replace as $replaceKey => $replaceValue) {
+                    $column['validate'] = str_replace('#'.$replaceKey.'#', $replaceValue, $column['validate']);
+                }
                 $rules[$columnId] = $column['validate'];
             }
         }

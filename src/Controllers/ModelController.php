@@ -25,6 +25,16 @@ class ModelController extends BaseController
     public function store($slug, Request $request)
     {
         $this->checkSlug($slug, 'create');
+        $this->validate($request, $this->validationRules());
+        $row = $this->model();
+        foreach($this->columns() as $columnId => $column) {
+            $row[$columnId] = $request[$columnId];
+        }
+        $row->save();
+        return [
+            'id' => $row->id,
+            'li' => $this->listviewRow($row),
+        ];
     }
 
     /**
@@ -49,6 +59,16 @@ class ModelController extends BaseController
     public function update($slug, Request $request, $id)
     {
         $this->checkSlug($slug, 'update');
+        $this->validate($request, $this->validationRules(['id' => $id]));
+        $row = $this->model()::findOrFail($id);
+        foreach($this->columns() as $columnId => $column) {
+            $row[$columnId] = $request[$columnId];
+        }
+        $row->save();
+        return [
+            'id' => $row->id,
+            'li' => $this->listviewRow($row),
+        ];
     }
 
     /**

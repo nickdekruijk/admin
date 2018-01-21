@@ -29,6 +29,66 @@ function modelShow(slug, id) {
     });
 }
 
+function modelValidationError(xhr) {
+    var error='';
+    // Walk thru the fields that didn't validate and format a nice error.
+    for (i in xhr.responseJSON.errors) {
+        // Set focus on the first field with an error
+        if (!error) $('#input_'+i).focus();
+        $('#input_'+i).addClass('error');
+        $('LABEL[for=input_'+i+']').append('<span class="errormsg"><i class="fa fa-exclamation-triangle"></i>'+xhr.responseJSON.errors[i]+'</span>')
+        error+=xhr.responseJSON.errors[i]+'\n';
+    }
+    console.log(error);
+}
+
+function modelClearErrors() {
+    $('#editview LABEL .errormsg').detach();
+    $('#editview .error').removeClass('error');
+}
+
+function modelCreate(slug) {
+    loading();
+    modelClearErrors();
+    $.ajax(slug, {
+        data: $('#model_form').serialize(),
+        method: 'post',
+    }).done(function(data,status,xhr) {
+        $('#listview .content > UL').append('<li data-id="'+data.id+'" class="active"><div><i></i>'+data.li+'</div></li>');
+        modelId(data.id);
+        modelListViewAddClick(slug, $('#listview LI[data-id='+data.id+']'));
+        listviewSetColumnWidth();
+        loadingDone();
+    }).fail(function(xhr,status,error) {
+        if (xhr.status==422) {
+            modelValidationError(xhr);
+        } else {
+            alert(status);
+        }
+        loadingDone();
+    });
+}
+
+function modelUpdate(slug, id) {
+    loading();
+    modelClearErrors();
+    $.ajax(slug+'/'+id, {
+        data: $('#model_form').serialize(),
+        method: 'patch',
+    }).done(function(data,status,xhr) {
+        $('#listview LI[data-id='+id+'] > DIV').html(data.li);
+        listviewSetColumnWidth();
+        loadingDone();
+    }).fail(function(xhr,status,error) {
+        if (xhr.status==422) {
+            modelValidationError(xhr);
+        } else {
+            alert(status);
+        }
+        loadingDone();
+    });
+}
+
 function modelDelete(slug, id) {
     loading();
     $.ajax(slug+'/'+id, {
@@ -43,12 +103,17 @@ function modelDelete(slug, id) {
     });
 }
 
-function modelListViewClick(slug) {
-    $('#listview LI').click(function() {
+function modelListViewAddClick(slug, element) {
+    $(element).click(function() {
         modelEditViewReset(true);
-        $(this).addClass('active');
-        $('#input_id').text($(this).data('id'));
-        modelShow(slug, $(this).data('id'));
+        $(element).addClass('active');
+        $('#input_id').text($(element).data('id'));
+        modelShow(slug, $(element).data('id'));
+    });
+}
+function modelListViewClick(slug) {
+    $('#listview LI').each(function() {
+        modelListViewAddClick(slug, this);
     });
     $('BUTTON.model_create').click(function() {
         modelEditViewReset(true);
@@ -56,17 +121,27 @@ function modelListViewClick(slug) {
 }
 
 function modelEditViewReset(checked) {
+    modelClearErrors();
     $('#input_id').text('');
     $('#model_form')[0].reset();
     $('#listview LI.active').removeClass('active');
     $('#edit-toggle').prop('checked', checked);
 }
 
-function modelId() {
+function modelId(setId) {
+    if (setId) {
+        return $('#input_id').text(setId);
+    }
     return $('#input_id').text();
 }
 
 function modelEditViewClick(slug) {
+    $('#model_save').click(function() {
+        if (modelId())
+            modelUpdate(slug, modelId());
+        else
+            modelCreate(slug);
+    });
     $('#model_close').click(function() {
         modelEditViewReset(false);
     });

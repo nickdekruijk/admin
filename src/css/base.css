@@ -100,16 +100,19 @@ nav li:hover > ul > li {max-height:40px}
 #editview .header {position:absolute;left:0;right:0;height:28px;padding:6px 7px;border-left:1px solid rgba(0,0,0,0.1);color:#fff}
 #editview .header LABEL {display:inline-block;padding:5px 0;font-size:13px}
 #editview .content {position:absolute;top:40px;bottom:0;left:0;right:0;padding:7px;overflow:auto;border-left:1px solid #d3d3d3}
-#editview .content LABEL {display:block;color:rgba(0,0,0,0.5);padding:10px 0 3px;font-size:0.95em}
+#editview .content LABEL {display:block;color:rgba(0,0,0,0.5);padding:10px 0 3px;font-size:0.95em;position:relative}
 #editview .content LABEL:first-of-type {padding-top:0}
 #editview .content TEXTAREA,
 #editview .content INPUT[type=password],
 #editview .content INPUT[type=date],
 #editview .content INPUT[type=text] {width:100%;display:block;margin:0;padding:4px 6px;background-color:rgba(255,255,255,0.5);box-sizing:border-box;font:inherit;border-radius:3px;border:1px solid rgba(0,0,0,0.2)}
 #editview .content INPUT[type=checkbox] {margin:0;font-size:1.1em}
-#editview .content TEXTAREA {min-height:20em;resize:vertical}
+#editview .content TEXTAREA {min-height:5em;resize:vertical;line-height:1.2em}
 #editview .content TEXTAREA:focus,
 #editview .content INPUT[type=text]:focus {outline:none;border-color:rgba(0,0,0,0.4);background-color:#fff}
+#editview .content .error {border-color:#d99 !important;background-color:#fee !important}
+#editview .content .error:focus {border-color:#d77 !important;background-color:#fff6f6 !important}
+#editview .content .errormsg {color:#c33;position:absolute;right:0}
 
 .fullpage {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .4s;background-color:#d3d3d3;padding:1em}
 .fullpage H2 {margin:0;font-weight:300}

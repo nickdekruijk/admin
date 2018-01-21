@@ -16,7 +16,7 @@
             @endif
             <div class="content{{ $lp->module('sortable')?' sortable':'' }}">
                 @if ($lp->can('read'))
-                {!! $lp->listviewData() !!}
+                {!! $lp->listviewData() ?: '<ul></ul>' !!}
                 @endif
                 @if ($lp->can('create'))
                 <button class="button add model_create"><i class="fa fa-plus-circle"></i>{{ $lp->locale('new', $lp->module(), trans('larapages::base.new')) }}</button>
@@ -27,7 +27,7 @@
         <section id="editview">
             <div class="header">
                 @if ($lp->can('update'))
-                <button id="model_update" class="button border is-green is-primary"><i class="fa fa-save"></i><span>{{ trans('larapages::base.save') }}</span></button>
+                <button id="model_save" class="button border is-green is-primary"><i class="fa fa-save"></i><span>{{ trans('larapages::base.save') }}</span></button>
                 @endif
                 @if ($lp->can('create'))
                 <button id="model_clone" class="button border"><i class="fa fa-clone"></i><span>{{ trans('larapages::base.savecopy') }}</span></button>
@@ -43,15 +43,17 @@
                 @foreach($lp->columns(true) as $id => $column)
                 <label for="input_{{ $id }}">
                 @if ($column['type'] == 'boolean')
-                <input type="checkbox" id="input_{{ $id }}">
+                <input type="checkbox" name="{{ $id }}" id="input_{{ $id }}">
                 @endif
                 {{ $lp->locale('title', $column, $id) }}</label>
                 @if ($column['type'] == 'string')
-                <input type="text" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
+                <input type="text" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
+                @elseif ($column['type'] == 'password')
+                <input type="password" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
                 @elseif ($column['type'] == 'date')
-                <input type="date" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
+                <input type="date" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
                 @elseif ($column['type'] == 'text')
-                <textarea id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
+                <textarea name="{{ $id }}" id="input_{{ $id }}" rows="5" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
                 @elseif ($column['type']!='boolean')
                 {{$column['type']}}
                 @endif

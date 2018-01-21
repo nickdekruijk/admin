@@ -22,5 +22,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get(config('larapages.adminpath').'/{slug}', 'LaraPages\Admin\Controllers\BaseController@view');
 
     Route::get(config('larapages.adminpath').'/{slug}/{id}', 'LaraPages\Admin\Controllers\ModelController@show');
+    Route::post(config('larapages.adminpath').'/{slug}', 'LaraPages\Admin\Controllers\ModelController@store');
+    Route::patch(config('larapages.adminpath').'/{slug}/{id}', 'LaraPages\Admin\Controllers\ModelController@update');
     Route::delete(config('larapages.adminpath').'/{slug}/{id}', 'LaraPages\Admin\Controllers\ModelController@destroy');
 });
