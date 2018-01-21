@@ -50,9 +50,18 @@ function modelEditViewClick(slug) {
         $('#edit-toggle').prop('checked', false);
         modelEditViewReset();
     });
+
+function modelKeydown() {
+	$(document).keydown(function(e) {
+		var keyCode=e.keyCode || e.which;
+		if (keyCode==27) {
+			$('#model_close').click();
+		}
+	});
 }
 
 function modelInit(slug) {
+    modelKeydown();
     modelNestedSortable();
     modelListViewClick(slug);
     modelEditViewClick(slug);
