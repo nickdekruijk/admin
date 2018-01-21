@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="{{ asset(config('larapages.adminpath') . '/all.css') }}">
     </head>
     <body>
+        <div class="loading"><i class="fa fa-circle-o-notch fa-spin"></i></div>
         <input type="checkbox" id="nav-toggle">
         <nav>
             <h1><a href="{{ url(config('larapages.adminpath')) }}">{!! config('larapages.logo') !!}</a></h1>

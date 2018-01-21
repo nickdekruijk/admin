@@ -36,6 +36,17 @@ function listviewSetColumnWidth() {
 
 listviewSetColumnWidth();
 
+// Show loading spinner after short delay or hide when done
+var isLoading = false;
+function loading(done) {
+    if (done) {
+        clearTimeout(isLoading);
+        $('.loading').hide();
+    } else {
+        isLoading = setTimeout(function() { $('.loading').show() }, 250);
+    }
+}
+
 // Listview treeview hover
 $('#listview LI > DIV > I').mouseout(function() {
     $(this).parent().parent().children('UL').removeClass('hover');
