@@ -29,7 +29,7 @@ function modelShow(slug, id) {
 }
 
 function modelListViewClick(slug) {
-    $('#listview LI > DIV').click(function() {
+    $('#listview LI').click(function() {
         $('#listview LI.active').removeClass('active');
         $(this).parent().addClass('active');
         $('#edit-toggle').prop('checked', true);

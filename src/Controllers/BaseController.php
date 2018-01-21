@@ -213,7 +213,7 @@ class BaseController extends Controller
         foreach($model->get() as $row) {
             // First row, add <ul>
             if (!$response) $response .= '<ul>';
-            $response .= '<li><div data-id="'.$row['id'].'"><i></i>';
+            $response .= '<li data-id="'.$row['id'].'"><div><i></i>';
             foreach (explode(',', $this->module('index')) as $column) {
                 $response .='<span>'.$row[$column].'</span>';
             }
