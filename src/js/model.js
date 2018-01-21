@@ -16,15 +16,44 @@ function modelNestedSortable() {
     });
 }
 
-function modelListViewClick() {
+function modelShow(slug, id) {
+    $.ajax(slug+'/show/'+id).done(function(data,status,xhr) {
+        for (i in data) {
+            $('#input_'+i).val(data[i]);
+        }
+        loading(true);
+    }).fail(function(xhr,status,error) {
+        alert(status);
+        loading(true);
+    });
+}
+
+function modelListViewClick(slug) {
     $('#listview LI > DIV').click(function() {
         $('#listview LI.active').removeClass('active');
         $(this).parent().addClass('active');
         $('#edit-toggle').prop('checked', true);
+        modelEditViewReset();
+        $('#input_id').text($(this).data('id'));
+        loading();
+        modelShow(slug, $(this).data('id'));
     });
 }
 
-function modelInit() {
+function modelEditViewReset() {
+    $('#input_id').text('');
+    $('#model_form')[0].reset();
+}
+
+function modelEditViewClick() {
+    $('#model_close').click(function() {
+        $('#edit-toggle').prop('checked', false);
+        modelEditViewReset();
+    });
+}
+
+function modelInit(slug) {
     modelNestedSortable();
-    modelListViewClick();
+    modelListViewClick(slug);
+    modelEditViewClick();
 }

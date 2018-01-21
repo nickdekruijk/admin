@@ -27,15 +27,16 @@
         <section id="editview">
             <div class="header">
                 @if ($lp->can('update'))
-                <button class="button border is-green is-primary"><i class="fa fa-save"></i><span>{{ trans('larapages::base.save') }}</span></button>
+                <button id="model_update" class="button border is-green is-primary"><i class="fa fa-save"></i><span>{{ trans('larapages::base.save') }}</span></button>
                 @endif
                 @if ($lp->can('create'))
-                <button class="button border"><i class="fa fa-clone"></i><span>{{ trans('larapages::base.savecopy') }}</span></button>
+                <button id="model_clone" class="button border"><i class="fa fa-clone"></i><span>{{ trans('larapages::base.savecopy') }}</span></button>
                 @endif
                 @if ($lp->can('delete'))
-                <button class="button border is-red"><i class="fa fa-trash"></i><span>{{ trans('larapages::base.delete') }}</span></button>
+                <button id="model_delete" data-confirm="{{ trans('larapages::base.deleteconfirm') }}" class="button border is-red"><i class="fa fa-trash"></i><span>{{ trans('larapages::base.delete') }}</span></button>
                 @endif
-                <button class="button border"><i class="fa fa-ban"></i><span>{{ trans('larapages::base.close') }}</span></button>
+                <button id="model_close" class="button border"><i class="fa fa-ban"></i><span>{{ trans('larapages::base.close') }}</span></button>
+                <label class="f-right">id:<span id="input_id"></span></label>
             </div>
             <div class="content">
                 <form id="model_form">
@@ -63,6 +64,6 @@
 
 @section('scripts')
 <script>
-    modelInit();
+    modelInit('{{$lp->slug()}}');
 </script>
 @endsection
