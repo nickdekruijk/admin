@@ -41,7 +41,7 @@ class BaseController extends Controller
             if (Schema::hasColumn(Auth::user()->getTable(), config('larapages.role_column'))) {
                 abort(403, 'User has no role (null)');
             } else {
-                abort(403, 'Table `'.Auth::user()->getTable().'` has no `'.config('larapages.role_column').'` column');                
+                abort(403, 'Table `'.Auth::user()->getTable().'` has no `'.config('larapages.role_column').'` column');
             }
         }
 
@@ -111,7 +111,7 @@ class BaseController extends Controller
     {
         // If no slug given fetch the first
         $this->slug = $slug ?: key($this->user['modules']);
-        
+
         // Check if user has this item in navigation, if not then user has no permissions for this or the item does not exist at all. Either way raise 404 error.
         if (!isset($this->user['modules'][$this->slug]) || ($permission && !$this->can($permission))) {
             abort(404);
@@ -126,7 +126,7 @@ class BaseController extends Controller
         } elseif ($key1) {
             return isset($this->user['modules'][$this->slug][$key1]) ? $this->user['modules'][$this->slug][$key1] : [];
         } else {
-            return $this->user['modules'][$this->slug];        
+            return $this->user['modules'][$this->slug];
         }
     }
 
@@ -135,7 +135,7 @@ class BaseController extends Controller
     {
         // Start output with ul
         $response = '<ul>';
-        
+
         // Add each navigation item the user has access to
         foreach ($this->user['modules'] as $id => $item) {
             $response .= '<li class="'.($id == $this->slug ? 'active' : '').'">';
@@ -144,15 +144,15 @@ class BaseController extends Controller
             $response .= isset($item['title']) ? $item['title'] : ucfirst($id);
             $response .= '</a></li>';
         }
-        
+
         // Add logout 'form'
         if (Route::has('logout')) {
             $response .= '<li><form id="logout-form" action="'.route('logout').'" method="POST" style="display: none;">'.csrf_field().'</form><a href="'.route('logout').'" onclick="event.preventDefault(); document.getElementById(\'logout-form\').submit();"><i class="fa fa-sign-out"></i>'.trans('larapages::base.logout').'</a></li>';
         }
-        
+
         // Closing <ul>
         $response .= '</ul>';
-        
+
         // Return the html
         return $response;
     }
@@ -203,7 +203,7 @@ class BaseController extends Controller
         }
         // Initialize the response
         $response = '';
-        
+
         foreach($model->get() as $row) {
             // First row, add <ul>
             if (!$response) $response .= '<ul>';
@@ -228,7 +228,7 @@ class BaseController extends Controller
     {
         $columns = [];
         $model = $this->model();
-            
+
         foreach($this->module('columns') as $id => $column) {
             if (!is_array($column)) {
                 $id = $column;
