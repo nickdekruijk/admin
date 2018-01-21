@@ -7,6 +7,7 @@ function str_slug(text) {
         .replace(/-+$/, '');            // Trim - from end of text
 }
 
+// Set the width of the columns/header based on the widest content
 function listviewSetColumnWidth() {
     var widths = new Array();
     var maxdepth = 0;
