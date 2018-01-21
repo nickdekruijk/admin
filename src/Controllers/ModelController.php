@@ -60,5 +60,6 @@ class ModelController extends BaseController
     public function destroy($slug, $id)
     {
         $this->checkSlug($slug, 'delete');
+        $this->model()::findOrFail($id)->delete();
     }
 }

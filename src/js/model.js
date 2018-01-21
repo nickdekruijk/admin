@@ -28,6 +28,18 @@ function modelShow(slug, id) {
     });
 }
 
+function modelDelete(slug, id) {
+    $.ajax(slug+'/'+id, {
+        method: 'delete',
+    }).done(function(data,status,xhr) {
+        $('#listview LI[data-id='+id+']').animate({height:0}, function() { $('#listview LI[data-id='+id+']').detach() });
+        loadingDone();
+    }).fail(function(xhr,status,error) {
+        alert(status);
+        loadingDone();
+    });
+}
+
 function modelListViewClick(slug) {
     $('#listview LI').click(function() {
         $('#listview LI.active').removeClass('active');
@@ -50,6 +62,15 @@ function modelEditViewClick(slug) {
         $('#edit-toggle').prop('checked', false);
         modelEditViewReset();
     });
+    $('#model_delete').click(function() {
+        if (confirm($(this).data('confirm'))) {
+            $('#edit-toggle').prop('checked', false);
+            loading();
+            modelDelete(slug, $('#input_id').text());
+            modelEditViewReset();
+        }
+    });
+}
 
 function modelKeydown() {
 	$(document).keydown(function(e) {

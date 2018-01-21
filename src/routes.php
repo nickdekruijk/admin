@@ -22,4 +22,5 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get(config('larapages.adminpath').'/{slug}', 'LaraPages\Admin\Controllers\BaseController@view');
 
     Route::get(config('larapages.adminpath').'/{slug}/{id}', 'LaraPages\Admin\Controllers\ModelController@show');
+    Route::delete(config('larapages.adminpath').'/{slug}/{id}', 'LaraPages\Admin\Controllers\ModelController@destroy');
 });
