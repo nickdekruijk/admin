@@ -17,6 +17,7 @@ function modelNestedSortable() {
 }
 
 function modelShow(slug, id) {
+    loading();
     $.ajax(slug+'/'+id).done(function(data,status,xhr) {
         for (i in data) {
             $('#input_'+i).val(data[i]);
@@ -29,10 +30,12 @@ function modelShow(slug, id) {
 }
 
 function modelDelete(slug, id) {
+    loading();
     $.ajax(slug+'/'+id, {
         method: 'delete',
     }).done(function(data,status,xhr) {
         $('#listview LI[data-id='+id+']').animate({height:0}, function() { $('#listview LI[data-id='+id+']').detach() });
+        modelEditViewReset(false);
         loadingDone();
     }).fail(function(xhr,status,error) {
         alert(status);
@@ -42,32 +45,30 @@ function modelDelete(slug, id) {
 
 function modelListViewClick(slug) {
     $('#listview LI').click(function() {
-        $('#listview LI.active').removeClass('active');
+        modelEditViewReset(true);
         $(this).addClass('active');
-        $('#edit-toggle').prop('checked', true);
-        modelEditViewReset();
         $('#input_id').text($(this).data('id'));
-        loading();
         modelShow(slug, $(this).data('id'));
+    });
+    $('BUTTON.model_create').click(function() {
+        modelEditViewReset(true);
     });
 }
 
-function modelEditViewReset() {
+function modelEditViewReset(checked) {
     $('#input_id').text('');
     $('#model_form')[0].reset();
+    $('#listview LI.active').removeClass('active');
+    $('#edit-toggle').prop('checked', checked);
 }
 
 function modelEditViewClick(slug) {
     $('#model_close').click(function() {
-        $('#edit-toggle').prop('checked', false);
-        modelEditViewReset();
+        modelEditViewReset(false);
     });
     $('#model_delete').click(function() {
         if (confirm($(this).data('confirm'))) {
-            $('#edit-toggle').prop('checked', false);
-            loading();
             modelDelete(slug, $('#input_id').text());
-            modelEditViewReset();
         }
     });
 }

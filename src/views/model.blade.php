@@ -2,7 +2,7 @@
 
 @section('header')
     @if ($lp->can('create'))
-    <label for="edit-toggle" class="button"><i class="fa fa-plus-circle"></i>{{ $lp->locale('new', $lp->module(), trans('larapages::base.new')) }}</label>
+    <button class="button model_create"><i class="fa fa-plus-circle"></i>{{ $lp->locale('new', $lp->module(), trans('larapages::base.new')) }}</button>
     @endif
 @endsection
 
@@ -19,7 +19,7 @@
                 {!! $lp->listviewData() !!}
                 @endif
                 @if ($lp->can('create'))
-                <label for="edit-toggle" class="button add"><i class="fa fa-plus-circle"></i>{{ $lp->locale('new', $lp->module(), trans('larapages::base.new')) }}</label>
+                <button class="button add model_create"><i class="fa fa-plus-circle"></i>{{ $lp->locale('new', $lp->module(), trans('larapages::base.new')) }}</button>
                 @endif
             </div>
         </section>
