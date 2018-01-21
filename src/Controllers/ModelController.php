@@ -16,6 +16,19 @@ class ModelController extends BaseController
         //
     }
 
+    // Save the model with only the columns allowed and return the id and listviewRow html
+    private function save($model, Request $request)
+    {
+        foreach($this->columns() as $columnId => $column) {
+            $model[$columnId] = $request[$columnId];
+        }
+        $model->save();
+        return [
+            'id' => $model->id,
+            'li' => $this->listviewRow($model),
+        ];
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -26,15 +39,7 @@ class ModelController extends BaseController
     {
         $this->checkSlug($slug, 'create');
         $this->validate($request, $this->validationRules());
-        $row = $this->model();
-        foreach($this->columns() as $columnId => $column) {
-            $row[$columnId] = $request[$columnId];
-        }
-        $row->save();
-        return [
-            'id' => $row->id,
-            'li' => $this->listviewRow($row),
-        ];
+        return $this->save($this->model(), $request);
     }
 
     /**
@@ -60,15 +65,7 @@ class ModelController extends BaseController
     {
         $this->checkSlug($slug, 'update');
         $this->validate($request, $this->validationRules(['id' => $id]));
-        $row = $this->model()::findOrFail($id);
-        foreach($this->columns() as $columnId => $column) {
-            $row[$columnId] = $request[$columnId];
-        }
-        $row->save();
-        return [
-            'id' => $row->id,
-            'li' => $this->listviewRow($row),
-        ];
+        return $this->save($this->model()::findOrFail($id), $request);
     }
 
     /**
