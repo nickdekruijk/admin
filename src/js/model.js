@@ -18,7 +18,9 @@ function modelNestedSortable() {
 
 function modelShow(slug, id) {
     loading();
-    $.ajax(slug+'/'+id).done(function(data,status,xhr) {
+    $.ajax(slug+'/'+id, {
+        cache: false,
+    }).done(function(data,status,xhr) {
         for (i in data) {
             $('#input_'+i).val(data[i]);
         }
@@ -51,6 +53,7 @@ function modelCreate(slug) {
     loading();
     modelClearErrors();
     $.ajax(slug, {
+        cache: false,
         data: $('#model_form').serialize(),
         method: 'post',
     }).done(function(data,status,xhr) {
@@ -74,6 +77,7 @@ function modelUpdate(slug, id) {
     loading();
     modelClearErrors();
     $.ajax(slug+'/'+id, {
+        cache: false,
         data: $('#model_form').serialize(),
         method: 'patch',
     }).done(function(data,status,xhr) {
@@ -93,6 +97,7 @@ function modelUpdate(slug, id) {
 function modelDelete(slug, id) {
     loading();
     $.ajax(slug+'/'+id, {
+        cache: false,
         method: 'delete',
     }).done(function(data,status,xhr) {
         $('#listview LI[data-id='+id+']').animate({height:0}, function() { $('#listview LI[data-id='+id+']').detach() });
