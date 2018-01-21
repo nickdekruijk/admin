@@ -63,3 +63,8 @@ $('#listview LI > DIV > I').click(function() {
         return false;
     }
 });
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});

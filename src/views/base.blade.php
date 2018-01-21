@@ -4,6 +4,7 @@
         <title>LaraPages</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ asset(config('larapages.adminpath') . '/all.css') }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>
         <div class="loading"><i class="fa fa-circle-o-notch fa-spin"></i></div>
