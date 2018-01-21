@@ -62,13 +62,17 @@ function modelEditViewReset(checked) {
     $('#edit-toggle').prop('checked', checked);
 }
 
+function modelId() {
+    return $('#input_id').text();
+}
+
 function modelEditViewClick(slug) {
     $('#model_close').click(function() {
         modelEditViewReset(false);
     });
     $('#model_delete').click(function() {
         if (confirm($(this).data('confirm'))) {
-            modelDelete(slug, $('#input_id').text());
+            modelDelete(slug, modelId());
         }
     });
 }
