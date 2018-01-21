@@ -36,7 +36,7 @@
                 <button id="model_delete" data-confirm="{{ trans('larapages::base.deleteconfirm') }}" class="button border is-red"><i class="fa fa-trash"></i><span>{{ trans('larapages::base.delete') }}</span></button>
                 @endif
                 <button id="model_close" class="button border"><i class="fa fa-ban"></i><span>{{ trans('larapages::base.close') }}</span></button>
-                <label class="f-right">id:<span id="input_id"></span></label>
+                <label class="f-right model-id">id:<span id="input_id"></span></label>
             </div>
             <div class="content">
                 <form id="model_form">

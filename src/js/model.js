@@ -108,7 +108,7 @@ function modelListViewAddClick(slug, element) {
     $(element).click(function() {
         modelEditViewReset(true);
         $(element).addClass('active');
-        $('#input_id').text($(element).data('id'));
+        modelId($(element).data('id'));
         modelShow(slug, $(element).data('id'));
     });
 }
@@ -123,17 +123,29 @@ function modelListViewClick(slug) {
 
 function modelEditViewReset(checked) {
     modelClearErrors();
-    $('#input_id').text('');
+    modelId(-1);
     $('#model_form')[0].reset();
     $('#listview LI.active').removeClass('active');
     $('#edit-toggle').prop('checked', checked);
 }
 
 function modelId(setId) {
+    var id = $('#input_id').text();
     if (setId) {
-        return $('#input_id').text(setId);
+        if (setId==-1) setId = '';
+        $('#input_id').text(setId);
+        id = setId;
     }
-    return $('#input_id').text();
+    if (id) {
+        $('#model_clone').show();
+        $('#model_delete').show();
+        $('.model-id').show();
+    } else {
+        $('#model_clone').hide();
+        $('#model_delete').hide();
+        $('.model-id').hide();
+    }
+    return id;
 }
 
 function modelEditViewClick(slug) {
