@@ -155,12 +155,14 @@ function modelId(setId) {
 
 function modelEditViewClick(slug) {
     $('#model_save').click(function() {
+        $(this).addClass('is-loading');
         if (modelId())
             modelUpdate(slug, modelId());
         else
             modelCreate(slug);
     });
     $('#model_clone').click(function() {
+        $(this).addClass('is-loading');
         modelCreate(slug);
     });
     $('#model_close').click(function() {
@@ -168,6 +170,7 @@ function modelEditViewClick(slug) {
     });
     $('#model_delete').click(function() {
         if (confirm($(this).data('confirm'))) {
+            $(this).addClass('is-loading');
             modelDelete(slug, modelId());
         }
     });

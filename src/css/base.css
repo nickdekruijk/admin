@@ -26,10 +26,11 @@ header, nav {background-color:#2c3340}
 
 /* Other */
 .f-right {float:right}
-.button {margin:0;display:inline-block;border:0 none;color:#fff;font:inherit;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px}
+.button {margin:0;display:inline-block;border:0 none;color:#fff;font:inherit;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px;position:relative}
 .button.sort {cursor:move}
-.button .fa:first-child {margin-right:5px}
-/* .button:hover {background-color:rgba(255,255,255,0.2)} */
+.button .fa:first-child {margin-right:5px;width:11px}
+.button.is-loading {pointer-events:none}
+.button.is-loading .fa:before {content:'\f250'}
 
 header {height:50px;position:fixed;left:50px;top:0;right:0;transition:left .4s;z-index:1000;padding-left:44px;overflow:hidden}
 header .nav-hamburger {display:block;position:absolute;left:0px;padding:12.5px;cursor:pointer}
@@ -121,7 +122,7 @@ nav li:hover > ul > li {max-height:40px}
 
 .ui-sortable-helper > DIV {cursor:move !important}
 
-.loading {position:fixed;top:0;bottom:0;left:0;right:0;z-index:1500;display:none;transition:background-color .4s}
+.loading {position:fixed;top:0;bottom:0;left:0;right:0;z-index:1500;display:none;transition:background-color .4s;cursor:wait}
 .loading.show {display:block}
 .loading.full {background-color:rgba(0,0,0,0.6)}
 .loading .fa {position:absolute;left:50%;top:50%;color:#fff;font-size:40px;margin:-20px 0 0 -20px}

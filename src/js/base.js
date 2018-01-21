@@ -49,6 +49,7 @@ function loading(done) {
     }
 }
 function loadingDone() {
+    $('.button.is-loading').removeClass('is-loading');
     loading(true);
 }
 
