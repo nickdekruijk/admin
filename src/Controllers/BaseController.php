@@ -86,7 +86,7 @@ class BaseController extends Controller
     }
 
     // Load the view for the current module
-    public function show($slug = null)
+    public function view($slug = null)
     {
         // If no slug given fetch the first
         $this->slug = $slug ?: key($this->user['modules']);

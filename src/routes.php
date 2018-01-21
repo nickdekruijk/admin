@@ -18,6 +18,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get(config('larapages.adminpath').'/all.js', 'LaraPages\Admin\Controllers\AssetController@js');
     Route::get(config('larapages.adminpath').'/all.css', 'LaraPages\Admin\Controllers\AssetController@css');
 
-    Route::get(config('larapages.adminpath'), 'LaraPages\Admin\Controllers\BaseController@show');
-    Route::get(config('larapages.adminpath').'/{slug}', 'LaraPages\Admin\Controllers\BaseController@show');
+    Route::get(config('larapages.adminpath'), 'LaraPages\Admin\Controllers\BaseController@view');
+    Route::get(config('larapages.adminpath').'/{slug}', 'LaraPages\Admin\Controllers\BaseController@view');
 });
