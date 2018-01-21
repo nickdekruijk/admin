@@ -13,5 +13,6 @@ return [
     'save' => 'Save',
     'savecopy' => 'Save as copy',
     'delete' => 'Delete',
+    'deleteconfirm' => 'A you sure you want to delete this?',
     'close' => 'Close',
 ];

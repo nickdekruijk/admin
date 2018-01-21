@@ -13,5 +13,6 @@ return [
     'save' => 'Opslaan',
     'savecopy' => 'Opslaan als kopie',
     'delete' => 'Wissen',
+    'deleteconfirm' => 'Zeker weten?',
     'close' => 'Sluiten',
 ];
