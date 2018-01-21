@@ -247,4 +247,16 @@ class BaseController extends Controller
         }
         return $columns;
     }
+
+    // Return the validation rules from the columns
+    public function validationRules()
+    {
+        $rules = [];
+        foreach ($this->columns() as $columnId => $column) {
+            if (isset($column['validate'])) {
+                $rules[$columnId] = $column['validate'];
+            }
+        }
+        return $rules;
+    }
 }
