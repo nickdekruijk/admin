@@ -118,7 +118,7 @@ return [
                 'key' => [
                     'title' => 'Setting',
                     'title_nl' => 'Instelling',
-                    'validate' => 'required',
+                    'validate' => 'unique:settings,key,#id#|required',
                 ],
                 'description' => [
                     'title_nl' => 'Omschrijving',
