@@ -36,7 +36,7 @@ class ModelController extends BaseController
     public function show($slug, $id)
     {
         $this->checkSlug($slug, 'read');
-        return $this->model()::findOrFail($id);
+        return $this->model()::findOrFail($id, array_keys($this->columns()));
     }
 
     /**
