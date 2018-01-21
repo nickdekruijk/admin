@@ -38,6 +38,7 @@
                 <button class="button border"><i class="fa fa-ban"></i><span>{{ trans('larapages::base.close') }}</span></button>
             </div>
             <div class="content">
+                <form id="model_form">
                 @foreach($lp->columns(true) as $id => $column)
                 <label for="input_{{ $id }}">
                 @if ($column['type'] == 'boolean')
@@ -54,6 +55,7 @@
                 {{$column['type']}}
                 @endif
                 @endforeach
+                </form>
             </div>
         </section>
         @endif
