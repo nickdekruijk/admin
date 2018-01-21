@@ -88,14 +88,7 @@ class BaseController extends Controller
     // Load the view for the current module
     public function view($slug = null)
     {
-        // If no slug given fetch the first
-        $this->slug = $slug ?: key($this->user['modules']);
-        
-        // Check if user has this item in navigation, if not then user has no permissions for this or the item does not exist at all. Either way raise 404 error.
-        if (!isset($this->user['modules'][$this->slug])) {
-            abort(404);
-        }
-
+        $this->slug($slug);
         // Show the view associated with the module and pass the controller and optional message
         $message = null;
         $view = $this->module('view');
@@ -111,6 +104,18 @@ class BaseController extends Controller
         }
 
         return view($view, ['lp' => $this, 'message' => $message]);
+    }
+
+    // Check if slug exists and user had permission
+    public function slug($slug)
+    {
+        // If no slug given fetch the first
+        $this->slug = $slug ?: key($this->user['modules']);
+        
+        // Check if user has this item in navigation, if not then user has no permissions for this or the item does not exist at all. Either way raise 404 error.
+        if (!isset($this->user['modules'][$this->slug])) {
+            abort(404);
+        }
     }
 
     // Return current loaded module
