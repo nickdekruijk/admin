@@ -25,6 +25,12 @@ class BaseController extends Controller
         }]);
     }
 
+    // Return the slug
+    public function slug()
+    {
+        return $this->slug;
+    }
+
     // Return the items localized title
     public function locale($key, Array $item, $default)
     {
