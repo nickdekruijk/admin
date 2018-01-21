@@ -17,7 +17,7 @@ function modelNestedSortable() {
 }
 
 function modelShow(slug, id) {
-    $.ajax(slug+'/show/'+id).done(function(data,status,xhr) {
+    $.ajax(slug+'/'+id).done(function(data,status,xhr) {
         for (i in data) {
             $('#input_'+i).val(data[i]);
         }
