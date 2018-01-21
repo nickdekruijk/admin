@@ -21,10 +21,10 @@ function modelShow(slug, id) {
         for (i in data) {
             $('#input_'+i).val(data[i]);
         }
-        loading(true);
+        loadingDone();
     }).fail(function(xhr,status,error) {
         alert(status);
-        loading(true);
+        loadingDone();
     });
 }
 

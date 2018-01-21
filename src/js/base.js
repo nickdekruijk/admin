@@ -47,6 +47,9 @@ function loading(done) {
         isLoading = setTimeout(function() { $('.loading').show() }, 250);
     }
 }
+function loadingDone() {
+    loading(true);
+}
 
 // Listview treeview hover
 $('#listview LI > DIV > I').mouseout(function() {
