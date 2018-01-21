@@ -122,7 +122,7 @@ return [
                     'title_nl' => 'Waarde',
                 ],
             ],
-            'orderBy' => 'value',
+            'orderBy' => 'key',
         ],
     ],
 
