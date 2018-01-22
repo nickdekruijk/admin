@@ -41,5 +41,10 @@ If your application has no users LaraPages provides an artisan console command t
 
 Role must match one of the roles defined in the configuration. The default role for a new user is "admin". 
 
+## FAQ
+
+### How do I localize the validation messages?
+You could use the package [arcanedev/laravel-lang](https://github.com/ARCANEDEV/LaravelLang), just run `composer require arcanedev/laravel-lang`.
+
 ## License
 LaraPages is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
