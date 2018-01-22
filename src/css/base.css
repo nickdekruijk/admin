@@ -105,11 +105,15 @@ nav li:hover > ul > li {max-height:40px}
 #editview .content LABEL:first-of-type {padding-top:0}
 #editview .content TEXTAREA,
 #editview .content INPUT[type=password],
+#editview .content INPUT[type=number],
 #editview .content INPUT[type=date],
 #editview .content INPUT[type=text] {width:100%;display:block;margin:0;padding:4px 6px;background-color:rgba(255,255,255,0.5);box-sizing:border-box;font:inherit;border-radius:3px;border:1px solid rgba(0,0,0,0.2)}
 #editview .content INPUT[type=checkbox] {margin:0;font-size:1.1em}
 #editview .content TEXTAREA {min-height:5em;resize:vertical;line-height:1.2em}
 #editview .content TEXTAREA:focus,
+#editview .content INPUT[type=password]:focus,
+#editview .content INPUT[type=number]:focus,
+#editview .content INPUT[type=date]:focus,
 #editview .content INPUT[type=text]:focus {outline:none;border-color:rgba(0,0,0,0.4);background-color:#fff}
 #editview .content .error {border-color:#d99 !important;background-color:#fee !important}
 #editview .content .error:focus {border-color:#d77 !important;background-color:#fff6f6 !important}
