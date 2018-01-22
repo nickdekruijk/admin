@@ -25,9 +25,10 @@
         </section>
         @if ($lp->can('read'))
         <section id="editview">
+            <form id="model_form">
             <div class="header">
                 @if ($lp->can('update'))
-                <button id="model_save" class="button border is-green is-primary"><i class="fa fa-save"></i><span>{{ trans('larapages::base.save') }}</span></button>
+                <button id="model_save" class="button border is-green is-primary" type="submit"><i class="fa fa-save"></i><span>{{ trans('larapages::base.save') }}</span></button>
                 @endif
                 @if ($lp->can('create'))
                 <button id="model_clone" class="button border"><i class="fa fa-clone"></i><span>{{ trans('larapages::base.savecopy') }}</span></button>
@@ -39,7 +40,6 @@
                 <label class="f-right model-id">id:<span id="input_id"></span></label>
             </div>
             <div class="content">
-                <form id="model_form">
                 @foreach($lp->columns(true) as $id => $column)
                 <label for="input_{{ $id }}">
                 @if ($column['type'] == 'boolean')
@@ -58,8 +58,8 @@
                 {{$column['type']}}
                 @endif
                 @endforeach
-                </form>
             </div>
+            </form>
         </section>
         @endif
 @endsection

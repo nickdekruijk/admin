@@ -157,6 +157,9 @@ function modelId(setId) {
 }
 
 function modelEditViewClick(slug) {
+    $('#model_form').submit(function(e) {
+        e.preventDefault();
+    });
     $('#model_save').click(function() {
         $(this).addClass('is-loading');
         if (modelId())
