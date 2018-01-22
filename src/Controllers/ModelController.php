@@ -6,16 +6,6 @@ use Illuminate\Http\Request;
 
 class ModelController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     // Save the model with only the columns allowed and return the id and listviewRow html
     private function save($model, Request $request)
     {
