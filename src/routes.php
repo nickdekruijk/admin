@@ -25,6 +25,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::get(config('larapages.adminpath').'/{slug}/{id}', 'LaraPages\Admin\Controllers\ModelController@show');
     Route::post(config('larapages.adminpath').'/{slug}', 'LaraPages\Admin\Controllers\ModelController@store');
+    Route::patch(config('larapages.adminpath').'/{slug}/{id}/sort', 'LaraPages\Admin\Controllers\ModelController@sort');
+    Route::patch(config('larapages.adminpath').'/{slug}/{id}/changeparent', 'LaraPages\Admin\Controllers\ModelController@changeParent');
     Route::patch(config('larapages.adminpath').'/{slug}/{id}', 'LaraPages\Admin\Controllers\ModelController@update');
     Route::delete(config('larapages.adminpath').'/{slug}/{id}', 'LaraPages\Admin\Controllers\ModelController@destroy');
 });

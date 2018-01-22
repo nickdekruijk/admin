@@ -57,7 +57,7 @@ return [
             'treeview' => 'parent',
             'index' => 'title,head,slug,html_title,home,menuitem',
             'model' => 'LaraPages\Pages\Page',
-            'orderBy' => 'sort,id',
+            'orderBy' => 'sort',
             'active' => 'active',
             'columns' => [
                 'active' => [

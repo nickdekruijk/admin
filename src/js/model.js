@@ -1,8 +1,9 @@
-function modelNestedSortable() {
+function modelNestedSortable(slug) {
     $('#listview.treeview > .content.sortable > UL').nestedSortable({
     	forcePlaceholderSize: true,
     	items: 'li',
     	handle: 'div',
+    	isTree: true,
     	placeholder: 'menu-highlight',
     	listType: 'ul',
     /* 	maxLevels: 3, */
@@ -10,9 +11,71 @@ function modelNestedSortable() {
     	toleranceElement: '> div',
     	startCollapsed: true,
     	placeholder: "ui-state-highlight",
-    	relocate: function(e) {
+        sort: function(a,b) {
+            // When starting sorting store the current parent in data-oldparent so we can use it on relocate to check if parent changed
+            var id = $(b.item).data('id');
+            var parent = $('LI[data-id='+id+']').parent().parent().data('id');
+            $('LI[data-id='+id+']').data('oldparent', parent);
+        },
+    	relocate: function(a, b) {
+            // Done dragging, see what's changed
+            var id = $(b.item).data('id');
+            var parent = $('LI[data-id='+id+']').parent().parent().data('id');
+            var oldparent = $('LI[data-id='+id+']').data('oldparent');
+            $('LI[data-id='+id+']').data('oldparent', null)
+            // Did parent change? Save new parent do database
+            if (parent!=oldparent)
+                modelChangeParent(slug, id, parent, oldparent);
+            else
+                modelSaveSorting(slug, parent);
         	listviewSetColumnWidth();
     	}
+    });
+}
+
+function modelSortIds(parent) {
+    var ids = '';
+    if (parent > 0) {
+        $('LI[data-id='+parent+'] > UL > LI').each(function() {
+            if (ids) ids += ',';
+            ids += parseInt($(this).data('id'));
+        });
+    } else {
+        $('#listview .content > UL > LI').each(function() {
+            if (ids) ids+=',';
+            ids+=parseInt($(this).data('id'));
+        });
+    }
+    return ids;
+}
+
+function modelChangeParent(slug, id, parent, oldparent) {
+    loading();
+    $.ajax(slug+'/'+id+'/changeparent', {
+        method: 'patch',
+        cache: 'false',
+        data: 'parent='+parent+'&oldparent='+oldparent+'&ids='+modelSortIds(parent),
+    }).done(function(data,status,xhr) {
+        if (data) alert(data);
+        loadingDone();
+    }).fail(function(xhr,status,error) {
+        alert(status);
+        loadingDone();
+    });
+}
+
+function modelSaveSorting(slug, parent) {
+    loading();
+    $.ajax(slug+'/'+parent+'/sort', {
+        method: 'patch',
+        cache: 'false',
+        data: 'ids='+modelSortIds(parent),
+    }).done(function(data,status,xhr) {
+        if (data) alert(data);
+        loadingDone();
+    }).fail(function(xhr,status,error) {
+        alert(status);
+        loadingDone();
     });
 }
 
@@ -209,7 +272,7 @@ function modelKeydown() {
 
 function modelInit(slug) {
     modelKeydown();
-    modelNestedSortable();
+    modelNestedSortable(slug);
     modelListViewClick(slug);
     modelEditViewClick(slug);
 }

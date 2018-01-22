@@ -85,4 +85,43 @@ class ModelController extends BaseController
         $this->checkSlug($slug, 'delete');
         $this->model()::findOrFail($id)->delete();
     }
+
+    // This method is called after nestedSortable is done and parent changed
+    public function changeParent($slug, Request $request, $id) {
+        $this->checkSlug($slug, 'update');
+        $row = $this->model()::findOrFail($id);
+
+        // Get the parent and oldparent from Input, make null if needed
+        $parent=$request->input('parent');
+        $oldparent=$request->input('oldparent');
+        if ($oldparent<1) $oldparent=null;
+        if ($parent<1) $parent=null;
+
+        // Check if oldparent matches the actual id for safety
+        if ($row->parent != $oldparent) die('Invalid oldparent '.$oldparent);
+
+        // Save the new parent
+        $row->parent=$parent;
+        $row->save();
+
+        // Now sort the items too
+        $this->sort($slug, $parent, $request);
+    }
+
+    // Sort the items
+    public function sort($slug, $parent, Request $request)
+    {
+        $this->checkSlug($slug, 'update');
+        $ids = $request->input('ids');
+        // Get the row for each id and update the sort
+        if ($parent<1) $parent = null;
+        $sort = 0;
+        foreach(explode(',', $ids) as $id) {
+            $sort++;
+            $row = $this->model()::findOrFail($id);
+            if ($row->parent != $parent) die('Invalid parent');
+            $row->sort = $sort;
+            $row->save();
+        }
+    }
 }
