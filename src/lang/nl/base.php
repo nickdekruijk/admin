@@ -16,4 +16,5 @@ return [
     'delete' => 'Wissen',
     'deleteconfirm' => 'Zeker weten?',
     'close' => 'Sluiten',
+    'confirm' => 'Bevestig',
 ];

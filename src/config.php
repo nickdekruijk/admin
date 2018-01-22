@@ -116,7 +116,7 @@ return [
                 'password' => [
                     'title_nl' => 'Wachtwoord',
                     'type' => 'password',
-                    'validate' => 'required|min:8',
+                    'validate' => 'required|min:8|confirmed',
                 ],
                 'admin_role' => [
                     'title_nl' => 'Toegangsrechten',

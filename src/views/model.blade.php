@@ -46,12 +46,12 @@
                 <input type="checkbox" name="{{ $id }}" id="input_{{ $id }}">
                 @endif
                 {{ $lp->locale('title', $column, $id) }}</label>
-                @if ($column['type'] == 'string')
-                <input type="text" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
-                @elseif ($column['type'] == 'password')
-                <input type="password" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
-                @elseif ($column['type'] == 'date')
-                <input type="date" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
+                @if ($column['type'] == 'string' || $column['type'] == 'password' || $column['type'] == 'date' || $column['type'] == 'number')
+                <input type="{{ $column['type']=='string'?'text':$column['type'] }}" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
+                @if (isset($column['validate']) && in_array('confirmed',explode('|', $column['validate'])))
+                    <label for="input_{{ $id }}_confirmation">{{ trans('larapages::base.confirm') }} {{ $lp->locale('title', $column, $id) }}</label>
+                    <input type="{{ $column['type']=='string'?'text':$column['type'] }}" name="{{ $id }}_confirmation" id="input_{{ $id }}_confirmation" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
+                @endif
                 @elseif ($column['type'] == 'select')
                 <select name="{{ $id }}" id="input_{{ $id }}">
                     <option value=""></option>

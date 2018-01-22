@@ -23,6 +23,7 @@ function modelShow(slug, id) {
     }).done(function(data,status,xhr) {
         for (i in data) {
             $('#input_'+i).val(data[i]);
+            $('#input_'+i+'_confirmation').val(data[i]);
         }
         loadingDone();
     }).fail(function(xhr,status,error) {
