@@ -247,6 +247,12 @@ class BaseController extends Controller
                 $column = [];
             }
             $columns[$id] = $column;
+            if (isset($column['type']) && $column['type'] == 'roles') {
+                $columns[$id]['type'] = 'select';
+                foreach(config('larapages.roles') as $roleId => $role) {
+                    $columns[$id]['values'][$roleId] = $this->locale('title', $role, $roleId);
+                }
+            }
             if (empty($column['type']) && $getType) {
                 $columns[$id]['type'] = Schema::getColumnType($model->getTable(), $id);
             }

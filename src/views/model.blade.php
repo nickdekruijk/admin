@@ -52,6 +52,13 @@
                 <input type="password" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
                 @elseif ($column['type'] == 'date')
                 <input type="date" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
+                @elseif ($column['type'] == 'select')
+                <select name="{{ $id }}" id="input_{{ $id }}">
+                    <option value=""></option>
+                    @foreach($column['values'] as $key => $value)
+                    <option value="{{ $key }}">{{ $value }}</option>
+                    @endforeach
+                </select>
                 @elseif ($column['type'] == 'text')
                 <textarea name="{{ $id }}" id="input_{{ $id }}" rows="5" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
                 @elseif ($column['type']!='boolean')

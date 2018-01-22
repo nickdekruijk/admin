@@ -20,7 +20,14 @@ class ModelController extends BaseController
     private function save($model, Request $request)
     {
         foreach($this->columns() as $columnId => $column) {
-            $model[$columnId] = $request[$columnId];
+            if (isset($column['type']) && $column['type']=='password') {
+                // If column is a password and user changed it then hash it
+                if ($request[$columnId] && $request[$columnId]!='********') {
+                    $model[$columnId] = bcrypt($request[$columnId]);
+                }
+            } else {
+                $model[$columnId] = $request[$columnId];
+            }
         }
         $model->save();
         return [
@@ -51,7 +58,15 @@ class ModelController extends BaseController
     public function show($slug, $id)
     {
         $this->checkSlug($slug, 'read');
-        return $this->model()::findOrFail($id, array_keys($this->columns()));
+        $row = $this->model()::findOrFail($id, array_keys($this->columns()));
+        foreach($this->columns() as $columnId => $column) {
+            // If column is a password (and maybe even hidden) return it with a 'masked' values of ********
+            if (isset($column['type']) && $column['type'] == 'password' && $row[$columnId]) {
+                $row->makeVisible($columnId);
+                $row[$columnId] = '********';
+            }
+        }
+        return $row;
     }
 
     /**

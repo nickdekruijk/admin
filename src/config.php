@@ -106,14 +106,22 @@ return [
             'model' => 'App\User',
             'columns' => [
                 'name' => [
+                    'title_nl' => 'Naam',
                     'validate' => 'required',
                 ],
                 'email' => [
+                    'title_nl' => 'E-mailadres',
                     'validate' => 'required|email|unique:users,email,#id#|required',
                 ],
                 'password' => [
+                    'title_nl' => 'Wachtwoord',
                     'type' => 'password',
                     'validate' => 'required|min:8',
+                ],
+                'admin_role' => [
+                    'title_nl' => 'Toegangsrechten',
+                    'type' => 'roles',
+                    'validate' => 'required',
                 ],
             ],
             'index' => 'email,name',
@@ -160,9 +168,11 @@ return [
     'roles' => [
         'admin' => [
             'title' => 'Administrator',
+            'title_nl' => 'Beheerder',
         ],
         'cms' => [
             'title' => 'Content manager',
+            'title_nl' => 'Content bewerker',
             'permissions' => [
                 'dashboard' => [ 'read' ],
                 'pages' => [ 'create', 'read', 'update' ],
