@@ -20,6 +20,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | save_on_enter
+    |--------------------------------------------------------------------------
+    | Hitting enter key while inserting data in forms will submit/save
+    */
+    'save_on_enter' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | auth_routes
     |--------------------------------------------------------------------------
     | Register authentication routes for login and logout. Disable these if you

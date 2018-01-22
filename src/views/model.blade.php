@@ -28,15 +28,15 @@
             <form id="model_form">
             <div class="header">
                 @if ($lp->can('update'))
-                <button id="model_save" class="button border is-green is-primary" type="submit"><i class="fa fa-save"></i><span>{{ trans('larapages::base.save') }}</span></button>
+                <button type="{{ config('larapages.save_on_enter')?'submit':'button' }}" id="model_save" class="button border is-green is-primary"><i class="fa fa-save"></i><span>{{ trans('larapages::base.save') }}</span></button>
                 @endif
                 @if ($lp->can('create'))
-                <button id="model_clone" class="button border"><i class="fa fa-clone"></i><span>{{ trans('larapages::base.savecopy') }}</span></button>
+                <button type="button" id="model_clone" class="button border"><i class="fa fa-clone"></i><span>{{ trans('larapages::base.savecopy') }}</span></button>
                 @endif
                 @if ($lp->can('delete'))
-                <button id="model_delete" data-confirm="{{ trans('larapages::base.deleteconfirm') }}" class="button border is-red"><i class="fa fa-trash"></i><span>{{ trans('larapages::base.delete') }}</span></button>
+                <button type="button" id="model_delete" data-confirm="{{ trans('larapages::base.deleteconfirm') }}" class="button border is-red"><i class="fa fa-trash"></i><span>{{ trans('larapages::base.delete') }}</span></button>
                 @endif
-                <button id="model_close" class="button border"><i class="fa fa-ban"></i><span>{{ trans('larapages::base.close') }}</span></button>
+                <button type="button" id="model_close" class="button border"><i class="fa fa-ban"></i><span>{{ trans('larapages::base.close') }}</span></button>
                 <label class="f-right model-id">id:<span id="input_id"></span></label>
             </div>
             <div class="content">
