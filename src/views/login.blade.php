@@ -3,12 +3,12 @@
     <head>
         <title>LaraPages Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <style>
             body {font-family:'Open Sans',sans-serif;font-size:15px;-webkit-font-smoothing:antialiased;-moz-font-smoothing:grayscale;-moz-osx-font-smoothing:grayscale;background-color:#2c3340;color:#fff;margin:0;font-weight:300}
             label {display:block}
-            section {display:block;width:380px;height:220px;position:absolute;top:50%;left:50%;margin:-130px 0 0 -190px;background-color:#178;padding-bottom:40px}
+            section {display:block;width:380px;height:226px;position:absolute;top:50%;left:50%;margin:-133px 0 0 -190px;background-color:#178;padding-bottom:40px}
             header {background-color:#0cb}
             .logo {font-size:30px;display:block;float:left;margin-right:10px}
             h2 {font-weight:300;margin:0;padding:5px 10px}
@@ -39,7 +39,7 @@
                 30%, 50%, 70% {transform:translate3d(-4px, 0, 0)}
                 40%, 60% {transform:translate3d(4px, 0, 0)}
             }
-            DIV.error {color:#f66;font-weight:700}
+            DIV.error {color:#f66;font-weight:600;font-size:0.9em;line-height:1.1em}
             @media (max-width: 400px) {
                 section {width:90%;height:auto;top:auto;left:auto;margin:5%}
             }
