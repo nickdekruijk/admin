@@ -22,7 +22,11 @@ function modelShow(slug, id) {
         cache: false,
     }).done(function(data,status,xhr) {
         for (i in data) {
-            $('#input_'+i).val(data[i]);
+            if ($('#input_'+i).attr('type') == 'checkbox') {
+                $('#input_'+i).prop('checked', data[i] == true);
+            } else {
+                $('#input_'+i).val(data[i]);
+            }
             $('#input_'+i+'_confirmation').val(data[i]);
         }
         loadingDone();

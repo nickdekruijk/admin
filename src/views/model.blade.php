@@ -43,7 +43,8 @@
                 @foreach($lp->columns(true) as $id => $column)
                 <label for="input_{{ $id }}">
                 @if ($column['type'] == 'boolean')
-                <input type="checkbox" name="{{ $id }}" id="input_{{ $id }}">
+                <input type="hidden" name="{{ $id }}" value="0">
+                <input type="checkbox" name="{{ $id }}" id="input_{{ $id }}" value="1">
                 @endif
                 {{ $lp->locale('title', $column, $id) }}</label>
                 @if ($column['type'] == 'string' || $column['type'] == 'password' || $column['type'] == 'date' || $column['type'] == 'number')
