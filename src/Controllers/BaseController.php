@@ -20,7 +20,10 @@ class BaseController extends Controller
     {
         // LaraPages requires authentication and a valid role
         $this->middleware(['auth', function($request, $next)  {
-            $this->user = $this->checkRole();
+            if (!$this->user = $this->checkRole()) {
+                Auth::logout();
+                return redirect(route('login'))->withErrors(['email' => trans('larapages::base.missing_role')]);
+            }
             return $next($request);
         }]);
     }
@@ -44,11 +47,7 @@ class BaseController extends Controller
     {
         // Check if User has admin_role column
         if (!isset(Auth::user()[config('larapages.role_column')])) {
-            if (Schema::hasColumn(Auth::user()->getTable(), config('larapages.role_column'))) {
-                abort(403, 'User has no role (null)');
-            } else {
-                abort(403, 'Table `'.Auth::user()->getTable().'` has no `'.config('larapages.role_column').'` column');
-            }
+            return false;
         }
 
         // Get User roleId from User model based 'role_column' config

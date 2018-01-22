@@ -6,6 +6,7 @@ return [
     'email' => 'E-Mail Address',
     'password' => 'Password',
     'welcome_back' => 'Welcome back',
+    'missing_role' => 'User role missing',
     'somethingwrong' => 'Something went wrong',
     'notfound' => 'not found',
     'new' => 'New',

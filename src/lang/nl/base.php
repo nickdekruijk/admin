@@ -6,6 +6,7 @@ return [
     'email' => 'E-mailadres',
     'password' => 'Wachtwoord',
     'welcome_back' => 'Welkom terug',
+    'missing_role' => 'Gebruiker heeft geen rol',
     'somethingwrong' => 'Er ging iets fout',
     'notfound' => 'niet gevonden',
     'new' => 'Nieuw',
