@@ -119,6 +119,7 @@ function modelListViewAddClick(slug, element) {
         $(element).addClass('active');
         modelId($(element).data('id'));
         modelShow(slug, $(element).data('id'));
+        return false;
     });
 }
 function modelListViewClick(slug) {
