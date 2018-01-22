@@ -221,7 +221,7 @@ class BaseController extends Controller
         foreach($model->get() as $row) {
             // First row, add <ul>
             if (!$response) $response .= '<ul>';
-            $response .= '<li data-id="'.$row['id'].'"><div>';
+            $response .= '<li data-id="'.$row['id'].'"'.($this->module('active') && !$row[$this->module('active')]?' class=inactive':'').'><div>';
             $response .= $this->listviewRow($row);
             $response .= '</div>';
             if ($this->module('treeview')) {

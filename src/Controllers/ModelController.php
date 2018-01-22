@@ -31,6 +31,7 @@ class ModelController extends BaseController
         }
         $model->save();
         return [
+            'active' => $this->module('active') ? $model[$this->module('active')]==true : true,
             'id' => $model->id,
             'li' => $this->listviewRow($model),
         ];

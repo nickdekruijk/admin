@@ -54,6 +54,14 @@ function modelClearErrors() {
     $('#editview .error').removeClass('error');
 }
 
+function modelInactive(data) {
+    if (data.active) {
+        $('#listview LI[data-id='+data.id+']').removeClass('inactive');
+    } else {
+        $('#listview LI[data-id='+data.id+']').addClass('inactive');
+    }
+}
+
 function modelCreate(slug) {
     loading();
     modelClearErrors();
@@ -64,6 +72,7 @@ function modelCreate(slug) {
     }).done(function(data,status,xhr) {
         $('#listview LI.active').removeClass('active');
         $('#listview .content > UL').append('<li data-id="'+data.id+'" class="active"><div><i></i>'+data.li+'</div></li>');
+        modelInactive(data);
         modelId(data.id);
         modelListViewAddClick(slug, $('#listview LI[data-id='+data.id+']'));
         listviewSetColumnWidth();
@@ -87,6 +96,7 @@ function modelUpdate(slug, id) {
         method: 'patch',
     }).done(function(data,status,xhr) {
         $('#listview LI[data-id='+id+'] > DIV').html(data.li);
+        modelInactive(data);
         listviewSetColumnWidth();
         loadingDone();
     }).fail(function(xhr,status,error) {

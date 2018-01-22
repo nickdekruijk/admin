@@ -58,6 +58,7 @@ return [
             'index' => 'title,id,head,slug,html_title',
             'model' => 'App\Page',
             'orderBy' => 'sort,id',
+            'active' => 'active',
             'columns' => [
                 'active' => [
                     'default' => true,
