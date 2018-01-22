@@ -55,33 +55,60 @@ return [
             'title_nl' => 'Website pagina\'s',
             'button_new' => 'Create new page', # If ommited defaults to 'New'
             'treeview' => 'parent',
-            'index' => 'title,id,head,slug,html_title',
-            'model' => 'App\Page',
+            'index' => 'title,head,slug,html_title,home,menuitem',
+            'model' => 'LaraPages\Pages\Page',
             'orderBy' => 'sort,id',
             'active' => 'active',
             'columns' => [
                 'active' => [
                     'default' => true,
+                    'title_nl' => 'Actief',
                 ],
-                'hidden',
-                'home',
+                'menuitem' => [
+                    'default' => true,
+                    'title' => 'Show in navigation menu',
+                    'title_nl' => 'Toon in navigatie menu',
+                ],
+                'home' => [
+                    'title' => 'Show on homepage',
+                    'title_nl' => 'Toon op homepage',
+                ],
                 'title' => [
                     'validate' => 'required',
+                    'title_nl' => 'Titel',
                 ],
-                'view',
-                'head',
-                'html_title',
+                'view' => [
+                    'title' => 'View to load (template)',
+                    'title_nl' => 'Gebruik template',
+                ],
+                'head' => [
+                    'title_nl' => 'Kop',
+                ],
+                'html_title' => [
+                    'title' => 'HTML Title (for SEO)',
+                    'title_nl' => 'HTML Titel (voor SEO)',
+                ],
                 'slug' => [
                     'placeholder' => 'the url slug, is added to the page url',
                     'placeholder_nl' => 'Unieke \'slug\'',
                 ],
-                'description',
+                'description' => [
+                    'title_nl' => 'Omschrijving',
+                ],
                 'date' => [
                     'validate' => 'nullable|date',
+                    'title_nl' => 'Datum',
                 ],
-                'pictures',
-                'background',
-                'body',
+                'pictures' => [
+                    'title_nl' => 'Afbeeldingen',
+                ],
+                'background' => [
+                    'title_nl' => 'Achtergrond',
+                ],
+                'body' => [
+                    'title_nl' => 'Inhoud',
+                    'tinymce' => true,
+                ],
             ],
             'sortable' => true,
         ],
