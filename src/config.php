@@ -97,11 +97,16 @@ return [
             'title_nl' => 'Gebruikers',
             'model' => 'App\User',
             'columns' => [
-                'name',
-                'email',
+                'name' => [
+                    'validate' => 'required',
+                ],
+                'email' => [
+                    'validate' => 'required|email|unique:users,email,#id#|required',
+                ],
                 'password' => [
                     'type' => 'password',
-                ]
+                    'validate' => 'required|min:8',
+                ],
             ],
             'index' => 'email,name',
             'orderBy' => 'created_at desc',
