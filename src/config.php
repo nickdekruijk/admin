@@ -55,7 +55,7 @@ return [
             'title_nl' => 'Website pagina\'s',
             'button_new' => 'Create new page', # If ommited defaults to 'New'
             'treeview' => 'parent',
-            'index' => 'title,head,slug,html_title,home,menuitem',
+            'index' => 'title,head,slug,home,menuitem',
             'model' => 'LaraPages\Pages\Page',
             'orderBy' => 'sort',
             'active' => 'active',
@@ -66,10 +66,14 @@ return [
                 ],
                 'menuitem' => [
                     'default' => true,
+                    'index_title' => 'Menu',
+                    'index_title_nl' => 'Menu',
                     'title' => 'Show in navigation menu',
                     'title_nl' => 'Toon in navigatie menu',
                 ],
                 'home' => [
+                    'index_title' => 'Home',
+                    'index_title_nl' => 'Home',
                     'title' => 'Show on homepage',
                     'title_nl' => 'Toon op homepage',
                 ],

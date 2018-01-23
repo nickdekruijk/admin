@@ -179,7 +179,7 @@ class BaseController extends Controller
             if ($column == 'id') {
                 $response .= 'id';
             } else {
-                $response .= $this->locale('title', $this->columns('columns')[$column], $column);
+                $response .= $this->locale('index_title', $this->columns('columns')[$column], false) ?: $this->locale('title', $this->columns('columns')[$column], $column);
             }
             $response .='</span>';
         }
