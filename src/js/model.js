@@ -192,7 +192,7 @@ function modelDelete(slug, id) {
 
 function modelListViewAddClick(slug, element) {
     $(element).click(function() {
-        modelEditViewReset(true);
+        modelEditViewReset(true, true);
         $(element).addClass('active');
         modelId($(element).data('id'));
         modelShow(slug, $(element).data('id'));
@@ -208,10 +208,10 @@ function modelListViewClick(slug) {
     });
 }
 
-function modelEditViewReset(checked) {
+function modelEditViewReset(checked, dontreset) {
     modelClearErrors();
     modelId(-1);
-    $('#model_form')[0].reset();
+    if (!dontreset) $('#model_form')[0].reset();
     $('#listview LI.active').removeClass('active');
     $('#edit-toggle').prop('checked', checked);
 }
