@@ -197,7 +197,10 @@ class BaseController extends Controller
     {
         $response = '<i></i>';
         foreach (explode(',', $this->module('index')) as $column) {
-            $response .='<span>'.$row[$column].'</span>';
+            if ($row[$column] === true)
+                $response .='<span class="center"><i class="fa fa-check"></i></span>';
+            else
+                $response .='<span>'.$row[$column].'</span>';
         }
         return $response;
     }

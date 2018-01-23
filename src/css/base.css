@@ -73,6 +73,7 @@ nav li:hover > ul > li {max-height:40px}
 #listview .header SPAN {display:inline-block;margin:0 6px}
 #listview.treeview .header SPAN:first-child {margin-left:18px}
 #listview .button.add {margin:7px}
+#listview SPAN.center {text-align:center}
 
 #listview .content {position:absolute;top:40px;bottom:0;left:0;right:0;overflow:hidden;overflow-y:auto}
 #listview UL {display:block;margin:0;padding:0;white-space:nowrap}
