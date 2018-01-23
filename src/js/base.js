@@ -45,7 +45,7 @@ function loading(done) {
         $('.loading').removeClass('show').removeClass('full');
     } else {
         $('.loading').addClass('show');
-        isLoading = setTimeout(function() { $('.loading').addClass('full') }, 100);
+        isLoading = setTimeout(function() { $('.loading').addClass('full') }, 200);
     }
 }
 function loadingDone() {
