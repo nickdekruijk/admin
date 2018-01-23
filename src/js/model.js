@@ -35,8 +35,8 @@ function modelNestedSortable(slug) {
     });
 }
 
-function sortingDone(alert) {
-    if (alert) alert(alert);
+function sortingDone(msg) {
+    if (msg) alert(msg);
     loadingDone();
     modelIsSorting = false;
 }
