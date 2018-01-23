@@ -57,7 +57,8 @@ class ModelController extends BaseController
                 $row[$columnId] = '********';
             }
         }
-        return $row;
+        // Return the original values and not the altered values from model accessors
+        return $row->getOriginal();
     }
 
     /**
