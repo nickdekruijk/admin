@@ -1,3 +1,4 @@
+var modelIsSorting = false;
 function modelNestedSortable(slug) {
     $('#listview.treeview > .content.sortable > UL').nestedSortable({
     	forcePlaceholderSize: true,
@@ -16,6 +17,7 @@ function modelNestedSortable(slug) {
             var id = $(b.item).data('id');
             var parent = $('LI[data-id='+id+']').parent().parent().data('id');
             $('LI[data-id='+id+']').data('oldparent', parent);
+            modelIsSorting = true;
         },
     	relocate: function(a, b) {
             // Done dragging, see what's changed
@@ -57,9 +59,11 @@ function modelChangeParent(slug, id, parent, oldparent) {
         data: 'parent='+parent+'&oldparent='+oldparent+'&ids='+modelSortIds(parent),
     }).done(function(data,status,xhr) {
         if (data) alert(data);
+        modelIsSorting = false;
         loadingDone();
     }).fail(function(xhr,status,error) {
         alert(status);
+        modelIsSorting = false;
         loadingDone();
     });
 }
@@ -72,9 +76,11 @@ function modelSaveSorting(slug, parent) {
         data: 'ids='+modelSortIds(parent),
     }).done(function(data,status,xhr) {
         if (data) alert(data);
+        modelIsSorting = false;
         loadingDone();
     }).fail(function(xhr,status,error) {
         alert(status);
+        modelIsSorting = false;
         loadingDone();
     });
 }
@@ -192,6 +198,7 @@ function modelDelete(slug, id) {
 
 function modelListViewAddClick(slug, element) {
     $(element).click(function() {
+        if (modelIsSorting) return false;
         modelEditViewReset(true, true);
         $(element).addClass('active');
         modelId($(element).data('id'));
