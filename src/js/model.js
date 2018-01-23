@@ -276,6 +276,7 @@ function modelKeydown() {
 }
 
 function modelInit(slug) {
+    $('.datepicker').datepicker();
     modelKeydown();
     modelNestedSortable(slug);
     modelListViewClick(slug);
