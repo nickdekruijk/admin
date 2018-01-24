@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\View;
 use App;
-use Schema;
 use Route;
 
 class BaseController extends Controller
@@ -239,7 +238,7 @@ class BaseController extends Controller
     }
 
     // Get the module columns
-    public function columns($getType = false)
+    public function columns()
     {
         $columns = [];
         $model = $this->model();
@@ -256,8 +255,8 @@ class BaseController extends Controller
                     $columns[$id]['values'][$roleId] = $this->locale('title', $role, $roleId);
                 }
             }
-            if (empty($column['type']) && $getType) {
-                $columns[$id]['type'] = Schema::getColumnType($model->getTable(), $id);
+            if (empty($column['type'])) {
+                $columns[$id]['type'] = isset($model->getCasts()[$id]) ? $model->getCasts()[$id] : 'string';
             }
         }
         return $columns;

@@ -40,7 +40,7 @@
                 <label class="f-right model-id">id:<span id="input_id"></span></label>
             </div>
             <div class="content">
-                @foreach($lp->columns(true) as $id => $column)
+                @foreach($lp->columns() as $id => $column)
                 <label for="input_{{ $id }}">
                 @if ($column['type'] == 'boolean')
                 <input type="hidden" name="{{ $id }}" value="0">
