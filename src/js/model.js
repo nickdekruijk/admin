@@ -1,4 +1,3 @@
-var modelIsSorting = false;
 function modelNestedSortable(slug) {
     $('#listview.treeview > .content.sortable > UL').nestedSortable({
     	forcePlaceholderSize: true,
@@ -13,7 +12,6 @@ function modelNestedSortable(slug) {
     	startCollapsed: true,
     	placeholder: "ui-state-highlight",
         sort: function(a,b) {
-            modelIsSorting = true;
             // When starting sorting store the current parent in data-oldparent so we can use it on relocate to check if parent changed
             var id = $(b.item).data('id');
             var parent = $('LI[data-id='+id+']').parent().parent().data('id');
@@ -38,7 +36,6 @@ function modelNestedSortable(slug) {
 function sortingDone(msg) {
     if (msg) alert(msg);
     loadingDone();
-    modelIsSorting = false;
 }
 
 function modelSortIds(parent) {
@@ -196,7 +193,7 @@ function modelDelete(slug, id) {
 
 function modelListViewAddClick(slug, element) {
     $(element).click(function() {
-        if (modelIsSorting) return false;
+        if ($('.ui-sortable-helper').length) return false;
         modelEditViewReset(true, true);
         $(element).addClass('active');
         modelId($(element).data('id'));
