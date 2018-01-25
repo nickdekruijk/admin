@@ -196,10 +196,13 @@ class BaseController extends Controller
     {
         $response = '<i></i>';
         foreach (explode(',', $this->module('index')) as $column) {
-            if ($row[$column] === true)
+            if ($row[$column] === true) {
                 $response .='<span class="center"><i class="fa fa-check"></i></span>';
-            else
+            } elseif ($this->columns($column)['type'] == 'date') {
+                $response .='<span>'.str_replace(' 00:00:00', '', $row[$column]).'</span>';
+            } else {
                 $response .='<span>'.$row[$column].'</span>';
+            }
         }
         return $response;
     }

@@ -56,6 +56,10 @@ class ModelController extends BaseController
             if (isset($column['type']) && $column['type'] == 'password' && $row[$columnId]) {
                 $row[$columnId] = '********';
             }
+            // Strip zero time on date columns
+            if ($column['type'] == 'date' && $row[$columnId]) {
+                $row[$columnId] = str_replace(' 00:00:00', '', $row[$columnId]);
+            }
         }
         return $row;
     }

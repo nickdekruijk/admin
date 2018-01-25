@@ -273,7 +273,21 @@ function modelKeydown() {
 }
 
 function modelInit(slug) {
-    $('.datepicker').datepicker();
+    $('.datepicker').datepicker({
+        showButtonPanel: true,
+        changeMonth: true,
+        changeYear: true,
+        numberOfMonths: 2,
+        dateFormat: 'yy-mm-dd',
+    });
+    $('.datetimepicker').datetimepicker({
+        showButtonPanel: true,
+        changeMonth: true,
+        changeYear: true,
+        numberOfMonths: 2,
+        dateFormat: 'yy-mm-dd',
+        timeFormat: 'HH:mm:ss',
+    });
     modelKeydown();
     modelNestedSortable(slug);
     modelListViewClick(slug);
