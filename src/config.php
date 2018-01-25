@@ -213,6 +213,17 @@ return [
                 'reports' => [ 'read' ],
             ],
         ],
+        'demo' => [
+            'title' => 'Demo user',
+            'title_nl' => 'Demo gebruiker',
+            'permissions' => [
+                'dashboard' => [ 'read' ],
+                'pages' => [ 'read' ],
+                'media' => [ 'read' ],
+                'settings' => [ 'read' ],
+                'reports' => [ 'read' ],
+            ],
+        ],
     ],
 
 ];
