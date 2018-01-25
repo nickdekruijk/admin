@@ -55,7 +55,7 @@ return [
             'title_nl' => 'Website pagina\'s',
             'button_new' => 'Create new page', # If ommited defaults to 'New'
             'treeview' => 'parent',
-            'index' => 'title,head,slug,home,menuitem',
+            'index' => 'title,date,head,slug,home,menuitem',
             'model' => 'LaraPages\Pages\Page',
             'orderBy' => 'sort',
             'active' => 'active',
