@@ -238,7 +238,7 @@ class BaseController extends Controller
     }
 
     // Get the module columns
-    public function columns()
+    public function columns($columnId = null)
     {
         $columns = [];
         $model = $this->model();
@@ -257,6 +257,9 @@ class BaseController extends Controller
             }
             if (empty($column['type'])) {
                 $columns[$id]['type'] = isset($model->getCasts()[$id]) ? $model->getCasts()[$id] : 'string';
+            }
+            if ($id == $columnId) {
+                return $columns[$id];
             }
         }
         return $columns;
