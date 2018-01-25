@@ -49,16 +49,15 @@ class ModelController extends BaseController
     public function show($slug, $id)
     {
         $this->checkSlug($slug, 'read');
-        $row = $this->model()::findOrFail($id, array_keys($this->columns()));
+        // Get the original values and not the altered values from model accessors
+        $row = $this->model()::findOrFail($id, array_keys($this->columns()))->getOriginal();
         foreach($this->columns() as $columnId => $column) {
             // If column is a password (and maybe even hidden) return it with a 'masked' values of ********
             if (isset($column['type']) && $column['type'] == 'password' && $row[$columnId]) {
-                $row->makeVisible($columnId);
                 $row[$columnId] = '********';
             }
         }
-        // Return the original values and not the altered values from model accessors
-        return $row->getOriginal();
+        return $row;
     }
 
     /**
