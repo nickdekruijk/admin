@@ -1,3 +1,11 @@
+<p align="center">
+[![Latest Stable Version](https://poser.pugx.org/larapages/admin/v/stable)](https://packagist.org/packages/larapages/admin)
+[![Latest Unstable Version](https://poser.pugx.org/larapages/admin/v/unstable)](https://packagist.org/packages/larapages/admin)
+[![Monthly Downloads](https://poser.pugx.org/larapages/admin/d/monthly)](https://packagist.org/packages/larapages/admin)
+[![Total Downloads](https://poser.pugx.org/larapages/admin/downloads)](https://packagist.org/packages/larapages/admin)
+[![License](https://poser.pugx.org/larapages/admin/license)](https://packagist.org/packages/larapages/admin)
+</p>
+
 # In early development, missing core functionality
 For now see [nickdekruijk/larapages](https://github.com/nickdekruijk/larapages) to get an idea where this is heading.
 
