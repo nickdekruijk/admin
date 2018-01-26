@@ -92,6 +92,9 @@ function modelShow(slug, id) {
                 $('#input_'+i).val(data[i]);
             }
             $('#input_'+i+'_confirmation').val(data[i]);
+            if ($('#input_'+i).hasClass('tinymce')) {
+                tinymce.get('input_'+i).setContent(data[i]?data[i]:'');
+            }
         }
         loadingDone();
     }).fail(function(xhr,status,error) {
@@ -153,6 +156,9 @@ function modelCreate(slug) {
 
 function modelUpdate(slug, id) {
     loading();
+    $('.tinymce').each(function() {
+        tinyMCE.get(this.id).save();
+    });
     modelClearErrors();
     $.ajax(slug+'/'+id, {
         cache: false,

@@ -143,6 +143,9 @@ nav li:hover > ul > li {max-height:40px}
 .dashboard > UL > LI > A > .fa {color:rgba(255,255,255,0.8);display:block;font-size:3em;margin:10px}
 .dashboard > UL > LI > A:hover {background-color:rgba(255,255,255,0.3)}
 
+.mce-panel {border-radius:4px}
+.mce-first {position:-webkit-sticky !important;position:sticky !important;top:-7px}
+
 @media (max-width: 650px) {
     .button {padding:5px;font-size:12px}
     #editview .header .button {font-size:13px;padding:5px 10px}

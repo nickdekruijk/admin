@@ -60,8 +60,8 @@
                     <option value="{{ $key }}">{{ $value }}</option>
                     @endforeach
                 </select>
-                @elseif ($column['type'] == 'text')
-                <textarea name="{{ $id }}" id="input_{{ $id }}" rows="5" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
+                @elseif ($column['type'] == 'text' || $column['type'] == 'mediumtext' || $column['type'] == 'longtext')
+                <textarea class="{{isset($column['tinymce'])?'tinymce':''}}" name="{{ $id }}" id="input_{{ $id }}" rows="{{$column['type'] == 'mediumtext' ? 10 : ($column['type'] == 'longtext' ? 15 : 5)}}" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
                 @elseif ($column['type']!='boolean')
                 {{$column['type']}}
                 @endif
@@ -79,7 +79,43 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/i18n/jquery-ui-timepicker-addon-i18n.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nestedSortable/2.0.0/jquery.mjs.nestedSortable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/tinymce.min.js"></script>
 <script>
     modelInit('{{$lp->slug()}}');
+    tinymce.init({
+    	    selector:'textarea.tinymce',
+    	    theme: 'modern',
+    	    menubar: false,
+    	    branding: false,
+    	    paste_as_text: true,
+    	    @if (isset($column['tinymce']['css']))
+    	    content_css: "{{ $column['tinymce']['css'] }}",
+    	    @endif
+            browser_spellcheck: true,
+            convert_urls : false,
+/*
+			file_browser_callback: function(input_id, input_value, type, win) {
+				lp_mediaTarget=input_id;
+				lp_media=''; //input_value;
+				lp_modalFrame(lp_adminpath+'/media/mini');
+				return false;
+			},
+*/
+    	    plugins: [
+        	    // autoresize advlist autolink link image lists hr anchor searchreplace wordcount visualblocks code table paste contextmenu save textcolor contextmenu emoticons template directionality print preview pagebreak charmap media visualchars fullscreen fullpage visualchars insertdatetime nonbreaking
+        	    "autoresize autolink link image lists wordcount visualblocks code table paste contextmenu"
+            ],
+    	    @if (isset($column['tinymce']['toolbar']))
+    	    toolbar: "{{ $column['tinymce']['toolbar'] }}",
+    	    @else
+    	    // underline hr alignleft aligncenter alignright alignjustify | forecolor backcolor emoticons insertfile underline visualchars searchreplace pagebreak charmap
+            toolbar: "code visualblocks | undo redo | styleselect | bold italic | bullist numlist outdent indent | link anchor | image media table",
+            @endif
+    	    @if (isset($column['tinymce']['formats']))
+            style_formats: [
+	         	{!! $column['tinymce']['formats'] !!}
+	        ],
+            @endif
+    	});
 </script>
 @endsection

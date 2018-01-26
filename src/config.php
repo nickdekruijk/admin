@@ -111,7 +111,13 @@ return [
                 ],
                 'body' => [
                     'title_nl' => 'Inhoud',
-                    'tinymce' => true,
+                    'tinymce' => [
+                        'formats' => "{title: 'Intro', block: 'p', styles: {'font-size':'1.2em', 'margin-bottom':'30px', 'line-height':'1.5em'}},
+		                {title: 'H2', block: 'h2'}",
+// 		                'css' => '/css/tinymce.css',
+// 		                'toolbar' => 'bold italic | link',
+                    ],
+                    'type' => 'mediumtext',
                 ],
             ],
             'sortable' => true,
