@@ -68,8 +68,9 @@ $('#listview LI > DIV > I').click(function() {
         return false;
     }
 });
-$('#nav-toggle').click(function() {
-    document.cookie = "nav-toggle=" + $(this).prop('checked');
+$('.nav-hamburger').click(function() {
+    $('nav').toggleClass('expanded');
+    document.cookie = "nav-toggle=" + ($('nav').hasClass('expanded') && $(window).width()>650);
 });
 $.ajaxSetup({
     headers: {

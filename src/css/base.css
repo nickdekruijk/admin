@@ -5,7 +5,7 @@ header,
 nav {-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:moz-none;-ms-user-select:none;user-select:none}
 a {text-decoration:none}
 
-#nav-toggle, #edit-toggle {display:none}
+#edit-toggle {display:none}
 
 /* Colors */
 .ui-state-highlight, .button:hover, header .nav-hamburger:hover > span, nav h1, .button.is-primary,
@@ -19,7 +19,7 @@ header, nav {background-color:#2c3340}
 /* .button.border.is-primary:hover {background-color:rgba(255,255,255,0.6)} */
 .button.is-green {background-color:#2b2}
 .button.is-green:hover {background-color:#4d4}
-.button.is-red, #nav-toggle:checked ~ header .nav-hamburger:hover > span {background-color:#d22}
+.button.is-red, nav.expanded ~ header .nav-hamburger:hover > span {background-color:#d22}
 .button.is-red:hover {background-color:#f55}
 .button.border {background-color:transparent;border:1px solid rgba(255,255,255,0.2)}
 .button.border.is-primary {border-color:transparent}
@@ -43,12 +43,12 @@ header .button {float:right;margin-right:7px;margin-top:12px}
 
 nav {position:fixed;top:0;left:0;bottom:0;width:50px;overflow:hidden;transition:width .4s;z-index:2000}
 nav:hover,
-#nav-toggle:checked ~ nav {width:270px}
-#nav-toggle:checked ~ header {left:270px}
-#nav-toggle:checked ~ #listview {left:270px}
-#nav-toggle:checked ~ header .nav-hamburger > span:first-child {transform:rotate(45deg)}
-#nav-toggle:checked ~ header .nav-hamburger > span:nth-child(2) {opacity:0}
-#nav-toggle:checked ~ header .nav-hamburger > span:last-child {transform:rotate(-45deg)}
+nav.expanded {width:270px}
+nav.expanded ~ header {left:270px}
+nav.expanded ~ #listview {left:270px}
+nav.expanded ~ header .nav-hamburger > span:first-child {transform:rotate(45deg)}
+nav.expanded ~ header .nav-hamburger > span:nth-child(2) {opacity:0}
+nav.expanded ~ header .nav-hamburger > span:last-child {transform:rotate(-45deg)}
 nav h1 {white-space:nowrap;margin:0;font-weight:300;height:50px;line-height:50px}
 nav h1 a {color:#fff;display:block}
 nav h1 a:hover {background-color:rgba(255,255,255,0.2)}
@@ -97,8 +97,6 @@ nav li:hover > ul > li {max-height:40px}
 
 /* #edit-toggle:checked ~ #listview {right:75%} */
 #edit-toggle:checked ~ #editview {left:25%}
-#nav-toggle:checked ~ #edit-toggle:checked ~ #editview {left:50%}
-#nav-toggle:checked ~ #editview {width:50%}
 #editview {position:fixed;left:100%;width:75%;bottom:0;top:50px;transition:left 0.6s;background-color:#eee}
 #listview .header,
 #editview .header {position:absolute;left:0;right:0;height:28px;padding:6px 7px;border-left:1px solid rgba(0,0,0,0.1);color:#fff}
@@ -128,7 +126,6 @@ nav li:hover > ul > li {max-height:40px}
 
 .fullpage {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .4s;background-color:#d3d3d3;padding:1em}
 .fullpage H2 {margin:0;font-weight:300}
-#nav-toggle:checked ~ .fullpage {left:270px}
 
 .ui-state-highlight {background-color:rgba(0,0,0,0.2) !important;border-color:transparent !important}
 .ui-sortable-helper > DIV {cursor:move !important}
@@ -153,8 +150,14 @@ nav li:hover > ul > li {max-height:40px}
 .mce-first {position:-webkit-sticky !important;position:sticky !important;top:-7px}
 .mce-tinymce {box-shadow:none !important;box-sizing:border-box !important}
 
+@media (min-width:651px) {
+    nav.expanded ~ .fullpage {left:270px}
+    nav.expanded ~ #edit-toggle:checked ~ #editview {left:50%}
+    nav.expanded ~ #editview {width:50%}
+}
 @media (max-width: 650px) {
     .button {padding:5px;font-size:12px}
+    header .button {display:none}
     #editview .header .button {font-size:13px;padding:5px 10px}
     #editview .header .button > span {display:none}
     #editview .header .button .fa:first-child {margin:auto;display:block}
