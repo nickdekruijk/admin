@@ -17,4 +17,10 @@ return [
     'deleteconfirm' => 'A you sure you want to delete this?',
     'close' => 'Close',
     'confirm' => 'Confirm',
+    'folders' => 'Folders',
+    'size' => 'Size',
+    'files' => 'Files',
+    'mtime' => 'Time',
+    'upload' => 'Upload',
+    'rename' => 'Rename',
 ];

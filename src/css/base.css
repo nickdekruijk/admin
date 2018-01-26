@@ -121,6 +121,15 @@ nav li:hover > ul > li {max-height:40px}
 #editview .model-id {color:rgba(255,255,255,0.25)}
 #editview .model-id #input_id {color:rgba(255,255,255,0.7)}
 
+/* Media */
+#editview .media {padding:0 7px 0 0}
+#editview .media UL {display:block;margin:0;padding:0;display:flex;flex-wrap:wrap}
+#editview .media LI {display:block;margin:0;padding:0;position:relative;background-color:rgba(0,0,0,0.1);margin:7px 0 0 7px;padding:7px;border-radius:4px;text-align:center;font-size:12px;border:1px solid rgba(0,0,0,0.05)}
+#editview .media .img {background-size:contain;background-position:center center;background-repeat:no-repeat;width:150px;height:150px;margin:0 auto 5px}
+#editview .media LI > div {color:rgba(0,0,0,0.5)}
+#editview #current_folder {color:rgba(255,255,255,0.8);font-size:1.3em;text-transform:capitalize;line-height:18px}
+#editview #current_folder > SPAN {color:rgba(255,255,255,0.25);margin:0 5px}
+
 .fullpage {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .4s;background-color:#d3d3d3;padding:1em}
 .fullpage H2 {margin:0;font-weight:300}
 

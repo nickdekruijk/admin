@@ -17,4 +17,10 @@ return [
     'deleteconfirm' => 'Zeker weten?',
     'close' => 'Sluiten',
     'confirm' => 'Bevestig',
+    'folders' => 'Mappen',
+    'size' => 'Grootte',
+    'files' => 'Bestanden',
+    'mtime' => 'Tijd',
+    'upload' => 'Upload',
+    'rename' => 'Hernoem',
 ];

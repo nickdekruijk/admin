@@ -23,6 +23,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get(config('larapages.adminpath'), 'LaraPages\Admin\Controllers\BaseController@view');
     Route::get(config('larapages.adminpath').'/{slug}', 'LaraPages\Admin\Controllers\BaseController@view');
 
+    Route::get(config('larapages.adminpath').'/media/{slug}/{folder}', 'LaraPages\Admin\Controllers\MediaController@show');
+
     Route::get(config('larapages.adminpath').'/{slug}/{id}', 'LaraPages\Admin\Controllers\ModelController@show');
     Route::post(config('larapages.adminpath').'/{slug}', 'LaraPages\Admin\Controllers\ModelController@store');
     Route::patch(config('larapages.adminpath').'/{slug}/{id}/sort', 'LaraPages\Admin\Controllers\ModelController@sort');

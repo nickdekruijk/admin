@@ -12,7 +12,7 @@ class AssetController extends Controller
     // Return all javascript files as one
     public function js()
     {
-        $content = file_get_contents(__DIR__.'/../js/base.js') . file_get_contents(__DIR__.'/../js/model.js');
+        $content = file_get_contents(__DIR__.'/../js/base.js') . file_get_contents(__DIR__.'/../js/model.js') . file_get_contents(__DIR__.'/../js/media.js');
 
         $response = new Response(
             $content, 200, [
