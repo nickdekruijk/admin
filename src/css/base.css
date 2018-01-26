@@ -146,8 +146,9 @@ nav li:hover > ul > li {max-height:40px}
 .ui-datepicker {font-size:0.9em !important;font-family: inherit !important}
 .ui-widget button {font-family: inherit !important}
 
-.mce-panel {border-radius:4px}
+.mce-panel {border-radius:3px}
 .mce-first {position:-webkit-sticky !important;position:sticky !important;top:-7px}
+.mce-tinymce {box-shadow:none !important;box-sizing:border-box !important}
 
 @media (max-width: 650px) {
     .button {padding:5px;font-size:12px}
