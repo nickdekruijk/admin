@@ -97,6 +97,8 @@ nav li:hover > ul > li {max-height:40px}
 
 /* #edit-toggle:checked ~ #listview {right:75%} */
 #edit-toggle:checked ~ #editview {left:25%}
+#nav-toggle:checked ~ #edit-toggle:checked ~ #editview {left:50%}
+#nav-toggle:checked ~ #editview {width:50%}
 #editview {position:fixed;left:100%;width:75%;bottom:0;top:50px;transition:left 0.6s;background-color:#eee}
 #listview .header,
 #editview .header {position:absolute;left:0;right:0;height:28px;padding:6px 7px;border-left:1px solid rgba(0,0,0,0.1);color:#fff}
@@ -126,6 +128,7 @@ nav li:hover > ul > li {max-height:40px}
 
 .fullpage {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .4s;background-color:#d3d3d3;padding:1em}
 .fullpage H2 {margin:0;font-weight:300}
+#nav-toggle:checked ~ .fullpage {left:270px}
 
 .ui-state-highlight {background-color:rgba(0,0,0,0.2) !important;border-color:transparent !important}
 .ui-sortable-helper > DIV {cursor:move !important}

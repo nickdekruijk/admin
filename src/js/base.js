@@ -68,6 +68,9 @@ $('#listview LI > DIV > I').click(function() {
         return false;
     }
 });
+$('#nav-toggle').click(function() {
+    document.cookie = "nav-toggle=" + $(this).prop('checked');
+});
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

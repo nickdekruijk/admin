@@ -8,7 +8,7 @@
     </head>
     <body>
         <div class="loading"><i class="fa fa-circle-o-notch fa-spin"></i></div>
-        <input type="checkbox" id="nav-toggle">
+        <input type="checkbox" id="nav-toggle" {{ isset($_COOKIE['nav-toggle']) && $_COOKIE['nav-toggle']=='true'?'checked':'' }}>
         <nav>
             <h1><a href="{{ url(config('larapages.adminpath')) }}">{!! config('larapages.logo') !!}</a></h1>
             {!! $lp->navigation() !!}
