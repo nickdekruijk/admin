@@ -221,7 +221,10 @@ function modelEditViewReset(checked, dontreset) {
     modelId(-1);
     if (!dontreset) $('#model_form')[0].reset();
     $('#listview LI.active').removeClass('active');
-    $('#edit-toggle').prop('checked', checked);
+    if (checked)
+        $('#editview').addClass('expanded');
+    else
+        $('#editview').removeClass('expanded');
 }
 
 function modelId(setId) {

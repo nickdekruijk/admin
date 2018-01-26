@@ -7,7 +7,6 @@
 @endsection
 
 @section('view')
-    <input type="checkbox" id="edit-toggle">
         <section id="listview" class="{{ $lp->module('treeview')?'treeview':'' }}">
             @if ($lp->can('read'))
             <div class="header">

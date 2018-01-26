@@ -5,8 +5,6 @@ header,
 nav {-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:moz-none;-ms-user-select:none;user-select:none}
 a {text-decoration:none}
 
-#edit-toggle {display:none}
-
 /* Colors */
 .ui-state-highlight, .button:hover, header .nav-hamburger:hover > span, nav h1, .button.is-primary,
 #listview LI.active > DIV, #listview LI > DIV:hover {background-color:#0cb}
@@ -95,8 +93,7 @@ nav li:hover > ul > li {max-height:40px}
 #listview LI > DIV:hover > DIV.actions {display:block}
 #listview LI.inactive > DIV > SPAN {text-decoration:line-through;color:rgba(0,0,0,0.3)}
 
-/* #edit-toggle:checked ~ #listview {right:75%} */
-#edit-toggle:checked ~ #editview {left:25%}
+#editview.expanded {left:25%}
 #editview {position:fixed;left:100%;width:75%;bottom:0;top:50px;transition:left 0.6s;background-color:#eee}
 #listview .header,
 #editview .header {position:absolute;left:0;right:0;height:28px;padding:6px 7px;border-left:1px solid rgba(0,0,0,0.1);color:#fff}
@@ -152,8 +149,7 @@ nav li:hover > ul > li {max-height:40px}
 
 @media (min-width:651px) {
     nav.expanded ~ .fullpage {left:270px}
-    nav.expanded ~ #edit-toggle:checked ~ #editview {left:50%}
-    nav.expanded ~ #editview {width:50%}
+    nav.expanded ~ #editview.expanded {left:50%;width:50%}
 }
 @media (max-width: 650px) {
     .button {padding:5px;font-size:12px}
@@ -161,6 +157,6 @@ nav li:hover > ul > li {max-height:40px}
     #editview .header .button {font-size:13px;padding:5px 10px}
     #editview .header .button > span {display:none}
     #editview .header .button .fa:first-child {margin:auto;display:block}
-    #edit-toggle:checked ~ #editview {left:50px}
+    #editview.expanded {left:50px}
     #editview {width:calc(100% - 50px)}
 }
