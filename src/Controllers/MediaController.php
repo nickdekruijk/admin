@@ -90,13 +90,11 @@ class MediaController extends BaseController
     {
         $this->checkSlug($slug, 'create');
         $folder = urldecode($folder);
-        // Which extensions are allowed
-        $allowed = ['png', 'jpg', 'jpeg', 'gif', 'zip', 'pdf', 'doc', 'docx', 'csv', 'xls', 'xlsx', 'pages', 'numbers', 'psd', 'mp4', 'mp3', 'mpg', 'm4a', 'ogg'];
+
         // Check if upload file exists
         if (!$request->hasFile('upl')) {
-            die('{"status":"error, File may be too big?"}');
+            die('{"status":"'.trans('larapages::base.uploaderror').'"}');
         }
-
         $upl=$request->file('upl');
 
         // Check if it had an error
@@ -106,12 +104,12 @@ class MediaController extends BaseController
 
         // Check if filesize is allowed
         if ($upl->getClientSize() > $this->uploadLimit()*1024*1024) {
-            die('{"status":"File too big"}');
+            die('{"status":"'.trans('larapages::base.filetoobig').'"}');
         }
 
         // Check if extension is allowed
-        if (!in_array(strtolower($upl->getClientOriginalExtension()), $allowed)) {
-            die('{"status":"Extension not allowed"}');
+        if (!in_array(strtolower($upl->getClientOriginalExtension()), config('larapages.media_allowed_extensions'))) {
+            die('{"status":"'.trans('larapages::base.extnotallowed').'"}');
         }
 
         $filename = $upl->getClientOriginalName();
@@ -124,7 +122,7 @@ class MediaController extends BaseController
             }
         }
         $request->file('upl')->move(config('larapages.media_path').'/'.$folder, $filename);
-        die('{"status":"success", "folder":"'.$folder.'"}');
+        die('{"status":"success"}');
         return $request->toArray();
     }
 }

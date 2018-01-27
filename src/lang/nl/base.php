@@ -24,4 +24,7 @@ return [
     'upload' => 'Upload',
     'rename' => 'Hernoem',
     'max' => 'Max',
+    'uploaderror' => 'Upload mislukt',
+    'filetoobig' => 'Bestand is te groot',
+    'extnotallowed' => 'Bestandstype niet toegestaan',
 ];

@@ -72,6 +72,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | media_allowed_extensions
+    |--------------------------------------------------------------------------
+    | The following file extensions are allowed when uploading
+    */
+    'media_allowed_extensions' => ['png', 'jpg', 'jpeg', 'gif', 'zip', 'pdf', 'doc', 'docx', 'csv', 'xls', 'xlsx', 'pages', 'numbers', 'psd', 'mp4', 'mp3', 'mpg', 'm4a', 'ogg', 'sketch', 'json', 'rtf', 'md'],
+
+    /*
+    |--------------------------------------------------------------------------
     | modules
     |--------------------------------------------------------------------------
     | All editable models, dashboard, reports, etc. should be defined here.

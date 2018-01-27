@@ -42,8 +42,10 @@ function mediaUpload(slug) {
             })
             if (parseInt($('#fileupload').attr('data-uploadLimit')) < data.files[0].size)
                 tpl.addClass('error').find('span.message').text(mediaFormatFileSize(data.files[0].size)+', file is too large to upload');
+/*
             else if (!data.files[0].type)
                 tpl.addClass('error').find('span.message').text('Sorry, can\'t upload folders');
+*/
             else
                 var jqXHR = data.submit();
         },
@@ -56,7 +58,7 @@ function mediaUpload(slug) {
         },
         done: function (e, data) {
             if (data.result.status=='success') {
-//                 $('#listview LI.active').click();
+                $('#listview LI.active').click();
                 setTimeout(function() {
                     data.context.fadeOut(1000,function() {
                         data.context.remove();
@@ -67,7 +69,7 @@ function mediaUpload(slug) {
             }
         },
         fail: function (e, data) {
-            console.log('fail',data);
+            data.context.addClass('error').removeClass('done').find('span.message').text(data.result.status);
         }
     });
 }

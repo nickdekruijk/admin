@@ -24,4 +24,7 @@ return [
     'upload' => 'Upload',
     'rename' => 'Rename',
     'max' => 'Max',
+    'uploaderror' => 'Upload failed',
+    'filetoobig' => 'File too big',
+    'extnotallowed' => 'Extension not allowed',
 ];

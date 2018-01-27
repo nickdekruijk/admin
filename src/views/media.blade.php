@@ -28,11 +28,7 @@
                 <label class="f-right"><span id="current_folder"></span></label>
             </div>
             <div class="content">
-                <ul class="upload-progress">
-                    {{--<li class="error"><div></div><span class="but"></span>amphora.interactive.sketch (<span class="message">Sorry, can't upload folders</span>)</li>
-                    <li><div style="width: 48%;"></div><span class="but"></span>artisanfiles.pdf (<span class="message">18.13 MB, <span class="perc">48</span>%</span>)</li>
-                    <li class="done"><div style="width: 100%;"></div><span class="but"></span>eBook_CRM_Basics.pdf (<span class="message">7.22 MB, <span class="perc">100</span>%</span>)</li>--}}
-                </ul>
+                <ul class="upload-progress"></ul>
                 <ul class="media"></ul>
             </div>
         </section>
