@@ -4,7 +4,6 @@
 @endsection
 
 @section('view')
-    <input type="checkbox" id="edit-toggle" checked>
         <section id="listview" class="treeview">
             @if ($lp->can('read'))
             <div class="header">
