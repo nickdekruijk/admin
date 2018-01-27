@@ -9,6 +9,9 @@ function mediaShow(slug) {
         $('#editview UL.media LI .button.delete').click(function() {
             mediaDestroy(slug, this);
         });
+        $('#editview UL.media LI .button.rename').click(function() {
+            mediaRename(slug, this);
+        });
         loadingDone();
     }).fail(function(xhr,status,error) {
         alert(status);
@@ -44,6 +47,28 @@ function mediaDestroy(slug, target) {
             else
                 $(target).parent().fadeOut();
             loadingDone();
+        }).fail(function(xhr,status,error) {
+            alert(status);
+            loadingDone();
+        });
+    }
+}
+
+function mediaRename(slug, target) {
+    var filename = $(target).parent().find('.filename').text();
+    if (newname = prompt($(target).data('prompt')+' '+filename, filename)) {
+        loading();
+        $.ajax('media/'+slug+'/'+mediaFolder(), {
+            method: 'patch',
+            data: 'filename='+encodeURIComponent(filename)+'&newname='+encodeURIComponent(newname),
+            cache: 'false',
+        }).done(function(data,status,xhr) {
+            if (data) {
+                alert(data);
+                loadingDone();
+            } else {
+                $('#listview LI.active').click();
+            }
         }).fail(function(xhr,status,error) {
             alert(status);
             loadingDone();

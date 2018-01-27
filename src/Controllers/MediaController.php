@@ -82,6 +82,7 @@ class MediaController extends BaseController
             $s = getimagesize($file);
             $response .= '<div>'.($s?$s[0].' x '.$s[1].', ':'').number_format($file->getSize()/1000,2).' kB</div>';
             $response .= '<button class="delete button small is-red" data-confirm="'.trans('larapages::base.delete').'"><i class="fa fa-trash"></i></button>';
+            $response .= '<button class="rename button small" data-prompt="'.trans('larapages::base.rename').'"><i class="fa fa-info"></i></button>';
             $response .= '</li>';
         }
         return $response;
@@ -135,5 +136,17 @@ class MediaController extends BaseController
         if (!file_exists($file)) die('File not found '.$file);
         if (substr(realpath($file), 0, strlen(config('larapages.media_path'))) !== config('larapages.media_path')) return 'Error '.realpath($file);
         unlink($file);
+    }
+
+    public function update($slug, $folder, Request $request)
+    {
+        $this->checkSlug($slug, 'delete');
+        $folder = urldecode($folder);
+        $file = config('larapages.media_path').'/'.$folder.'/'.$request->filename;
+        $newname = config('larapages.media_path').'/'.$folder.'/'.$request->newname;
+        if (!file_exists($file)) die('File not found '.$file);
+        if (file_exists($newname)) die('File already exists '.$newname);
+        if (substr(realpath($file), 0, strlen(config('larapages.media_path'))) !== config('larapages.media_path')) return 'Error file '.realpath($file);
+        rename($file, $newname);
     }
 }
