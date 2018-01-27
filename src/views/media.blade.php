@@ -19,7 +19,7 @@
                 </div>
                 @endif
                 @if ($lp->can('create'))
-                <button class="button add" id="media_newfolder" data-prompt="{{ trans('larapages::base.foldername') }}"><i class="fa fa-plus-circle"></i>{{ trans('larapages::base.newfolder') }}</button>
+                <button class="button add" id="media_newfolder" data-prompt="{{ trans('larapages::base.foldername') }}"><i class="fa fa-plus-circle"></i><span>{{ trans('larapages::base.newfolder') }}</span></button>
                 @endif
             </div>
             @endif
