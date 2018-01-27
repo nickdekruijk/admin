@@ -148,6 +148,11 @@ class MediaController extends BaseController
         if ($file == $newname) return;
         if (file_exists($newname)) die('File already exists '.$newname);
         if (substr(realpath($file), 0, strlen(config('larapages.media_path'))) !== config('larapages.media_path')) return 'Error file '.realpath($file);
+        // Check if extension is allowed
+        $extension = strtolower(substr($newname, strrpos($newname, '.')+1));
+        if (!in_array($extension, config('larapages.media_allowed_extensions'))) {
+            die(trans('larapages::base.extnotallowed').': .'.$extension);
+        }
         rename($file, $newname);
     }
 }
