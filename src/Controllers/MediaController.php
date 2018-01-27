@@ -21,6 +21,17 @@ class MediaController extends BaseController
         return str_replace('%2F', '/', rawurlencode($str));
     }
 
+    private static function folderRow($directory)
+    {
+        $size = 0;
+        $files = 0;
+        foreach(File::files($directory) as $file) {
+            $files++;
+            $size += filesize($file);
+        }
+        return '<div><i></i><span>'.basename($directory).'</span><span class="right">'.$files.'</span><span class="right">'.number_format($size/1024000,2).' MB</span></div>';
+    }
+
     public static function folders($path = null, $id = null)
     {
         if (!$path) {
@@ -34,13 +45,8 @@ class MediaController extends BaseController
         foreach($directories as $directory) {
             // First item, add <ul>
             if (!$response) $response .= '<ul>';
-            $size = 0;
-            $files = 0;
-            foreach(File::files($directory) as $file) {
-                $files++;
-                $size += filesize($file);
-            }
-            $response .= '<li data-id="'.urlencode($id.basename($directory)).'"><div><i></i><span>'.basename($directory).'</span><span class="right">'.$files.'</span><span class="right">'.number_format($size/1024000,2).' MB</span></div>';
+            $response .= '<li data-id="'.urlencode($id.basename($directory)).'">';
+            $response .= MediaController::folderRow($directory);
             $response .= MediaController::folders($directory, $id.basename($directory).'/');
             $response .= '</li>';
         }
@@ -128,8 +134,7 @@ class MediaController extends BaseController
             }
         }
         $request->file('upl')->move(config('larapages.media_path').'/'.$folder, $filename);
-        return '{"status":"success"}';
-        return $request->toArray();
+        return ['status' => 'success', 'folderRow' => $this->folderRow(config('larapages.media_path').'/'.$folder)];
     }
 
     public function destroy($slug, $folder, Request $request)
@@ -140,6 +145,7 @@ class MediaController extends BaseController
         if (!file_exists($file)) return 'File not found '.$file;
         if (substr(realpath($file), 0, strlen(config('larapages.media_path'))) !== config('larapages.media_path')) return 'Error '.realpath($file);
         unlink($file);
+        return $this->folderRow(dirname($file));
     }
 
     public function update($slug, $folder, Request $request)
