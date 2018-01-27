@@ -78,9 +78,10 @@ class MediaController extends BaseController
             else
                 $response .= '<div class="img">'.$extension;
             $response .= '</div>';
-            $response .= $file->getFilename();
+            $response .= '<span class="filename">'.$file->getFilename().'</span>';
             $s = getimagesize($file);
             $response .= '<div>'.($s?$s[0].' x '.$s[1].', ':'').number_format($file->getSize()/1000,2).' kB</div>';
+            $response .= '<button class="delete button small is-red" data-confirm="'.trans('larapages::base.delete').'"><i class="fa fa-trash"></i></button>';
             $response .= '</li>';
         }
         return $response;
@@ -124,5 +125,17 @@ class MediaController extends BaseController
         $request->file('upl')->move(config('larapages.media_path').'/'.$folder, $filename);
         die('{"status":"success"}');
         return $request->toArray();
+    }
+
+    public function destroy($slug, $folder, Request $request)
+    {
+        $this->checkSlug($slug, 'delete');
+        $folder = urldecode($folder);
+        $file = config('larapages.media_path').'/'.$folder.'/'.$request->filename;
+        if (substr($file, 0, strlen(config('larapages.media_path'))) === config('larapages.media_path')) {
+            unlink($file);
+        } else {
+            return 'Error';
+        }
     }
 }

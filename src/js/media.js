@@ -6,6 +6,9 @@ function mediaShow(slug) {
         $('#current_folder').html(decodeURIComponent($('#listview LI.active').data('id').replace(/\+/gi, ' ')).split('/').join('<span>/</span>'));
         $('#fileupload').fileupload('option','url','media/'+slug+'/'+mediaFolder());
         $('#editview UL.media').html(data);
+        $('#editview UL.media LI .button.delete').click(function() {
+            mediaDestroy(slug, this);
+        });
         loadingDone();
     }).fail(function(xhr,status,error) {
         alert(status);
@@ -25,6 +28,30 @@ function mediaFormatFileSize(bytes) {
     if (bytes >= 1000000)
         return (bytes / 1000000).toFixed(2) + ' MB';
     return (bytes / 1000).toFixed(2) + ' KB';
+}
+
+function mediaDestroy(slug, target) {
+    var title = $(target).parent().find('.filename').text();
+    // Using a timeout so the loading screen actualy shows before the confirm dialog
+    setTimeout(function () {
+        if (confirm($(target).data('confirm')+' '+title+'?')) {
+            loading();
+            $.ajax('media/'+slug+'/'+mediaFolder(), {
+                method: 'delete',
+                data: 'filename='+encodeURIComponent(title),
+                cache: 'false',
+            }).done(function(data,status,xhr) {
+                if (data)
+                    alert(data);
+                else
+                    $(target).parent().fadeOut();
+                loadingDone();
+            }).fail(function(xhr,status,error) {
+                alert(status);
+                loadingDone();
+            });
+        }
+    },50);
 }
 
 function mediaUpload(slug) {
