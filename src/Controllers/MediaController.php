@@ -132,10 +132,8 @@ class MediaController extends BaseController
         $this->checkSlug($slug, 'delete');
         $folder = urldecode($folder);
         $file = config('larapages.media_path').'/'.$folder.'/'.$request->filename;
-        if (substr($file, 0, strlen(config('larapages.media_path'))) === config('larapages.media_path')) {
-            unlink($file);
-        } else {
-            return 'Error';
-        }
+        if (!file_exists($file)) die('File not found '.$file);
+        if (substr(realpath($file), 0, strlen(config('larapages.media_path'))) !== config('larapages.media_path')) return 'Error '.realpath($file);
+        unlink($file);
     }
 }
