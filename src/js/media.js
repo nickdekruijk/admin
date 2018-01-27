@@ -31,27 +31,24 @@ function mediaFormatFileSize(bytes) {
 }
 
 function mediaDestroy(slug, target) {
-    var title = $(target).parent().find('.filename').text();
-    // Using a timeout so the loading screen actualy shows before the confirm dialog
-    setTimeout(function () {
-        if (confirm($(target).data('confirm')+' '+title+'?')) {
-            loading();
-            $.ajax('media/'+slug+'/'+mediaFolder(), {
-                method: 'delete',
-                data: 'filename='+encodeURIComponent(title),
-                cache: 'false',
-            }).done(function(data,status,xhr) {
-                if (data)
-                    alert(data);
-                else
-                    $(target).parent().fadeOut();
-                loadingDone();
-            }).fail(function(xhr,status,error) {
-                alert(status);
-                loadingDone();
-            });
-        }
-    },50);
+    var filename = $(target).parent().find('.filename').text();
+    if (confirm($(target).data('confirm')+' '+filename+'?')) {
+        loading();
+        $.ajax('media/'+slug+'/'+mediaFolder(), {
+            method: 'delete',
+            data: 'filename='+encodeURIComponent(filename),
+            cache: 'false',
+        }).done(function(data,status,xhr) {
+            if (data)
+                alert(data);
+            else
+                $(target).parent().fadeOut();
+            loadingDone();
+        }).fail(function(xhr,status,error) {
+            alert(status);
+            loadingDone();
+        });
+    }
 }
 
 function mediaUpload(slug) {
