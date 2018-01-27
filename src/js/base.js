@@ -53,6 +53,17 @@ function loadingDone() {
     loading(true);
 }
 
+function editviewLoad(url) {
+    loading();
+    $.ajax(url).done(function(data,status,xhr) {
+        loadingDone();
+        $('#editview .content').html(data);
+    }).fail(function(xhr,status,error) {
+        loadingDone();
+        alert(status);
+    });
+}
+
 // Listview treeview hover
 $('#listview LI > DIV > I').mouseout(function() {
     $(this).parent().parent().children('UL').removeClass('hover');

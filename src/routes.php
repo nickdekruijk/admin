@@ -23,6 +23,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get(config('larapages.adminpath'), 'LaraPages\Admin\Controllers\BaseController@view');
     Route::get(config('larapages.adminpath').'/{slug}', 'LaraPages\Admin\Controllers\BaseController@view');
 
+    Route::get(config('larapages.adminpath').'/reports/{slug}/{id}', 'LaraPages\Admin\Controllers\ReportController@show')->name('report');
+
     Route::post(config('larapages.adminpath').'/media/{slug}/{folder}/folder', 'LaraPages\Admin\Controllers\MediaController@newFolder');
     Route::delete(config('larapages.adminpath').'/media/{slug}/{folder}/folder', 'LaraPages\Admin\Controllers\MediaController@destroyFolder');
     Route::get(config('larapages.adminpath').'/media/{slug}/{folder}', 'LaraPages\Admin\Controllers\MediaController@show');

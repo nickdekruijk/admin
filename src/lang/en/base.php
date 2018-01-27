@@ -30,4 +30,5 @@ return [
     'newfolder' => 'New folder',
     'foldername' => 'Folder name',
     'deletefolder' => 'Delete folder',
+    'report' => 'Report',
 ];

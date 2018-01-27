@@ -178,6 +178,8 @@ return [
             'disabled' => false,
             'queries' => [
                 'All pages' => 'SELECT * FROM pages',
+                'Admin user' => 'SELECT id,name,email,created_at,updated_at,admin_role FROM users WHERE admin_role NOT NULL',
+                'Settings' => 'SELECT * FROM settings',
             ],
         ],
         'users' => [

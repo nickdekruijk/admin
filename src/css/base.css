@@ -142,6 +142,7 @@ nav li:hover > ul > li {max-height:40px}
 #editview .content.list UL.media .img {width:50px;height:34px;line-height:34px;float:left;margin:0 10px 0 0;font-size:20px;text-align:center;background-size:cover}
 #editview .content.list UL.media .filename {float:left;width:50%;font-size:14px;line-height:34px}
 #editview .content.list UL.media .details {line-height:34px;color:rgba(0,0,0,0.6)}
+#editview #current_report,
 #editview #current_folder {color:rgba(255,255,255,0.8);font-size:1.3em;text-transform:capitalize;line-height:18px}
 #editview #current_folder > SPAN {color:rgba(255,255,255,0.25);margin:0 5px}
 #fileupload {display:none}
@@ -185,6 +186,13 @@ nav li:hover > ul > li {max-height:40px}
 .dashboard > UL > LI > A > .fa {color:rgba(255,255,255,0.8);display:block;font-size:3em;margin:10px}
 .dashboard > UL > LI > A:hover {background-color:rgba(255,255,255,0.3)}
 
+#editview .content.report {padding:0}
+TABLE.report {border-spacing:0;border-collapse:collapse;width:100%;cursor:default}
+TABLE.report TH {position:-webkit-sticky;position:sticky;top:0;background-color:#ddd;font-weight:100;padding:3px 5px;text-align:left}
+TABLE.report TD {font-weight:100;padding:2px 5px;border:1px solid #ddd}
+TABLE.report TD > DIV {max-height:100px;overflow:auto}
+TABLE.report TR:hover > TD {background-color:#0cb;border-color:#0cb}
+
 .ui-datepicker {font-size:0.9em !important;font-family: inherit !important}
 .ui-widget button {font-family: inherit !important}
 
@@ -204,4 +212,10 @@ nav li:hover > ul > li {max-height:40px}
     #editview .header .button .fa:first-child {margin:auto;display:block}
     #editview.expanded {left:50px}
     #editview {width:calc(100% - 50px)}
+}
+
+@media print {
+    nav,header,#listview {display:none}
+    #editview {left:0;top:0;right:0;bottom:0}
+/*     TABLE.report {position:absolute} */
 }

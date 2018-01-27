@@ -30,4 +30,5 @@ return [
     'newfolder' => 'Nieuwe map',
     'foldername' => 'Naam map',
     'deletefolder' => 'Map wissen',
+    'report' => 'Rapport',
 ];
