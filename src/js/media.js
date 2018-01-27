@@ -21,7 +21,7 @@ function mediaShow(slug) {
 
 function mediaFolder() {
     var id = $('#listview LI.active').data('id');
-    return encodeURI(id.replace(/\//gi,'%2F'));
+    return id ? encodeURI(id.replace(/\//gi,'%2F')) : encodeURI('%2F');
 }
 
 function mediaFormatFileSize(bytes) {
@@ -71,6 +71,43 @@ function mediaRename(slug, target) {
             }
         }).fail(function(xhr,status,error) {
             alert(status);
+            loadingDone();
+        });
+    }
+}
+
+function mediaNewFolder(slug, target) {
+    if (folder = prompt($(target).data('prompt'), $(target).text())) {
+        loading();
+        $.ajax('media/'+slug+'/'+mediaFolder()+'/folder', {
+            method: 'post',
+            data: 'folder='+encodeURIComponent(folder),
+            cache: 'false',
+        }).done(function(data,status,xhr) {
+            $('#listview .folders').html(data);
+            mediaListViewClicks(slug);
+            listviewSetColumnWidth();
+            loadingDone();
+        }).fail(function(xhr,status,error) {
+            alert(xhr.responseJSON.message);
+            loadingDone();
+        });
+    }
+}
+
+function mediaDeleteFolder(slug, target) {
+    if (confirm($(target).data('confirm')+'?')) {
+        loading();
+        $.ajax('media/'+slug+'/'+mediaFolder()+'/folder', {
+            method: 'delete',
+            cache: 'false',
+        }).done(function(data,status,xhr) {
+            $('#listview LI.active').detach();
+            mediaEditViewReset(false);
+            listviewSetColumnWidth();
+            loadingDone();
+        }).fail(function(xhr,status,error) {
+            alert(xhr.responseJSON.message);
             loadingDone();
         });
     }
@@ -142,6 +179,12 @@ function mediaEditViewReset(checked, dontreset) {
         $('#editview').removeClass('expanded');
 }
 
+function mediaListViewClicks(slug) {
+    $('#listview LI').each(function() {
+        mediaListViewAddClick(slug, this);
+    });
+}
+
 function mediaInit(slug) {
 	$(document).keydown(function(e) {
 		var keyCode=e.keyCode || e.which;
@@ -149,9 +192,7 @@ function mediaInit(slug) {
 			$('#media_close').click();
 		}
 	});
-    $('#listview LI').each(function() {
-        mediaListViewAddClick(slug, this);
-    });
+    mediaListViewClicks(slug);
     mediaUpload(slug);
     $('#media_upload').click(function() {
         $('#fileupload').click();
@@ -159,5 +200,11 @@ function mediaInit(slug) {
     });
     $('#media_close').click(function() {
         mediaEditViewReset(false);
+    });
+    $('#media_newfolder').click(function() {
+        mediaNewFolder(slug,this);
+    });
+    $('#media_deletefolder').click(function() {
+        mediaDeleteFolder(slug,this);
     });
 }

@@ -27,4 +27,7 @@ return [
     'uploaderror' => 'Upload failed',
     'filetoobig' => 'File too big',
     'extnotallowed' => 'Extension not allowed',
+    'newfolder' => 'New folder',
+    'foldername' => 'Folder name',
+    'deletefolder' => 'Delete folder',
 ];

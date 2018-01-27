@@ -27,4 +27,7 @@ return [
     'uploaderror' => 'Upload mislukt',
     'filetoobig' => 'Bestand is te groot',
     'extnotallowed' => 'Bestandstype niet toegestaan',
+    'newfolder' => 'Nieuwe map',
+    'foldername' => 'Naam map',
+    'deletefolder' => 'Map wissen',
 ];

@@ -159,4 +159,27 @@ class MediaController extends BaseController
         }
         rename($file, $newname);
     }
+
+    public function newFolder($slug, $folder, Request $request)
+    {
+        $this->checkSlug($slug, 'create');
+        $folder = $this->trailingSlash(config('larapages.media_path').'/'.urldecode($folder));
+        $response = [];
+        $newfolder = $folder.$request->folder;
+        if (substr(realpath($folder), 0, strlen(config('larapages.media_path'))) !== config('larapages.media_path')) abort(400, 'realpath failed');
+        if (strpos($request->folder, '.') !== false) abort(422, 'No . allowed in foldername');
+        if (file_exists($newfolder)) abort(409, $request->folder.' already exists');
+        mkdir($newfolder);
+        return $this->folders();
+    }
+
+    public function destroyFolder($slug, $folder, Request $request)
+    {
+        $this->checkSlug($slug, 'create');
+        $folder = $this->trailingSlash(config('larapages.media_path').'/'.urldecode($folder));
+        if (!file_exists($folder)) abort(404, 'Does not exists');
+        if (!is_dir($folder)) abort(400, 'Is not a directory');
+        if (count(File::allFiles($folder))) abort(409, 'Directory is not empty');
+        rmdir($folder);
+    }
 }
