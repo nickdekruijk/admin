@@ -12,6 +12,7 @@ a {text-decoration:none}
 header, nav {background-color:#2c3340}
 .dashboard > UL > LI, .button, #listview .header, #editview .header {background-color:#178}
 #listview LI.active > DIV > SPAN {color:#fff !important}
+.button.border.active {background-color:rgba(255,255,255,0.25)}
 .button.border:hover {background-color:rgba(255,255,255,0.6)}
 .button.border.is-primary {background-color:rgba(255,255,255,0.3)}
 /* .button.border.is-primary:hover {background-color:rgba(255,255,255,0.6)} */
@@ -27,7 +28,10 @@ header, nav {background-color:#2c3340}
 .button {margin:0;display:inline-block;border:0 none;color:#fff;font:inherit;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px;position:relative}
 .button.sort {cursor:move}
 .button > span:nth-of-type(2) {opacity:0.6}
-.button:not(.small) .fa:first-child {margin-right:5px;width:11px}
+.button > span:nth-of-type(1) {margin-left:5px}
+.button.start {border-right:0 none;border-top-right-radius:0;border-bottom-right-radius:0}
+.button.mid {border-radius:0}
+.button.end {border-left:0 none;border-top-left-radius:0;border-bottom-left-radius:0}
 .button.small {padding:0;font-size:12px;width:20px;height:20px}
 .button.is-loading {pointer-events:none}
 .button.is-loading .fa:before {content:'\f250'}
@@ -125,9 +129,19 @@ nav li:hover > ul > li {max-height:40px}
 
 /* Media */
 #editview UL.media {display:block;margin:-7px 0 0 -7px;padding:0;display:flex;flex-wrap:wrap}
-#editview UL.media > LI {display:block;margin:0;padding:0;position:relative;background-color:rgba(0,0,0,0.1);margin:7px 0 0 7px;padding:7px;border-radius:4px;text-align:center;font-size:12px;border:1px solid rgba(0,0,0,0.05)}
-#editview UL.media .img {background-size:contain;background-position:center center;background-repeat:no-repeat;width:150px;height:120px;margin:0 auto 5px;line-height:120px;color:rgba(255,255,255,0.5);font-size:40px;font-weight:600;text-transform:capitalize}
-#editview UL.media > LI > div {color:rgba(0,0,0,0.5)}
+#editview UL.media > LI {display:block;margin:0;padding:0;position:relative;background-color:rgba(0,0,0,0.1);margin:7px 0 0 7px;padding:7px;border-radius:4px;text-align:center;font-size:12px;border:1px solid rgba(0,0,0,0.05);overflow:hidden;cursor:default}
+#editview UL.media > LI:hover {background-color:#0cb}
+#editview UL.media .img {background-size:contain;background-position:center center;background-repeat:no-repeat;width:200px;height:160px;margin:0 auto 5px;line-height:120px;color:rgba(255,255,255,0.5);font-size:40px;font-weight:600;text-transform:capitalize}
+#editview UL.media .details {color:rgba(0,0,0,0.5)}
+#editview .content.th-large UL.media .img {width:100px;height:75px;line-height:75px;font-size:30px}
+#editview .content.th-large UL.media > LI {font-size:11px;padding:3px;width:100px}
+#editview .content.th-large UL.media > LI > div.details {display:none}
+#editview .content.list {padding-right:3px}
+#editview .content.list UL.media {display:block}
+#editview .content.list UL.media > LI {text-align:left;padding:0;margin:3px 0 0 3px;border:0 none}
+#editview .content.list UL.media .img {width:50px;height:34px;line-height:34px;float:left;margin:0 10px 0 0;font-size:20px;text-align:center;background-size:cover}
+#editview .content.list UL.media .filename {float:left;width:50%;font-size:14px;line-height:34px}
+#editview .content.list UL.media .details {line-height:34px;color:rgba(0,0,0,0.6)}
 #editview #current_folder {color:rgba(255,255,255,0.8);font-size:1.3em;text-transform:capitalize;line-height:18px}
 #editview #current_folder > SPAN {color:rgba(255,255,255,0.25);margin:0 5px}
 #fileupload {display:none}
@@ -147,6 +161,9 @@ nav li:hover > ul > li {max-height:40px}
 #editview UL.media LI .button {position:absolute}
 #editview UL.media LI .button.delete {top:7px;right:7px}
 #editview UL.media LI .button.rename {top:7px;left:7px}
+#editview .content.list UL.media LI .button.delete {top:7px;right:7px}
+#editview .content.list UL.media LI .button.rename {top:7px;right:34px;left:auto}
+#editview .content.list UL.media LI .button.rename:hover {background-color:#178;opacity:0.7}
 #editview UL.media LI:not(:hover) .button {display:none}
 
 .fullpage {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .4s;background-color:#d3d3d3;padding:1em}

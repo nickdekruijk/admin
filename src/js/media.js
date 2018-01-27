@@ -184,6 +184,15 @@ function mediaListViewClicks(slug) {
     });
 }
 
+function mediaChangeView(button) {
+    $('.button.view.active').removeClass('active');
+    $(button).addClass('active');
+    $('.button.view').each(function() {
+        $('#editview .content').removeClass($(this).data('view'));
+    });
+    $('#editview .content').addClass($('.button.view.active').data('view'));
+}
+
 function mediaInit(slug) {
 	$(document).keydown(function(e) {
 		var keyCode=e.keyCode || e.which;
@@ -205,5 +214,8 @@ function mediaInit(slug) {
     });
     $('#media_deletefolder').click(function() {
         mediaDeleteFolder(slug,this);
+    });
+    $('.button.view').click(function() {
+        mediaChangeView(this);
     });
 }

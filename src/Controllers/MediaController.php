@@ -86,7 +86,7 @@ class MediaController extends BaseController
             $response .= '</div>';
             $response .= '<span class="filename">'.$file->getFilename().'</span>';
             $s = getimagesize($file);
-            $response .= '<div>'.($s?$s[0].' x '.$s[1].', ':'').number_format($file->getSize()/1000,2).' kB</div>';
+            $response .= '<div class="details">'.($s?$s[0].' x '.$s[1].', ':'').number_format($file->getSize()/1000,2).' kB</div>';
             if ($this->can('delete')) {
                 $response .= '<button class="delete button small is-red" data-confirm="'.trans('larapages::base.delete').'"><i class="fa fa-trash"></i></button>';
             }

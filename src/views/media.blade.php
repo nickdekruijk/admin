@@ -32,7 +32,10 @@
                 <input data-uploadLimit="{{ LaraPages\Admin\Controllers\MediaController::uploadLimit()*1024*1024 }}" id="fileupload" type="file" name="upl" multiple>
                 @endif
                 @if ($lp->can('delete'))
-                <button type="button" id="media_deletefolder" class="button border is-red" data-confirm="{{ trans('larapages::base.deletefolder') }}"><i class="fa fa-trash"></i>{{ trans('larapages::base.deletefolder') }}</button>
+                <button type="button" id="media_deletefolder" class="button border is-red" data-confirm="{{ trans('larapages::base.deletefolder') }}"><i class="fa fa-trash"></i><span>{{ trans('larapages::base.deletefolder') }}</span></button>
+                @endif
+                @if ($lp->can('read'))
+                <button type="button" class="button border start active view" data-view="th"><i class="fa fa-th-large"></i></button><button type="button" class="button border mid view" data-view="th-large"><i class="fa fa-th"></i></button><button type="button" class="button border end view" data-view="list"><i class="fa fa-list"></i></button>
                 @endif
                 <button type="button" id="media_close" class="button border"><i class="fa fa-ban"></i><span>{{ trans('larapages::base.close') }}</span></button>
                 <label class="f-right"><span id="current_folder"></span></label>
