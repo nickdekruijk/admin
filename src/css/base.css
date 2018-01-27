@@ -188,8 +188,8 @@ nav li:hover > ul > li {max-height:40px}
 
 #editview .content.report {padding:0}
 TABLE.report {border-spacing:0;border-collapse:collapse;width:100%;cursor:default}
-TABLE.report TH {position:-webkit-sticky;position:sticky;top:0;background-color:#ddd;font-weight:100;padding:3px 5px;text-align:left}
-TABLE.report TD {font-weight:100;padding:2px 5px;border:1px solid #ddd}
+TABLE.report TH {position:-webkit-sticky;position:sticky;top:0;background-color:#ddd;font-weight:100;padding:3px 7px;text-align:left}
+TABLE.report TD {font-weight:100;padding:2px 7px;border:1px solid #ddd}
 TABLE.report TD > DIV {max-height:100px;overflow:auto}
 TABLE.report TR:hover > TD {background-color:#0cb;border-color:#0cb}
 
