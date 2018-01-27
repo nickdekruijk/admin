@@ -26,6 +26,7 @@ header, nav {background-color:#2c3340}
 .f-right {float:right}
 .button {margin:0;display:inline-block;border:0 none;color:#fff;font:inherit;padding:4px 10px;border-radius:4px;cursor:pointer;font-size:13px;position:relative}
 .button.sort {cursor:move}
+.button > span:nth-of-type(2) {opacity:0.6}
 .button .fa:first-child {margin-right:5px;width:11px}
 .button.is-loading {pointer-events:none}
 .button.is-loading .fa:before {content:'\f250'}
@@ -122,13 +123,26 @@ nav li:hover > ul > li {max-height:40px}
 #editview .model-id #input_id {color:rgba(255,255,255,0.7)}
 
 /* Media */
-#editview .media {padding:0 7px 0 0}
-#editview .media UL {display:block;margin:0;padding:0;display:flex;flex-wrap:wrap}
-#editview .media LI {display:block;margin:0;padding:0;position:relative;background-color:rgba(0,0,0,0.1);margin:7px 0 0 7px;padding:7px;border-radius:4px;text-align:center;font-size:12px;border:1px solid rgba(0,0,0,0.05)}
-#editview .media .img {background-size:contain;background-position:center center;background-repeat:no-repeat;width:150px;height:150px;margin:0 auto 5px}
-#editview .media LI > div {color:rgba(0,0,0,0.5)}
+#editview UL.media {display:block;margin:-7px 0 0 -7px;padding:0;display:flex;flex-wrap:wrap}
+#editview UL.media > LI {display:block;margin:0;padding:0;position:relative;background-color:rgba(0,0,0,0.1);margin:7px 0 0 7px;padding:7px;border-radius:4px;text-align:center;font-size:12px;border:1px solid rgba(0,0,0,0.05)}
+#editview UL.media .img {background-size:contain;background-position:center center;background-repeat:no-repeat;width:150px;height:120px;margin:0 auto 5px;line-height:120px;color:rgba(255,255,255,0.5);font-size:40px;font-weight:600;text-transform:capitalize}
+#editview UL.media > LI > div {color:rgba(0,0,0,0.5)}
 #editview #current_folder {color:rgba(255,255,255,0.8);font-size:1.3em;text-transform:capitalize;line-height:18px}
 #editview #current_folder > SPAN {color:rgba(255,255,255,0.25);margin:0 5px}
+#fileupload {display:none}
+#editview UL.upload-progress {display:block;padding:0;margin:-7px}
+#editview UL.upload-progress>LI {background-color:#fff;display:block;padding:0 0 0 30px;margin:0;position:relative;border-bottom:1px solid rgba(0,0,0,0.2);clear:both;line-height:2em}
+#editview UL.upload-progress>LI:last-child {margin-bottom:7px}
+#editview UL.upload-progress>LI>SPAN.but {position:absolute;display:block;background-color:#d33;color:#fff;width:20px;height:20px;margin:0 4px 0 0;text-align:center;border-radius:4px;font-size:15px;cursor:pointer;left:7px;top:50%;margin-top:-10px}
+#editview UL.upload-progress>LI>SPAN.but:before {content:'\f05e';font-family:'Fontawesome';font-size:14px;margin-top:-5px;display:block}
+#editview UL.upload-progress>LI.error>SPAN.but:before {content:'\f00d'}
+#editview UL.upload-progress>LI.done>SPAN.but:before {content:'\f00c'}
+#editview UL.upload-progress>LI>DIV {background-color:rgba(0,200,0,0.4);height:2em;width:0%;position:absolute;left:0;top:0}
+#editview UL.upload-progress>LI.done>SPAN.but {background-color:#3b3;font-size:11px}
+#editview UL.upload-progress>LI.error {background-color:#fdd}
+#editview UL.upload-progress>LI.done {background-color:#dfd}
+#editview UL.upload-progress>LI.done DIV {display:none}
+#editview UL.upload-progress>LI.error DIV {display:none}
 
 .fullpage {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .4s;background-color:#d3d3d3;padding:1em}
 .fullpage H2 {margin:0;font-weight:300}
@@ -164,7 +178,7 @@ nav li:hover > ul > li {max-height:40px}
     .button {padding:5px;font-size:12px}
     header .button {display:none}
     #editview .header .button {font-size:13px;padding:5px 10px}
-    #editview .header .button > span {display:none}
+    #editview .header .button > span:first-child {display:none}
     #editview .header .button .fa:first-child {margin:auto;display:block}
     #editview.expanded {left:50px}
     #editview {width:calc(100% - 50px)}

@@ -49,7 +49,26 @@ return [
     |--------------------------------------------------------------------------
     | Prefix this to url when using a media item in href or src attributes
     */
-    'media_url' => '/media/',
+    'media_url' => '/media',
+
+    /*
+    |--------------------------------------------------------------------------
+    | media_upload_limit
+    |--------------------------------------------------------------------------
+    | Maximum size of an uploaded file in megabytes
+    | Still limited by php.ini upload_max_filesize and post_max_size
+    */
+    'media_upload_limit' => '128',
+
+    /*
+    |--------------------------------------------------------------------------
+    | media_upload_incremental
+    |--------------------------------------------------------------------------
+    | If files are uploaded they will replace existing files with the same name
+    | When set to true new uploads with the same name will have an incremental
+    | value added to the filename, for example img_1.jpg, img_2.jpg, etc.
+    */
+    'media_upload_incremental' => false,
 
     /*
     |--------------------------------------------------------------------------

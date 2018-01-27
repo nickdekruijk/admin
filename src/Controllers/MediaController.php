@@ -7,10 +7,20 @@ use File;
 
 class MediaController extends BaseController
 {
+    public static function uploadLimit()
+    {
+        $max = ini_get('upload_max_filesize') > (int)ini_get('post_max_size') ? (int)ini_get('post_max_size') : (int)ini_get('upload_max_filesize');
+        if (config('larapages.media_upload_limit') < $max) {
+            $max = config('larapages.media_upload_limit');
+        }
+        return $max;
+    }
+
     public function encodeUrl($str)
     {
-        return str_replace('%2F', '/', urlencode($str));
+        return str_replace('%2F', '/', rawurlencode($str));
     }
+
     public static function folders($path = null, $id = null)
     {
         if (!$path) {
@@ -39,6 +49,11 @@ class MediaController extends BaseController
         return $response;
     }
 
+    public static function trailingSlash($str)
+    {
+        return rtrim($str, '/') . '/';
+    }
+
     public function show($slug, $folder)
     {
         $this->checkSlug($slug, 'read');
@@ -46,16 +61,70 @@ class MediaController extends BaseController
         $files = File::files(config('larapages.media_path').'/'.$folder);
         natcasesort($files);
 
-        $response = '<ul>';
+        $preview = ['jpg', 'png', 'gif', 'jpeg'];
+        // Check if Safari version is 9 or higher so we can preview PDF thumbnails
+        $ua = @$_SERVER['HTTP_USER_AGENT'];
+        $safari = strpos($ua, 'Safari') && !strpos($ua, 'Chrome');
+        $p = strpos($ua, 'Version/');
+        $safariVersion = substr($ua, $p+8, strpos($ua, '.', $p)-$p-8);
+        if ($safariVersion >= 9) $preview[] = 'pdf';
+
+        $response = '';
         foreach ($files as $file) {
             $response .= '<li>';
-            $response .= '<div class="img" style="background-image:url(\''.$this->encodeUrl(config('larapages.media_url').'/'.$folder.'/'.$file->getFilename()).'\')"></div>';
+            $extension = strtolower($file->getExtension());
+            if (in_array($extension, $preview))
+                $response .= '<div class="img" style="background-image:url(\''.$this->encodeUrl($this->trailingSlash(config('larapages.media_url')).$folder.'/'.$file->getFilename()).'\')">';
+            else
+                $response .= '<div class="img">'.$extension;
+            $response .= '</div>';
             $response .= $file->getFilename();
             $s = getimagesize($file);
             $response .= '<div>'.($s?$s[0].' x '.$s[1].', ':'').number_format($file->getSize()/1000,2).' kB</div>';
             $response .= '</li>';
         }
-        $response .= '</ul>';
         return $response;
+    }
+
+    public function store($slug, $folder, Request $request)
+    {
+        $this->checkSlug($slug, 'create');
+        $folder = urldecode($folder);
+        // Which extensions are allowed
+        $allowed = ['png', 'jpg', 'jpeg', 'gif', 'zip', 'pdf', 'doc', 'docx', 'csv', 'xls', 'xlsx', 'pages', 'numbers', 'psd', 'mp4', 'mp3', 'mpg', 'm4a', 'ogg'];
+        // Check if upload file exists
+        if (!$request->hasFile('upl')) {
+            die('{"status":"error, File may be too big?"}');
+        }
+
+        $upl=$request->file('upl');
+
+        // Check if it had an error
+        if ($upl->getError()) {
+            die('{"status":"error '.$upl->getError().': '.str_replace('"','\\"', $upl->getErrorMessage()).'"}');
+        }
+
+        // Check if filesize is allowed
+        if ($upl->getClientSize() > $this->uploadLimit()*1024*1024) {
+            die('{"status":"File too big"}');
+        }
+
+        // Check if extension is allowed
+        if (!in_array(strtolower($upl->getClientOriginalExtension()), $allowed)) {
+            die('{"status":"Extension not allowed"}');
+        }
+
+        $filename = $upl->getClientOriginalName();
+        // If file exists add a number until file is available
+        if (config('larapages.media_upload_incremental')) {
+            $postfix = false;
+            while (file_exists(config('larapages.media_path').'/'.$folder.'/'.$filename)) {
+                if (!$postfix) $postfix = 2; else $postfix++;
+                $filename = pathinfo($upl->getClientOriginalName(), PATHINFO_FILENAME).'_'.$postfix.'.'.$upl->getClientOriginalExtension();
+            }
+        }
+        $request->file('upl')->move(config('larapages.media_path').'/'.$folder, $filename);
+        die('{"status":"success", "folder":"'.$folder.'"}');
+        return $request->toArray();
     }
 }

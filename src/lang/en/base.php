@@ -23,4 +23,5 @@ return [
     'mtime' => 'Time',
     'upload' => 'Upload',
     'rename' => 'Rename',
+    'max' => 'Max',
 ];
