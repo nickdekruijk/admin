@@ -145,6 +145,7 @@ class MediaController extends BaseController
         $file = config('larapages.media_path').'/'.$folder.'/'.$request->filename;
         $newname = config('larapages.media_path').'/'.$folder.'/'.$request->newname;
         if (!file_exists($file)) die('File not found '.$file);
+        if ($file == $newname) return;
         if (file_exists($newname)) die('File already exists '.$newname);
         if (substr(realpath($file), 0, strlen(config('larapages.media_path'))) !== config('larapages.media_path')) return 'Error file '.realpath($file);
         rename($file, $newname);
