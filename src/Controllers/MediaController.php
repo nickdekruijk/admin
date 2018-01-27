@@ -95,23 +95,23 @@ class MediaController extends BaseController
 
         // Check if upload file exists
         if (!$request->hasFile('upl')) {
-            die('{"status":"'.trans('larapages::base.uploaderror').'"}');
+            return '{"status":"'.trans('larapages::base.uploaderror').'"}';
         }
         $upl=$request->file('upl');
 
         // Check if it had an error
         if ($upl->getError()) {
-            die('{"status":"error '.$upl->getError().': '.str_replace('"','\\"', $upl->getErrorMessage()).'"}');
+            return '{"status":"error '.$upl->getError().': '.str_replace('"','\\"', $upl->getErrorMessage()).'"}';
         }
 
         // Check if filesize is allowed
         if ($upl->getClientSize() > $this->uploadLimit()*1024*1024) {
-            die('{"status":"'.trans('larapages::base.filetoobig').'"}');
+            return '{"status":"'.trans('larapages::base.filetoobig').'"}';
         }
 
         // Check if extension is allowed
         if (!in_array(strtolower($upl->getClientOriginalExtension()), config('larapages.media_allowed_extensions'))) {
-            die('{"status":"'.trans('larapages::base.extnotallowed').'"}');
+            return '{"status":"'.trans('larapages::base.extnotallowed').'"}';
         }
 
         $filename = $upl->getClientOriginalName();
@@ -124,7 +124,7 @@ class MediaController extends BaseController
             }
         }
         $request->file('upl')->move(config('larapages.media_path').'/'.$folder, $filename);
-        die('{"status":"success"}');
+        return '{"status":"success"}';
         return $request->toArray();
     }
 
@@ -133,7 +133,7 @@ class MediaController extends BaseController
         $this->checkSlug($slug, 'delete');
         $folder = urldecode($folder);
         $file = config('larapages.media_path').'/'.$folder.'/'.$request->filename;
-        if (!file_exists($file)) die('File not found '.$file);
+        if (!file_exists($file)) return 'File not found '.$file;
         if (substr(realpath($file), 0, strlen(config('larapages.media_path'))) !== config('larapages.media_path')) return 'Error '.realpath($file);
         unlink($file);
     }
@@ -144,14 +144,14 @@ class MediaController extends BaseController
         $folder = urldecode($folder);
         $file = config('larapages.media_path').'/'.$folder.'/'.$request->filename;
         $newname = config('larapages.media_path').'/'.$folder.'/'.$request->newname;
-        if (!file_exists($file)) die('File not found '.$file);
+        if (!file_exists($file)) return 'File not found '.$file;
         if ($file == $newname) return;
-        if (file_exists($newname)) die('File already exists '.$newname);
+        if (file_exists($newname)) return 'File already exists '.$newname;
         if (substr(realpath($file), 0, strlen(config('larapages.media_path'))) !== config('larapages.media_path')) return 'Error file '.realpath($file);
         // Check if extension is allowed
         $extension = strtolower(substr($newname, strrpos($newname, '.')+1));
         if (!in_array($extension, config('larapages.media_allowed_extensions'))) {
-            die(trans('larapages::base.extnotallowed').': .'.$extension);
+            return trans('larapages::base.extnotallowed').': .'.$extension;
         }
         rename($file, $newname);
     }
