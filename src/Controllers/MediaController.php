@@ -81,8 +81,12 @@ class MediaController extends BaseController
             $response .= '<span class="filename">'.$file->getFilename().'</span>';
             $s = getimagesize($file);
             $response .= '<div>'.($s?$s[0].' x '.$s[1].', ':'').number_format($file->getSize()/1000,2).' kB</div>';
-            $response .= '<button class="delete button small is-red" data-confirm="'.trans('larapages::base.delete').'"><i class="fa fa-trash"></i></button>';
-            $response .= '<button class="rename button small" data-prompt="'.trans('larapages::base.rename').'"><i class="fa fa-info"></i></button>';
+            if ($this->can('delete')) {
+                $response .= '<button class="delete button small is-red" data-confirm="'.trans('larapages::base.delete').'"><i class="fa fa-trash"></i></button>';
+            }
+            if ($this->can('update')) {
+                $response .= '<button class="rename button small" data-prompt="'.trans('larapages::base.rename').'"><i class="fa fa-info"></i></button>';
+            }
             $response .= '</li>';
         }
         return $response;
