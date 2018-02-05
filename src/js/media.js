@@ -16,7 +16,7 @@ function mediaShow(slug) {
         });
         $('#editview UL.media LI').click(function() {
             if (mediaBrowse) {
-                parent.modelAddMediaFile($(this).data('file'));
+                parent.modelAddMediaFile(decodeURIComponent($(this).data('file')));
             }
         });
         loadingDone();

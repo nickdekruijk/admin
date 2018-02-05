@@ -77,7 +77,7 @@ class MediaController extends BaseController
 
         $response = '';
         foreach ($files as $file) {
-            $response .= '<li data-file="'.$this->encodeUrl($folder.'/'.$file->getFilename()).'">';
+            $response .= '<li data-file="'.rawurlencode($folder.'/'.$file->getFilename()).'">';
             $extension = strtolower($file->getExtension());
             if (in_array($extension, $preview))
                 $response .= '<div class="img" style="background-image:url(\''.$this->encodeUrl($this->trailingSlash(config('larapages.media_url')).$folder.'/'.$file->getFilename()).'\')">';
