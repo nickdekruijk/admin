@@ -126,7 +126,7 @@ function modelUpdateImages() {
             var image = lines[i].split('|');
             image.push(image.splice(1).join('|') );
             var src = $(this).data('url') + image[0];
-            $(this).next('UL').children('.button').before('<li data-image="'+image[0].replace(/\"/g,'&quot;')+'" data-caption="'+image[1]+'"><img src="'+encodeURI(src)+'" alt=""><button class="delete button small is-red"><i class="fa fa-trash"></i></button><span>'+(image[1]?image[1]:modelImageBaseName(image[0]))+'</span></li>');
+            $(this).next('UL').children('.button').before('<li data-image="'+image[0].replace(/\"/g,'&quot;')+'" data-caption="'+image[1].replace(/\"/g,'&quot;')+'"><img src="'+encodeURI(src)+'" alt=""><button class="delete button small is-red"><i class="fa fa-trash"></i></button><span>'+(image[1]?image[1]:modelImageBaseName(image[0]))+'</span></li>');
         }
         $(this).next('UL').children('LI').click(function() {
             modelImageCaption(this);
