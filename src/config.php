@@ -148,9 +148,11 @@ return [
                 ],
                 'pictures' => [
                     'title_nl' => 'Afbeeldingen',
+                    'type' => 'images',
                 ],
                 'background' => [
                     'title_nl' => 'Achtergrond',
+                    'type' => 'image',
                 ],
                 'body' => [
                     'title_nl' => 'Inhoud',

@@ -126,6 +126,21 @@ nav li:hover > ul > li {max-height:40px}
 #editview .content .errormsg {color:#c33;position:absolute;right:0}
 #editview .model-id {color:rgba(255,255,255,0.25)}
 #editview .model-id #input_id {color:rgba(255,255,255,0.7)}
+#editview TEXTAREA.images {dis1play:none}
+#editview UL.input_images {display:block;padding:0;margin:0 0 0 -7px}
+#editview UL.input_images:after {content:'';display:block;clear:both}
+#editview UL.input_images > LI {display:block;float:left;padding:0;margin:0 0 0 7px;width:100px;height:75px;background-position:center center;background-repeat:no-repeat;background-size:contain;position:relative;cursor:pointer}
+#editview UL.input_images > LI > SPAN {position:absolute;font-size:0.8em;left:0;right:0;bottom:0;text-shadow:#000 0 1px 2px;color:#fff;padding:2px 3px;overflow:hidden;text-align:center;opacity:0.4;font-weight:600}
+#editview UL.input_images > LI:hover {background-color:#0cb;outline:#0cb solid 3px;background-size:cover}
+#editview UL.input_images > LI:hover > SPAN {opacity:1}
+#editview UL.input_images > LI .button.delete {top:5px;right:5px;position:absolute}
+#editview UL.input_images > LI:not(:hover) .button {display:none}
+#editview UL.input_images > .button.add {position:relative;margin:0px 0 0 7px;display:block;float:left}
+#editview UL.input_images > .button.add:not(:first-child) {width:75px;height:75px;opacity:0.3}
+#editview UL.input_images > .button.add:not(:first-child):hover {opacity:1}
+#editview UL.input_images.image > .button.add:not(:first-child) {display:none}
+#media_browser {position:fixed;top:0;bottom:0;left:0;right:0;background-color:rgba(0,0,0,0.6);z-index:3000}
+#media_browser > IFRAME {border:0 none;position:fixed;left:10%;top:10%;width:80%;height:80%;display:block;box-shadow:rgba(0,0,0,0.8) 0 3px 8px}
 
 /* Media */
 #editview UL.media {display:block;margin:-7px 0 0 -7px;padding:0;display:flex;flex-wrap:wrap}
@@ -192,6 +207,11 @@ TABLE.report TH {position:-webkit-sticky;position:sticky;top:0;background-color:
 TABLE.report TD {font-weight:100;padding:2px 7px;border:1px solid #ddd}
 TABLE.report TD > DIV {max-height:100px;overflow:auto}
 TABLE.report TR:hover > TD {background-color:#0cb;border-color:#0cb}
+
+.browse nav,
+.browse header {display:none}
+.browse #listview {top:0;left:0}
+.browse #editview {top:0}
 
 .ui-datepicker {font-size:0.9em !important;font-family: inherit !important}
 .ui-widget button {font-family: inherit !important}

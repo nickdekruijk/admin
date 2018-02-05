@@ -31,4 +31,6 @@ return [
     'foldername' => 'Folder name',
     'deletefolder' => 'Delete folder',
     'report' => 'Report',
+    'caption' => 'Caption',
+    'captionfor' => 'Caption for',
 ];

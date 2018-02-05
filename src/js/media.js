@@ -8,9 +8,16 @@ function mediaShow(slug) {
         $('#editview UL.media').html(data);
         $('#editview UL.media LI .button.delete').click(function() {
             mediaDestroy(slug, this);
+            return false;
         });
         $('#editview UL.media LI .button.rename').click(function() {
             mediaRename(slug, this);
+            return false;
+        });
+        $('#editview UL.media LI').click(function() {
+            if (mediaBrowse) {
+                parent.modelAddMediaFile($(this).data('file'));
+            }
         });
         loadingDone();
     }).fail(function(xhr,status,error) {
@@ -193,7 +200,10 @@ function mediaChangeView(button) {
     $('#editview .content').addClass($('.button.view.active').data('view'));
 }
 
-function mediaInit(slug) {
+var mediaBrowse = false
+
+function mediaInit(slug, browse) {
+    if (browse) mediaBrowse = true;
 	$(document).keydown(function(e) {
 		var keyCode=e.keyCode || e.which;
 		if (keyCode==27) {

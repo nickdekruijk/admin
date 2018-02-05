@@ -31,4 +31,6 @@ return [
     'foldername' => 'Naam map',
     'deletefolder' => 'Map wissen',
     'report' => 'Rapport',
+    'caption' => 'Ondertitel',
+    'captionfor' => 'Ondertitel voor',
 ];

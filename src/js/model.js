@@ -80,6 +80,64 @@ function modelSaveSorting(slug, parent) {
     });
 }
 
+function modelImageBaseName(str) {
+    var base = new String(str).substring(str.lastIndexOf('/') + 1);
+    if(base.lastIndexOf(".") != -1)
+        base = base.substring(0, base.lastIndexOf("."));
+    return base;
+}
+
+function modelImageCaption(element) {
+    var caption = prompt(trans['caption']+' "'+$(element).data('image')+'"', $(element).data('caption'));
+    if (caption != null && caption != $(element).data('caption')) {
+        $(element).data('caption', caption);
+        $(element).find('SPAN').text(caption?caption:modelImageBaseName($(element).data('image')));
+        modelUpdateImagesTextarea($(element).parent());
+    }
+}
+
+function modelUpdateImagesTextarea(element) {
+    var text = '';
+    $(element).children('LI').each(function() {
+        if (text) text += "\n";
+        text += $(this).data('image');
+        if ($(this).data('caption')) text += '|'+$(this).data('caption');
+    });
+    $(element).prev('TEXTAREA').val(text);
+}
+
+function modelImageDelete(element) {
+    var p = $(element).parent().parent();
+    $(element).parent().detach();
+    modelUpdateImagesTextarea(p);
+}
+
+function modelUpdateImages() {
+    $('TEXTAREA.images').each(function() {
+        var lines = $(this).val().match(/[^\r\n]+/g);
+        $(this).next('UL').children('LI').detach();
+        $(this).next('UL.sortable').sortable({
+            items: "> li",
+            update: function() {
+                modelUpdateImagesTextarea(this);
+            }
+        }).disableSelection().removeClass('sortable');
+        for (i in lines) {
+            var image = lines[i].split('|');
+            image.push(image.splice(1).join('|') );
+            var src = $(this).data('url') + image[0];
+            $(this).next('UL').children('.button').before('<li data-image="'+image[0]+'" data-caption="'+image[1]+'" style="background-image:url(\''+src+'\')"><button class="delete button small is-red"><i class="fa fa-trash"></i></button><span>'+(image[1]?image[1]:modelImageBaseName(image[0]))+'</span></li>');
+        }
+        $(this).next('UL').children('LI').click(function() {
+            modelImageCaption(this);
+        });
+        $(this).next('UL').children('LI').children('.button.delete').click(function(e) {
+            modelImageDelete(this);
+            return false;
+        });
+    });
+}
+
 function modelShow(slug, id) {
     loading();
     $.ajax(slug+'/'+id, {
@@ -94,6 +152,7 @@ function modelShow(slug, id) {
             $('#input_'+i+'_confirmation').val(data[i]);
             if ($('#input_'+i).hasClass('tinymce')) {
                 tinymce.get('input_'+i).setContent(data[i]?data[i]:'');
+                modelUpdateImages();
             }
         }
         loadingDone();
@@ -276,9 +335,32 @@ function modelKeydown() {
 	$(document).keydown(function(e) {
 		var keyCode=e.keyCode || e.which;
 		if (keyCode==27) {
-			$('#model_close').click();
+    		if ($('#media_browser').length)
+    		    $('#media_browser').detach();
+    		else
+			    $('#model_close').click();
 		}
 	});
+}
+
+var modelAddMediaElement = false;
+
+function modelAddMedia(slug, element) {
+    $('BODY').append('<div id="media_browser"><iframe src="media?browse=true"></iframe></div>');
+    modelAddMediaElement = element;
+    $('#media_browser').click(function() {
+        $('#media_browser').detach();
+    })
+}
+
+function modelAddMediaFile(file) {
+    $('#media_browser').detach();
+    var textarea = $(modelAddMediaElement).parent().prev('textarea');
+    var text = textarea.val();
+    if (text) text += "\n";
+    text += file;
+    textarea.val(text);
+    modelUpdateImages();
 }
 
 function modelInit(slug) {
@@ -301,4 +383,7 @@ function modelInit(slug) {
     modelNestedSortable(slug);
     modelListViewClick(slug);
     modelEditViewClick(slug);
+    $('UL.input_images .button.add').click(function() {
+        modelAddMedia(slug, this);
+    })
 }

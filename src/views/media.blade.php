@@ -53,6 +53,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.20.0/js/jquery.iframe-transport.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.20.0/js/jquery.fileupload.min.js"></script>
 <script>
-    mediaInit('{{$lp->slug()}}');
+    mediaInit('{{ $lp->slug() }}', {{ $lp->browse(true) }});
 </script>
 @endsection

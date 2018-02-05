@@ -282,4 +282,9 @@ class BaseController extends Controller
         }
         return $rules;
     }
+
+    public function browse($return = 'browse')
+    {
+        return isset($_GET['browse']) && $_GET['browse']=='true'?$return:'';
+    }
 }

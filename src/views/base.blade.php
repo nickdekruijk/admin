@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="{{ asset(config('larapages.adminpath') . '/all.css') }}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
-    <body>
+    <body class="{{ $lp->browse() }}">
         <div class="loading"><i class="fa fa-circle-o-notch fa-spin"></i></div>
         <nav class="{{ isset($_COOKIE['nav-toggle']) && $_COOKIE['nav-toggle']=='true'?'expanded':'' }}">
             <h1><a href="{{ url(config('larapages.adminpath')) }}">{!! config('larapages.logo') !!}</a></h1>

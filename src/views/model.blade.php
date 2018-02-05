@@ -61,7 +61,10 @@
                 </select>
                 @elseif ($column['type'] == 'text' || $column['type'] == 'mediumtext' || $column['type'] == 'longtext')
                 <textarea class="{{isset($column['tinymce'])?'tinymce':''}}" name="{{ $id }}" id="input_{{ $id }}" rows="{{$column['type'] == 'mediumtext' ? 10 : ($column['type'] == 'longtext' ? 15 : 5)}}" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
-                @elseif ($column['type']!='boolean')
+                @elseif ($column['type'] == 'image' || $column['type'] == 'images')
+                <textarea class="images" name="{{ $id }}" id="input_{{ $id }}" data-url="{{ rtrim(config('larapages.media_url'), '/') }}/"></textarea>
+                <ul class="input_images {{ $column['type'] }} {{ $column['type']=='images'?'sortable':'' }}" id="images_{{ $id }}"><button class="button add"><i class="fa fa-plus"></i></button></ul>
+                @elseif ($column['type'] != 'boolean')
                 {{$column['type']}}
                 @endif
                 @endforeach
@@ -80,6 +83,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nestedSortable/2.0.0/jquery.mjs.nestedSortable.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.4/tinymce.min.js"></script>
 <script>
+    var trans = {
+        'caption': '{{ trans('larapages::base.captionfor') }}',
+        'delete': '{{ trans('larapages::base.delete') }}',
+    };
     modelInit('{{$lp->slug()}}');
     tinymce.init({
     	    selector:'textarea.tinymce',
