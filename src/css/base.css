@@ -126,7 +126,6 @@ nav li:hover > ul > li {max-height:40px}
 #editview .content .errormsg {color:#c33;position:absolute;right:0}
 #editview .model-id {color:rgba(255,255,255,0.25)}
 #editview .model-id #input_id {color:rgba(255,255,255,0.7)}
-#editview TEXTAREA.images {dis1play:none}
 #editview UL.input_images {display:block;padding:0;margin:0 0 0 -7px}
 #editview UL.input_images:after {content:'';display:block;clear:both}
 #editview UL.input_images > LI {display:block;float:left;padding:0;margin:0 0 0 7px;width:100px;height:75px;background-position:center center;background-repeat:no-repeat;background-size:contain;position:relative;cursor:pointer}
