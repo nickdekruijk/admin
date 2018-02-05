@@ -178,7 +178,7 @@ return [
             'disabled' => false,
             'queries' => [
                 'All pages' => 'SELECT * FROM pages',
-                'Admin user' => 'SELECT id,name,email,created_at,updated_at,admin_role FROM users WHERE admin_role NOT NULL',
+//                 'Admin user' => 'SELECT id,name,email,created_at,updated_at,admin_role FROM users WHERE admin_role NOT NULL',
                 'Settings' => 'SELECT * FROM settings',
             ],
         ],
@@ -259,7 +259,7 @@ return [
             'permissions' => [
                 'dashboard' => [ 'read' ],
                 'pages' => [ 'create', 'read', 'update' ],
-                'media' => [ 'create', 'read', 'update' ],
+                'media' => [ 'create', 'read', 'update', 'delete' ],
                 'settings' => [ 'read', 'update' ],
                 'reports' => [ 'read' ],
             ],
