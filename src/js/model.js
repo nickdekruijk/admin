@@ -1,3 +1,16 @@
+function modelSortable(slug) {
+    $('#listview:not(.treeview) > .content.sortable > UL').sortable({
+        items: "> li",
+    	handle: 'div',
+    	opacity: .6,
+    	forcePlaceholderSize: true,
+    	placeholder: "ui-state-highlight",
+        update: function(event, ui) {
+            modelSaveSorting(slug);
+        }
+    }).disableSelection();
+}
+
 function modelNestedSortable(slug) {
     $('#listview.treeview > .content.sortable > UL').nestedSortable({
     	forcePlaceholderSize: true,
@@ -381,6 +394,7 @@ function modelInit(slug) {
     });
     modelKeydown();
     modelNestedSortable(slug);
+    modelSortable(slug);
     modelListViewClick(slug);
     modelEditViewClick(slug);
     $('UL.input_images .button.add').click(function() {
