@@ -178,7 +178,7 @@ class BaseController extends Controller
             if ($column == 'id') {
                 $response .= 'id';
             } else {
-                $response .= $this->locale('index_title', $this->columns('columns')[$column], false) ?: $this->locale('title', $this->columns('columns')[$column], $column);
+                $response .= $this->locale('index_title', $this->columns($column), false) ?: $this->locale('title', $this->columns($column), $column);
             }
             $response .='</span>';
         }
@@ -198,7 +198,7 @@ class BaseController extends Controller
         foreach (explode(',', $this->module('index')) as $column) {
             if ($row[$column] === true) {
                 $response .='<span class="center"><i class="fa fa-check"></i></span>';
-            } elseif ($this->columns($column)['type'] == 'date') {
+            } elseif ($this->columns($column, 'type') == 'date') {
                 $response .='<span>'.str_replace(' 00:00:00', '', $row[$column]).'</span>';
             } else {
                 $response .='<span>'.$row[$column].'</span>';
@@ -241,7 +241,7 @@ class BaseController extends Controller
     }
 
     // Get the module columns
-    public function columns($columnId = null)
+    public function columns($columnId = null, $index = null)
     {
         $columns = [];
         $model = $this->model();
@@ -262,7 +262,7 @@ class BaseController extends Controller
                 $columns[$id]['type'] = isset($model->getCasts()[$id]) ? $model->getCasts()[$id] : 'string';
             }
             if ($id == $columnId) {
-                return $columns[$id];
+                return $index && isset($columns[$id][$index]) ? $columns[$id][$index] : $columns[$id];
             }
         }
         return $columns;
