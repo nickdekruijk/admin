@@ -17,7 +17,6 @@ function modelNestedSortable(slug) {
     	items: 'li',
     	handle: 'div',
     	isTree: true,
-    	placeholder: 'menu-highlight',
     	listType: 'ul',
     /* 	maxLevels: 3, */
     	opacity: .6,
