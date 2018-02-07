@@ -152,9 +152,9 @@ function modelShow(slug, id) {
             $('#input_'+i+'_confirmation').val(data[i]);
             if ($('#input_'+i).hasClass('tinymce')) {
                 tinymce.get('input_'+i).setContent(data[i]?data[i]:'');
-                modelUpdateImages();
             }
         }
+        modelUpdateImages();
         loadingDone();
     }).fail(function(xhr,status,error) {
         alert(status);
