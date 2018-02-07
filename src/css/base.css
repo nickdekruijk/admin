@@ -187,7 +187,7 @@ nav li:hover > ul > li {max-height:40px}
 .fullpage {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .4s;background-color:#d3d3d3;padding:1em}
 .fullpage H2 {margin:0;font-weight:300}
 
-.ui-state-highlight {background-color:rgba(0,0,0,0.2) !important;border-color:transparent !important}
+.ui-state-highlight {background-color:#0cb !important;border:0 none !important;opacity:0.4}
 .ui-sortable-helper > DIV {cursor:move !important}
 
 .loading {position:fixed;top:0;bottom:0;left:0;right:0;z-index:1500;display:none;transition:background-color .4s;cursor:wait}
