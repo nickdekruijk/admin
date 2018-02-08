@@ -62,7 +62,7 @@ class BaseController extends Controller
 
         // Get all modules the user has access to
         $role['modules'] = [];
-        foreach(config('larapages.modules') as $id => $module) {
+        foreach(array_merge(config('larapages.modules'), config('larapages.modules2', [])) as $id => $module) {
             // Localize title when available
             $module['title'] = $this->locale('title', $module, $id);
 
