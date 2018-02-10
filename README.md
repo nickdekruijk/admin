@@ -5,7 +5,9 @@
 [![License](https://poser.pugx.org/larapages/admin/license)](https://packagist.org/packages/larapages/admin)
 
 # Still in beta!
-No official release yet so for now you can only use the dev-master branch with `composer require larapages/admin:dev-master`.
+No official release yet so for now you can only use the dev-master branch with 
+
+`composer require larapages/admin:dev-master`
 
 # LaraPages
 A simple, lightweight yet complete Laravel 5.5+ admin panel/backend and media/filemanager.
@@ -34,7 +36,7 @@ LaraPages uses the auth middleware from Laravel. To determine if a user has perm
 A migration is included with the package so you can run `php artisan migrate` to add the column. If you don't want to use the included migration you can disable it by changing the configuration option `role_column_migration` to false. 
 
 ### Configure modules and roles
-The most important configuration option is the `modules` array. The default will get you started but you most likely need to change a lot depending on your application. Each module is identified by a unique slug and it has a [fontawesome.io](http://fontawesome.io/icons/) icon and opens a view. It also has a title (defaults to the slug) that you can localise (e.g. title_nl). All other options are view/module specific and will be documented in the future. The slugs are also used to define the permissions in the `roles` array so if you add or remove modules you probably need to change the roles too.
+The most important configuration option is the `modules` array. The default will get you started but you most likely need to change a lot depending on your application. Each module is identified by a unique slug and it has a [fontawesome.io](https://fontawesome.com/v4.7.0/icons/) icon and opens a view. It also has a title (defaults to the slug) that you can localise (e.g. title_nl). All other options are view/module specific and will be documented in the future. The slugs are also used to define the permissions in the `roles` array so if you add or remove modules you probably need to change the roles too.
 
 ### Login routes
 By default LaraPages will register login and logout routes and use a simple login screen without registration, 'Remember me' or password resets.
