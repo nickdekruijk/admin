@@ -229,8 +229,8 @@ TABLE.report TR:hover > TD {background-color:#0cb;border-color:#0cb}
 @media (max-width: 650px) {
     .button {padding:5px;font-size:12px}
     header .button {display:none}
-    #editview .header .button {font-size:13px;padding:5px 10px}
-    #editview .header .button > span:first-child {display:none}
+    #editview .header .button {font-size:14px;padding:6px 10px 6px;margin-right:2px}
+    #editview .header .button > span {display:none}
     #editview .header .button .fa:first-child {margin:auto;display:block}
     #editview.expanded {left:50px}
     #editview {width:calc(100% - 50px)}
