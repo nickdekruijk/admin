@@ -4,8 +4,8 @@
 [![Total Downloads](https://poser.pugx.org/larapages/admin/downloads)](https://packagist.org/packages/larapages/admin)
 [![License](https://poser.pugx.org/larapages/admin/license)](https://packagist.org/packages/larapages/admin)
 
-# In early development, missing core functionality
-For now see [nickdekruijk/larapages](https://github.com/nickdekruijk/larapages) to get an idea where this is heading.
+# Still in beta!
+No official release yet so for now you can only use the dev-master branch with `composer require larapages/admin:dev-master`.
 
 # LaraPages
 A simple, lightweight yet complete Laravel 5.5+ admin panel/backend and media/filemanager.
