@@ -1,7 +1,7 @@
 function modelSortable(slug) {
     $('#listview:not(.treeview) > .content.sortable > UL').sortable({
         items: "> li",
-    	handle: 'div',
+    	handle: 'span',
     	opacity: .6,
     	forcePlaceholderSize: true,
     	placeholder: "ui-state-highlight",
