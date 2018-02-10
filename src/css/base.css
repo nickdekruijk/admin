@@ -42,7 +42,7 @@ header .nav-hamburger > span {display:block;height:3px;background-color:#fff;wid
 /* header .nav-hamburger:hover > span {background-color:rgba(255,255,255,0.7)} */
 /* header .nav-hamburger:hover > span:first-child {transform:translate3d(12px, -2px, 0) rotate(45deg) scaleX(.7)} */
 /* header .nav-hamburger:hover > span:last-child {transform:translate3d(12.5px, 1.9px, 0) rotate(-45deg) scaleX(.7)} */
-header h2 {color:#fff;font-weight:300;line-height:50px;margin:0}
+header h2 {color:#fff;font-weight:300;line-height:50px;margin:0;white-space:nowrap}
 header .button {float:right;margin-right:7px;margin-top:12px}
 
 nav {position:fixed;top:0;left:0;bottom:0;width:50px;overflow:hidden;transition:width .4s;z-index:2000}
@@ -238,11 +238,9 @@ TABLE.report TR:hover > TD {background-color:#0cb;border-color:#0cb}
     nav.expanded ~ #editview.expanded {left:50%;width:50%}
 }
 @media (max-width: 650px) {
-    .button {padding:5px;font-size:12px}
-    header .button {display:none}
-    #editview .header .button {font-size:14px;padding:6px 10px 6px;margin-right:2px}
-    #editview .header .button > span {display:none}
-    #editview .header .button .fa:first-child {margin:auto;display:block}
+    #editview .header {white-space:nowrap}
+    #editview .header .button {padding-left:5px;padding-right:3px;max-width:20%}
+    #editview .header .button > span {font-size:12px}
     #editview.expanded {left:50px}
     #editview {width:calc(100% - 50px)}
 }
