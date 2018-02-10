@@ -97,7 +97,6 @@ nav li:hover > ul > li {max-height:40px}
 #listview LI UL.closed LI > DIV {height:0;padding-top:0;padding-bottom:0;border-width:0;opacity:0}
 #listview LI UL.closed:before {transform:rotate(-90deg)}
 #listview LI UL.closed.hover:before {color:#fff}
-#listview LI.inactive > DIV > SPAN {text-decoration:line-through;color:rgba(0,0,0,0.3)}
 
 #listview .table {display:table;width:100%;position:relative;top:auto;left:auto;bottom:auto;right:auto;overflow:auto}
 #listview .table .header {display:table-row}
@@ -107,6 +106,9 @@ nav li:hover > ul > li {max-height:40px}
 #listview .table UL > LI > SPAN {color:rgba(0,0,0,0.4);font-size:0.85em;display:table-cell;padding:5px 0 6px 13px;border-bottom:1px solid rgba(0,0,0,0.05);border-top:1px solid rgba(255,255,255,0.35)}
 #listview .table UL > LI > SPAN:first-of-type {font-weight:400;color:#000;font-size:1em}
 #listview .table UL > LI > SPAN:last-of-type {width:100%}
+
+#listview .table UL LI.inactive > SPAN,
+#listview LI.inactive > DIV > SPAN {text-decoration:line-through;color:rgba(0,0,0,0.3)}
 
 #editview.expanded {left:25%}
 #editview {position:fixed;left:100%;width:75%;bottom:0;top:50px;transition:left 0.6s;background-color:#eee}
