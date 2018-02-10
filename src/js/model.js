@@ -236,7 +236,11 @@ function modelUpdate(slug, id) {
         data: $('#model_form').serialize(),
         method: 'patch',
     }).done(function(data,status,xhr) {
-        $('#listview LI[data-id='+id+'] > DIV').html(data.li);
+        if (listviewTable())
+            $('#listview LI[data-id='+id+']').html(data.li);
+        else {
+            $('#listview LI[data-id='+id+'] > DIV').html(data.li);
+        }
         modelInactive(data);
         listviewSetColumnWidth();
         loadingDone();
@@ -293,9 +297,9 @@ function modelEditViewReset(checked, dontreset) {
     if (!dontreset) $('#model_form')[0].reset();
     $('#listview LI.active').removeClass('active');
     if (checked)
-        $('#editview').addClass('expanded');
+        $('#editview, #listview').addClass('expanded');
     else
-        $('#editview').removeClass('expanded');
+        $('#editview, #listview').removeClass('expanded');
 }
 
 function modelId(setId) {

@@ -5,14 +5,13 @@
 
 @section('view')
         <section id="listview" class="treeview">
-            @if ($lp->can('read'))
-            <div class="header">
-                <span>{{ trans('larapages::base.folders') }}</span>
-                <span>{{ trans('larapages::base.files') }}</span>
-                <span>{{ trans('larapages::base.size') }}</span>
-            </div>
             <div class="content">
                 @if ($lp->can('read'))
+                <div class="header">
+                    <span>{{ trans('larapages::base.folders') }}</span>
+                    <span>{{ trans('larapages::base.files') }}</span>
+                    <span>{{ trans('larapages::base.size') }}</span>
+                </div>
                 <div class="folders">
                     {!! LaraPages\Admin\Controllers\MediaController::folders() !!}
                 </div>
@@ -21,7 +20,6 @@
                 <button class="button add" id="media_newfolder" data-prompt="{{ trans('larapages::base.foldername') }}"><i class="fa fa-plus-circle"></i><span>{{ trans('larapages::base.newfolder') }}</span></button>
                 @endif
             </div>
-            @endif
         </section>
         @if ($lp->can('read'))
         <section id="editview">

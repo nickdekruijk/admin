@@ -9,6 +9,7 @@ function str_slug(text) {
 
 // Set the width of the columns/header based on the widest content
 function listviewSetColumnWidth() {
+    if (listviewTable()) return false;
     var widths = new Array();
     var maxdepth = 0;
     $('#listview LI SPAN, #listview .header SPAN').css('width', 'auto');
@@ -33,6 +34,10 @@ function listviewSetColumnWidth() {
     $('#listview .header SPAN').each(function(e) {
         $(this).css('width', widths[e] + (e==0?maxdepth:0));
     });
+}
+
+function listviewTable() {
+    return $('#listview > .table').length;
 }
 
 listviewSetColumnWidth();

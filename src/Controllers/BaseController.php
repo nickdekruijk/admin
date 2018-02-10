@@ -194,7 +194,7 @@ class BaseController extends Controller
 
     public function listviewRow($row)
     {
-        $response = '<i></i>';
+        $response = $this->module('treeview')?'<i></i>':'';
         foreach (explode(',', $this->module('index')) as $column) {
             if ($row[$column] === true) {
                 $response .='<span class="center"><i class="fa fa-check"></i></span>';
@@ -226,12 +226,13 @@ class BaseController extends Controller
         foreach($model->get() as $row) {
             // First row, add <ul>
             if (!$response) $response .= '<ul>';
-            $response .= '<li data-id="'.$row['id'].'"'.($this->module('active') && !$row[$this->module('active')]?' class=inactive':'').'><div>';
-            $response .= $this->listviewRow($row);
-            $response .= '</div>';
+            $response .= '<li data-id="'.$row['id'].'"'.($this->module('active') && !$row[$this->module('active')]?' class=inactive':'').'>';
             if ($this->module('treeview')) {
+                $response .= '<div>'.$this->listviewRow($row).'</div>';
                 // Add children if any
                 $response .= $this->listviewData($row->id);
+            } else {
+                $response .= $this->listviewRow($row);
             }
             $response .= '</li>';
         }

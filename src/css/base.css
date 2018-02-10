@@ -7,11 +7,11 @@ a {text-decoration:none}
 
 /* Colors */
 .ui-state-highlight, .button:hover, header .nav-hamburger:hover > span, nav h1, .button.is-primary,
-#listview LI.active > DIV, #listview LI > DIV:hover {background-color:#0cb}
-#listview LI.active > DIV, #listview LI > DIV:hover {border-top-color:rgba(255,255,255,0.1)}
+#listview LI.active > DIV, #listview LI > DIV:hover, #listview .table LI:hover, #listview .table LI.active {background-color:#0cb}
+#listview LI.active > DIV, #listview LI > DIV:hover, #listview .table LI:hover > SPAN, #listview .table LI.active > SPAN {border-top-color:rgba(255,255,255,0.1)}
 header, nav {background-color:#2c3340}
 .dashboard > UL > LI, .button, #listview .header, #editview .header {background-color:#178}
-#listview LI.active > DIV > SPAN {color:#fff !important}
+#listview LI.active > DIV > SPAN, #listview .table LI.active > SPAN {color:#fff !important}
 .button.border.active {background-color:rgba(255,255,255,0.25)}
 .button.border:hover {background-color:rgba(255,255,255,0.6)}
 .button.border.is-primary {background-color:rgba(255,255,255,0.3)}
@@ -72,7 +72,9 @@ nav li li > a {padding-left:10px}
 nav li.open > ul > li,
 nav li:hover > ul > li {max-height:40px}
 
-#listview {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .4s;background-color:#d3d3d3}
+#listview {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .6s;background-color:#d3d3d3;overflow:auto}
+#listview.expanded {right:75%}
+#listview .header {position:-webkit-sticky;position:sticky;top:0px;left:0;right:0;height:28px;padding:6px 7px;border-left:1px solid rgba(0,0,0,0.1);color:#fff;overflow:hidden;z-index:1}
 #listview .header {line-height:26px;white-space:nowrap}
 #listview .header SPAN {display:inline-block;margin:0 6px}
 #listview.treeview .header SPAN:first-child {margin-left:18px}
@@ -80,10 +82,10 @@ nav li:hover > ul > li {max-height:40px}
 #listview SPAN.center {text-align:center}
 #listview SPAN.right {text-align:right}
 
-#listview .content {position:absolute;top:40px;bottom:0;left:0;right:0;overflow:hidden;overflow-y:auto}
+#listview .content {position:absolute;top:0;bottom:0;left:0;right:0;overflow:hidden;overflow-y:auto}
 #listview UL {display:block;margin:0;padding:0;white-space:nowrap}
-#listview LI {display:block;margin:0;padding:0}
-#listview LI > DIV  {margin:0 -4px 0 0;padding:7px;border-bottom:1px solid rgba(0,0,0,0.05);border-top:1px solid rgba(255,255,255,0.35);background-color:#eee;position:relative;cursor:pointer;height:20px;transition:height .25s,padding .25s,opacity .25s}
+#listview LI {display:block;margin:0;padding:0;cursor:pointer}
+#listview LI > DIV  {margin:0 -4px 0 0;padding:6px 7px 7px;border-bottom:1px solid rgba(0,0,0,0.05);border-top:1px solid rgba(255,255,255,0.35);background-color:#eee;position:relative;height:20px;transition:height .25s,padding .25s,opacity .25s}
 #listview LI > DIV > SPAN {display:inline-block;color:rgba(0,0,0,0.4);font-size:0.85em;font-weight:400;margin:0 6px}
 #listview LI > DIV > SPAN:first-of-type {font-weight:400;color:#000;font-size:1em}
 #listview.treeview LI > DIV > SPAN:first-of-type {margin-left:18px}
@@ -95,13 +97,19 @@ nav li:hover > ul > li {max-height:40px}
 #listview LI UL.closed LI > DIV {height:0;padding-top:0;padding-bottom:0;border-width:0;opacity:0}
 #listview LI UL.closed:before {transform:rotate(-90deg)}
 #listview LI UL.closed.hover:before {color:#fff}
-#listview LI > DIV > DIV.actions {position:absolute;right:6px;top:2px;display:none}
-#listview LI > DIV:hover > DIV.actions {display:block}
 #listview LI.inactive > DIV > SPAN {text-decoration:line-through;color:rgba(0,0,0,0.3)}
+
+#listview .table {display:table;width:100%;position:relative;top:auto;left:auto;bottom:auto;right:auto;overflow:auto}
+#listview .table .header {display:table-row}
+#listview .table .header SPAN {display:table-cell;padding:6px 0 8px 13px}
+#listview .table UL {display:table-row-group}
+#listview .table UL > LI {display:table-row;background-color:#eee}
+#listview .table UL > LI > SPAN {color:rgba(0,0,0,0.4);font-size:0.85em;display:table-cell;padding:5px 0 6px 13px;border-bottom:1px solid rgba(0,0,0,0.05);border-top:1px solid rgba(255,255,255,0.35)}
+#listview .table UL > LI > SPAN:first-of-type {font-weight:400;color:#000;font-size:1em}
+#listview .table UL > LI > SPAN:last-of-type {width:100%}
 
 #editview.expanded {left:25%}
 #editview {position:fixed;left:100%;width:75%;bottom:0;top:50px;transition:left 0.6s;background-color:#eee}
-#listview .header,
 #editview .header {position:absolute;left:0;right:0;height:28px;padding:6px 7px;border-left:1px solid rgba(0,0,0,0.1);color:#fff;overflow:hidden}
 #editview .header LABEL {display:inline-block;padding:5px 0;font-size:13px}
 #editview .content {position:absolute;top:40px;bottom:0;left:0;right:0;padding:7px;overflow:auto;border-left:1px solid #d3d3d3}
@@ -224,6 +232,7 @@ TABLE.report TR:hover > TD {background-color:#0cb;border-color:#0cb}
 
 @media (min-width:651px) {
     nav.expanded ~ .fullpage {left:270px}
+    nav.expanded ~ #listview.expanded {right:50%}
     nav.expanded ~ #editview.expanded {left:50%;width:50%}
 }
 @media (max-width: 650px) {

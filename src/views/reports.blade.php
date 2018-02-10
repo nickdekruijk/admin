@@ -6,10 +6,10 @@
 @section('view')
         <section id="listview">
             @if ($lp->can('read'))
-            <div class="header">
-                <span>{{ trans('larapages::base.report') }}</span>
-            </div>
             <div class="content">
+                <div class="header">
+                    <span>{{ trans('larapages::base.report') }}</span>
+                </div>
                 {!! LaraPages\Admin\Controllers\ReportController::reports($lp) !!}
             </div>
             @endif

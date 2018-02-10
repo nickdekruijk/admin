@@ -8,13 +8,11 @@
 
 @section('view')
         <section id="listview" class="{{ $lp->module('treeview')?'treeview':'' }}">
-            @if ($lp->can('read'))
-            <div class="header">
-                {!! $lp->listviewIndex() !!}
-            </div>
-            @endif
-            <div class="content{{ $lp->module('sortable')?' sortable':'' }}">
+            <div class="content{{ $lp->module('sortable')?' sortable':'' }}{{ $lp->module('treeview')?'':' table' }}">
                 @if ($lp->can('read'))
+                <div class="header">
+                    {!! $lp->listviewIndex() !!}
+                </div>
                 {!! $lp->listviewData() ?: '<ul></ul>' !!}
                 @endif
                 @if ($lp->can('create'))
