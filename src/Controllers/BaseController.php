@@ -201,7 +201,7 @@ class BaseController extends Controller
             } elseif ($this->columns($column, 'type') == 'date') {
                 $response .='<span>'.str_replace(' 00:00:00', '', $row[$column]).'</span>';
             } else {
-                $response .='<span>'.$row[$column].'</span>';
+                $response .='<span>'.htmlspecialchars($row[$column]).'</span>';
             }
         }
         return $response;
