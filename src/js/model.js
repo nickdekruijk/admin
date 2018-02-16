@@ -209,7 +209,11 @@ function modelCreate(slug) {
         method: 'post',
     }).done(function(data,status,xhr) {
         $('#listview LI.active').removeClass('active');
-        $('#listview .content > UL').append('<li data-id="'+data.id+'" class="active"><div><i></i>'+data.li+'</div></li>');
+        if (listviewTable()) {
+            $('#listview .content > UL').append('<li data-id="'+data.id+'" class="active">'+data.li+'</li>');
+        } else {
+            $('#listview .content > UL').append('<li data-id="'+data.id+'" class="active"><div><i></i>'+data.li+'</div></li>');
+        }
         modelInactive(data);
         modelId(data.id);
         modelListViewAddClick(slug, $('#listview LI[data-id='+data.id+']'));
