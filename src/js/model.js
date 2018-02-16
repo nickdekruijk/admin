@@ -264,10 +264,14 @@ function modelDelete(slug, id) {
         cache: false,
         method: 'delete',
     }).done(function(data,status,xhr) {
-        $('#listview LI[data-id='+id+']').animate({height:0}, function() {
+        if (listviewTable()) {
             $('#listview LI[data-id='+id+']').detach();
-            listviewSetColumnWidth();
-        });
+        } else {
+            $('#listview LI[data-id='+id+']').animate({height:0}, function() {
+                $('#listview LI[data-id='+id+']').detach();
+                listviewSetColumnWidth();
+            });
+        }
         modelEditViewReset(false);
         loadingDone();
     }).fail(function(xhr,status,error) {
