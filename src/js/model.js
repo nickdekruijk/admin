@@ -296,6 +296,7 @@ function modelListViewClick(slug) {
     });
     $('BUTTON.model_create').click(function() {
         modelEditViewReset(true);
+        modelUpdateImages();
     });
 }
 
