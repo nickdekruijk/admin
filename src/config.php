@@ -146,7 +146,7 @@ return [
                     'validate' => 'nullable|date',
                     'title_nl' => 'Datum',
                 ],
-                'pictures' => [
+                'images' => [
                     'title_nl' => 'Afbeeldingen',
                     'type' => 'images',
                 ],
