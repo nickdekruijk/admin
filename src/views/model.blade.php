@@ -97,14 +97,9 @@
     	    @endif
             browser_spellcheck: true,
             convert_urls : false,
-/*
-			file_browser_callback: function(input_id, input_value, type, win) {
-				lp_mediaTarget=input_id;
-				lp_media=''; //input_value;
-				lp_modalFrame(lp_adminpath+'/media/mini');
-				return false;
-			},
-*/
+            file_browser_callback: function(field_name, url, type, win) {
+                modelAddMedia(null, {field_name: field_name, win: win, media_url: "{{ rtrim(config('larapages.media_url'), '/') }}/"});
+            },
     	    plugins: [
         	    // autoresize advlist autolink link image lists hr anchor searchreplace wordcount visualblocks code table paste contextmenu save textcolor contextmenu emoticons template directionality print preview pagebreak charmap media visualchars fullscreen fullpage visualchars insertdatetime nonbreaking
         	    "autoresize autolink link image lists wordcount visualblocks code table paste contextmenu"

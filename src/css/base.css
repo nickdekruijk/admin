@@ -151,7 +151,7 @@ nav li:hover > ul > li {max-height:40px}
 #editview UL.input_images > .button.add:not(:first-child) {width:45px;height:90px;opacity:0.3}
 #editview UL.input_images > .button.add:not(:first-child):hover {opacity:1}
 #editview UL.input_images.image > .button.add:not(:first-child) {display:none}
-#media_browser {position:fixed;top:0;bottom:0;left:0;right:0;background-color:rgba(0,0,0,0.6);z-index:3000}
+#media_browser {position:fixed;top:0;bottom:0;left:0;right:0;background-color:rgba(0,0,0,0.6);z-index:70000}
 #media_browser > IFRAME {border:0 none;position:fixed;left:10%;top:10%;width:80%;height:80%;display:block;box-shadow:rgba(0,0,0,0.8) 0 3px 8px}
 
 /* Media */

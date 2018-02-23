@@ -380,6 +380,10 @@ function modelAddMedia(slug, element) {
 
 function modelAddMediaFile(file) {
     $('#media_browser').detach();
+    if(typeof modelAddMediaElement == 'object') {
+        modelAddMediaElement.win.document.getElementById(modelAddMediaElement.field_name).value = modelAddMediaElement.media_url+file;
+        return true;
+    }
     var textarea = $(modelAddMediaElement).parent().prev('textarea');
     var text = textarea.val();
     if (text) text += "\n";
