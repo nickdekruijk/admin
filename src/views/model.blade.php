@@ -85,7 +85,7 @@
         'caption': '{{ trans('larapages::base.captionfor') }}',
         'delete': '{{ trans('larapages::base.delete') }}',
     };
-    modelInit('{{$lp->slug()}}');
+    modelInit('{{ $lp->slug() }}');
     tinymce.init({
     	    selector:'textarea.tinymce',
     	    theme: 'modern',
