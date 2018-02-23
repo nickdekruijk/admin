@@ -300,15 +300,21 @@ function modelListViewClick(slug) {
     });
 }
 
+var modelListviewExpandingTimeout;
 function modelEditViewReset(checked, dontreset) {
     modelClearErrors();
     modelId(-1);
     if (!dontreset) $('#model_form')[0].reset();
     $('#listview LI.active').removeClass('active');
-    if (checked)
-        $('#editview, #listview').addClass('expanded');
-    else
+    if (checked) {
+        $('#editview').addClass('expanded');
+        modelListviewExpandingTimeout = setTimeout("$('#listview').addClass('expanded')", 600);
+    } else {
+        if (modelListviewExpandingTimeout) {
+            clearTimeout(modelListviewExpandingTimeout);
+        }
         $('#editview, #listview').removeClass('expanded');
+    }
 }
 
 function modelId(setId) {

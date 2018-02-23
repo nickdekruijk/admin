@@ -72,7 +72,7 @@ nav li li > a {padding-left:10px}
 nav li.open > ul > li,
 nav li:hover > ul > li {max-height:40px}
 
-#listview {position:fixed;top:50px;left:50px;bottom:0;right:0px;transition:left .4s, right .6s;background-color:#d3d3d3;overflow:auto}
+#listview {position:fixed;top:50px;left:50px;bottom:0;right:0px;background-color:#d3d3d3;overflow:auto}
 #listview.expanded {right:75%}
 #listview .header {position:-webkit-sticky;position:sticky;top:0px;left:0;right:0;height:28px;padding:6px 7px;border-left:1px solid rgba(0,0,0,0.1);color:#fff;overflow:hidden;z-index:1}
 #listview .header {line-height:26px;white-space:nowrap}
@@ -110,8 +110,8 @@ nav li:hover > ul > li {max-height:40px}
 #listview .table UL LI.inactive > SPAN,
 #listview LI.inactive > DIV > SPAN {text-decoration:line-through;color:rgba(0,0,0,0.3)}
 
-#editview.expanded {left:25%}
-#editview {position:fixed;left:100%;width:75%;bottom:0;top:50px;transition:left 0.6s;background-color:#eee}
+#editview.expanded {transform:translateX(0)}
+#editview {position:fixed;left:25%;transform:translateX(100%);width:75%;bottom:0;top:50px;transition:transform .6s;background-color:#eee}
 #editview .header {position:absolute;left:0;right:0;height:28px;padding:6px 7px;border-left:1px solid rgba(0,0,0,0.1);color:#fff;overflow:hidden}
 #editview .header LABEL {display:inline-block;padding:5px 0;font-size:13px}
 #editview .content {position:absolute;top:40px;bottom:0;left:0;right:0;padding:7px;overflow:auto;border-left:1px solid #d3d3d3}
