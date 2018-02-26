@@ -386,7 +386,7 @@ function modelAddMedia(slug, element) {
 
 function modelAddMediaFile(file) {
     $('#media_browser').detach();
-    if(typeof modelAddMediaElement == 'object') {
+    if (typeof modelAddMediaElement == 'object' && modelAddMediaElement.win && modelAddMediaElement.field_name && modelAddMediaElement.media_url) {
         modelAddMediaElement.win.document.getElementById(modelAddMediaElement.field_name).value = modelAddMediaElement.media_url+file;
         return true;
     }
