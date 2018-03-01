@@ -5,6 +5,7 @@
 [![License](https://poser.pugx.org/larapages/admin/license)](https://packagist.org/packages/larapages/admin)
 
 # Still in beta!
+But getting close to first 1.0.0 release!
 No official release yet so for now you can only use the dev-master branch with 
 
 `composer require larapages/admin:dev-master`
