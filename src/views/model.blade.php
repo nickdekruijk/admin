@@ -62,6 +62,8 @@
                 @elseif ($column['type'] == 'image' || $column['type'] == 'images')
                 <textarea class="images" name="{{ $id }}" id="input_{{ $id }}" data-url="{{ rtrim(config('larapages.media_url'), '/') }}/"></textarea>
                 <ul class="input_images {{ $column['type'] }} {{ $column['type']=='images'?'sortable':'' }}" id="images_{{ $id }}"><button class="button add"><i class="fa fa-plus"></i></button></ul>
+                @elseif ($column['type'] == 'foreign')
+                {!! $lp->foreign($id, $column) !!}
                 @elseif ($column['type'] != 'boolean')
                 {{$column['type']}}
                 @endif

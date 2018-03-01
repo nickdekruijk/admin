@@ -290,4 +290,47 @@ class BaseController extends Controller
     {
         return isset($_GET['browse']) && $_GET['browse']=='true'?$return:'';
     }
+
+    // Return the <select> tree for a foreign relationship
+    public function foreign($columnId, $column)
+    {
+        function walk($column, $parent = null, $depth = 0)
+        {
+            $response = '';
+            if (isset($column['scope'])) {
+                $scope = $column['scope'];
+                $data = (new $column['model'])->$scope();
+            } else {
+                $data = (new $column['model']);
+                if (isset($column['orderby'])) {
+                    $data = $data->orderBy($column['orderby']);
+                }
+            }
+            if (isset($column['treeview'])) {
+                $data = $data->where($column['treeview'], $parent);
+            }
+            foreach($data->get() as $opt) {
+                $response .= '<option value="'.$opt['id'].'">';
+                $response .= str_repeat('&nbsp', $depth*4);
+                if (isset($column['columns'])) {
+                    foreach(explode(',', $column['columns']) as $n => $col) {
+                        if ($n) $response .= ', ';
+                        $response .= $opt[$col];
+                    }
+                } else {
+                    $response .= implode(', ', $opt->toArray());
+                }
+                $response .= '</option>';
+                if (isset($column['treeview'])) {
+                    $response .= walk($column, $opt['id'], $depth+1);
+                }
+            }
+            return $response;
+        }
+        $response = '<select name="'.$columnId.'" id="input_'.$columnId.'">';
+        $response .= '<option value=""></option>';
+        $response .= walk($column);
+        $response .= '</select>';
+        return $response;
+    }
 }
