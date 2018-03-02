@@ -118,7 +118,7 @@
 	        ],
             @endif
     	    @if (isset($column['tinymce']['image_class_list']))
-            style_formats: [
+            image_class_list: [
                 {!! $column['tinymce']['image_class_list'] !!}
 	        ],
             @endif
