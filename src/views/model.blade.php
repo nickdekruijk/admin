@@ -114,7 +114,12 @@
             @endif
     	    @if (isset($column['tinymce']['formats']))
             style_formats: [
-	         	{!! $column['tinymce']['formats'] !!}
+                {!! $column['tinymce']['formats'] !!}
+	        ],
+            @endif
+    	    @if (isset($column['tinymce']['image_class_list']))
+            style_formats: [
+                {!! $column['tinymce']['image_class_list'] !!}
 	        ],
             @endif
     	});
