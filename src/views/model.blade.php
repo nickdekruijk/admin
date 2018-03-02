@@ -99,6 +99,7 @@
     	    @endif
             browser_spellcheck: true,
             convert_urls : false,
+            image_caption: true,
             file_browser_callback: function(field_name, url, type, win) {
                 modelAddMedia(null, {field_name: field_name, win: win, media_url: "{{ rtrim(config('larapages.media_url'), '/') }}/"});
             },
