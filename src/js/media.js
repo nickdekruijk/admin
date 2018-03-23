@@ -3,7 +3,7 @@ function mediaShow(slug) {
     $.ajax('media/'+slug+'/'+mediaFolder(), {
         cache: false,
     }).done(function(data,status,xhr) {
-        $('#current_folder').html(decodeURIComponent($('#listview LI.active').data('id').replace(/\+/gi, ' ')).split('/').join('<span>/</span>'));
+        $('#current_folder').html(decodeURIComponent(String($('#listview LI.active').data('id')).replace(/\+/gi, ' ')).split('/').join('<span>/</span>'));
         $('#fileupload').fileupload('option','url','media/'+slug+'/'+mediaFolder());
         $('#editview UL.media').html(data);
         $('#editview UL.media LI .button.delete').click(function() {
@@ -28,7 +28,7 @@ function mediaShow(slug) {
 
 function mediaFolder() {
     var id = $('#listview LI.active').data('id');
-    return id ? encodeURI(id.replace(/\//gi,'%2F')) : encodeURI('%2F');
+    return id ? encodeURI(String(id).replace(/\//gi,'%2F')) : encodeURI('%2F');
 }
 
 function mediaFormatFileSize(bytes) {
