@@ -219,6 +219,9 @@ class BaseController extends Controller
             $model = $model->where($this->module('treeview'), $parent);
         }
         // Order the results if needed
+        if ($this->module('orderByDesc')) {
+            $model = $model->orderByDesc($this->module('orderByDesc'));
+        }
         if ($this->module('orderBy')) {
             $model = $model->orderBy($this->module('orderBy'));
         }
