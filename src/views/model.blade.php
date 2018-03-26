@@ -52,7 +52,9 @@
                 @endif
                 @elseif ($column['type'] == 'select')
                 <select name="{{ $id }}" id="input_{{ $id }}">
+                    @if (empty($column['values'][null]))
                     <option value=""></option>
+                    @endif
                     @foreach($column['values'] as $key => $value)
                     <option value="{{ $key }}">{{ $value }}</option>
                     @endforeach
