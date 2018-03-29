@@ -120,6 +120,11 @@
                 {!! $column['tinymce']['formats'] !!}
 	        ],
             @endif
+    	    @if (isset($column['tinymce']['link_class_list']))
+            link_class_list: [
+                {!! $column['tinymce']['link_class_list'] !!}
+	        ],
+            @endif
     	    @if (isset($column['tinymce']['image_class_list']))
             image_class_list: [
                 {!! $column['tinymce']['image_class_list'] !!}
