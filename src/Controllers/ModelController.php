@@ -3,6 +3,7 @@
 namespace LaraPages\Admin\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class ModelController extends BaseController
 {
@@ -120,12 +121,10 @@ class ModelController extends BaseController
         // Get the row for each id and update the sort
         if ($parent<1) $parent = null;
         $sort = 0;
+        $table = $this->model()->getTable();
         foreach(explode(',', $ids) as $id) {
             $sort++;
-            $row = $this->model()::findOrFail($id);
-            if ($row->parent != $parent) die('Invalid parent');
-            $row->sort = $sort;
-            $row->save();
+            DB::table($table)->where('id', $id)->update(['sort' => $sort]);
         }
     }
 }
