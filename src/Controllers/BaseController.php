@@ -332,7 +332,7 @@ class BaseController extends Controller
             }
             $response .= '</option>';
             if (isset($column['treeview'])) {
-                $response .= walk($column, $opt['id'], $depth+1);
+                $response .= $this->foreign_walk($column, $opt['id'], $depth+1);
             }
         }
         return $response;
