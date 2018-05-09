@@ -174,6 +174,7 @@ class BaseController extends Controller
         }
         $response = '';
         foreach ($index as $column) {
+            $column = explode('.', $column)[0];
             $response .='<span>';
             if ($column == 'id') {
                 $response .= 'id';
@@ -203,7 +204,12 @@ class BaseController extends Controller
             } elseif ($this->columns($column, 'type') == 'select' && isset($this->columns($column, 'values')[$row[$column]])) {
                 $response .='<span>'.$this->columns($column, 'values')[$row[$column]].'</span>';
             } else {
-                $response .='<span>'.htmlspecialchars($row[$column]).'</span>';
+                $sub = explode('.', $column);
+                if (isset($sub[1]))
+                    $value = $row[$sub[0]][$sub[1]];
+                else
+                    $value = $row[$column];
+                $response .='<span>'.htmlspecialchars($value).'</span>';
             }
         }
         return $response;
