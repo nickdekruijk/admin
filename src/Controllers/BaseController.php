@@ -220,10 +220,14 @@ class BaseController extends Controller
         }
         // Order the results if needed
         if ($this->module('orderByDesc')) {
-            $model = $model->orderByDesc($this->module('orderByDesc'));
+            foreach (explode(',', $this->module('orderByDesc')) as $orderByDesc) {
+                $model = $model->orderByDesc(trim($orderByDesc));
+            }
         }
         if ($this->module('orderBy')) {
-            $model = $model->orderBy($this->module('orderBy'));
+            foreach (explode(',', $this->module('orderBy')) as $orderBy) {
+                $model = $model->orderBy(trim($orderBy));
+            }
         }
         // Initialize the response
         $response = '';
