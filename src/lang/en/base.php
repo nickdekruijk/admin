@@ -33,4 +33,5 @@ return [
     'report' => 'Report',
     'caption' => 'Caption',
     'captionfor' => 'Caption for',
+    'showall' => 'Show all',
 ];

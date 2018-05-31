@@ -33,4 +33,5 @@ return [
     'report' => 'Rapport',
     'caption' => 'Ondertitel',
     'captionfor' => 'Ondertitel voor',
+    'showall' => 'Toon alles',
 ];
