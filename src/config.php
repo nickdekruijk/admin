@@ -142,6 +142,7 @@ return [
                 ],
                 'description' => [
                     'title_nl' => 'Omschrijving',
+                    'type' => 'text',
                 ],
                 'date' => [
                     'validate' => 'nullable|date',
