@@ -368,7 +368,7 @@ class BaseController extends Controller
                 $response .= implode(', ', $opt->toArray());
             }
             $response .= '</option>';
-            if (isset($column['treeview'])) {
+            if (isset($column['treeview']) && (!isset($column['maxdepth']) || $column['maxdepth'] > $depth)) {
                 $response .= $this->foreign_walk($column, $opt['id'], $depth+1);
             }
         }
