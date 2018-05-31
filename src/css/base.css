@@ -67,9 +67,11 @@ nav ul > li.active > a {background-color:rgba(0,0,0,0.15);color:#fff;font-weight
 nav li > ul > li {max-height:0;overflow:hidden;transition:max-height .25s}
 nav li ul:before {content:'\f078';color:rgba(255,255,255,0.6);font-family:Fontawesome;display:block;transform:rotate(-90deg);position:absolute;left:245px;margin-top:-25px;transition:transform .25s;font-size:0.8em}
 nav li.open ul:before,
+nav li.active ul:before,
 nav li:hover ul:before {transform:rotate(0deg)}
-nav li li > a {padding-left:10px}
+nav li li > a {padding-left:50px;font-size:0.85em;line-height:35px}
 nav li.open > ul > li,
+nav li.active > ul > li,
 nav li:hover > ul > li {max-height:40px}
 
 #listview {position:fixed;top:50px;left:50px;bottom:0;right:0px;background-color:#d3d3d3;overflow:auto}
@@ -212,6 +214,7 @@ nav li:hover > ul > li {max-height:40px}
 .dashboard > UL > LI > A {color:rgba(255,255,255,0.6);display:block;padding:10px;line-height:1.3em;width:100%}
 .dashboard > UL > LI > A > .fa {color:rgba(255,255,255,0.8);display:block;font-size:3em;margin:10px}
 .dashboard > UL > LI > A:hover {background-color:rgba(255,255,255,0.3)}
+.dashboard > UL UL {display:none}
 
 #editview .content.report {padding:0}
 TABLE.report {border-spacing:0;border-collapse:collapse;width:100%;cursor:default}

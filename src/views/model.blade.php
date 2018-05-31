@@ -13,7 +13,7 @@
                 <div class="header">
                     {!! $lp->listviewIndex() !!}
                 </div>
-                {!! $lp->listviewData() ?: '<ul></ul>' !!}
+                {!! $lp->listviewData(request()->root) ?: '<ul></ul>' !!}
                 @endif
                 @if ($lp->can('create'))
                 <button class="button add model_create"><i class="fa fa-plus-circle"></i><span>{{ $lp->locale('new', $lp->module(), trans('larapages::base.new')) }}</span></button>
@@ -90,6 +90,9 @@
         'delete': '{{ trans('larapages::base.delete') }}',
     };
     modelInit('{{ $lp->slug() }}');
+@if (request()->root)
+    modelRoot = {{ request()->root }};
+@endif
     tinymce.init({
     	    selector:'textarea.tinymce',
     	    theme: 'modern',

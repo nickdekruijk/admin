@@ -15,7 +15,12 @@
         <header>
             <label class="nav-hamburger"><span></span><span></span><span></span></label>
             @yield('header')
-            <h2>{{ $lp->module('title') }}</h2>
+            <h2>
+                {{ $lp->module('title') }}
+                @if (request()->root && $lp->module('sub_navigation'))
+                ({{$lp->model()->find(request()->root)[$lp->module('sub_navigation')]}})
+                @endif
+            </h2>
         </header>
 @yield('view')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

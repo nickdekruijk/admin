@@ -10,6 +10,15 @@ class ModelController extends BaseController
     // Save the model with only the columns allowed and return the id and listviewRow html
     private function save($model, Request $request)
     {
+        if (isset($request['__cloneFromId'])) {
+            $clone = $this->model()->findOrFail($request['__cloneFromId']);
+            if ($this->module('treeview')) {
+                $model[$this->module('treeview')] = $clone[$this->module('treeview')];
+            }
+        }
+        if (isset($request['__modelRoot']) && is_numeric($request['__modelRoot']) && $this->module('treeview')) {
+            $model[$this->module('treeview')] = $request['__modelRoot'];
+        }
         foreach($this->columns() as $columnId => $column) {
             if (isset($column['type']) && $column['type']=='password') {
                 // If column is a password and user changed it then hash it
@@ -20,10 +29,14 @@ class ModelController extends BaseController
                 $model[$columnId] = $request[$columnId];
             }
         }
+        if ($this->module('sortable')) {
+            $model['sort'] = $this->model()->max('sort') + 1;
+        }
         $model->save();
         return [
             'active' => $this->module('active') ? $model[$this->module('active')]==true : true,
             'id' => $model->id,
+            'listview' => $this->listviewData(request()->__modelRoot),
             'li' => $this->listviewRow($model),
         ];
     }

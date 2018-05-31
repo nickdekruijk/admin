@@ -134,6 +134,17 @@ class BaseController extends Controller
         }
     }
 
+    private function navigationLI($active = false, $link = '', $title = null, $icon = null) {
+        $response = '<li class="'.($active ? 'active' : '').'">';
+        $response .= '<a href="'.url(config('larapages.adminpath').'/'.$link).'">';
+        if ($icon) {
+            $response .= '<i class="fa '.$icon.'"></i>';
+        }
+        $response .= $title ?: ucfirst($id);
+        $response .= '</a>';
+        return $response;
+    }
+
     // Return current users navigation items
     public function navigation()
     {
@@ -142,11 +153,32 @@ class BaseController extends Controller
 
         // Add each navigation item the user has access to
         foreach ($this->user['modules'] as $id => $item) {
-            $response .= '<li class="'.($id == $this->slug ? 'active' : '').'">';
-            $response .= '<a href="'.url(config('larapages.adminpath').'/'.str_slug($id)).'">';
-            $response .= '<i class="fa '.$item['icon'].'"></i>';
-            $response .= isset($item['title']) ? $item['title'] : ucfirst($id);
-            $response .= '</a></li>';
+            $response .= $this->navigationLI($id == $this->slug, str_slug($id), $item['title'], $item['icon']);
+            if (isset($item['sub_navigation']) && isset($item['treeview'])) {
+                $data = new $item['model'];
+                $data = $this->sortModel($data, @$item['orderByDesc'], 'desc');
+                $data = $this->sortModel($data, @$item['orderBy']);
+                $data = $data->whereNull($item['treeview']);
+                if (isset($item['active'])) {
+                    $data = $data->where($item['active'], 1);
+                }
+                $subresponse = '<ul>';
+                $count = 0;
+                foreach($data->get() as $subitem) {
+                    if ((new $item['model'])->where($item['treeview'], $subitem->id)->count()) {
+                        $count++;
+                        if ($count == 1 && isset($item['sub_showall']) && $item['sub_showall']) {
+                            $subresponse .= $this->navigationLI($id == $this->slug  && !request()->root, str_slug($id), $item['sub_showall']===true ? trans('larapages::base.showall') : $this->locale('sub_showall', $item, false)).'</li>';
+                        }
+                        $subresponse .= $this->navigationLI($id == $this->slug  && request()->root == $subitem->id, str_slug($id).'?root='.$subitem->id, $subitem[$item['sub_navigation']]).'</li>';
+                    }
+                }
+                $subresponse .= '</ul>';
+                if ($count) {
+                    $response .= $subresponse;
+                }
+            }
+            $response .= '</li>';
         }
 
         // Add logout 'form'

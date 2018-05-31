@@ -1,3 +1,5 @@
+var modelRoot = null;
+
 function modelSortable(slug) {
     $('#listview:not(.treeview) > .content.sortable > UL').sortable({
         items: "> li",
@@ -36,10 +38,11 @@ function modelNestedSortable(slug) {
             var oldparent = $('LI[data-id='+id+']').data('oldparent');
             $('LI[data-id='+id+']').data('oldparent', null)
             // Did parent change? Save new parent do database
-            if (parent!=oldparent)
-                modelChangeParent(slug, id, parent, oldparent);
-            else
+            if (parent!=oldparent) {
+                modelChangeParent(slug, id, parent?parent:modelRoot, oldparent?oldparent:modelRoot);
+            } else {
                 modelSaveSorting(slug, parent);
+            }
         	listviewSetColumnWidth();
     	}
     });
@@ -52,7 +55,7 @@ function sortingDone(msg) {
 
 function modelSortIds(parent) {
     var ids = '';
-    if (parent > 0) {
+    if (parent > 0 && parent !== modelRoot) {
         $('LI[data-id='+parent+'] > UL > LI').each(function() {
             if (ids) ids += ',';
             ids += parseInt($(this).data('id'));
@@ -184,7 +187,6 @@ function modelValidationError(xhr) {
         $('LABEL[for=input_'+i+']').append('<span class="errormsg"><i class="fa fa-exclamation-triangle"></i>'+xhr.responseJSON.errors[i]+'</span>')
         error+=xhr.responseJSON.errors[i]+'\n';
     }
-    console.log(error);
 }
 
 function modelClearErrors() {
@@ -200,23 +202,30 @@ function modelInactive(data) {
     }
 }
 
-function modelCreate(slug) {
+function modelCreate(slug, cloneFromId) {
     loading();
+    var data = $('#model_form').serialize();
+    if (cloneFromId) {
+        data += '&__cloneFromId='+cloneFromId;
+    }
+    if (modelRoot) {
+        data += '&__modelRoot='+modelRoot;
+    }
     modelClearErrors();
     $.ajax(slug, {
         cache: false,
-        data: $('#model_form').serialize(),
+        data: data,
         method: 'post',
     }).done(function(data,status,xhr) {
         $('#listview LI.active').removeClass('active');
-        if (listviewTable()) {
-            $('#listview .content > UL').append('<li data-id="'+data.id+'" class="active">'+data.li+'</li>');
-        } else {
-            $('#listview .content > UL').append('<li data-id="'+data.id+'" class="active"><div><i></i>'+data.li+'</div></li>');
-        }
-        modelInactive(data);
+        $('#listview .content > UL').replaceWith(data.listview);
         modelId(data.id);
-        modelListViewAddClick(slug, $('#listview LI[data-id='+data.id+']'));
+        $('#listview LI[data-id='+data.id+']').addClass('active');
+        $('#listview LI').each(function() {
+            modelListViewAddClick(slug, this);
+        });
+        modelNestedSortable(slug);
+        modelSortable(slug);
         listviewSetColumnWidth();
         loadingDone();
     }).fail(function(xhr,status,error) {
@@ -349,7 +358,7 @@ function modelEditViewClick(slug) {
     });
     $('#model_clone').click(function() {
         $(this).addClass('is-loading');
-        modelCreate(slug);
+        modelCreate(slug, modelId());
     });
     $('#model_close').click(function() {
         modelEditViewReset(false);
