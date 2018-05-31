@@ -101,6 +101,7 @@ return [
             'index' => 'title,date,head,slug,home,menuitem',
             'model' => 'LaraPages\Pages\Page',
             'orderBy' => 'sort',
+            'sortable' => true,
             'active' => 'active',
             'columns' => [
                 'active' => [
@@ -165,7 +166,6 @@ return [
                     'type' => 'mediumtext',
                 ],
             ],
-            'sortable' => true,
         ],
         'media' => [
             'view' => 'larapages::media',
@@ -189,6 +189,8 @@ return [
             'icon' => 'fa-users',
             'title_nl' => 'Gebruikers',
             'model' => 'App\User',
+            'index' => 'email,name',
+            'orderBy' => 'created_at',
             'columns' => [
                 'name' => [
                     'title_nl' => 'Naam',
@@ -209,8 +211,6 @@ return [
                     'validate' => 'required',
                 ],
             ],
-            'index' => 'email,name',
-            'orderBy' => 'created_at desc',
         ],
         'settings' => [
             'view' => 'larapages::model',
@@ -220,6 +220,7 @@ return [
             'index' => 'key,value,description',
             'new' => 'Add new setting',
             'new_nl' => 'Instelling toevoegen',
+            'orderBy' => 'key',
             'columns' => [
                 'key' => [
                     'title' => 'Setting',
@@ -235,7 +236,6 @@ return [
                     'validate' => 'required',
                 ],
             ],
-            'orderBy' => 'key',
         ],
     ],
 
