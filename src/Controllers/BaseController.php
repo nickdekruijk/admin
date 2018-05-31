@@ -215,6 +215,19 @@ class BaseController extends Controller
         return $response;
     }
 
+    private function sortModel($model, $columns, $direction = 'asc')
+    {
+        if ($columns) {
+            if (!is_array($columns)) {
+                $columns = explode(',', trim($columns));
+            }
+            foreach ($columns as $column) {
+                $model = $model->orderBy(trim($column), $direction);
+            }
+        }
+        return $model;
+    }
+
     // Return the listview data formated with <ul>
     public function listviewData($parent = null)
     {
@@ -225,16 +238,8 @@ class BaseController extends Controller
             $model = $model->where($this->module('treeview'), $parent);
         }
         // Order the results if needed
-        if ($this->module('orderByDesc')) {
-            foreach (explode(',', $this->module('orderByDesc')) as $orderByDesc) {
-                $model = $model->orderByDesc(trim($orderByDesc));
-            }
-        }
-        if ($this->module('orderBy')) {
-            foreach (explode(',', $this->module('orderBy')) as $orderBy) {
-                $model = $model->orderBy(trim($orderBy));
-            }
-        }
+        $model = $this->sortModel($model, $this->module('orderBy'));
+        $model = $this->sortModel($model, $this->module('orderByDesc'), 'desc');
         // Initialize the response
         $response = '';
 
