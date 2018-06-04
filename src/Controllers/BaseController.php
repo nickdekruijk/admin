@@ -2,10 +2,10 @@
 
 namespace LaraPages\Admin\Controllers;
 
+use App;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\View;
-use App;
 use Route;
 
 class BaseController extends Controller
@@ -18,7 +18,7 @@ class BaseController extends Controller
     public function __construct()
     {
         // LaraPages requires authentication and a valid role
-        $this->middleware(['auth', function($request, $next)  {
+        $this->middleware(['auth', function ($request, $next) {
             if (!$this->user = $this->checkRole()) {
                 Auth::logout();
                 return redirect(route('login'))->withErrors(['email' => trans('larapages::base.missing_role')]);
@@ -34,10 +34,16 @@ class BaseController extends Controller
     }
 
     // Return the items localized title
-    public function locale($key, Array $item, $default)
+    public function locale($key, array $item, $default)
     {
-        if (isset($item[$key.'_'.App::getlocale()])) return $item[$key.'_'.App::getlocale()];
-        if (isset($item[$key])) return $item[$key];
+        if (isset($item[$key . '_' . App::getlocale()])) {
+            return $item[$key . '_' . App::getlocale()];
+        }
+
+        if (isset($item[$key])) {
+            return $item[$key];
+        }
+
         return ucfirst(str_replace('_', ' ', $default));
     }
 
@@ -54,7 +60,7 @@ class BaseController extends Controller
 
         // Check if admin_role matches a valid role
         if (!isset(config('larapages.roles')[$roleId])) {
-            abort(403, 'User role "'.$roleId.'" does not exist');
+            abort(403, 'User role "' . $roleId . '" does not exist');
         }
 
         // Get the role from config
@@ -62,14 +68,14 @@ class BaseController extends Controller
 
         // Get all modules the user has access to
         $role['modules'] = [];
-        foreach(array_merge(config('larapages.modules'), config('larapages.modules2', [])) as $id => $module) {
+        foreach (array_merge(config('larapages.modules'), config('larapages.modules2', [])) as $id => $module) {
             // Localize title when available
             $module['title'] = $this->locale('title', $module, $id);
 
             if (!isset($role['permissions'])) {
                 // No permissions defined on role, assume administrator and add module with all permissions
                 $role['modules'][$id] = $module;
-                $role['modules'][$id]['permissions'] = [ 'create', 'read', 'update', 'delete' ];
+                $role['modules'][$id]['permissions'] = ['create', 'read', 'update', 'delete'];
             } elseif (isset($role['permissions'][$id])) {
                 // User has permissions for this navigation, add it
                 $role['modules'][$id] = $module;
@@ -98,12 +104,12 @@ class BaseController extends Controller
         $view = $this->module('view');
         // Return error if view doesn't exist
         if (!View::exists($view)) {
-            $message = 'View '.$view.' '.trans('larapages::base.notfound').'.';
+            $message = 'View ' . $view . ' ' . trans('larapages::base.notfound') . '.';
             $view = 'larapages::error';
         }
         // Return error if model doesn't exist
         if ($view == 'larapages::model' && !$this->model()) {
-            $message = 'Model '.$this->module('model').' '.trans('larapages::base.notfound').'.';
+            $message = 'Model ' . $this->module('model') . ' ' . trans('larapages::base.notfound') . '.';
             $view = 'larapages::error';
         }
 
@@ -134,11 +140,12 @@ class BaseController extends Controller
         }
     }
 
-    private function navigationLI($active = false, $link = '', $title = null, $icon = null) {
-        $response = '<li class="'.($active ? 'active' : '').'">';
-        $response .= '<a href="'.url(config('larapages.adminpath').'/'.$link).'">';
+    private function navigationLI($active = false, $link = '', $title = null, $icon = null)
+    {
+        $response = '<li class="' . ($active ? 'active' : '') . '">';
+        $response .= '<a href="' . url(config('larapages.adminpath') . '/' . $link) . '">';
         if ($icon) {
-            $response .= '<i class="fa '.$icon.'"></i>';
+            $response .= '<i class="fa ' . $icon . '"></i>';
         }
         $response .= $title ?: ucfirst($id);
         $response .= '</a>';
@@ -164,13 +171,13 @@ class BaseController extends Controller
                 }
                 $subresponse = '<ul>';
                 $count = 0;
-                foreach($data->get() as $subitem) {
+                foreach ($data->get() as $subitem) {
                     if ((new $item['model'])->where($item['treeview'], $subitem->id)->count()) {
                         $count++;
                         if ($count == 1 && isset($item['sub_showall']) && $item['sub_showall']) {
-                            $subresponse .= $this->navigationLI($id == $this->slug  && !request()->root, str_slug($id), $item['sub_showall']===true ? trans('larapages::base.showall') : $this->locale('sub_showall', $item, false)).'</li>';
+                            $subresponse .= $this->navigationLI($id == $this->slug && !request()->root, str_slug($id), $item['sub_showall'] === true ? trans('larapages::base.showall') : $this->locale('sub_showall', $item, false)) . '</li>';
                         }
-                        $subresponse .= $this->navigationLI($id == $this->slug  && request()->root == $subitem->id, str_slug($id).'?root='.$subitem->id, $subitem[$item['sub_navigation']]).'</li>';
+                        $subresponse .= $this->navigationLI($id == $this->slug && request()->root == $subitem->id, str_slug($id) . '?root=' . $subitem->id, $subitem[$item['sub_navigation']]) . '</li>';
                     }
                 }
                 $subresponse .= '</ul>';
@@ -183,7 +190,7 @@ class BaseController extends Controller
 
         // Add logout 'form'
         if (Route::has('logout')) {
-            $response .= '<li><form id="logout-form" action="'.route('logout').'" method="POST" style="display: none;">'.csrf_field().'</form><a href="'.route('logout').'" onclick="event.preventDefault(); document.getElementById(\'logout-form\').submit();"><i class="fa fa-sign-out"></i>'.trans('larapages::base.logout').'</a></li>';
+            $response .= '<li><form id="logout-form" action="' . route('logout') . '" method="POST" style="display: none;">' . csrf_field() . '</form><a href="' . route('logout') . '" onclick="event.preventDefault(); document.getElementById(\'logout-form\').submit();"><i class="fa fa-sign-out"></i>' . trans('larapages::base.logout') . '</a></li>';
         }
 
         // Closing <ul>
@@ -200,20 +207,20 @@ class BaseController extends Controller
             $index = explode(',', $this->module('index'));
         } else {
             $index = [];
-            foreach($this->columns() as $id => $column) {
+            foreach ($this->columns() as $id => $column) {
                 $index[] = $id;
             }
         }
         $response = '';
         foreach ($index as $column) {
             $column = explode('.', $column)[0];
-            $response .='<span>';
+            $response .= '<span>';
             if ($column == 'id') {
                 $response .= 'id';
             } else {
                 $response .= $this->locale('index_title', $this->columns($column), false) ?: $this->locale('title', $this->columns($column), $column);
             }
-            $response .='</span>';
+            $response .= '</span>';
         }
         return $response;
     }
@@ -227,21 +234,23 @@ class BaseController extends Controller
 
     public function listviewRow($row)
     {
-        $response = $this->module('treeview')?'<i></i>':'';
+        $response = $this->module('treeview') ? '<i></i>' : '';
         foreach (explode(',', $this->module('index')) as $column) {
             if ($row[$column] === true) {
-                $response .='<span class="center"><i class="fa fa-check"></i></span>';
+                $response .= '<span class="center"><i class="fa fa-check"></i></span>';
             } elseif ($this->columns($column, 'type') == 'date') {
-                $response .='<span>'.str_replace(' 00:00:00', '', $row[$column]).'</span>';
+                $response .= '<span>' . str_replace(' 00:00:00', '', $row[$column]) . '</span>';
             } elseif ($this->columns($column, 'type') == 'select' && isset($this->columns($column, 'values')[$row[$column]])) {
-                $response .='<span>'.$this->columns($column, 'values')[$row[$column]].'</span>';
+                $response .= '<span>' . $this->columns($column, 'values')[$row[$column]] . '</span>';
             } else {
                 $sub = explode('.', $column);
-                if (isset($sub[1]))
+                if (isset($sub[1])) {
                     $value = $row[$sub[0]][$sub[1]];
-                else
+                } else {
                     $value = $row[$column];
-                $response .='<span>'.htmlspecialchars($value).'</span>';
+                }
+
+                $response .= '<span>' . htmlspecialchars($value) . '</span>';
             }
         }
         return $response;
@@ -275,12 +284,15 @@ class BaseController extends Controller
         // Initialize the response
         $response = '';
 
-        foreach($model->get() as $row) {
+        foreach ($model->get() as $row) {
             // First row, add <ul>
-            if (!$response) $response .= '<ul>';
-            $response .= '<li data-id="'.$row['id'].'"'.($this->module('active') && !$row[$this->module('active')]?' class=inactive':'').'>';
+            if (!$response) {
+                $response .= '<ul>';
+            }
+
+            $response .= '<li data-id="' . $row['id'] . '"' . ($this->module('active') && !$row[$this->module('active')] ? ' class=inactive' : '') . '>';
             if ($this->module('treeview')) {
-                $response .= '<div>'.$this->listviewRow($row).'</div>';
+                $response .= '<div>' . $this->listviewRow($row) . '</div>';
                 // Add children if any
                 $response .= $this->listviewData($row->id);
             } else {
@@ -289,7 +301,10 @@ class BaseController extends Controller
             $response .= '</li>';
         }
         // Add closing </ul> if there was anything added
-        if ($response) $response .= '</ul>';
+        if ($response) {
+            $response .= '</ul>';
+        }
+
         return $response;
     }
 
@@ -299,7 +314,7 @@ class BaseController extends Controller
         $columns = [];
         $model = $this->model();
 
-        foreach($this->module('columns') as $id => $column) {
+        foreach ($this->module('columns') as $id => $column) {
             if (!is_array($column)) {
                 $id = $column;
                 $column = [];
@@ -307,7 +322,7 @@ class BaseController extends Controller
             $columns[$id] = $column;
             if (isset($column['type']) && $column['type'] == 'roles') {
                 $columns[$id]['type'] = 'select';
-                foreach(config('larapages.roles') as $roleId => $role) {
+                foreach (config('larapages.roles') as $roleId => $role) {
                     $columns[$id]['values'][$roleId] = $this->locale('title', $role, $roleId);
                 }
             }
@@ -322,13 +337,13 @@ class BaseController extends Controller
     }
 
     // Return the validation rules from the columns
-    public function validationRules(Array $replace = [])
+    public function validationRules(array $replace = [])
     {
         $rules = [];
         foreach ($this->columns() as $columnId => $column) {
             if (isset($column['validate'])) {
-                foreach($replace as $replaceKey => $replaceValue) {
-                    $column['validate'] = str_replace('#'.$replaceKey.'#', $replaceValue, $column['validate']);
+                foreach ($replace as $replaceKey => $replaceValue) {
+                    $column['validate'] = str_replace('#' . $replaceKey . '#', $replaceValue, $column['validate']);
                 }
                 $rules[$columnId] = $column['validate'];
             }
@@ -338,7 +353,7 @@ class BaseController extends Controller
 
     public function browse($return = 'browse')
     {
-        return isset($_GET['browse']) && $_GET['browse']=='true'?$return:'';
+        return isset($_GET['browse']) && $_GET['browse'] == 'true' ? $return : '';
     }
 
     private function foreign_walk($column, $parent = null, $depth = 0)
@@ -356,12 +371,15 @@ class BaseController extends Controller
         if (isset($column['treeview'])) {
             $data = $data->where($column['treeview'], $parent);
         }
-        foreach($data->get() as $opt) {
-            $response .= '<option value="'.$opt['id'].'">';
-            $response .= str_repeat('&nbsp', $depth*4);
+        foreach ($data->get() as $opt) {
+            $response .= '<option value="' . $opt['id'] . '">';
+            $response .= str_repeat('&nbsp', $depth * 4);
             if (isset($column['columns'])) {
-                foreach(explode(',', $column['columns']) as $n => $col) {
-                    if ($n) $response .= ', ';
+                foreach (explode(',', $column['columns']) as $n => $col) {
+                    if ($n) {
+                        $response .= ', ';
+                    }
+
                     $sub = explode('.', $col);
                     if (isset($sub[1])) {
                         $response .= $opt[$sub[0]][$sub[1]];
@@ -374,7 +392,7 @@ class BaseController extends Controller
             }
             $response .= '</option>';
             if (isset($column['treeview']) && (!isset($column['maxdepth']) || $column['maxdepth'] > $depth)) {
-                $response .= $this->foreign_walk($column, $opt['id'], $depth+1);
+                $response .= $this->foreign_walk($column, $opt['id'], $depth + 1);
             }
         }
         return $response;
@@ -383,7 +401,7 @@ class BaseController extends Controller
     // Return the <select> tree for a foreign relationship
     public function foreign($columnId, $column)
     {
-        $response = '<select name="'.$columnId.'" id="input_'.$columnId.'">';
+        $response = '<select name="' . $columnId . '" id="input_' . $columnId . '">';
         $response .= '<option value=""></option>';
         $response .= $this->foreign_walk($column);
         $response .= '</select>';
