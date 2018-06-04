@@ -362,7 +362,12 @@ class BaseController extends Controller
             if (isset($column['columns'])) {
                 foreach(explode(',', $column['columns']) as $n => $col) {
                     if ($n) $response .= ', ';
-                    $response .= $opt[$col];
+                    $sub = explode('.', $col);
+                    if (isset($sub[1])) {
+                        $response .= $opt[$sub[0]][$sub[1]];
+                    } else {
+                        $response .= $opt[$col];
+                    }
                 }
             } else {
                 $response .= implode(', ', $opt->toArray());
