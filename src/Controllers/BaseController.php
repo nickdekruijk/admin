@@ -243,13 +243,9 @@ class BaseController extends Controller
             } elseif ($this->columns($column, 'type') == 'select' && isset($this->columns($column, 'values')[$row[$column]])) {
                 $response .= '<span>' . $this->columns($column, 'values')[$row[$column]] . '</span>';
             } else {
-                $sub = explode('.', $column);
-                if (isset($sub[1])) {
-                    $value = $row[$sub[0]][$sub[1]];
-                } else {
-                    $value = $row[$column];
+                foreach (explode('.', $column) as $s) {
+                    $value = $value[$s] ?? $row[$s];
                 }
-
                 $response .= '<span>' . htmlspecialchars($value) . '</span>';
             }
         }
@@ -379,13 +375,10 @@ class BaseController extends Controller
                     if ($n) {
                         $response .= ', ';
                     }
-
-                    $sub = explode('.', $col);
-                    if (isset($sub[1])) {
-                        $response .= $opt[$sub[0]][$sub[1]];
-                    } else {
-                        $response .= $opt[$col];
+                    foreach (explode('.', $col) as $s) {
+                        $value = $value[$s] ?? $opt[$s];
                     }
+                    $response .= $value;
                 }
             } else {
                 $response .= implode(', ', $opt->toArray());
