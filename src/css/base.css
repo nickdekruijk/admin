@@ -119,12 +119,14 @@ nav li:hover > ul > li {max-height:40px}
 #editview .content {position:absolute;top:40px;bottom:0;left:0;right:0;padding:7px;overflow:auto;border-left:1px solid #d3d3d3}
 #editview .content LABEL {display:block;color:rgba(0,0,0,0.5);padding:10px 0 3px;font-size:0.95em;position:relative}
 #editview .content LABEL:first-of-type {padding-top:0}
+#editview .content LABEL.radio {display:inline-block;padding-right:10px}
 #editview .content SELECT,
 #editview .content TEXTAREA,
 #editview .content INPUT[type=password],
 #editview .content INPUT[type=number],
 #editview .content INPUT[type=date],
 #editview .content INPUT[type=text] {width:100%;display:block;margin:0;padding:4px 6px;background-color:rgba(255,255,255,0.5);box-sizing:border-box;font:inherit;border-radius:3px;border:1px solid rgba(0,0,0,0.2)}
+#editview .content INPUT[type=radio] {margin:0 3px 0 0;font-size:1.1em}
 #editview .content INPUT[type=checkbox] {margin:0;font-size:1.1em}
 #editview .content SELECT {width:auto;max-width:100%}
 #editview .content TEXTAREA {min-height:5em;resize:vertical;line-height:1.2em}

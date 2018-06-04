@@ -59,6 +59,11 @@
                     <option value="{{ $key }}">{{ $value }}</option>
                     @endforeach
                 </select>
+                @elseif ($column['type'] == 'radio')
+                <input type="hidden" name="{{ $id }}" value="">
+                @foreach($column['values'] as $key => $value)
+                <label class="radio"><input type="radio" name="{{ $id }}" id="input_{{ $id }}_{{ $key }}" value="{{ $key }}">{{ $value }}</label>
+                @endforeach
                 @elseif ($column['type'] == 'text' || $column['type'] == 'mediumtext' || $column['type'] == 'longtext')
                 <textarea class="{{isset($column['tinymce'])?'tinymce':''}}" name="{{ $id }}" id="input_{{ $id }}" rows="{{$column['type'] == 'mediumtext' ? 10 : ($column['type'] == 'longtext' ? 15 : 5)}}" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
                 @elseif ($column['type'] == 'image' || $column['type'] == 'images')

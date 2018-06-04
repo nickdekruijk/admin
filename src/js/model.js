@@ -159,7 +159,9 @@ function modelShow(slug, id) {
         cache: false,
     }).done(function (data, status, xhr) {
         for (i in data) {
-            if ($('#input_' + i).attr('type') == 'checkbox') {
+            if ($('#editview input[type=radio][name=' + i + ']').length) {
+                $('#editview input[type=radio][name=' + i + '][value=' + data[i] + ']').prop('checked', true);
+            } else if ($('#input_' + i).attr('type') == 'checkbox') {
                 $('#input_' + i).prop('checked', data[i] == true);
             } else {
                 $('#input_' + i).val(data[i]);
