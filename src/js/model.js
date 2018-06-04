@@ -3,11 +3,11 @@ var modelRoot = null;
 function modelSortable(slug) {
     $('#listview:not(.treeview) > .content.sortable > UL').sortable({
         items: "> li",
-    	handle: 'span',
-    	opacity: .6,
-    	forcePlaceholderSize: true,
-    	placeholder: "ui-state-highlight",
-        update: function(event, ui) {
+        handle: 'span',
+        opacity: .6,
+        forcePlaceholderSize: true,
+        placeholder: "ui-state-highlight",
+        update: function (event, ui) {
             modelSaveSorting(slug);
         }
     }).disableSelection();
@@ -15,36 +15,36 @@ function modelSortable(slug) {
 
 function modelNestedSortable(slug) {
     $('#listview.treeview > .content.sortable > UL').nestedSortable({
-    	forcePlaceholderSize: true,
-    	items: 'li',
-    	handle: 'div',
-    	isTree: true,
-    	listType: 'ul',
-    /* 	maxLevels: 3, */
-    	opacity: .6,
-    	toleranceElement: '> div',
-    	startCollapsed: true,
-    	placeholder: "ui-state-highlight",
-        sort: function(a,b) {
+        forcePlaceholderSize: true,
+        items: 'li',
+        handle: 'div',
+        isTree: true,
+        listType: 'ul',
+        /* 	maxLevels: 3, */
+        opacity: .6,
+        toleranceElement: '> div',
+        startCollapsed: true,
+        placeholder: "ui-state-highlight",
+        sort: function (a, b) {
             // When starting sorting store the current parent in data-oldparent so we can use it on relocate to check if parent changed
             var id = $(b.item).data('id');
-            var parent = $('LI[data-id='+id+']').parent().parent().data('id');
-            $('LI[data-id='+id+']').data('oldparent', parent);
+            var parent = $('LI[data-id=' + id + ']').parent().parent().data('id');
+            $('LI[data-id=' + id + ']').data('oldparent', parent);
         },
-    	relocate: function(a, b) {
+        relocate: function (a, b) {
             // Done dragging, see what's changed
             var id = $(b.item).data('id');
-            var parent = $('LI[data-id='+id+']').parent().parent().data('id');
-            var oldparent = $('LI[data-id='+id+']').data('oldparent');
-            $('LI[data-id='+id+']').data('oldparent', null)
+            var parent = $('LI[data-id=' + id + ']').parent().parent().data('id');
+            var oldparent = $('LI[data-id=' + id + ']').data('oldparent');
+            $('LI[data-id=' + id + ']').data('oldparent', null)
             // Did parent change? Save new parent do database
-            if (parent!=oldparent) {
-                modelChangeParent(slug, id, parent?parent:modelRoot, oldparent?oldparent:modelRoot);
+            if (parent != oldparent) {
+                modelChangeParent(slug, id, parent ? parent : modelRoot, oldparent ? oldparent : modelRoot);
             } else {
                 modelSaveSorting(slug, parent);
             }
-        	listviewSetColumnWidth();
-    	}
+            listviewSetColumnWidth();
+        }
     });
 }
 
@@ -56,14 +56,14 @@ function sortingDone(msg) {
 function modelSortIds(parent) {
     var ids = '';
     if (parent > 0 && parent !== modelRoot) {
-        $('LI[data-id='+parent+'] > UL > LI').each(function() {
+        $('LI[data-id=' + parent + '] > UL > LI').each(function () {
             if (ids) ids += ',';
             ids += parseInt($(this).data('id'));
         });
     } else {
-        $('#listview .content > UL > LI').each(function() {
-            if (ids) ids+=',';
-            ids+=parseInt($(this).data('id'));
+        $('#listview .content > UL > LI').each(function () {
+            if (ids) ids += ',';
+            ids += parseInt($(this).data('id'));
         });
     }
     return ids;
@@ -71,52 +71,52 @@ function modelSortIds(parent) {
 
 function modelChangeParent(slug, id, parent, oldparent) {
     loading();
-    $.ajax(slug+'/'+id+'/changeparent', {
+    $.ajax(slug + '/' + id + '/changeparent', {
         method: 'patch',
         cache: 'false',
-        data: 'parent='+parent+'&oldparent='+oldparent+'&ids='+modelSortIds(parent),
-    }).done(function(data,status,xhr) {
+        data: 'parent=' + parent + '&oldparent=' + oldparent + '&ids=' + modelSortIds(parent),
+    }).done(function (data, status, xhr) {
         sortingDone(data);
-    }).fail(function(xhr,status,error) {
+    }).fail(function (xhr, status, error) {
         sortingDone(status);
     });
 }
 
 function modelSaveSorting(slug, parent) {
     loading();
-    $.ajax(slug+'/'+parent+'/sort', {
+    $.ajax(slug + '/' + parent + '/sort', {
         method: 'patch',
         cache: 'false',
-        data: 'ids='+modelSortIds(parent),
-    }).done(function(data,status,xhr) {
+        data: 'ids=' + modelSortIds(parent),
+    }).done(function (data, status, xhr) {
         sortingDone(data);
-    }).fail(function(xhr,status,error) {
+    }).fail(function (xhr, status, error) {
         sortingDone(status);
     });
 }
 
 function modelImageBaseName(str) {
     var base = new String(str).substring(str.lastIndexOf('/') + 1);
-    if(base.lastIndexOf(".") != -1)
+    if (base.lastIndexOf(".") != -1)
         base = base.substring(0, base.lastIndexOf("."));
     return base;
 }
 
 function modelImageCaption(element) {
-    var caption = prompt(trans['caption']+' "'+$(element).data('image')+'"', $(element).data('caption'));
+    var caption = prompt(trans['caption'] + ' "' + $(element).data('image') + '"', $(element).data('caption'));
     if (caption != null && caption != $(element).data('caption')) {
         $(element).data('caption', caption);
-        $(element).find('SPAN').text(caption?caption:modelImageBaseName($(element).data('image')));
+        $(element).find('SPAN').text(caption ? caption : modelImageBaseName($(element).data('image')));
         modelUpdateImagesTextarea($(element).parent());
     }
 }
 
 function modelUpdateImagesTextarea(element) {
     var text = '';
-    $(element).children('LI').each(function() {
+    $(element).children('LI').each(function () {
         if (text) text += "\n";
         text += $(this).data('image');
-        if ($(this).data('caption')) text += '|'+$(this).data('caption');
+        if ($(this).data('caption')) text += '|' + $(this).data('caption');
     });
     $(element).prev('TEXTAREA').val(text);
 }
@@ -128,25 +128,25 @@ function modelImageDelete(element) {
 }
 
 function modelUpdateImages() {
-    $('TEXTAREA.images').each(function() {
+    $('TEXTAREA.images').each(function () {
         var lines = $(this).val().match(/[^\r\n]+/g);
         $(this).next('UL').children('LI').detach();
         $(this).next('UL.sortable').sortable({
             items: "> li",
-            update: function() {
+            update: function () {
                 modelUpdateImagesTextarea(this);
             }
         }).disableSelection().removeClass('sortable');
         for (i in lines) {
             var image = lines[i].split('|');
-            image.push(image.splice(1).join('|') );
+            image.push(image.splice(1).join('|'));
             var src = $(this).data('url') + image[0];
-            $(this).next('UL').children('.button').before('<li data-image="'+image[0].replace(/\"/g,'&quot;')+'" data-caption="'+image[1].replace(/\"/g,'&quot;')+'"><img src="'+encodeURI(src).replace(/\+/g,'%2B')+'" alt=""><button class="delete button small is-red"><i class="fa fa-trash"></i></button><span>'+(image[1]?image[1]:modelImageBaseName(image[0]))+'</span></li>');
+            $(this).next('UL').children('.button').before('<li data-image="' + image[0].replace(/\"/g, '&quot;') + '" data-caption="' + image[1].replace(/\"/g, '&quot;') + '"><img src="' + encodeURI(src).replace(/\+/g, '%2B') + '" alt=""><button class="delete button small is-red"><i class="fa fa-trash"></i></button><span>' + (image[1] ? image[1] : modelImageBaseName(image[0])) + '</span></li>');
         }
-        $(this).next('UL').children('LI').click(function() {
+        $(this).next('UL').children('LI').click(function () {
             modelImageCaption(this);
         });
-        $(this).next('UL').children('LI').children('.button.delete').click(function(e) {
+        $(this).next('UL').children('LI').children('.button.delete').click(function (e) {
             modelImageDelete(this);
             return false;
         });
@@ -155,37 +155,37 @@ function modelUpdateImages() {
 
 function modelShow(slug, id) {
     loading();
-    $.ajax(slug+'/'+id, {
+    $.ajax(slug + '/' + id, {
         cache: false,
-    }).done(function(data,status,xhr) {
+    }).done(function (data, status, xhr) {
         for (i in data) {
-            if ($('#input_'+i).attr('type') == 'checkbox') {
-                $('#input_'+i).prop('checked', data[i] == true);
+            if ($('#input_' + i).attr('type') == 'checkbox') {
+                $('#input_' + i).prop('checked', data[i] == true);
             } else {
-                $('#input_'+i).val(data[i]);
+                $('#input_' + i).val(data[i]);
             }
-            $('#input_'+i+'_confirmation').val(data[i]);
-            if ($('#input_'+i).hasClass('tinymce')) {
-                tinymce.get('input_'+i).setContent(data[i]?data[i]:'');
+            $('#input_' + i + '_confirmation').val(data[i]);
+            if ($('#input_' + i).hasClass('tinymce')) {
+                tinymce.get('input_' + i).setContent(data[i] ? data[i] : '');
             }
         }
         modelUpdateImages();
         loadingDone();
-    }).fail(function(xhr,status,error) {
+    }).fail(function (xhr, status, error) {
         alert(status);
         loadingDone();
     });
 }
 
 function modelValidationError(xhr) {
-    var error='';
+    var error = '';
     // Walk thru the fields that didn't validate and format a nice error.
     for (i in xhr.responseJSON.errors) {
         // Set focus on the first field with an error
-        if (!error) $('#input_'+i).focus();
-        $('#input_'+i).addClass('error');
-        $('LABEL[for=input_'+i+']').append('<span class="errormsg"><i class="fa fa-exclamation-triangle"></i>'+xhr.responseJSON.errors[i]+'</span>')
-        error+=xhr.responseJSON.errors[i]+'\n';
+        if (!error) $('#input_' + i).focus();
+        $('#input_' + i).addClass('error');
+        $('LABEL[for=input_' + i + ']').append('<span class="errormsg"><i class="fa fa-exclamation-triangle"></i>' + xhr.responseJSON.errors[i] + '</span>')
+        error += xhr.responseJSON.errors[i] + '\n';
     }
 }
 
@@ -196,9 +196,9 @@ function modelClearErrors() {
 
 function modelInactive(data) {
     if (data.active) {
-        $('#listview LI[data-id='+data.id+']').removeClass('inactive');
+        $('#listview LI[data-id=' + data.id + ']').removeClass('inactive');
     } else {
-        $('#listview LI[data-id='+data.id+']').addClass('inactive');
+        $('#listview LI[data-id=' + data.id + ']').addClass('inactive');
     }
 }
 
@@ -206,30 +206,30 @@ function modelCreate(slug, cloneFromId) {
     loading();
     var data = $('#model_form').serialize();
     if (cloneFromId) {
-        data += '&__cloneFromId='+cloneFromId;
+        data += '&__cloneFromId=' + cloneFromId;
     }
     if (modelRoot) {
-        data += '&__modelRoot='+modelRoot;
+        data += '&__modelRoot=' + modelRoot;
     }
     modelClearErrors();
     $.ajax(slug, {
         cache: false,
         data: data,
         method: 'post',
-    }).done(function(data,status,xhr) {
+    }).done(function (data, status, xhr) {
         $('#listview LI.active').removeClass('active');
         $('#listview .content > UL').replaceWith(data.listview);
         modelId(data.id);
-        $('#listview LI[data-id='+data.id+']').addClass('active');
-        $('#listview LI').each(function() {
+        $('#listview LI[data-id=' + data.id + ']').addClass('active');
+        $('#listview LI').each(function () {
             modelListViewAddClick(slug, this);
         });
         modelNestedSortable(slug);
         modelSortable(slug);
         listviewSetColumnWidth();
         loadingDone();
-    }).fail(function(xhr,status,error) {
-        if (xhr.status==422) {
+    }).fail(function (xhr, status, error) {
+        if (xhr.status == 422) {
             modelValidationError(xhr);
         } else {
             alert(status);
@@ -240,25 +240,25 @@ function modelCreate(slug, cloneFromId) {
 
 function modelUpdate(slug, id) {
     loading();
-    $('.tinymce').each(function() {
+    $('.tinymce').each(function () {
         tinyMCE.get(this.id).save();
     });
     modelClearErrors();
-    $.ajax(slug+'/'+id, {
+    $.ajax(slug + '/' + id, {
         cache: false,
         data: $('#model_form').serialize(),
         method: 'patch',
-    }).done(function(data,status,xhr) {
+    }).done(function (data, status, xhr) {
         if (listviewTable())
-            $('#listview LI[data-id='+id+']').html(data.li);
+            $('#listview LI[data-id=' + id + ']').html(data.li);
         else {
-            $('#listview LI[data-id='+id+'] > DIV').html(data.li);
+            $('#listview LI[data-id=' + id + '] > DIV').html(data.li);
         }
         modelInactive(data);
         listviewSetColumnWidth();
         loadingDone();
-    }).fail(function(xhr,status,error) {
-        if (xhr.status==422) {
+    }).fail(function (xhr, status, error) {
+        if (xhr.status == 422) {
             modelValidationError(xhr);
         } else {
             alert(status);
@@ -269,28 +269,28 @@ function modelUpdate(slug, id) {
 
 function modelDelete(slug, id) {
     loading();
-    $.ajax(slug+'/'+id, {
+    $.ajax(slug + '/' + id, {
         cache: false,
         method: 'delete',
-    }).done(function(data,status,xhr) {
+    }).done(function (data, status, xhr) {
         if (listviewTable()) {
-            $('#listview LI[data-id='+id+']').detach();
+            $('#listview LI[data-id=' + id + ']').detach();
         } else {
-            $('#listview LI[data-id='+id+']').animate({height:0}, function() {
-                $('#listview LI[data-id='+id+']').detach();
+            $('#listview LI[data-id=' + id + ']').animate({ height: 0 }, function () {
+                $('#listview LI[data-id=' + id + ']').detach();
                 listviewSetColumnWidth();
             });
         }
         modelEditViewReset(false);
         loadingDone();
-    }).fail(function(xhr,status,error) {
+    }).fail(function (xhr, status, error) {
         alert(status);
         loadingDone();
     });
 }
 
 function modelListViewAddClick(slug, element) {
-    $(element).click(function() {
+    $(element).click(function () {
         if ($('.ui-sortable-helper').length) return false;
         modelEditViewReset(true, true);
         $(element).addClass('active');
@@ -300,10 +300,10 @@ function modelListViewAddClick(slug, element) {
     });
 }
 function modelListViewClick(slug) {
-    $('#listview LI').each(function() {
+    $('#listview LI').each(function () {
         modelListViewAddClick(slug, this);
     });
-    $('BUTTON.model_create').click(function() {
+    $('BUTTON.model_create').click(function () {
         modelEditViewReset(true);
         modelUpdateImages();
     });
@@ -329,7 +329,7 @@ function modelEditViewReset(checked, dontreset) {
 function modelId(setId) {
     var id = $('#input_id').text();
     if (setId) {
-        if (setId==-1) setId = '';
+        if (setId == -1) setId = '';
         $('#input_id').text(setId);
         id = setId;
     }
@@ -346,24 +346,24 @@ function modelId(setId) {
 }
 
 function modelEditViewClick(slug) {
-    $('#model_form').submit(function(e) {
+    $('#model_form').submit(function (e) {
         e.preventDefault();
     });
-    $('#model_save').click(function() {
+    $('#model_save').click(function () {
         $(this).addClass('is-loading');
         if (modelId())
             modelUpdate(slug, modelId());
         else
             modelCreate(slug);
     });
-    $('#model_clone').click(function() {
+    $('#model_clone').click(function () {
         $(this).addClass('is-loading');
         modelCreate(slug, modelId());
     });
-    $('#model_close').click(function() {
+    $('#model_close').click(function () {
         modelEditViewReset(false);
     });
-    $('#model_delete').click(function() {
+    $('#model_delete').click(function () {
         if (confirm($(this).data('confirm'))) {
             $(this).addClass('is-loading');
             modelDelete(slug, modelId());
@@ -372,15 +372,15 @@ function modelEditViewClick(slug) {
 }
 
 function modelKeydown() {
-	$(document).keydown(function(e) {
-		var keyCode=e.keyCode || e.which;
-		if (keyCode==27) {
-    		if ($('#media_browser').length)
-    		    $('#media_browser').detach();
-    		else
-			    $('#model_close').click();
-		}
-	});
+    $(document).keydown(function (e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode == 27) {
+            if ($('#media_browser').length)
+                $('#media_browser').detach();
+            else
+                $('#model_close').click();
+        }
+    });
 }
 
 var modelAddMediaElement = false;
@@ -388,7 +388,7 @@ var modelAddMediaElement = false;
 function modelAddMedia(slug, element) {
     $('BODY').append('<div id="media_browser"><iframe src="media?browse=true"></iframe></div>');
     modelAddMediaElement = element;
-    $('#media_browser').click(function() {
+    $('#media_browser').click(function () {
         $('#media_browser').detach();
     })
 }
@@ -396,7 +396,7 @@ function modelAddMedia(slug, element) {
 function modelAddMediaFile(file) {
     $('#media_browser').detach();
     if (typeof modelAddMediaElement == 'object' && modelAddMediaElement.win && modelAddMediaElement.field_name && modelAddMediaElement.media_url) {
-        modelAddMediaElement.win.document.getElementById(modelAddMediaElement.field_name).value = modelAddMediaElement.media_url+file;
+        modelAddMediaElement.win.document.getElementById(modelAddMediaElement.field_name).value = modelAddMediaElement.media_url + file;
         return true;
     }
     var textarea = $(modelAddMediaElement).parent().prev('textarea');
@@ -428,7 +428,7 @@ function modelInit(slug) {
     modelSortable(slug);
     modelListViewClick(slug);
     modelEditViewClick(slug);
-    $('UL.input_images .button.add').click(function() {
+    $('UL.input_images .button.add').click(function () {
         modelAddMedia(slug, this);
     })
 }
