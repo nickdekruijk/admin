@@ -283,7 +283,7 @@ class BaseController extends Controller
         foreach ($model->get() as $row) {
             // First row, add <ul>
             if (!$response) {
-                $response .= '<ul' . ($this->module('expanded') > 0 && $this->module('expanded') < $depth ? ' class="closed"' : '') . '>';
+                $response .= '<ul' . ($this->module('expanded') > 0 && $this->module('expanded') <= $depth ? ' class="closed"' : '') . '>';
             }
 
             $response .= '<li data-id="' . $row['id'] . '"' . ($this->module('active') && !$row[$this->module('active')] ? ' class=inactive' : '') . '>';
