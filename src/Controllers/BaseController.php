@@ -266,7 +266,7 @@ class BaseController extends Controller
     }
 
     // Return the listview data formated with <ul>
-    public function listviewData($parent = null)
+    public function listviewData($parent = null, $depth = 0)
     {
         // Get model
         $model = $this->model();
@@ -283,14 +283,14 @@ class BaseController extends Controller
         foreach ($model->get() as $row) {
             // First row, add <ul>
             if (!$response) {
-                $response .= '<ul>';
+                $response .= '<ul' . ($this->module('expanded') > 0 && $this->module('expanded') < $depth ? ' class="closed"' : '') . '>';
             }
 
             $response .= '<li data-id="' . $row['id'] . '"' . ($this->module('active') && !$row[$this->module('active')] ? ' class=inactive' : '') . '>';
             if ($this->module('treeview')) {
                 $response .= '<div>' . $this->listviewRow($row) . '</div>';
                 // Add children if any
-                $response .= $this->listviewData($row->id);
+                $response .= $this->listviewData($row->id, $depth + 1);
             } else {
                 $response .= $this->listviewRow($row);
             }
