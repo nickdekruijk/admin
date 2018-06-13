@@ -193,7 +193,7 @@ return [
             'icon' => 'fa-users',
             'title_nl' => 'Gebruikers',
             'model' => 'App\User',
-            'index' => 'email,name',
+            'index' => 'email,name,admin_role',
             'orderBy' => 'created_at',
             'columns' => [
                 'name' => [
