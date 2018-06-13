@@ -71,6 +71,8 @@
                 <ul class="input_images {{ $column['type'] }} {{ $column['type']=='images'?'sortable':'' }}" id="images_{{ $id }}"><button class="button add"><i class="fa fa-plus"></i></button></ul>
                 @elseif ($column['type'] == 'foreign')
                 {!! $lp->foreign($id, $column) !!}
+                @elseif ($column['type'] == 'pivot')
+                {!! $lp->pivot($id, $column) !!}
                 @elseif ($column['type'] != 'boolean')
                 {{$column['type']}}
                 @endif

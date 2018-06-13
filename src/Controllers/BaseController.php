@@ -355,34 +355,14 @@ class BaseController extends Controller
     private function foreign_walk($column, $parent = null, $depth = 0)
     {
         $response = '';
-        if (isset($column['scope'])) {
-            $scope = $column['scope'];
-            $data = (new $column['model'])->$scope();
-        } else {
-            $data = (new $column['model']);
-            if (isset($column['orderby'])) {
-                $data = $data->orderBy($column['orderby']);
-            }
-        }
+        $data = $this->getModelData($column);
         if (isset($column['treeview'])) {
             $data = $data->where($column['treeview'], $parent);
         }
         foreach ($data->get() as $opt) {
             $response .= '<option value="' . $opt['id'] . '">';
             $response .= str_repeat('&nbsp', $depth * 4);
-            if (isset($column['columns'])) {
-                foreach (explode(',', $column['columns']) as $n => $col) {
-                    if ($n) {
-                        $response .= ', ';
-                    }
-                    foreach (explode('.', $col) as $s) {
-                        $value = $value[$s] ?? $opt[$s];
-                    }
-                    $response .= $value;
-                }
-            } else {
-                $response .= implode(', ', $opt->toArray());
-            }
+            $response .= $this->getModelDataColumns($column, $opt);
             $response .= '</option>';
             if (isset($column['treeview']) && (!isset($column['maxdepth']) || $column['maxdepth'] > $depth)) {
                 $response .= $this->foreign_walk($column, $opt['id'], $depth + 1);
@@ -398,6 +378,50 @@ class BaseController extends Controller
         $response .= '<option value=""></option>';
         $response .= $this->foreign_walk($column);
         $response .= '</select>';
+        return $response;
+    }
+
+    private function getModelData($column)
+    {
+        if (isset($column['scope'])) {
+            $scope = $column['scope'];
+            $data = (new $column['model'])->$scope();
+        } else {
+            $data = (new $column['model']);
+            if (isset($column['orderby'])) {
+                $data = $data->orderBy($column['orderby']);
+            }
+        }
+        return $data;
+    }
+
+    private function getModelDataColumns($column, $opt)
+    {
+        $response = '';
+        if (isset($column['columns'])) {
+            foreach (explode(',', $column['columns']) as $n => $col) {
+                if ($n) {
+                    $response .= ', ';
+                }
+                foreach (explode('.', $col) as $s) {
+                    $value = $value[$s] ?? $opt[$s];
+                }
+                $response .= $value;
+            }
+        } else {
+            $response .= implode(', ', $opt->toArray());
+        }
+        return $response;
+    }
+
+    // Return the <select> tree for a many to many (pivot) relationship
+    public function pivot($columnId, $column)
+    {
+        $data = $this->getModelData($column);
+        $response = '';
+        foreach ($data->get() as $opt) {
+            $response .= '<label class="pivot"><input type="checkbox" class="pivot-'.$columnId.'" name="'.$columnId.'[]" value="'.$opt->id.'"><span>'.$this->getModelDataColumns($column, $opt).'</span></label>';
+        }
         return $response;
     }
 }

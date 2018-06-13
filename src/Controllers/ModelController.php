@@ -20,9 +20,11 @@ class ModelController extends BaseController
             $model[$this->module('treeview')] = $request['__modelRoot'];
         }
         foreach($this->columns() as $columnId => $column) {
-            if (isset($column['type']) && $column['type']=='password') {
+            if (isset($column['type']) && $column['type'] == 'pivot') {
+                $model->belongsToMany($column['model'])->sync($request[$columnId]);
+            } elseif (isset($column['type']) && $column['type'] == 'password') {
                 // If column is a password and user changed it then hash it
-                if ($request[$columnId] && $request[$columnId]!='********') {
+                if ($request[$columnId] && $request[$columnId] != '********') {
                     $model[$columnId] = bcrypt($request[$columnId]);
                 }
             } else {
@@ -66,6 +68,15 @@ class ModelController extends BaseController
         // Get the original values and not the altered values from model accessors
         $row = $this->model()::findOrFail($id, array_keys($this->columns()))->getOriginal();
         foreach($this->columns() as $columnId => $column) {
+            // If column type is pivot return matching ids
+            if ($column['type'] == 'pivot') {
+                unset($row['"'.$columnId.'"']);
+                $ids = [];
+                foreach ($this->model()::findOrFail($id)->belongsToMany($column['model'])->get() as $pivot) {
+                    $ids[] = $pivot->id;
+                }
+                $row['_pivot.'.$columnId] = implode(',', $ids);
+            }
             // If column is a password (and maybe even hidden) return it with a 'masked' values of ********
             if (isset($column['type']) && $column['type'] == 'password' && $row[$columnId]) {
                 $row[$columnId] = '********';

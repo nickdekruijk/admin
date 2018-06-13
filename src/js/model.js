@@ -159,7 +159,15 @@ function modelShow(slug, id) {
         cache: false,
     }).done(function (data, status, xhr) {
         for (i in data) {
-            if ($('#editview input[type=radio][name=' + i + ']').length) {
+            if (i.substr(0,7) == '_pivot.') {
+                $('#editview input[type=checkbox].pivot-' + i.substr(7)).prop('checked', false);
+                var pivot = data[i].split(',');
+                for (n in pivot) {
+                    if (pivot[n]) {
+                        $('#editview input[type=checkbox][value=' + pivot[n] + '].pivot-' + i.substr(7)).prop('checked', true);
+                    }
+                }
+            } else if ($('#editview input[type=radio][name=' + i + ']').length) {
                 $('#editview input[type=radio][name=' + i + '][value=' + data[i] + ']').prop('checked', true);
             } else if ($('#input_' + i).attr('type') == 'checkbox') {
                 $('#input_' + i).prop('checked', data[i] == true);
