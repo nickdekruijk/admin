@@ -36,11 +36,11 @@ class BaseController extends Controller
     // Return the items localized title
     public function locale($key, array $item, $default)
     {
-        if (isset($item[$key . '_' . App::getlocale()])) {
+        if (isset($item[$key . '_' . App::getlocale()]) && !is_array($item[$key . '_' . App::getlocale()])) {
             return $item[$key . '_' . App::getlocale()];
         }
 
-        if (isset($item[$key])) {
+        if (isset($item[$key]) && !is_array($item[$key])) {
             return $item[$key];
         }
 
