@@ -168,7 +168,11 @@ function modelShow(slug, id) {
                     }
                 }
             } else if ($('#editview input[type=radio][name=' + i + ']').length) {
-                $('#editview input[type=radio][name=' + i + '][value=' + data[i] + ']').prop('checked', true);
+                $('#editview input[type=radio][name=' + i + ']').each(function() {
+                    if ($(this).val() == data[i] || (data[i]==null && !$(this).val())) {
+                        $(this).prop('checked', true)
+                    }
+                });
             } else if ($('#input_' + i).attr('type') == 'checkbox') {
                 $('#input_' + i).prop('checked', data[i] == true);
             } else {
