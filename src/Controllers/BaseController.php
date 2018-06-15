@@ -260,7 +260,11 @@ class BaseController extends Controller
                 $columns = explode(',', trim($columns));
             }
             foreach ($columns as $column) {
-                $model = $model->orderBy(trim($column), $direction);
+                $column = explode(' ', $column, 2);
+                if (empty($column[1])) {
+                    $column[1] = $direction;
+                }
+                $model = $model->orderBy(trim($column[0]), $column[1]);
             }
         }
         return $model;
