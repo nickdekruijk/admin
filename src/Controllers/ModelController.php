@@ -31,7 +31,7 @@ class ModelController extends BaseController
                 $model[$columnId] = $request[$columnId];
             }
         }
-        if ($this->module('sortable')) {
+        if ($this->module('sortable') && empty($model['sort'])) {
             $model['sort'] = $this->model()->max('sort') + 1;
         }
         $model->save();
