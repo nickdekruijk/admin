@@ -243,6 +243,7 @@ class BaseController extends Controller
             } elseif ($this->columns($column, 'type') == 'select' && isset($this->columns($column, 'values')[$row[$column]])) {
                 $response .= '<span>' . $this->columns($column, 'values')[$row[$column]] . '</span>';
             } else {
+                unset($value);
                 foreach (explode('.', $column) as $s) {
                     $value = $value[$s] ?? $row[$s];
                 }
