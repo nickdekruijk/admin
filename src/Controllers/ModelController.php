@@ -19,9 +19,11 @@ class ModelController extends BaseController
         if (isset($request['__modelRoot']) && is_numeric($request['__modelRoot']) && $this->module('treeview')) {
             $model[$this->module('treeview')] = $request['__modelRoot'];
         }
+
+        $sync = [];
         foreach($this->columns() as $columnId => $column) {
             if (isset($column['type']) && $column['type'] == 'pivot') {
-                $model->belongsToMany($column['model'])->sync($request[$columnId]);
+                $sync[$column['model']] = $request[$columnId];
             } elseif (isset($column['type']) && $column['type'] == 'password') {
                 // If column is a password and user changed it then hash it
                 if ($request[$columnId] && $request[$columnId] != '********') {
@@ -31,10 +33,17 @@ class ModelController extends BaseController
                 $model[$columnId] = $request[$columnId];
             }
         }
+
         if ($this->module('sortable') && empty($model['sort'])) {
             $model['sort'] = $this->model()->max('sort') + 1;
         }
+
         $model->save();
+
+        foreach($sync as $foreign => $values) {
+            $model->belongsToMany($foreign)->sync($values);
+        }
+
         return [
             'active' => $this->module('active') ? $model[$this->module('active')]==true : true,
             'id' => $model->id,
