@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraPages\Admin;
+namespace NickDeKruijk\Admin;
 
 class Facade extends \Illuminate\Support\Facades\Facade
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraPages\Admin\Controllers;
+namespace NickDeKruijk\Admin\Controllers;
 
 use App;
 use App\Http\Controllers\Controller;
@@ -17,11 +17,11 @@ class BaseController extends Controller
 
     public function __construct()
     {
-        // LaraPages requires authentication and a valid role
+        // Admin requires authentication and a valid role
         $this->middleware(['auth', function ($request, $next) {
             if (!$this->user = $this->checkRole()) {
                 Auth::logout();
-                return redirect(route('login'))->withErrors(['email' => trans('larapages::base.missing_role')]);
+                return redirect(route('login'))->withErrors(['email' => trans('admin::base.missing_role')]);
             }
             return $next($request);
         }]);
@@ -51,24 +51,24 @@ class BaseController extends Controller
     public function checkRole()
     {
         // Check if User has admin_role column
-        if (!isset(Auth::user()[config('larapages.role_column')])) {
+        if (!isset(Auth::user()[config('admin.role_column')])) {
             return false;
         }
 
         // Get User roleId from User model based 'role_column' config
-        $roleId = Auth::user()[config('larapages.role_column')];
+        $roleId = Auth::user()[config('admin.role_column')];
 
         // Check if admin_role matches a valid role
-        if (!isset(config('larapages.roles')[$roleId])) {
+        if (!isset(config('admin.roles')[$roleId])) {
             abort(403, 'User role "' . $roleId . '" does not exist');
         }
 
         // Get the role from config
-        $role = config('larapages.roles')[$roleId];
+        $role = config('admin.roles')[$roleId];
 
         // Get all modules the user has access to
         $role['modules'] = [];
-        foreach (array_merge(config('larapages.modules'), config('larapages.modules2', [])) as $id => $module) {
+        foreach (array_merge(config('admin.modules'), config('admin.modules2', [])) as $id => $module) {
             // Localize title when available
             $module['title'] = $this->locale('title', $module, $id);
 
@@ -104,13 +104,13 @@ class BaseController extends Controller
         $view = $this->module('view');
         // Return error if view doesn't exist
         if (!View::exists($view)) {
-            $message = 'View ' . $view . ' ' . trans('larapages::base.notfound') . '.';
-            $view = 'larapages::error';
+            $message = 'View ' . $view . ' ' . trans('admin::base.notfound') . '.';
+            $view = 'admin::error';
         }
         // Return error if model doesn't exist
-        if ($view == 'larapages::model' && !$this->model()) {
-            $message = 'Model ' . $this->module('model') . ' ' . trans('larapages::base.notfound') . '.';
-            $view = 'larapages::error';
+        if ($view == 'admin::model' && !$this->model()) {
+            $message = 'Model ' . $this->module('model') . ' ' . trans('base.notfound') . '.';
+            $view = 'admin::error';
         }
 
         return view($view, ['lp' => $this, 'message' => $message]);
@@ -143,7 +143,7 @@ class BaseController extends Controller
     private function navigationLI($active = false, $link = '', $title = null, $icon = null)
     {
         $response = '<li class="' . ($active ? 'active' : '') . '">';
-        $response .= '<a href="' . url(config('larapages.adminpath') . '/' . $link) . '">';
+        $response .= '<a href="' . url(config('admin.adminpath') . '/' . $link) . '">';
         if ($icon) {
             $response .= '<i class="fa ' . $icon . '"></i>';
         }
@@ -175,7 +175,7 @@ class BaseController extends Controller
                     if ((new $item['model'])->where($item['treeview'], $subitem->id)->count()) {
                         $count++;
                         if ($count == 1 && isset($item['sub_showall']) && $item['sub_showall']) {
-                            $subresponse .= $this->navigationLI($id == $this->slug && !request()->root, str_slug($id), $item['sub_showall'] === true ? trans('larapages::base.showall') : $this->locale('sub_showall', $item, false)) . '</li>';
+                            $subresponse .= $this->navigationLI($id == $this->slug && !request()->root, str_slug($id), $item['sub_showall'] === true ? trans('admin::base.showall') : $this->locale('sub_showall', $item, false)) . '</li>';
                         }
                         $subresponse .= $this->navigationLI($id == $this->slug && request()->root == $subitem->id, str_slug($id) . '?root=' . $subitem->id, $subitem[$item['sub_navigation']]) . '</li>';
                     }
@@ -190,7 +190,7 @@ class BaseController extends Controller
 
         // Add logout 'form'
         if (Route::has('logout')) {
-            $response .= '<li><form id="logout-form" action="' . route('logout') . '" method="POST" style="display: none;">' . csrf_field() . '</form><a href="' . route('logout') . '" onclick="event.preventDefault(); document.getElementById(\'logout-form\').submit();"><i class="fa fa-sign-out"></i>' . trans('larapages::base.logout') . '</a></li>';
+            $response .= '<li><form id="logout-form" action="' . route('logout') . '" method="POST" style="display: none;">' . csrf_field() . '</form><a href="' . route('logout') . '" onclick="event.preventDefault(); document.getElementById(\'logout-form\').submit();"><i class="fa fa-sign-out"></i>' . trans('admin::base.logout') . '</a></li>';
         }
 
         // Closing <ul>
@@ -323,7 +323,7 @@ class BaseController extends Controller
             $columns[$id] = $column;
             if (isset($column['type']) && $column['type'] == 'roles') {
                 $columns[$id]['type'] = 'select';
-                foreach (config('larapages.roles') as $roleId => $role) {
+                foreach (config('admin.roles') as $roleId => $role) {
                     $columns[$id]['values'][$roleId] = $this->locale('title', $role, $roleId);
                 }
             }

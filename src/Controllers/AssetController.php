@@ -1,7 +1,7 @@
 <?php
 // Thank you Barryvdh\Debugbar for this concept!
 
-namespace LaraPages\Admin\Controllers;
+namespace NickDeKruijk\Admin\Controllers;
 
 use App;
 use Illuminate\Http\Response;

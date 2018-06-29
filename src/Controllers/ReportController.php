@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraPages\Admin\Controllers;
+namespace NickDeKruijk\Admin\Controllers;
 
 use DB;
 

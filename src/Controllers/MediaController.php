@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraPages\Admin\Controllers;
+namespace NickDeKruijk\Admin\Controllers;
 
 use Illuminate\Http\Request;
 use File;
@@ -10,8 +10,8 @@ class MediaController extends BaseController
     public static function uploadLimit()
     {
         $max = ini_get('upload_max_filesize') > (int)ini_get('post_max_size') ? (int)ini_get('post_max_size') : (int)ini_get('upload_max_filesize');
-        if (config('larapages.media_upload_limit') < $max) {
-            $max = config('larapages.media_upload_limit');
+        if (config('admin.media_upload_limit') < $max) {
+            $max = config('admin.media_upload_limit');
         }
         return $max;
     }
@@ -35,7 +35,7 @@ class MediaController extends BaseController
     public static function folders($path = null, $id = null)
     {
         if (!$path) {
-            $path = config('larapages.media_path');
+            $path = config('admin.media_path');
         }
         $directories = File::directories($path);
         natcasesort($directories);
@@ -64,7 +64,7 @@ class MediaController extends BaseController
     {
         $this->checkSlug($slug, 'read');
         $folder = urldecode($folder);
-        $files = File::files(config('larapages.media_path').'/'.$folder);
+        $files = File::files(config('admin.media_path').'/'.$folder);
         natcasesort($files);
 
         $preview = ['jpg', 'png', 'gif', 'jpeg', 'svg'];
@@ -80,7 +80,7 @@ class MediaController extends BaseController
             $response .= '<li data-file="'.rawurlencode($folder.'/'.$file->getFilename()).'">';
             $extension = strtolower($file->getExtension());
             if (in_array($extension, $preview))
-                $response .= '<div class="img" style="background-image:url(\''.$this->encodeUrl($this->trailingSlash(config('larapages.media_url')).$folder.'/'.$file->getFilename()).'\')">';
+                $response .= '<div class="img" style="background-image:url(\''.$this->encodeUrl($this->trailingSlash(config('admin.media_url')).$folder.'/'.$file->getFilename()).'\')">';
             else
                 $response .= '<div class="img">'.$extension;
             $response .= '</div>';
@@ -88,10 +88,10 @@ class MediaController extends BaseController
             $s = getimagesize($file);
             $response .= '<div class="details">'.($s?$s[0].' x '.$s[1].', ':'').number_format($file->getSize()/1000,2).' kB</div>';
             if ($this->can('delete')) {
-                $response .= '<button class="delete button small is-red" data-confirm="'.trans('larapages::base.delete').'"><i class="fa fa-trash"></i></button>';
+                $response .= '<button class="delete button small is-red" data-confirm="'.trans('admin::base.delete').'"><i class="fa fa-trash"></i></button>';
             }
             if ($this->can('update')) {
-                $response .= '<button class="rename button small" data-prompt="'.trans('larapages::base.rename').'"><i class="fa fa-info"></i></button>';
+                $response .= '<button class="rename button small" data-prompt="'.trans('admin::base.rename').'"><i class="fa fa-info"></i></button>';
             }
             $response .= '</li>';
         }
@@ -105,7 +105,7 @@ class MediaController extends BaseController
 
         // Check if upload file exists
         if (!$request->hasFile('upl')) {
-            return '{"status":"'.trans('larapages::base.uploaderror').'"}';
+            return '{"status":"'.trans('admin::base.uploaderror').'"}';
         }
         $upl=$request->file('upl');
 
@@ -116,34 +116,34 @@ class MediaController extends BaseController
 
         // Check if filesize is allowed
         if ($upl->getClientSize() > $this->uploadLimit()*1024*1024) {
-            return '{"status":"'.trans('larapages::base.filetoobig').'"}';
+            return '{"status":"'.trans('admin::base.filetoobig').'"}';
         }
 
         // Check if extension is allowed
-        if (!in_array(strtolower($upl->getClientOriginalExtension()), config('larapages.media_allowed_extensions'))) {
-            return '{"status":"'.trans('larapages::base.extnotallowed').'"}';
+        if (!in_array(strtolower($upl->getClientOriginalExtension()), config('admin.media_allowed_extensions'))) {
+            return '{"status":"'.trans('admin::base.extnotallowed').'"}';
         }
 
         $filename = $upl->getClientOriginalName();
         // If file exists add a number until file is available
-        if (config('larapages.media_upload_incremental')) {
+        if (config('admin.media_upload_incremental')) {
             $postfix = false;
-            while (file_exists(config('larapages.media_path').'/'.$folder.'/'.$filename)) {
+            while (file_exists(config('admin.media_path').'/'.$folder.'/'.$filename)) {
                 if (!$postfix) $postfix = 2; else $postfix++;
                 $filename = pathinfo($upl->getClientOriginalName(), PATHINFO_FILENAME).'_'.$postfix.'.'.$upl->getClientOriginalExtension();
             }
         }
-        $request->file('upl')->move(config('larapages.media_path').'/'.$folder, $filename);
-        return ['status' => 'success', 'folderRow' => $this->folderRow(config('larapages.media_path').'/'.$folder)];
+        $request->file('upl')->move(config('admin.media_path').'/'.$folder, $filename);
+        return ['status' => 'success', 'folderRow' => $this->folderRow(config('admin.media_path').'/'.$folder)];
     }
 
     public function destroy($slug, $folder, Request $request)
     {
         $this->checkSlug($slug, 'delete');
         $folder = urldecode($folder);
-        $file = config('larapages.media_path').'/'.$folder.'/'.$request->filename;
+        $file = config('admin.media_path').'/'.$folder.'/'.$request->filename;
         if (!file_exists($file)) return 'File not found '.$file;
-        if (substr(realpath($file), 0, strlen(config('larapages.media_path'))) !== config('larapages.media_path')) return 'Error '.realpath($file);
+        if (substr(realpath($file), 0, strlen(config('admin.media_path'))) !== config('admin.media_path')) return 'Error '.realpath($file);
         unlink($file);
         return $this->folderRow(dirname($file));
     }
@@ -152,16 +152,16 @@ class MediaController extends BaseController
     {
         $this->checkSlug($slug, 'delete');
         $folder = urldecode($folder);
-        $file = config('larapages.media_path').'/'.$folder.'/'.$request->filename;
-        $newname = config('larapages.media_path').'/'.$folder.'/'.$request->newname;
+        $file = config('admin.media_path').'/'.$folder.'/'.$request->filename;
+        $newname = config('admin.media_path').'/'.$folder.'/'.$request->newname;
         if (!file_exists($file)) return 'File not found '.$file;
         if ($file == $newname) return;
         if (file_exists($newname)) return 'File already exists '.$newname;
-        if (substr(realpath($file), 0, strlen(config('larapages.media_path'))) !== config('larapages.media_path')) return 'Error file '.realpath($file);
+        if (substr(realpath($file), 0, strlen(config('admin.media_path'))) !== config('admin.media_path')) return 'Error file '.realpath($file);
         // Check if extension is allowed
         $extension = strtolower(substr($newname, strrpos($newname, '.')+1));
-        if (!in_array($extension, config('larapages.media_allowed_extensions'))) {
-            return trans('larapages::base.extnotallowed').': .'.$extension;
+        if (!in_array($extension, config('admin.media_allowed_extensions'))) {
+            return trans('admin::base.extnotallowed').': .'.$extension;
         }
         rename($file, $newname);
     }
@@ -169,10 +169,10 @@ class MediaController extends BaseController
     public function newFolder($slug, $folder, Request $request)
     {
         $this->checkSlug($slug, 'create');
-        $folder = $this->trailingSlash(config('larapages.media_path').'/'.urldecode($folder));
+        $folder = $this->trailingSlash(config('admin.media_path').'/'.urldecode($folder));
         $response = [];
         $newfolder = $folder.$request->folder;
-        if (substr(realpath($folder), 0, strlen(config('larapages.media_path'))) !== config('larapages.media_path')) abort(400, 'realpath failed');
+        if (substr(realpath($folder), 0, strlen(config('admin.media_path'))) !== config('admin.media_path')) abort(400, 'realpath failed');
         if (strpos($request->folder, '.') !== false) abort(422, 'No . allowed in foldername');
         if (file_exists($newfolder)) abort(409, $request->folder.' already exists');
         mkdir($newfolder);
@@ -182,7 +182,7 @@ class MediaController extends BaseController
     public function destroyFolder($slug, $folder, Request $request)
     {
         $this->checkSlug($slug, 'create');
-        $folder = $this->trailingSlash(config('larapages.media_path').'/'.urldecode($folder));
+        $folder = $this->trailingSlash(config('admin.media_path').'/'.urldecode($folder));
         if (!file_exists($folder)) abort(404, 'Does not exists');
         if (!is_dir($folder)) abort(400, 'Is not a directory');
         if (count(File::allFiles($folder))) abort(409, 'Directory is not empty');

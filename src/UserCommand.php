@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraPages\Admin;
+namespace NickDeKruijk\Admin;
 
 use Illuminate\Console\Command;
 use App\User;
@@ -12,7 +12,7 @@ class UserCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'larapages:user {email : A valid e-mail address} {role? : The role the (new) user should get}';
+    protected $signature = 'admin:user {email : A valid e-mail address} {role? : The role the (new) user should get}';
 
     /**
      * The console command description.
@@ -28,7 +28,7 @@ class UserCommand extends Command
      */
     public function __construct()
     {
-        $this->description = 'Create or update a user with random password. The role is saved in the "'.config('larapages.role_column').'" column.';
+        $this->description = 'Create or update a user with random password. The role is saved in the "'.config('admin.role_column').'" column.';
         parent::__construct();
     }
 
@@ -45,7 +45,7 @@ class UserCommand extends Command
         if ($user) {
             echo 'updated with ';
             if ($this->arguments()['role']) {
-                $user[config('larapages.role_column')] = $this->arguments()['role'];
+                $user[config('admin.role_column')] = $this->arguments()['role'];
                 echo 'role "'.$this->arguments()['role'].'" and ';
             }
         } else {
@@ -53,8 +53,8 @@ class UserCommand extends Command
             $user = new User;
             $user->email = $this->arguments()['email'];
             $user->name = $this->arguments()['email'];
-            $user[config('larapages.role_column')] = $this->arguments()['role'] ?: 'admin';
-            echo 'role "'.$user[config('larapages.role_column')].'" and ';
+            $user[config('admin.role_column')] = $this->arguments()['role'] ?: 'admin';
+            echo 'role "'.$user[config('admin.role_column')].'" and ';
         }
         echo 'password "'.$password.'"'.chr(10);
         $user->password = bcrypt($password);

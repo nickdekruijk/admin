@@ -14,7 +14,7 @@ class AddAdminRoleToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-			$table->string(config('larapages.role_column'))->after('password')->nullable();
+			$table->string(config('admin.role_column'))->after('password')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddAdminRoleToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-			$table->dropColumn(config('larapages.role_column'));
+			$table->dropColumn(config('admin.role_column'));
         });
     }
 }

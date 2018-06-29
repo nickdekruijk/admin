@@ -1,8 +1,8 @@
-@extends('larapages::base')
+@extends('admin::base')
 
 @section('header')
     @if ($lp->can('create'))
-    <button class="button model_create"><i class="fa fa-plus-circle"></i><span>{{ $lp->locale('new', $lp->module(), trans('larapages::base.new')) }}</span></button>
+    <button class="button model_create"><i class="fa fa-plus-circle"></i><span>{{ $lp->locale('new', $lp->module(), trans('admin::base.new')) }}</span></button>
     @endif
 @endsection
 
@@ -16,7 +16,7 @@
                 {!! $lp->listviewData(request()->root) ?: '<ul></ul>' !!}
                 @endif
                 @if ($lp->can('create'))
-                <button class="button add model_create"><i class="fa fa-plus-circle"></i><span>{{ $lp->locale('new', $lp->module(), trans('larapages::base.new')) }}</span></button>
+                <button class="button add model_create"><i class="fa fa-plus-circle"></i><span>{{ $lp->locale('new', $lp->module(), trans('admin::base.new')) }}</span></button>
                 @endif
             </div>
         </section>
@@ -25,15 +25,15 @@
             <form id="model_form">
             <div class="header">
                 @if ($lp->can('update'))
-                <button type="{{ config('larapages.save_on_enter')?'submit':'button' }}" id="model_save" class="button border is-green is-primary"><i class="fa fa-save"></i><span>{{ trans('larapages::base.save') }}</span></button>
+                <button type="{{ config('admin.save_on_enter')?'submit':'button' }}" id="model_save" class="button border is-green is-primary"><i class="fa fa-save"></i><span>{{ trans('admin::base.save') }}</span></button>
                 @endif
                 @if ($lp->can('create'))
-                <button type="button" id="model_clone" class="button border"><i class="fa fa-clone"></i><span>{{ trans('larapages::base.savecopy') }}</span></button>
+                <button type="button" id="model_clone" class="button border"><i class="fa fa-clone"></i><span>{{ trans('admin::base.savecopy') }}</span></button>
                 @endif
                 @if ($lp->can('delete'))
-                <button type="button" id="model_delete" data-confirm="{{ trans('larapages::base.deleteconfirm') }}" class="button border is-red"><i class="fa fa-trash"></i><span>{{ trans('larapages::base.delete') }}</span></button>
+                <button type="button" id="model_delete" data-confirm="{{ trans('admin::base.deleteconfirm') }}" class="button border is-red"><i class="fa fa-trash"></i><span>{{ trans('admin::base.delete') }}</span></button>
                 @endif
-                <button type="button" id="model_close" class="button border"><i class="fa fa-ban"></i><span>{{ trans('larapages::base.close') }}</span></button>
+                <button type="button" id="model_close" class="button border"><i class="fa fa-ban"></i><span>{{ trans('admin::base.close') }}</span></button>
                 <label class="f-right model-id">id:<span id="input_id"></span></label>
             </div>
             <div class="content">
@@ -47,7 +47,7 @@
                 @if ($column['type'] == 'string' || $column['type'] == 'password' || $column['type'] == 'date' || $column['type'] == 'datetime' || $column['type'] == 'number')
                 <input class="{{ $column['type'] == 'date' ? 'datepicker' : '' }}{{ $column['type'] == 'datetime' ? 'datetimepicker' : '' }}" type="{{ $column['type']=='string' || $column['type'] == 'date' || $column['type'] == 'datetime'?'text':$column['type'] }}" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
                 @if (isset($column['validate']) && in_array('confirmed',explode('|', $column['validate'])))
-                    <label for="input_{{ $id }}_confirmation">{{ trans('larapages::base.confirm') }} {{ $lp->locale('title', $column, $id) }}</label>
+                    <label for="input_{{ $id }}_confirmation">{{ trans('admin::base.confirm') }} {{ $lp->locale('title', $column, $id) }}</label>
                     <input type="{{ $column['type']=='string'?'text':$column['type'] }}" name="{{ $id }}_confirmation" id="input_{{ $id }}_confirmation" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
                 @endif
                 @elseif ($column['type'] == 'select')
@@ -67,7 +67,7 @@
                 @elseif ($column['type'] == 'text' || $column['type'] == 'mediumtext' || $column['type'] == 'longtext')
                 <textarea class="{{isset($column['tinymce'])?'tinymce':''}}" name="{{ $id }}" id="input_{{ $id }}" rows="{{$column['type'] == 'mediumtext' ? 10 : ($column['type'] == 'longtext' ? 15 : 5)}}" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
                 @elseif ($column['type'] == 'image' || $column['type'] == 'images')
-                <textarea class="images" name="{{ $id }}" id="input_{{ $id }}" data-url="{{ rtrim(config('larapages.media_url'), '/') }}/"></textarea>
+                <textarea class="images" name="{{ $id }}" id="input_{{ $id }}" data-url="{{ rtrim(config('admin.media_url'), '/') }}/"></textarea>
                 <ul class="input_images {{ $column['type'] }} {{ $column['type']=='images'?'sortable':'' }}" id="images_{{ $id }}"><button class="button add"><i class="fa fa-plus"></i></button></ul>
                 @elseif ($column['type'] == 'foreign')
                 {!! $lp->foreign($id, $column) !!}
@@ -93,8 +93,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.13/tinymce.min.js"></script>
 <script>
     var trans = {
-        'caption': '{{ trans('larapages::base.captionfor') }}',
-        'delete': '{{ trans('larapages::base.delete') }}',
+        'caption': '{{ trans('admin::base.captionfor') }}',
+        'delete': '{{ trans('admin::base.delete') }}',
     };
     modelInit('{{ $lp->slug() }}');
 @if (request()->root)
@@ -113,7 +113,7 @@
             convert_urls : false,
             image_caption: true,
             file_browser_callback: function(field_name, url, type, win) {
-                modelAddMedia(null, {field_name: field_name, win: win, media_url: "{{ rtrim(config('larapages.media_url'), '/') }}/"});
+                modelAddMedia(null, {field_name: field_name, win: win, media_url: "{{ rtrim(config('admin.media_url'), '/') }}/"});
             },
     	    plugins: [
         	    // autoresize advlist autolink link image lists hr anchor searchreplace wordcount visualblocks code table paste contextmenu save textcolor contextmenu emoticons template directionality print preview pagebreak charmap media visualchars fullscreen fullpage visualchars insertdatetime nonbreaking

@@ -1,4 +1,4 @@
-@extends('larapages::base')
+@extends('admin::base')
 
 @section('header')
 @endsection
@@ -8,16 +8,16 @@
             @if ($lp->can('read'))
             <div class="content">
                 <div class="header">
-                    <span>{{ trans('larapages::base.report') }}</span>
+                    <span>{{ trans('admin::base.report') }}</span>
                 </div>
-                {!! LaraPages\Admin\Controllers\ReportController::reports($lp) !!}
+                {!! NickDeKruijk\Admin\Controllers\ReportController::reports($lp) !!}
             </div>
             @endif
         </section>
         @if ($lp->can('read'))
         <section id="editview">
             <div class="header">
-                <button type="button" id="report_close" class="button border"><i class="fa fa-ban"></i><span>{{ trans('larapages::base.close') }}</span></button>
+                <button type="button" id="report_close" class="button border"><i class="fa fa-ban"></i><span>{{ trans('admin::base.close') }}</span></button>
                 <label class="f-right"><span id="current_report"></span></label>
             </div>
             <div class="content report">

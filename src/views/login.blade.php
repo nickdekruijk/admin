@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>LaraPages Login</title>
+        <title>Admin Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,600" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -48,13 +48,13 @@
     <body>
         <section {{ $errors->count()?'class=error':'' }}>
             <header>
-                <h2>{!! config('larapages.logo') !!}</h2>
+                <h2>{!! config('admin.logo') !!}</h2>
             </header>
             <form class="login" method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
-                <label for="email">{{ trans('larapages::base.email') }}</label>
+                <label for="email">{{ trans('admin::base.email') }}</label>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
-                <label for="password">{{ trans('larapages::base.password') }}</label>
+                <label for="password">{{ trans('admin::base.password') }}</label>
                 <input id="password" type="password" name="password" required>
                 @if ($errors->count())
                 <div class="error">
@@ -63,7 +63,7 @@
                 @endforeach
                 </div>
                 @endif
-                <button type="submit" class="button"><i class="fa fa-sign-in" aria-hidden="true"></i>{{ trans('larapages::base.login') }}</button>
+                <button type="submit" class="button"><i class="fa fa-sign-in" aria-hidden="true"></i>{{ trans('admin::base.login') }}</button>
             </form>
         </section>
     </body>

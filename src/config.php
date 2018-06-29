@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     | The url used to login. e.g. 'lp-admin' for www.domain.com/lp-admin
     */
-    'adminpath' => 'lp-admin',
+    'adminpath' => 'admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -16,7 +16,7 @@ return [
     |--------------------------------------------------------------------------
     | This html code is shown in the upper left corner
     */
-    'logo' => '<i class="fa fa-first-order logo"></i>LaraPages',
+    'logo' => '<i class="fa fa-first-order logo"></i>Admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -88,11 +88,11 @@ return [
     */
     'modules' => [
         'dashboard' => [
-            'view' => 'larapages::dashboard',
+            'view' => 'admin::dashboard',
             'icon' => 'fa-dashboard',
         ],
         'pages' => [
-            'view' => 'larapages::model',
+            'view' => 'admin::model',
             'icon' => 'fa-sitemap',
             'title' => 'Website pages', # If ommited defaults to ucfirst(id)
             'title_nl' => 'Website pagina\'s',
@@ -102,7 +102,7 @@ return [
             'sub_navigation' => 'title', # Column to show in subnavigation, only used with treeview and only items with parent 0 or null with children will be shown
             'sub_showall' => true, # When sub_navigation is shown a 'Show all' menu item is added first
             'index' => 'title,date,head,slug,home,menuitem',
-            'model' => 'LaraPages\Pages\Page',
+            'model' => 'NickDeKruijk\Pages\Page',
             'orderBy' => 'sort',
             'sortable' => true,
             'active' => 'active',
@@ -172,13 +172,13 @@ return [
             ],
         ],
         'media' => [
-            'view' => 'larapages::media',
+            'view' => 'admin::media',
             'icon' => 'fa-picture-o',
             'maxUploadSize' => '12', # Maximum size of an uploaded file in megabytes, still limited by php.ini upload_max_filesize and post_max_size
             'folder' => 'media',     # Base folder to store uploaded files. Will be public_path(this)
         ],
         'reports' => [
-            'view' => 'larapages::reports',
+            'view' => 'admin::reports',
             'icon' => 'fa-print',
             'title_nl' => 'Rapporten',
             'disabled' => false,
@@ -189,7 +189,7 @@ return [
             ],
         ],
         'users' => [
-            'view' => 'larapages::model',
+            'view' => 'admin::model',
             'icon' => 'fa-users',
             'title_nl' => 'Gebruikers',
             'model' => 'App\User',
@@ -217,10 +217,10 @@ return [
             ],
         ],
         'settings' => [
-            'view' => 'larapages::model',
+            'view' => 'admin::model',
             'icon' => 'fa-cog',
             'title_nl' => 'Instellingen',
-            'model' => 'LaraPages\Settings\Setting',
+            'model' => 'NickDeKruijk\Settings\Setting',
             'index' => 'key,value,description',
             'new' => 'Add new setting',
             'new_nl' => 'Instelling toevoegen',
@@ -250,7 +250,7 @@ return [
     | The roles the users can be assigned to.
     | Must match 'modules' items (see above).
     | Make sure the User model has a column matching the 'role_column' value
-    | The 'role_column' of a user determines if a user has access to LaraPages
+    | The 'role_column' of a user determines if a user has access to Admin
     | The 'role_column_migration' enables or disables the included migration
     */
     'role_column' => 'admin_role',

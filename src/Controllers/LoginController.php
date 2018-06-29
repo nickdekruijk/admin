@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraPages\Admin\Controllers;
+namespace NickDeKruijk\Admin\Controllers;
 
 use Route;
 
@@ -9,11 +9,11 @@ class LoginController extends \App\Http\Controllers\Auth\LoginController
     /**
      * Where to redirect users after login.
      *
-     * Change the value from \App\Http\Controllers\Auth\LoginController to the larapages.adminpath config
+     * Change the value from \App\Http\Controllers\Auth\LoginController to the admin.adminpath config
      */
     public function __construct()
     {
-        $this->redirectTo = '/'.config('larapages.adminpath');
+        $this->redirectTo = '/'.config('admin.adminpath');
     }
 
     /**
@@ -23,7 +23,7 @@ class LoginController extends \App\Http\Controllers\Auth\LoginController
      */
     public function showLoginForm()
     {
-        return view('larapages::login');
+        return view('admin::login');
     }
 
 }
