@@ -11,7 +11,7 @@ No official release yet so for now you can only use the dev-master branch with
 `composer require nickdekruijk/admin:dev-master`
 
 # Admin
-A simple, lightweight yet complete Laravel 5.5+ admin panel/backend and media/filemanager.
+An easy to implement, lightweight yet complete Laravel 5.5+ admin panel/backend and media/filemanager.
 Basically it's a web-based content editor for your Laravel models. It's very easy to integrate it in your current Laravel application.
 
 nickdekruijk/admin is the next evolution of [nickdekruijk/larapages](https://github.com/nickdekruijk/larapages) which won't be updated anymore but will remain online for historical reference.

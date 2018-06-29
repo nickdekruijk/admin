@@ -1,6 +1,6 @@
 {
     "name": "nickdekruijk/admin",
-    "description": "A simple, lightweight yet complete Laravel 5.5+ admin panel and backend",
+    "description": "An easy to implement, lightweight yet complete Laravel 5.5+ admin panel/backend and media/filemanager.",
     "license": "MIT",
     "keywords": [ "cms", "laravel", "admin", "panel", "backend" ],
     "homepage": "http://www.nickdekruijk.nl/packages/admin",
