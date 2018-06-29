@@ -28,8 +28,8 @@ After installing for the first time publish the config file with
 
 A default config file called `admin.php` will be available in your Laravel `app/config` folder. See this file for more details. Some important configuration options are highlighted below.
 
-### /lp-admin
-By default you access admin panel by adding /admin to the URL of your website/application. For example https://www.domain.com/lp-admin
+### /admin
+By default you access admin panel by adding /admin to the URL of your website/application. For example https://www.domain.com/admin
 You can change this path by changing the `adminpath` configuration option.
 
 ### Add 'admin_role' to your users
