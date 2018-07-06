@@ -9,7 +9,7 @@
     <body class="{{ $lp->browse() }}">
         <div class="loading"><i class="fa fa-circle-o-notch fa-spin"></i></div>
         <nav class="{{ isset($_COOKIE['nav-toggle']) && $_COOKIE['nav-toggle']=='true'?'expanded':'' }}">
-            <h1><a href="{{ url(config('admin.adminpath')) }}">{!! config('admin.logo') !!}</a></h1>
+            <h1><a href="{{ url(config('admin.logo_link') ?? config('admin.adminpath')) }}" target="{{ config('admin.logo_link_target') }}">{!! config('admin.logo') !!}</a></h1>
             {!! $lp->navigation() !!}
         </nav>
         <header>
