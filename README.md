@@ -4,12 +4,6 @@
 [![Total Downloads](https://poser.pugx.org/nickdekruijk/admin/downloads)](https://packagist.org/packages/nickdekruijk/admin)
 [![License](https://poser.pugx.org/nickdekruijk/admin/license)](https://packagist.org/packages/nickdekruijk/admin)
 
-# Still in beta!
-But getting close to first 1.0.0 release!
-No official release yet so for now you can only use the dev-master branch with 
-
-`composer require nickdekruijk/admin:dev-master`
-
 # Admin
 An easy to implement, lightweight yet complete Laravel 5.5+ admin panel/backend and media/filemanager.
 Basically it's a web-based content editor for your Laravel models. It's very easy to integrate it in your current Laravel application.
