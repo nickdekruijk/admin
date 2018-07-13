@@ -281,7 +281,7 @@ return [
             'title_nl' => 'Content bewerker',
             'permissions' => [
                 'dashboard' => [ 'read' ],
-                'pages' => [ 'create', 'read', 'update' ],
+                'pages' => [ 'create', 'read', 'update', 'delete' ],
                 'media' => [ 'create', 'read', 'update', 'delete' ],
                 'settings' => [ 'read', 'update' ],
                 'reports' => [ 'read' ],
