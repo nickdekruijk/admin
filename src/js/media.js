@@ -219,7 +219,7 @@ function mediaInit(slug, browse) {
     $('#media_close').click(function() {
         mediaEditViewReset(false);
     });
-    $('#media_newfolder').click(function() {
+    $('.media_newfolder').click(function() {
         mediaNewFolder(slug,this);
     });
     $('#media_deletefolder').click(function() {

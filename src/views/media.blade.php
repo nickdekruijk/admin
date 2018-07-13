@@ -1,6 +1,9 @@
 @extends('admin::base')
 
 @section('header')
+    @if ($lp->can('create'))
+    <button class="button add media_newfolder" data-prompt="{{ trans('admin::base.foldername') }}"><i class="fa fa-plus-circle"></i><span>{{ trans('admin::base.newfolder') }}</span></button>
+    @endif
 @endsection
 
 @section('view')
@@ -17,7 +20,7 @@
                 </div>
                 @endif
                 @if ($lp->can('create'))
-                <button class="button add" id="media_newfolder" data-prompt="{{ trans('admin::base.foldername') }}"><i class="fa fa-plus-circle"></i><span>{{ trans('admin::base.newfolder') }}</span></button>
+                <button class="button add media_newfolder" data-prompt="{{ trans('admin::base.foldername') }}"><i class="fa fa-plus-circle"></i><span>{{ trans('admin::base.newfolder') }}</span></button>
                 @endif
             </div>
         </section>
