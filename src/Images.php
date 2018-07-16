@@ -23,4 +23,9 @@ trait Images {
         return trim($this->images($column, $n)[1] ?? null) ?: null;
     }
 
+    public function imageCount($column = 'images')
+    {
+        return count($this->images($column));
+    }
+
 }
