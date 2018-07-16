@@ -19,10 +19,7 @@
         "laravel": {
             "providers": [
                 "NickDeKruijk\\Admin\\ServiceProvider"
-            ],
-            "aliases": {
-                "LaraPages": "NickDeKruijk\\Admin\\Facade"
-            }
+            ]
         }
     },
     "autoload": {
