@@ -143,7 +143,7 @@ class MediaController extends BaseController
         $folder = urldecode($folder);
         $file = config('admin.media_path').'/'.$folder.'/'.$request->filename;
         if (!file_exists($file)) return 'File not found '.$file;
-        if (substr(realpath($file), 0, strlen(config('admin.media_path'))) !== config('admin.media_path')) return 'Error '.realpath($file);
+        if (substr(realpath($file), 0, strlen(realpath(config('admin.media_path')))) !== realpath(config('admin.media_path'))) return 'Error '.realpath($file);
         unlink($file);
         return $this->folderRow(dirname($file));
     }
@@ -157,7 +157,7 @@ class MediaController extends BaseController
         if (!file_exists($file)) return 'File not found '.$file;
         if ($file == $newname) return;
         if (file_exists($newname)) return 'File already exists '.$newname;
-        if (substr(realpath($file), 0, strlen(config('admin.media_path'))) !== config('admin.media_path')) return 'Error file '.realpath($file);
+        if (substr(realpath($file), 0, strlen(realpath(config('admin.media_path')))) !== realpath(config('admin.media_path'))) return 'Error file '.realpath($file);
         // Check if extension is allowed
         $extension = strtolower(substr($newname, strrpos($newname, '.')+1));
         if (!in_array($extension, config('admin.media_allowed_extensions'))) {
@@ -172,7 +172,7 @@ class MediaController extends BaseController
         $folder = $this->trailingSlash(config('admin.media_path').'/'.urldecode($folder));
         $response = [];
         $newfolder = $folder.$request->folder;
-        if (substr(realpath($folder), 0, strlen(config('admin.media_path'))) !== config('admin.media_path')) abort(400, 'realpath failed');
+        if (substr(realpath($folder), 0, strlen(realpath(config('admin.media_path')))) !== realpath(config('admin.media_path'))) abort(400, 'realpath failed');
         if (strpos($request->folder, '.') !== false) abort(422, 'No . allowed in foldername');
         if (file_exists($newfolder)) abort(409, $request->folder.' already exists');
         mkdir($newfolder);
