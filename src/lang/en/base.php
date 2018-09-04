@@ -34,4 +34,5 @@ return [
     'caption' => 'Caption',
     'captionfor' => 'Caption for',
     'showall' => 'Show all',
+    'imagenotfound' => 'Image not found',
 ];

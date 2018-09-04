@@ -95,6 +95,7 @@
     var trans = {
         'caption': '{{ trans('admin::base.captionfor') }}',
         'delete': '{{ trans('admin::base.delete') }}',
+        'imagenotfound': '{{ trans('admin::base.imagenotfound') }}',
     };
     modelInit('{{ $lp->slug() }}');
 @if (request()->root)

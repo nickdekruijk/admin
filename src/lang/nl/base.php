@@ -34,4 +34,5 @@ return [
     'caption' => 'Ondertitel',
     'captionfor' => 'Ondertitel voor',
     'showall' => 'Toon alles',
+    'imagenotfound' => 'Afbeelding niet gevonden',
 ];
