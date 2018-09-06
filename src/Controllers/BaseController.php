@@ -238,6 +238,12 @@ class BaseController extends Controller
         foreach (explode(',', $this->module('index')) as $column) {
             if ($row[$column] === true) {
                 $response .= '<span class="center"><i class="fa fa-check"></i></span>';
+            } elseif ($this->columns($column, 'type') == 'pivot') {
+                $value = '';
+                foreach($row[$column] as $opt) {
+                    $value .= ($value ? '; ' : '') . $this->getModelDataColumns($this->columns($column), $opt);
+                }
+                $response .= '<span>' . $value . '</span>';
             } elseif ($this->columns($column, 'type') == 'date') {
                 $response .= '<span>' . str_replace(' 00:00:00', '', $row[$column]) . '</span>';
             } elseif ($this->columns($column, 'type') == 'select' && isset($this->columns($column, 'values')[$row[$column]])) {
