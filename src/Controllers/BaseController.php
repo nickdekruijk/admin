@@ -213,7 +213,8 @@ class BaseController extends Controller
         }
         $response = '';
         foreach ($index as $column) {
-            $column = explode('.', $column)[0];
+            $column = explode('.', $column);
+            $column = ($this->columns($column[0], 'type') == 'array' && isset($column[1])) ? $column[1] : $column[0];
             $response .= '<span>';
             if ($column == 'id') {
                 $response .= 'id';
