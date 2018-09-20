@@ -3,6 +3,7 @@
 namespace NickDeKruijk\Admin\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use DB;
 
 class ModelController extends BaseController
@@ -24,6 +25,18 @@ class ModelController extends BaseController
         foreach($this->columns() as $columnId => $column) {
             if (isset($column['type']) && $column['type'] == 'pivot') {
                 $sync[$column['model']] = $request[$columnId];
+            } elseif (isset($column['type']) && $column['type'] == 'array') {
+                // If column is of type array json decode it
+                $model[$columnId] = json_decode($request[$columnId], true);
+                // If the JSON input is invalid return a 422 validation error
+                if (json_last_error()) {
+                    return new JsonResponse([
+                        'message' => 'The given data was invalid.',
+                        'errors' => [
+                            $columnId => 'JSON: ' . json_last_error_msg(),
+                        ],
+                    ], 422);
+                }
             } elseif (isset($column['type']) && $column['type'] == 'password') {
                 // If column is a password and user changed it then hash it
                 if ($request[$columnId] && $request[$columnId] != '********') {
@@ -78,6 +91,10 @@ class ModelController extends BaseController
         $row = $this->model()::findOrFail($id, array_keys($this->columns()))->getOriginal();
         foreach($this->columns() as $columnId => $column) {
             // If column type is pivot return matching ids
+            if ($column['type'] == 'array') {
+                // Output array columns with JSON_PRETTY_PRINT
+                $row[$columnId] = json_encode(json_decode($row[$columnId]), JSON_PRETTY_PRINT);
+            }
             if ($column['type'] == 'pivot') {
                 unset($row['"'.$columnId.'"']);
                 $ids = [];
