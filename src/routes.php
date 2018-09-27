@@ -24,6 +24,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get(config('admin.adminpath').'/{slug}', 'NickDeKruijk\Admin\Controllers\BaseController@view');
 
     Route::get(config('admin.adminpath').'/reports/{slug}/{id}', 'NickDeKruijk\Admin\Controllers\ReportController@show')->name('report');
+    Route::get(config('admin.adminpath').'/reports/{slug}/{id}/csv', 'NickDeKruijk\Admin\Controllers\ReportController@csv')->name('report_csv');
 
     Route::post(config('admin.adminpath').'/media/{slug}/{folder}/folder', 'NickDeKruijk\Admin\Controllers\MediaController@newFolder');
     Route::delete(config('admin.adminpath').'/media/{slug}/{folder}/folder', 'NickDeKruijk\Admin\Controllers\MediaController@destroyFolder');

@@ -53,4 +53,19 @@ class ReportController extends BaseController
         }
         return '<table class="report">'.$response.'</table>';
     }
+
+    public function csv($slug, $id)
+    {
+        $this->checkSlug($slug, 'read');
+        $data = $this->getQueryData($slug, $id);
+        $out = fopen('php://memory', 'w');
+        fputcsv($out, array_keys(get_object_vars($data[0])));
+        foreach($data as $line) {
+            fputcsv($out, get_object_vars($line), $this->module('download_csv_delimiter') ?: ',');
+        }
+        rewind($out);
+        $csv = stream_get_contents($out);
+        fclose($out);
+        return response($csv)->header('Content-type', 'text/csv')->header('Content-disposition', 'attachment;filename='. $id . '.csv');
+    }
 }

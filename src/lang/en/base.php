@@ -35,4 +35,5 @@ return [
     'captionfor' => 'Caption for',
     'showall' => 'Show all',
     'imagenotfound' => 'Image not found',
+    'download_csv' => 'Download CSV',
 ];

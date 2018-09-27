@@ -35,4 +35,5 @@ return [
     'captionfor' => 'Ondertitel voor',
     'showall' => 'Toon alles',
     'imagenotfound' => 'Afbeelding niet gevonden',
+    'download_csv' => 'Download CSV',
 ];
