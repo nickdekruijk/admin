@@ -19,33 +19,38 @@ class ReportController extends BaseController
         return $response;
     }
 
-    public function show($slug, $id)
+    private function getQueryData($slug, $id)
     {
-        $this->checkSlug($slug, 'read');
         foreach ($this->module('queries') as $queryId => $query) {
             if (str_slug($queryId) == $id) {
                 if (env('DB_CONNECTION')=='mysql') $set = DB::select('SET SESSION group_concat_max_len = 1024000');
-                $data = DB::select($query);
-                $response = '';
-                foreach ($data as $row) {
-                    if (!$response) {
-                        $response .= '<tr>';
-                        foreach ($row as $name => $column) {
-                            $response .= '<th>';
-                            $response .= ucfirst(htmlspecialchars(str_replace('_', ' ', $name)));
-                            $response .= '</th>';
-                        }
-                        $response .= '</tr>';
-                    }
-                    $response .= '<tr>';
-                    foreach ($row as $column) {
-                        $response .= '<td><div>'.htmlspecialchars($column).'</div></td>';
-                    }
-                    $response .= '</tr>';
-                }
-                return '<table class="report">'.$response.'</table>';
+                return DB::select($query);
             }
         }
         abort(404);
+    }
+
+    public function show($slug, $id)
+    {
+        $this->checkSlug($slug, 'read');
+        $data = $this->getQueryData($slug, $id);
+        $response = '';
+        foreach ($data as $row) {
+            if (!$response) {
+                $response .= '<tr>';
+                foreach ($row as $name => $column) {
+                    $response .= '<th>';
+                    $response .= ucfirst(htmlspecialchars(str_replace('_', ' ', $name)));
+                    $response .= '</th>';
+                }
+                $response .= '</tr>';
+            }
+            $response .= '<tr>';
+            foreach ($row as $column) {
+                $response .= '<td><div>'.htmlspecialchars($column).'</div></td>';
+            }
+            $response .= '</tr>';
+        }
+        return '<table class="report">'.$response.'</table>';
     }
 }
