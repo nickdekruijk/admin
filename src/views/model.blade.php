@@ -109,8 +109,8 @@
     	    menubar: false,
     	    branding: false,
     	    paste_as_text: true,
-    	    @if (isset($column['tinymce']['css']))
-    	    content_css: "{{ $column['tinymce']['css'] }}",
+    	    @if ($lp->module('tinymce', 'css'))
+    	    content_css: "{{ $lp->module('tinymce', 'css') }}",
     	    @endif
             browser_spellcheck: true,
             convert_urls : false,
@@ -122,25 +122,25 @@
         	    // autoresize advlist autolink link image lists hr anchor searchreplace wordcount visualblocks code table paste contextmenu save textcolor contextmenu emoticons template directionality print preview pagebreak charmap media visualchars fullscreen fullpage visualchars insertdatetime nonbreaking
         	    "autoresize autolink link image lists wordcount visualblocks code table paste contextmenu"
             ],
-    	    @if (isset($column['tinymce']['toolbar']))
-    	    toolbar: "{{ $column['tinymce']['toolbar'] }}",
+    	    @if ($lp->module('tinymce', 'toolbar'))
+    	    toolbar: "{{ $lp->module('tinymce', 'toolbar') }}",
     	    @else
     	    // underline hr alignleft aligncenter alignright alignjustify | forecolor backcolor emoticons insertfile underline visualchars searchreplace pagebreak charmap
             toolbar: "code visualblocks | undo redo | styleselect | bold italic | bullist numlist outdent indent | link anchor | image media table",
             @endif
-    	    @if (isset($column['tinymce']['formats']))
+    	    @if ($lp->module('tinymce', 'formats'))
             style_formats: [
-                {!! $column['tinymce']['formats'] !!}
+                {!! $lp->module('tinymce', 'formats') !!}
 	        ],
             @endif
-    	    @if (isset($column['tinymce']['link_class_list']))
+    	    @if ($lp->module('tinymce', 'link_class_list'))
             link_class_list: [
-                {!! $column['tinymce']['link_class_list'] !!}
+                {!! $lp->module('tinymce', 'link_class_list') !!}
 	        ],
             @endif
-    	    @if (isset($column['tinymce']['image_class_list']))
+    	    @if ($lp->module('tinymce', 'image_class_list'))
             image_class_list: [
-                {!! $column['tinymce']['image_class_list'] !!}
+                {!! $lp->module('tinymce', 'image_class_list') !!}
 	        ],
             @endif
     	});
