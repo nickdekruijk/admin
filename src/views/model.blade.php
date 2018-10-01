@@ -120,13 +120,13 @@
         },
         plugins: [
             // autoresize advlist autolink link image lists hr anchor searchreplace wordcount visualblocks code table paste contextmenu save textcolor contextmenu emoticons template directionality print preview pagebreak charmap media visualchars fullscreen fullpage visualchars insertdatetime nonbreaking
-            "autoresize autolink link image lists wordcount visualblocks code table paste contextmenu"
+            "autoresize autolink link anchor image lists wordcount visualblocks code table paste contextmenu"
         ],
         @if ($lp->module('tinymce', 'toolbar'))
         toolbar: "{{ $lp->module('tinymce', 'toolbar') }}",
         @else
         // underline hr alignleft aligncenter alignright alignjustify | forecolor backcolor emoticons insertfile underline visualchars searchreplace pagebreak charmap
-        toolbar: "code visualblocks | undo redo | styleselect | bold italic | bullist numlist outdent indent | link anchor | image media table",
+        toolbar: "code visualblocks | undo redo | styleselect | bold italic | bullist numlist outdent indent | link | image media table",
         @endif
         @if ($lp->module('tinymce', 'formats'))
         style_formats: [
