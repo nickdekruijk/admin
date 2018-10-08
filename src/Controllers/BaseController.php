@@ -286,6 +286,12 @@ class BaseController extends Controller
         if ($this->module('treeview')) {
             $model = $model->where($this->module('treeview'), $parent);
         }
+        // Add with() if needed
+        if ($this->module('with')) {
+            foreach(explode(',', $this->module('with')) as $with) {
+                $model = $model->with(trim($with));
+            }
+        }
         // Order the results if needed
         $model = $this->sortModel($model, $this->module('orderBy'));
         $model = $this->sortModel($model, $this->module('orderByDesc'), 'desc');
