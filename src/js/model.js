@@ -141,7 +141,7 @@ function modelUpdateImages() {
             var image = lines[i].split('|');
             image.push(image.splice(1).join('|'));
             var src = $(this).data('url') + image[0];
-            $(this).next('UL').children('.button').before('<li data-image="' + image[0].replace(/\"/g, '&quot;') + '" data-caption="' + image[1].replace(/\"/g, '&quot;') + '"><img src="' + encodeURI(src).replace(/\+/g, '%2B') + '" alt="' + trans['imagenotfound'] +'"><button class="delete button small is-red"><i class="fa fa-trash"></i></button><span>' + (image[1] ? image[1] : modelImageBaseName(image[0])) + '</span></li>');
+            $(this).next('UL').children('.button').before('<li data-image="' + image[0].replace(/\"/g, '&quot;') + '" data-caption="' + image[1].replace(/\"/g, '&quot;') + '"><img src="' + encodeURI(src).replace(/\+/g, '%2B') + '" alt="' + trans['imagenotfound'] + '"><button class="delete button small is-red"><i class="fa fa-trash"></i></button><span>' + (image[1] ? image[1] : modelImageBaseName(image[0])) + '</span></li>');
         }
         $(this).next('UL').children('LI').click(function () {
             modelImageCaption(this);
@@ -159,7 +159,7 @@ function modelShow(slug, id) {
         cache: false,
     }).done(function (data, status, xhr) {
         for (i in data) {
-            if (i.substr(0,7) == '_pivot.') {
+            if (i.substr(0, 7) == '_pivot.') {
                 $('#editview input[type=checkbox].pivot-' + i.substr(7)).prop('checked', false);
                 var pivot = data[i].split(',');
                 for (n in pivot) {
@@ -168,8 +168,8 @@ function modelShow(slug, id) {
                     }
                 }
             } else if ($('#editview input[type=radio][name=' + i + ']').length) {
-                $('#editview input[type=radio][name=' + i + ']').each(function() {
-                    if ($(this).val() == data[i] || (data[i]==null && !$(this).val())) {
+                $('#editview input[type=radio][name=' + i + ']').each(function () {
+                    if ($(this).val() == data[i] || (data[i] == null && !$(this).val())) {
                         $(this).prop('checked', true)
                     }
                 });
@@ -455,7 +455,7 @@ function modelInit(slug) {
     modelEditViewClick(slug);
     $('UL.input_images .button.add').click(function () {
         modelAddMedia(slug, this);
-    })
+    });
     $('.header .search INPUT').keyup(function (e) {
         modelSearch(this.value);
     });
