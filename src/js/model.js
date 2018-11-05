@@ -459,6 +459,9 @@ function modelInit(slug) {
     $('.header .search INPUT').keyup(function (e) {
         modelSearch(this.value);
     });
+    $('.header .search I.fa').click(function() {
+        $('.header .search INPUT').focus();
+    });
     $('.header .search INPUT').keydown(function (e) {
         var keyCode = e.keyCode || e.which;
         if (keyCode == 13) return false;
