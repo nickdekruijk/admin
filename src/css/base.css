@@ -261,8 +261,7 @@ TABLE.report TR:hover > TD {background-color:#0cb;border-color:#0cb}
     #editview .header {white-space:nowrap}
     #editview .header .button {padding-left:5px;padding-right:3px;max-width:20%}
     #editview .header .button > span {font-size:12px}
-    #editview.expanded {left:50px}
-    #editview {width:calc(100% - 50px)}
+    #editview {width:calc(100% - 50px);left:50px}
 }
 
 @media print {
