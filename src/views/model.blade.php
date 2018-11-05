@@ -24,6 +24,7 @@
         <section id="editview">
             <form id="model_form">
             <div class="header">
+                <div class="search"><i class="fa fa-search"></i><input type="text" placeholder="{{ trans('admin::base.search') }}"></div>
                 @if ($lp->can('update'))
                 <button type="{{ config('admin.save_on_enter')?'submit':'button' }}" id="model_save" class="button border is-green is-primary"><i class="fa fa-save"></i><span>{{ trans('admin::base.save') }}</span></button>
                 @endif

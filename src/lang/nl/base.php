@@ -36,4 +36,5 @@ return [
     'showall' => 'Toon alles',
     'imagenotfound' => 'Afbeelding niet gevonden',
     'download_csv' => 'Download CSV',
+    'search' => 'Zoeken',
 ];

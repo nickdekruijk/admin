@@ -421,6 +421,17 @@ function modelAddMediaFile(file) {
     modelUpdateImages();
 }
 
+jQuery.expr[':'].Contains = function(a, i, m) {
+    return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+};
+
+function modelSearch(str) {
+    $('#listview LI').removeClass('notfound');
+    if (str) {
+        $('#listview LI:not(:Contains("' + str + '"))').addClass('notfound');
+    }
+}
+
 function modelInit(slug) {
     $('.datepicker').datepicker({
         showButtonPanel: true,
@@ -445,4 +456,11 @@ function modelInit(slug) {
     $('UL.input_images .button.add').click(function () {
         modelAddMedia(slug, this);
     })
+    $('.header .search INPUT').keyup(function (e) {
+        modelSearch(this.value);
+    });
+    $('.header .search INPUT').keydown(function (e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode == 13) return false;
+    });
 }

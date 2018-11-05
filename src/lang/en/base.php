@@ -36,4 +36,5 @@ return [
     'showall' => 'Show all',
     'imagenotfound' => 'Image not found',
     'download_csv' => 'Download CSV',
+    'search' => 'Search',
 ];

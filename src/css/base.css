@@ -10,7 +10,7 @@ a {text-decoration:none}
 #listview LI.active > DIV, #listview LI > DIV:hover, #listview .table LI:hover, #listview .table LI.active {background-color:#0cb}
 #listview LI.active > DIV, #listview LI > DIV:hover, #listview .table LI:hover > SPAN, #listview .table LI.active > SPAN {border-top-color:rgba(255,255,255,0.1)}
 header, nav {background-color:#2c3340}
-.dashboard > UL > LI, .button, #listview .header, #editview .header {background-color:#178}
+.dashboard > UL > LI, .button, #listview .header, #editview .header, .header .search INPUT {background-color:#178}
 #listview LI.active > DIV > SPAN, #listview .table LI.active > SPAN {color:#fff !important}
 .button.border.active {background-color:rgba(255,255,255,0.25)}
 .button.border:hover {background-color:rgba(255,255,255,0.6)}
@@ -111,6 +111,15 @@ nav li:hover > ul > li {max-height:40px}
 
 #listview .table UL LI.inactive > SPAN,
 #listview LI.inactive > DIV > SPAN {text-decoration:line-through;color:rgba(0,0,0,0.3)}
+
+.header .search {position:fixed;margin-left:-41px}
+.header .search I.fa {margin:5px;font-size:18px;position:relative;z-index:1}
+.header .search INPUT {position:absolute;right:0;border:1px solid rgba(255,255,255,0.3);margin:0;display:inline-block;color:#fff;font:inherit;padding:4px 25px 4px 10px;border-radius:4px;font-size:13px;opacity:0;width:0;transition:all .25s}
+.header .search INPUT::placeholder {color:rgba(255,255,255,0.5)}
+.header .search INPUT:focus,
+.header .search INPUT:not(:placeholder-shown),
+.header .search:hover INPUT {opacity:1;width:200px}
+#listview.treeview UL LI.notfound, #listview .table UL LI.notfound {display:none}
 
 #editview.expanded {transform:translateX(0)}
 #editview {position:fixed;left:25%;transform:translateX(100%);width:75%;bottom:0;top:50px;transition:transform .6s;background-color:#eee}
