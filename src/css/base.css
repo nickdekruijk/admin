@@ -114,11 +114,11 @@ nav li:hover > ul > li {max-height:40px}
 
 .header .search {position:fixed;margin-left:-41px}
 .header .search I.fa {margin:5px;font-size:18px;position:relative;z-index:1}
-.header .search INPUT {position:absolute;right:0;border:1px solid rgba(255,255,255,0.3);margin:0;display:inline-block;color:#fff;font:inherit;padding:4px 25px 4px 10px;border-radius:4px;font-size:13px;opacity:0;width:0;transition:all .25s}
+.header .search INPUT {position:absolute;right:0;border:1px solid rgba(255,255,255,0.2);margin:0;display:inline-block;color:#fff;font:inherit;padding:4px 16px 4px 10px;border-radius:4px;font-size:13px;width:0;transition:all .25s}
 .header .search INPUT::placeholder {color:rgba(255,255,255,0.5)}
 .header .search INPUT:focus,
 .header .search INPUT:not(:placeholder-shown),
-.header .search:hover INPUT {opacity:1;width:200px}
+.header .search:hover INPUT {border-color:rgba(255,255,255,0.4);width:200px;padding-right:25px}
 #listview.treeview UL LI.notfound, #listview .table UL LI.notfound {display:none}
 
 #editview.expanded {transform:translateX(0)}
