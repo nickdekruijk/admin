@@ -3,6 +3,6 @@ An easy to implement, lightweight yet complete Laravel 5.5+ admin panel/backend 
 Basically it's a web-based content editor for your Laravel models. It's very easy to integrate it in your current Laravel application.
 
 # Table of Index
-* [Installation](install)
-* [Configuration](config)
-* [Using admin](usage)
+* [Installation](install.md)
+* [Configuration](config.md)
+* [Using admin](usage.md)
