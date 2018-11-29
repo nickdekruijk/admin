@@ -253,6 +253,9 @@ class BaseController extends Controller
                 unset($value);
                 foreach (explode('.', $column) as $s) {
                     $value = $value[$s] ?? $row[$s];
+                    if (is_null($value)) {
+                        break;
+                    }
                 }
                 $response .= '<span>' . htmlspecialchars($value) . '</span>';
             }
