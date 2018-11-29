@@ -105,7 +105,7 @@ nav li:hover > ul > li {max-height:40px}
 #listview .table .header SPAN {display:table-cell;padding:6px 0 8px 13px}
 #listview .table UL {display:table-row-group}
 #listview .table UL > LI {display:table-row;background-color:#eee}
-#listview .table UL > LI > SPAN {color:rgba(0,0,0,0.4);font-size:0.85em;display:table-cell;padding:5px 0 6px 13px;border-bottom:1px solid rgba(0,0,0,0.05);border-top:1px solid rgba(255,255,255,0.35)}
+#listview .table UL > LI > SPAN {color:rgba(0,0,0,0.4);font-size:0.85em;display:table-cell;padding:5px 0 6px 13px;border-bottom:1px solid rgba(0,0,0,0.05);border-top:1px solid rgba(255,255,255,0.35);max-width:50vw;text-overflow:ellipsis;overflow:hidden}
 #listview .table UL > LI > SPAN:first-of-type {font-weight:400;color:#000;font-size:1em}
 #listview .table UL > LI > SPAN:last-of-type {width:100%}
 
