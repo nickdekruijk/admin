@@ -32,7 +32,7 @@ class MediaController extends BaseController
         return '<div><i></i><span>'.basename($directory).'</span><span class="right">'.$files.'</span><span class="right">'.number_format($size/1024000,2).' MB</span></div>';
     }
 
-    public static function folders($path = null, $id = null)
+    public static function folders($slug = 'media', $path = null, $id = null, $depth = 0)
     {
         if (!$path) {
             $path = config('admin.media_path');
@@ -44,10 +44,12 @@ class MediaController extends BaseController
 
         foreach($directories as $directory) {
             // First item, add <ul>
-            if (!$response) $response .= '<ul>';
+            if (!$response) {
+                $response .= '<ul' . (config('admin.modules.' . $slug . '.expanded') > 0 && config('admin.modules.' . $slug . '.expanded') <= $depth ? ' class="closed"' : '') . '>';
+            }
             $response .= '<li data-id="'.urlencode($id.basename($directory)).'">';
             $response .= MediaController::folderRow($directory);
-            $response .= MediaController::folders($directory, $id.basename($directory).'/');
+            $response .= MediaController::folders($slug, $directory, $id.basename($directory) . '/', $depth + 1);
             $response .= '</li>';
         }
         // Add closing </ul> if there was anything added

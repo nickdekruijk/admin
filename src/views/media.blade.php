@@ -16,7 +16,7 @@
                     <span>{{ trans('admin::base.size') }}</span>
                 </div>
                 <div class="folders">
-                    {!! NickDeKruijk\Admin\Controllers\MediaController::folders() !!}
+                    {!! NickDeKruijk\Admin\Controllers\MediaController::folders($lp->slug()) !!}
                 </div>
                 @endif
                 @if ($lp->can('create'))
