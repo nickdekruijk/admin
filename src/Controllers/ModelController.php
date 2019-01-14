@@ -78,6 +78,18 @@ class ModelController extends BaseController
         return $this->save($this->model(), $request);
     }
 
+    // Filter out pivot type fields to prevent unknown column database errors
+    public function filter_pivot($columns)
+    {
+        $filtered = $columns;
+        foreach($filtered as $columnId => $column) {
+            if ($column['type'] == 'pivot') {
+                unset($filtered[$columnId]);
+            }
+        }
+        return array_keys($filtered);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -88,7 +100,7 @@ class ModelController extends BaseController
     {
         $this->checkSlug($slug, 'read');
         // Get the original values and not the altered values from model accessors
-        $row = $this->model()::findOrFail($id, array_keys($this->columns()))->getOriginal();
+        $row = @$this->model()::findOrFail($id, $this->filter_pivot($this->columns()))->getOriginal();
         foreach($this->columns() as $columnId => $column) {
             // If column type is pivot return matching ids
             if ($column['type'] == 'array') {
