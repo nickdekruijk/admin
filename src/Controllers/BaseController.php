@@ -161,7 +161,7 @@ class BaseController extends Controller
         // Add each navigation item the user has access to
         foreach ($this->user['modules'] as $id => $item) {
             $response .= $this->navigationLI($id == $this->slug, str_slug($id), $item['title'], $item['icon']);
-            if (isset($item['sub_navigation']) && isset($item['treeview'])) {
+            if (isset($item['sub_navigation']) && isset($item['treeview']) && class_exists($item['model'])) {
                 $data = new $item['model'];
                 $data = $this->sortModel($data, @$item['orderByDesc'], 'desc');
                 $data = $this->sortModel($data, @$item['orderBy']);
