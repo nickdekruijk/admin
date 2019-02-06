@@ -118,7 +118,7 @@ return [
             'sub_navigation' => 'title', # Column to show in subnavigation, only used with treeview and only items with parent 0 or null with children will be shown
             'sub_showall' => true, # When sub_navigation is shown a 'Show all' menu item is added first
             'index' => 'title,date,head,slug,home,menuitem',
-            'model' => 'NickDeKruijk\Pages\Page',
+            'model' => 'App\Page',
             'orderBy' => 'sort',
             'sortable' => true,
             'active' => 'active',
