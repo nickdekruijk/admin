@@ -62,6 +62,11 @@ class MediaController extends BaseController
         return rtrim($str, '/') . '/';
     }
 
+    public static function leadingSlash($str)
+    {
+        return '/' . ltrim($str, '/');
+    }
+
     public function show($slug, $folder)
     {
         $this->checkSlug($slug, 'read');
@@ -81,10 +86,17 @@ class MediaController extends BaseController
         foreach ($files as $file) {
             $response .= '<li data-file="'.rawurlencode($folder.'/'.$file->getFilename()).'">';
             $extension = strtolower($file->getExtension());
-            if (in_array($extension, $preview))
-                $response .= '<div class="img" style="background-image:url(\''.$this->encodeUrl($this->trailingSlash(config('admin.media_url')).$folder.'/'.$file->getFilename()).'\')">';
-            else
+            if (in_array($extension, $preview)) {
+                // Use nickdekruijk/imageresize admin-thumbnails template if present
+                if (config('imageresize.templates.admin-thumbnails') && config('imageresize.route')) {
+                    $source = $this->trailingSlash($this->leadingSlash(config('imageresize.route'))) . 'admin-thumbnails/';
+                } else {
+                    $source = $this->trailingSlash(config('admin.media_url'));
+                }
+                $response .= '<div class="img" style="background-image:url(\''.$this->encodeUrl($source.$folder.'/'.$file->getFilename()).'\')">';
+            } else {
                 $response .= '<div class="img">'.$extension;
+            }
             $response .= '</div>';
             $response .= '<span class="filename">'.$file->getFilename().'</span>';
             $s = @getimagesize($file);
