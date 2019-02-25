@@ -19,6 +19,11 @@ function mediaShow(slug) {
                 parent.modelAddMediaFile(decodeURIComponent($(this).data('file')));
             }
         });
+        $('#editview UL.media LI').dblclick(function() {
+            if (baseUrl) {
+                window.open(baseUrl+$(this).data('file'));
+            }
+        });
         loadingDone();
     }).fail(function(xhr,status,error) {
         alert(status);
@@ -201,9 +206,11 @@ function mediaChangeView(button) {
 }
 
 var mediaBrowse = false
+var baseUrl = false
 
-function mediaInit(slug, browse) {
+function mediaInit(slug, browse, url) {
     if (browse) mediaBrowse = true;
+    if (url) baseUrl = url;
 	$(document).keydown(function(e) {
 		var keyCode=e.keyCode || e.which;
 		if (keyCode==27) {

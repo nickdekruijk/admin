@@ -54,6 +54,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.20.0/js/jquery.iframe-transport.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.20.0/js/jquery.fileupload.min.js"></script>
 <script>
-    mediaInit('{{ $lp->slug() }}', {{ $lp->browse(true) }});
+    mediaInit('{{ $lp->slug() }}', {{ $lp->browse(true) ?: 'false' }}, '{{ NickDeKruijk\Admin\Controllers\MediaController::trailingSlash(config('admin.media_url')) }}');
 </script>
 @endsection
