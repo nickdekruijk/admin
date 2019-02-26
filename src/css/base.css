@@ -153,6 +153,10 @@ nav li:hover > ul > li {max-height:40px}
 #editview .content .error {border-color:#d99 !important;background-color:#fee !important}
 #editview .content .error:focus {border-color:#d77 !important;background-color:#fff6f6 !important}
 #editview .content .errormsg {color:#c33;position:absolute;right:0}
+#editview .content .hiddenBySelect,
+#editview .content .hiddenBySelect + .pivot,
+#editview .content .hiddenBySelect + .mce-tinymce,
+#editview .content .hiddenBySelect + .input_images {display:none !important}
 #editview .model-id {color:rgba(255,255,255,0.25)}
 #editview .model-id #input_id {color:rgba(255,255,255,0.7)}
 #editview TEXTAREA.images {display:none}

@@ -57,7 +57,7 @@
                     <option value=""></option>
                     @endif
                     @foreach($column['values'] as $key => $value)
-                    <option value="{{ $key }}">{{ $value }}</option>
+                    <option value="{{ $key }}"{{ isset($value['hide']) && is_array($value['hide']) ? 'data-hide='.implode(',', $value['hide']) : ''}}>{{ $value['value'] ?? $value }}</option>
                     @endforeach
                 </select>
                 @elseif ($column['type'] == 'radio')
@@ -75,7 +75,7 @@
                 @elseif ($column['type'] == 'foreign')
                 {!! $lp->foreign($id, $column) !!}
                 @elseif ($column['type'] == 'pivot')
-                {!! $lp->pivot($id, $column) !!}
+                <div class="pivot">{!! $lp->pivot($id, $column) !!}</div>
                 @elseif ($column['type'] != 'boolean')
                 {{$column['type']}}
                 @endif

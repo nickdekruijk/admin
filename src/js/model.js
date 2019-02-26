@@ -183,6 +183,9 @@ function modelShow(slug, id) {
                 tinymce.get('input_' + i).setContent(data[i] ? data[i] : '');
             }
         }
+        $('#editview SELECT').each(function() {
+            hideColumns(this);
+        });
         modelUpdateImages();
         loadingDone();
     }).fail(function (xhr, status, error) {
@@ -432,6 +435,15 @@ function modelSearch(str) {
     }
 }
 
+function hideColumns(t) {
+    $('#editview .content .hiddenBySelect').removeClass('hiddenBySelect');
+    var hide = $(t).children('option:selected').data('hide');
+    if (hide) hide.split(',').forEach(function(hide) {
+        $('LABEL[for=input_'+hide+']').addClass('hiddenBySelect');
+        $('#input_'+hide).addClass('hiddenBySelect');
+    });
+}
+
 function modelInit(slug) {
     $('.datepicker').datepicker({
         showButtonPanel: true,
@@ -465,5 +477,8 @@ function modelInit(slug) {
     $('.header .search INPUT').keydown(function (e) {
         var keyCode = e.keyCode || e.which;
         if (keyCode == 13) return false;
+    });
+    $('#editview SELECT').change(function() {
+        hideColumns(this);
     });
 }

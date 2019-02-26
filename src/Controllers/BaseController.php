@@ -248,7 +248,11 @@ class BaseController extends Controller
             } elseif ($this->columns($column, 'type') == 'date') {
                 $response .= '<span>' . str_replace(' 00:00:00', '', $row[$column]) . '</span>';
             } elseif ($this->columns($column, 'type') == 'select' && isset($this->columns($column, 'values')[$row[$column]])) {
-                $response .= '<span>' . $this->columns($column, 'values')[$row[$column]] . '</span>';
+                $value = $this->columns($column, 'values')[$row[$column]];
+                if (is_array($value)) {
+                    $value = $value['value'] ?? $row[$column];
+                }
+                $response .= '<span>' . $value . '</span>';
             } else {
                 unset($value);
                 foreach (explode('.', $column) as $s) {
