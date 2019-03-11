@@ -22,17 +22,17 @@ return [
     |--------------------------------------------------------------------------
     | logo_link
     |--------------------------------------------------------------------------
-    | The logo should link to this url. Defaults to adminpath (null)
+    | The logo should link to this url. Defaults to website root /
     */
-    'logo_link' => null,
+    'logo_link' => '/',
 
     /*
     |--------------------------------------------------------------------------
     | logo_link_target
     |--------------------------------------------------------------------------
-    | Open the logo_link in window, e.g. _blank
+    | Target of the logo link. Default _blank (new window/tab)
     */
-    'logo_link_target' => null,
+    'logo_link_target' => '_blank',
 
     /*
     |--------------------------------------------------------------------------
