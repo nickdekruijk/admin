@@ -127,6 +127,20 @@ class ModelController extends BaseController
         return $row;
     }
 
+    // Fetch a file from storage
+    public function download($slug, $id, $column, $data)
+    {
+        $this->checkSlug($slug, 'read');
+        $row = @$this->model()::findOrFail($id, $this->filter_pivot($this->columns()))->getOriginal();
+        abort_if(empty($row[$column]), 404);
+        $array = json_decode($row[$column]);
+        abort_if(empty($array->$data) || !isset($array->$data->name) || !isset($array->$data->type) || !isset($array->$data->size) || !isset($array->$data->store), 404);
+        $file = rtrim($this->columns('data')['storage_path'] ?? storage_path(), '/') . '/' . $array->$data->store;
+        abort_if(!file_exists($file), 404);
+        return response()->download($file, $array->$data->name);
+        dd($array->$data,$file);
+    }
+
     /**
      * Update the specified resource in storage.
      *

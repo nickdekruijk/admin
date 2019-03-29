@@ -39,4 +39,5 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::patch(config('admin.adminpath').'/{slug}/{id}/changeparent', 'NickDeKruijk\Admin\Controllers\ModelController@changeParent');
     Route::patch(config('admin.adminpath').'/{slug}/{id}', 'NickDeKruijk\Admin\Controllers\ModelController@update');
     Route::delete(config('admin.adminpath').'/{slug}/{id}', 'NickDeKruijk\Admin\Controllers\ModelController@destroy');
+    Route::get(config('admin.adminpath').'/{slug}/{id}/download/{column}/{data}', 'NickDeKruijk\Admin\Controllers\ModelController@download');
 });

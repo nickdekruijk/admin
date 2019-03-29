@@ -153,6 +153,18 @@ function modelUpdateImages() {
     });
 }
 
+function updateArray(slug, element) {
+    var array = JSON.parse($('#input_' + i).val());
+    var element = $('#input_' + i).next('TABLE.array');
+    element.text('');
+    for (n in array) {
+        if (typeof array[n] === 'object' && array[n] !== null && array[n]['size'] && array[n]['name']) {
+            array[n] = '<a target=\"_blank\" href="' + slug + '/' + modelId() + '/download/' + i + '/' + n + '">' + array[n]['name'] + ' (' + Math.ceil(array[n]['size']/1024) + ' kB)</a>';
+        }
+        element.append('<tr><td>' + n.replace('_', '&nbsp;') + '</td><td>' + (array[n] ? array[n] : '') + '</td></tr>');
+    }
+}
+
 function modelShow(slug, id) {
     loading();
     $.ajax(slug + '/' + id, {
@@ -176,7 +188,7 @@ function modelShow(slug, id) {
             } else if ($('#input_' + i).attr('type') == 'checkbox') {
                 $('#input_' + i).prop('checked', data[i] == true);
             } else {
-                $('#input_' + i).val(data[i]);
+                $('#input_' + i).val(data[i]).change();
             }
             $('#input_' + i + '_confirmation').val(data[i]);
             if ($('#input_' + i).hasClass('tinymce')) {
@@ -477,6 +489,9 @@ function modelInit(slug) {
     $('.header .search INPUT').keydown(function (e) {
         var keyCode = e.keyCode || e.which;
         if (keyCode == 13) return false;
+    });
+    $('#editview TEXTAREA.array').on('change', function() {
+        updateArray(slug, this);
     });
     $('#editview SELECT').change(function() {
         hideColumns(this);
