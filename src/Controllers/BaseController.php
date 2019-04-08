@@ -211,15 +211,28 @@ class BaseController extends Controller
                 $index[] = $id;
             }
         }
+        if ($this->module('index_filters')) {
+            $filters = explode(',', $this->module('index_filters'));
+        } else {
+            $filters = [];
+        }
         $response = '';
-        foreach ($index as $column) {
+        foreach ($index as $n => $column) {
+            $canfilter = in_array($column, $filters);
             $column = explode('.', $column);
             $column = ($this->columns($column[0], 'type') == 'array' && isset($column[1])) ? $column[1] : $column[0];
-            $response .= '<span>';
+            if ($canfilter) {
+                $response .= '<span data-column="' . $n . '" class="canfilter">';
+            } else {
+                $response .= '<span>';
+            }
             if ($column == 'id') {
                 $response .= 'id';
             } else {
                 $response .= $this->locale('index_title', $this->columns($column), false) ?: $this->locale('title', $this->columns($column), $column);
+            }
+            if ($canfilter) {
+                $response .= '<i class="fa fa-filter"></i><ul></ul>';
             }
             $response .= '</span>';
         }

@@ -100,6 +100,7 @@
         'caption': '{{ trans('admin::base.captionfor') }}',
         'delete': '{{ trans('admin::base.delete') }}',
         'imagenotfound': '{{ trans('admin::base.imagenotfound') }}',
+        'showall': '{{ trans('admin::base.showall') }}',
     };
     modelInit('{{ $lp->slug() }}');
 @if (request()->root)
