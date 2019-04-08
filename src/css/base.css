@@ -84,6 +84,18 @@ nav li:hover > ul > li {max-height:40px}
 #listview SPAN.center {text-align:center}
 #listview SPAN.right {text-align:right}
 
+#listview .table .canfilter > I {padding:5px 10px 5px 5px;opacity:0.2}
+#listview .table .canfilter.activeFilter > I {opacity:1}
+#listview .table .canfilter > UL {display:none;position:absolute;overflow:hidden;padding-top:20px;color:#fff}
+#listview .table .canfilter > UL > LI {display:block;background-color:#178;padding:5px 10px}
+#listview .table .canfilter > UL > LI:first-child {border-radius:5px 5px 0 0}
+#listview .table .canfilter > UL > LI:first-child:before {content:'';display:block;position:absolute;background-color:#178;width:15px;height:15px;transform:rotate(45deg) translateY(-17px);z-index:-1}
+#listview .table .canfilter > UL > LI:last-child {border-radius:0 0 5px 5px}
+#listview .table .canfilter > UL > LI:hover {background-color:#0cb}
+#listview .table .canfilter > UL > LI.activeFilter {background-color:#0cb;color:#fff}
+#listview .table .canfilter:hover > UL {display:block}
+#listview .table > UL > LI.hiddenByFilter {display:none}
+
 #listview .content {position:absolute;top:0;bottom:0;left:0;right:0;overflow:hidden;overflow-y:auto}
 #listview UL {display:block;margin:0;padding:0;white-space:nowrap}
 #listview LI {display:block;margin:0;padding:0;cursor:pointer}
