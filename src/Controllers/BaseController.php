@@ -129,12 +129,12 @@ class BaseController extends Controller
     }
 
     // Return current loaded module
-    public function module($key1 = null, $key2 = null)
+    public function module($key1 = null, $key2 = null, $alt = null)
     {
         if ($key2) {
-            return isset($this->user['modules'][$this->slug][$key1][$key2]) ? $this->user['modules'][$this->slug][$key1][$key2] : [];
+            return $this->user['modules'][$this->slug][$key1][$key2] ?? $alt[$key2] ?? [];
         } elseif ($key1) {
-            return isset($this->user['modules'][$this->slug][$key1]) ? $this->user['modules'][$this->slug][$key1] : [];
+            return $this->user['modules'][$this->slug][$key1] ?? $alt[$key1] ?? [];
         } else {
             return $this->user['modules'][$this->slug];
         }

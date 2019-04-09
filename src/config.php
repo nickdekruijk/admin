@@ -96,6 +96,27 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | tinymce_defaults
+    |--------------------------------------------------------------------------
+    | Default tinymce options for all modules, can be overruled per module
+    */
+    'tinymce_defaults' => [
+        'formats' => "
+            {title: 'H2', block: 'h2', classes: 'h2'},
+            {title: 'H3', block: 'h3', classes: 'h3'},
+            {title: 'H4', block: 'h4', classes: 'h4'}
+        ",
+//         'css' => '/css/tinymce.css',
+//         'link_class_list' => "
+//             {title: 'None', value: ''},
+//             {title: 'Button', value: 'button'},
+//             {title: 'Play Button', value: 'play-button'}
+//         ",
+        'toolbar' => 'code visualblocks | undo redo | styleselect | bold italic | bullist numlist outdent indent | link | image media table',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | modules
     |--------------------------------------------------------------------------
     | All editable models, dashboard, reports, etc. should be defined here.
@@ -122,7 +143,7 @@ return [
             'orderBy' => 'sort',
             'sortable' => true,
             'active' => 'active',
-            'tinymce' => [
+            'tinymce' => [ # You can overrule the tinymce_defaults here
 //                 'formats' => "{title: 'Intro', block: 'p', styles: {'font-size':'1.2em', 'margin-bottom':'30px', 'line-height':'1.5em'}} , {title: 'H2', block: 'h2'}",
 //                 'css' => '/css/tinymce.css',
 //                 'toolbar' => 'bold italic | link',

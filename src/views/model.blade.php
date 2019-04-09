@@ -112,8 +112,8 @@
         menubar: false,
         branding: false,
         paste_as_text: true,
-        @if ($lp->module('tinymce', 'css'))
-        content_css: "{{ $lp->module('tinymce', 'css') }}",
+        @if ($lp->module('tinymce', 'css', config('admin.tinymce_defaults')))
+        content_css: "{{ $lp->module('tinymce', 'css', config('admin.tinymce_defaults')) }}",
         @endif
         browser_spellcheck: true,
         convert_urls : false,
@@ -125,25 +125,25 @@
             // autoresize advlist autolink link image lists hr anchor searchreplace wordcount visualblocks code table paste contextmenu save textcolor contextmenu emoticons template directionality print preview pagebreak charmap media visualchars fullscreen fullpage visualchars insertdatetime nonbreaking
             "autoresize autolink link anchor image lists wordcount visualblocks code table paste contextmenu"
         ],
-        @if ($lp->module('tinymce', 'toolbar'))
-        toolbar: "{{ $lp->module('tinymce', 'toolbar') }}",
+        @if ($lp->module('tinymce', 'toolbar', config('admin.tinymce_defaults')))
+        toolbar: "{{ $lp->module('tinymce', 'toolbar', config('admin.tinymce_defaults')) }}",
         @else
         // underline hr alignleft aligncenter alignright alignjustify | forecolor backcolor emoticons insertfile underline visualchars searchreplace pagebreak charmap
         toolbar: "code visualblocks | undo redo | styleselect | bold italic | bullist numlist outdent indent | link | image media table",
         @endif
-        @if ($lp->module('tinymce', 'formats'))
+        @if ($lp->module('tinymce', 'formats', config('admin.tinymce_defaults')))
         style_formats: [
-            {!! $lp->module('tinymce', 'formats') !!}
+            {!! $lp->module('tinymce', 'formats', config('admin.tinymce_defaults')) !!}
         ],
         @endif
-        @if ($lp->module('tinymce', 'link_class_list'))
+        @if ($lp->module('tinymce', 'link_class_list', config('admin.tinymce_defaults')))
         link_class_list: [
-            {!! $lp->module('tinymce', 'link_class_list') !!}
+            {!! $lp->module('tinymce', 'link_class_list', config('admin.tinymce_defaults')) !!}
         ],
         @endif
-        @if ($lp->module('tinymce', 'image_class_list'))
+        @if ($lp->module('tinymce', 'image_class_list', config('admin.tinymce_defaults')))
         image_class_list: [
-            {!! $lp->module('tinymce', 'image_class_list') !!}
+            {!! $lp->module('tinymce', 'image_class_list', config('admin.tinymce_defaults')) !!}
         ],
         @endif
     });
