@@ -182,8 +182,7 @@ return [
                 ],
                 'body' => [
                     'title_nl' => 'Inhoud',
-                    'tinymce' => true,
-                    'type' => 'mediumtext',
+                    'type' => 'tinymce',
                 ],
             ],
         ],

@@ -361,7 +361,7 @@ class BaseController extends Controller
                 }
             }
             if (empty($column['type'])) {
-                $columns[$id]['type'] = isset($model->getCasts()[$id]) ? $model->getCasts()[$id] : 'string';
+                $columns[$id]['type'] = isset($model->getCasts()[$id]) ? $model->getCasts()[$id] : (isset($column['tinymce']) ? 'text' : 'string');
             }
             if ($id == $columnId) {
                 return $index && isset($columns[$id][$index]) ? $columns[$id][$index] : $columns[$id];
