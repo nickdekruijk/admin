@@ -22,9 +22,13 @@ class ModelController extends BaseController
         }
 
         $sync = [];
+        $morph = [];
         foreach($this->columns() as $columnId => $column) {
             if (isset($column['type']) && $column['type'] == 'pivot') {
                 $sync[$column['model']] = $request[$columnId];
+                if (!empty($column['morph'])) {
+                    $morph[$column['model']] = $column['morph'];
+                }
             } elseif (isset($column['type']) && $column['type'] == 'array') {
                 // If column is of type array json decode it
                 $model[$columnId] = json_decode($request[$columnId], true);
@@ -54,7 +58,11 @@ class ModelController extends BaseController
         $model->save();
 
         foreach($sync as $foreign => $values) {
-            $model->belongsToMany($foreign)->sync($values);
+            if (isset($morph[$foreign])) {
+                $model->morphToMany($foreign, $morph[$foreign])->sync($values);
+            } else {
+                $model->belongsToMany($foreign)->sync($values);
+            }
         }
 
         return [
@@ -110,7 +118,12 @@ class ModelController extends BaseController
             if ($column['type'] == 'pivot') {
                 unset($row['"'.$columnId.'"']);
                 $ids = [];
-                foreach ($this->model()::findOrFail($id)->belongsToMany($column['model'])->get() as $pivot) {
+                if (!empty($column['morph'])) {
+                    $pivotData = $this->model()::findOrFail($id)->morphToMany($column['model'], $column['morph'])->get();
+                } else {
+                    $pivotData = $this->model()::findOrFail($id)->belongsToMany($column['model'])->get();
+                }
+                foreach ($pivotData as $pivot) {
                     $ids[] = $pivot->id;
                 }
                 $row['_pivot.'.$columnId] = implode(',', $ids);
