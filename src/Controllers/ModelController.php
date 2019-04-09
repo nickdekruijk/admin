@@ -110,11 +110,11 @@ class ModelController extends BaseController
         // Get the original values and not the altered values from model accessors
         $row = @$this->model()::findOrFail($id, $this->filter_pivot($this->columns()))->getOriginal();
         foreach($this->columns() as $columnId => $column) {
-            // If column type is pivot return matching ids
+            // Output array columns with JSON_PRETTY_PRINT
             if ($column['type'] == 'array') {
-                // Output array columns with JSON_PRETTY_PRINT
                 $row[$columnId] = json_encode(json_decode($row[$columnId]), JSON_PRETTY_PRINT);
             }
+            // If column type is pivot return matching ids
             if ($column['type'] == 'pivot') {
                 unset($row['"'.$columnId.'"']);
                 $ids = [];
