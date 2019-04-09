@@ -458,7 +458,7 @@ class BaseController extends Controller
         $data = $this->getModelData($column);
         $response = '';
         foreach ($data->get() as $opt) {
-            $response .= '<label class="pivot"><input type="checkbox" class="pivot-'.$columnId.'" name="'.$columnId.'[]" value="'.$opt->id.'"><span>'.$this->getModelDataColumns($column, $opt).'</span></label>';
+            $response .= '<label class="pivot' . (!empty($column['active']) && !$opt[$column['active']] ? ' inactive' : '') . '"><input type="checkbox" class="pivot-'.$columnId.'" name="'.$columnId.'[]" value="'.$opt->id.'"><span>'.$this->getModelDataColumns($column, $opt).'</span></label>';
         }
         return $response;
     }

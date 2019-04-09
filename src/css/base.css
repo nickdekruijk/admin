@@ -121,6 +121,7 @@ nav li:hover > ul > li {max-height:40px}
 #listview .table UL > LI > SPAN:first-of-type {font-weight:400;color:#000;font-size:1em}
 #listview .table UL > LI > SPAN:last-of-type {width:100%}
 
+#editview .content LABEL.pivot.inactive SPAN,
 #listview .table UL LI.inactive > SPAN,
 #listview LI.inactive > DIV > SPAN {text-decoration:line-through;color:rgba(0,0,0,0.3)}
 
