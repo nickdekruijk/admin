@@ -21,7 +21,7 @@ function mediaShow(slug) {
         });
         $('#editview UL.media LI').dblclick(function() {
             if (baseUrl) {
-                window.open(baseUrl+$(this).data('file'));
+                window.open(baseUrl+decodeURIComponent($(this).data('file')));
             }
         });
         loadingDone();
