@@ -24,7 +24,44 @@ class ReportController extends BaseController
         foreach ($this->module('queries') as $queryId => $query) {
             if (str_slug($queryId) == $id) {
                 if (env('DB_CONNECTION')=='mysql') $set = DB::select('SET SESSION group_concat_max_len = 1024000');
-                return DB::select($query);
+                if (is_array($query)) {
+                    $data =  DB::select($query['query']);
+                    // Apply json_decode() if needed
+                    if (isset($query['json'])) {
+                        foreach (explode(',', $query['json']) as $json) {
+                            foreach($data as $id => $row) {
+                                $data[$id]->$json = (array)json_decode($row->$json);
+                            }
+                        }
+                    }
+                    // Return only index columns if present
+                    if (isset($query['index'])) {
+                        $indexed = [];
+                        foreach (explode(',', $query['index']) as $index) {
+                            $index = explode(':', $index);
+                            $as = $index[1] ?? null;
+                            $index = explode('.', $index[0]);
+                            foreach ($data as $id => $row) {
+                                $row = (array)$row;
+                                if (!isset($indexed[$id])) {
+                                    $indexed[$id] = [];
+                                }
+                                if (count($index) > 1) {
+                                    $value = $row[$index[0]][$index[1]];
+                                    $key = $as ?: $index[1];
+                                } else {
+                                    $key = $as ?: $index[0];
+                                    $value = $row[$index[0]];
+                                }
+                                $indexed[$id][$key] = $value;
+                            }
+                        }
+                        $data = $indexed;
+                    }
+                    return $data;
+                } else {
+                    return DB::select($query);
+                }
             }
         }
         abort(404);
