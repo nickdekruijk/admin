@@ -34,12 +34,12 @@
                 @if ($lp->can('delete'))
                 <button type="button" id="model_delete" data-confirm="{{ trans('admin::base.deleteconfirm') }}" class="button border is-red"><i class="fa fa-trash"></i><span>{{ trans('admin::base.delete') }}</span></button>
                 @endif
-                <button type="button" id="model_close" class="button border"><i class="fa fa-ban"></i><span>{{ trans('admin::base.close') }}</span></button>
                 @if ($lp->module('buttons'))
                 @foreach($lp->module('buttons') as $button_id => $button)
                 <a href="{{ $button['url'] }}" target="_blank" type="button" class="button button-url border"><i class="fa {{ $button['icon'] }} "></i><span>{{ $lp->locale('title', $button, ucfirst($button_id)) }}</span></a>
                 @endforeach
                 @endif
+                <button type="button" id="model_close" class="button border"><i class="fa fa-ban"></i><span>{{ trans('admin::base.close') }}</span></button>
                 <label class="f-right model-id">id:<span id="input_id"></span></label>
             </div>
             <div class="content">
