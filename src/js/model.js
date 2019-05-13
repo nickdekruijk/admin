@@ -532,6 +532,12 @@ function modelInit(slug) {
     modelListViewClick(slug);
     modelEditViewClick(slug);
     modelFilterListView(slug);
+    $('.button-url').click(function(e) {
+        e.preventDefault();
+        var href = $(this).attr('href');
+        href = href.replace('#id#', modelId());
+        window.open(href);
+    });
     $('UL.input_images .button.add').click(function () {
         modelAddMedia(slug, this);
     });
