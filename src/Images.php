@@ -33,7 +33,7 @@ trait Images {
             }
             return $array;
         }
-        return $index !== null ? explode('|', trim($images[$index]), 2) : $images;
+        return $index !== null ? explode('|', trim($images[$index] ?? null), 2) : $images;
     }
 
     public function image($column = null, $index = 0)
