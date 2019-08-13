@@ -3,7 +3,7 @@
     <head>
         <title>Admin</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ asset(config('admin.adminpath') . '/all.css') }}">
+        <link rel="stylesheet" href="{{ asset(config('admin.adminpath') . '/all-css') }}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body class="{{ $lp->browse() }}">
@@ -24,7 +24,7 @@
         </header>
 @yield('view')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="{{ asset(config('admin.adminpath') . '/all.js') }}"></script>
+        <script src="{{ asset(config('admin.adminpath') . '/all-js') }}"></script>
         @yield('scripts')
     </body>
 </html>
