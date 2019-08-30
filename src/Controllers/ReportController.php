@@ -62,7 +62,7 @@ class ReportController extends BaseController
                                     $indexed[$id] = [];
                                 }
                                 if (count($index) > 1) {
-                                    $value = $row[$index[0]][$index[1]];
+                                    $value = $row[$index[0]][$index[1]] ?? null;
                                     $key = $as ?: $index[1];
                                 } else {
                                     $key = $as ?: $index[0];
