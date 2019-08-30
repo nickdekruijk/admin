@@ -106,14 +106,23 @@ class ReportController extends BaseController
         return '<table class="report">'.$response.'</table>';
     }
 
+    private function safe_get_object_vars($data)
+    {
+        if (is_array($data)) {
+            return $data;
+        } else {
+            return get_object_vars($data);
+        }
+    }
+
     public function csv($slug, $id)
     {
         $this->checkSlug($slug, 'read');
         $data = $this->getQueryData($slug, $id);
         $out = fopen('php://memory', 'w');
-        fputcsv($out, array_keys(get_object_vars($data[0])));
+        fputcsv($out, array_keys($this->safe_get_object_vars($data[0])));
         foreach($data as $line) {
-            fputcsv($out, get_object_vars($line), $this->module('download_csv_delimiter') ?: ',');
+            fputcsv($out, $this->safe_get_object_vars($line), $this->module('download_csv_delimiter') ?: ',');
         }
         rewind($out);
         $csv = stream_get_contents($out);
