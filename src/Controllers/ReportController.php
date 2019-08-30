@@ -33,6 +33,21 @@ class ReportController extends BaseController
                                 $data[$id]->$json = (array)json_decode($row->$json);
                             }
                         }
+                        if (!isset($query['index'])) {
+                            $index = [];
+                            foreach($data as $id => $row) {
+                                foreach($row as $key => $value) {
+                                    if (is_array($value)) {
+                                        foreach($value as $key2 => $value2) {
+                                            $index[$key . '.' . $key2] = $key . '.' . $key2;
+                                        }
+                                    } else {
+                                        $index[$key] = $key;
+                                    }
+                                }
+                            }
+                            $query['index'] = implode(',', $index);
+                        }
                     }
                     // Return only index columns if present
                     if (isset($query['index'])) {
