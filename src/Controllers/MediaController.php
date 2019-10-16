@@ -25,7 +25,7 @@ class MediaController extends BaseController
     {
         $size = 0;
         $files = 0;
-        foreach(File::files($directory) as $file) {
+        foreach(glob($directory.'/*') as $file) {
             $files++;
             $size += filesize($file);
         }
