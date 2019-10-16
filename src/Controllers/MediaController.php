@@ -37,7 +37,7 @@ class MediaController extends BaseController
         if (!$path) {
             $path = config('admin.media_path');
         }
-        $directories = File::directories($path);
+        $directories = glob($path.'/*', GLOB_ONLYDIR);
         natcasesort($directories);
         // Initialize the response
         $response = '';
