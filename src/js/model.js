@@ -502,12 +502,14 @@ function modelSearch(str) {
 }
 
 function hideColumns(t) {
-    $('#editview .content .hiddenBySelect').removeClass('hiddenBySelect');
     var hide = $(t).children('option:selected').data('hide');
-    if (hide) hide.split(',').forEach(function(hide) {
-        $('LABEL[for=input_'+hide+']').addClass('hiddenBySelect');
-        $('#input_'+hide).addClass('hiddenBySelect');
-    });
+    if (hide) {
+        $('#editview .content .hiddenBySelect').removeClass('hiddenBySelect');
+        hide.split(',').forEach(function(hide) {
+            $('LABEL[for=input_'+hide+']').addClass('hiddenBySelect');
+            $('#input_'+hide).addClass('hiddenBySelect');
+        });
+    }
 }
 
 function modelInit(slug) {
