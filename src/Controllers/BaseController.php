@@ -458,7 +458,7 @@ class BaseController extends Controller
         return $response;
     }
 
-    // Return the <select> tree for a many to many (pivot) relationship
+    // Return all labels for a many to many (pivot) relationship
     public function pivot($columnId, $column)
     {
         $data = $this->getModelData($column);
