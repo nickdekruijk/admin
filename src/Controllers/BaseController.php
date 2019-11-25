@@ -410,9 +410,15 @@ class BaseController extends Controller
     }
 
     // Return the <select> tree for a foreign relationship
-    public function foreign($columnId, $column)
+    public function foreign($columnId, $column, $showId = true)
     {
-        $response = '<select name="' . $columnId . '" id="input_' . $columnId . '">';
+        $response = '<select name="' . $columnId . '"';
+        if ($showId) {
+            $response .= ' id="input_' . $columnId . '"';
+        } else {
+            $response .= ' data-column="' . str_replace('[]', '', $columnId) . '"';
+        }
+        $response .= '>';
         $response .= '<option value=""></option>';
         $response .= $this->foreign_walk($column);
         $response .= '</select>';
