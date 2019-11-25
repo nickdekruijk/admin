@@ -170,6 +170,7 @@ function modelShow(slug, id) {
     $.ajax(slug + '/' + id, {
         cache: false,
     }).done(function (data, status, xhr) {
+        $('#editview .rows .data').remove();
         for (i in data) {
             if (i.substr(0, 7) == '_pivot.') {
                 $('#editview input[type=checkbox].pivot-' + i.substr(7)).prop('checked', false);
@@ -187,6 +188,11 @@ function modelShow(slug, id) {
                 });
             } else if ($('#input_' + i).attr('type') == 'checkbox') {
                 $('#input_' + i).prop('checked', data[i] == true);
+            } else if ($('#input_' + i).is('TABLE') && $('#input_' + i).hasClass('rows')) {
+                var rowData = data[i];
+                for (n in rowData) {
+                    modelAddLine(slug, $('#input_' + i), rowData[n], i)
+                }
             } else {
                 $('#input_' + i).val(data[i]).change();
             }
@@ -512,6 +518,22 @@ function hideColumns(t) {
     }
 }
 
+function modelAddLine(slug, element, data, column) {
+    var tr = $(element).find('TR.template').clone().removeClass('template').addClass('data');
+    tr.appendTo($(element)).find('.pivot-delete').click(function () {
+        $(this).parent().parent().remove();
+    });
+    if (data) {
+        for (n in data) {
+            tr.find('INPUT[data-column='+column+'_'+n+']').val(data[n]);
+            tr.find('SELECT[data-column='+column+'_'+n+']').val(data[n]);
+            console.log(n,data[n]);
+        }
+    }
+    // Fix rendering bug that prevents TH from being shown after deleting
+    $(element).find('TH').hide().show();
+}
+
 function modelInit(slug) {
     $('.datepicker').datepicker({
         showButtonPanel: true,
@@ -542,6 +564,9 @@ function modelInit(slug) {
     });
     $('UL.input_images .button.add').click(function () {
         modelAddMedia(slug, this);
+    });
+    $('DIV.rows .button.add').click(function () {
+        modelAddLine(slug, $(this).prev());
     });
     $('.header .search INPUT').keyup(function (e) {
         modelSearch(this.value);

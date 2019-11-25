@@ -23,11 +23,21 @@ class ModelController extends BaseController
 
         $sync = [];
         $morph = [];
+        $row = [];
         foreach($this->columns() as $columnId => $column) {
             if (isset($column['type']) && $column['type'] == 'pivot') {
                 $sync[$column['model']] = $request[$columnId];
                 if (!empty($column['morph'])) {
                     $morph[$column['model']] = $column['morph'];
+                }
+            } elseif (isset($column['type']) && $column['type'] == 'rows') {
+                $row[$column['model']]['self'] = $column['self'];
+                foreach($column['columns'] as $columnId2 => $opt) {
+                    $r = $request[$columnId . '_' . $columnId2];
+                    array_shift($r);
+                    foreach($r as $key => $value) {
+                        $row[$column['model']][$key][$columnId2] = $value;
+                    }
                 }
             } elseif (isset($column['type']) && $column['type'] == 'array') {
                 // If column is of type array json decode it
@@ -56,6 +66,21 @@ class ModelController extends BaseController
         }
 
         $model->save();
+
+        foreach($row as $foreign => $data) {
+            $fm = new $foreign;
+            $self = $data['self'];
+            unset($data['self']);
+            $fm::where($self, $model->id)->delete();
+            foreach($data as $row) {
+                $fm = new $foreign;
+                $fm->$self = $model->id;
+                foreach($row as $column => $value) {
+                    $fm->$column = $value;
+                }
+                $fm->save();
+            }
+        }
 
         foreach($sync as $foreign => $values) {
             if (isset($morph[$foreign])) {
@@ -113,6 +138,11 @@ class ModelController extends BaseController
             // Output array columns with JSON_PRETTY_PRINT
             if ($column['type'] == 'array') {
                 $row[$columnId] = json_encode(json_decode($row[$columnId]), JSON_PRETTY_PRINT);
+            }
+            // If column type is rows return those rows
+            if ($column['type'] == 'rows') {
+                unset($row['"'.$columnId.'"']);
+                $row[$columnId] = $this->model()::findOrFail($id)->hasMany($column['model'])->get(array_keys($column['columns']))->toArray();
             }
             // If column type is pivot return matching ids
             if ($column['type'] == 'pivot') {

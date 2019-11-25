@@ -468,4 +468,38 @@ class BaseController extends Controller
         }
         return $response;
     }
+
+    // Return the line input for a many to many (pivot) relationship
+    public function rows($columnId, $column)
+    {
+        $data = $this->getModelData($column);
+        $response = '<table class="rows" id="input_' . $columnId . '">';
+        $response .= '<tr class="template">';
+        foreach ($column['columns'] as $columnId2 => $opt) {
+            $response .= '<td>';
+            if (empty($opt['type'])) {
+                $opt['type'] = 'string';
+            }
+
+            if ($opt['type'] == 'string' || $opt['type'] == 'password' || $opt['type'] == 'date' || $opt['type'] == 'datetime' || $opt['type'] == 'number') {
+                $response .= '<input class="' . ($opt['type'] == 'date' ? 'datepicker' : '') . ($opt['type'] == 'datetime' ? 'datetimepicker' : '' ) . '" type="' . ($opt['type']=='string' || $opt['type'] == 'date' || $opt['type'] == 'datetime' ? 'text' : $opt['type']) . '" name="'. $columnId . '_' . $columnId2 . '[]" data-column="' . $columnId . '_' . $columnId2 . '" placeholder="' . $this->locale('placeholder', $opt, '') . '">';
+            } elseif ($opt['type'] == 'foreign') {
+                $response .= $this->foreign($columnId . '_' . $columnId2.'[]', $opt, false);
+            } else {
+                $response .= $opt['type'];
+            }
+            $response .= '</td>';
+        }
+        if ($this->can('delete')) {
+            $response .= '<td><button type="button" data-confirm="' . trans('admin::base.deleteconfirm') . '" class="pivot-delete button is-red"><i class="fa fa-trash"></i></button></td>';
+        }
+        $response .= '</tr>';
+        $response .= '<tr>';
+        foreach ($column['columns'] as $col => $opt) {
+            $response .= '<th>' . $this->locale('title', $opt, $col) . '</th>';
+        }
+        $response .= '</tr>';
+        $response .= '</table>';
+        return $response;
+    }
 }

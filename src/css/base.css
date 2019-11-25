@@ -187,6 +187,17 @@ nav li:hover > ul > li {max-height:40px}
 #editview UL.input_images > .button.add:not(:first-child) {width:45px;height:90px;opacity:0.3}
 #editview UL.input_images > .button.add:not(:first-child):hover {opacity:1}
 #editview UL.input_images.image > .button.add:not(:first-child) {display:none}
+#editview .content TABLE.rows {border-spacing:0;border-collapse:collapse;max-width:100%}
+#editview .content TABLE.rows TR.template {display:none}
+#editview .content TABLE.rows TR:last-child TH {display:none}
+#editview .content TABLE.rows TH,
+#editview .content TABLE.rows TD {font-weight:inherit;text-align:left;padding:0 0 3px 3px}
+#editview .content TABLE.rows TH:first-child,
+#editview .content TABLE.rows TD:first-child {padding-left:0}
+#editview .content TABLE.rows SELECT {width:100%}
+#editview .content TABLE.rows .button {padding:3px 7px 4px}
+#editview .content TABLE.rows INPUT {padding:1px 4px 2px}
+
 #editview .content TABLE.array {border-spacing:0;border-collapse:collapse}
 #editview .content TABLE.array TD:first-child {color:rgba(0,0,0,0.5);padding-right:0.5em;font-size:0.95em}
 #editview .content TABLE.array TD:first-child:first-letter {text-transform:uppercase}

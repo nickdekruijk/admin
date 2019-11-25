@@ -82,6 +82,11 @@
                 {!! $lp->foreign($id, $column) !!}
                 @elseif ($column['type'] == 'pivot')
                 <div class="pivot">{!! $lp->pivot($id, $column) !!}</div>
+                @elseif ($column['type'] == 'rows')
+                <div class="rows">
+                    {!! $lp->rows($id, $column) !!}
+                    <button class="button add"><i class="fa fa-plus"></i></button>
+                </div>
                 @elseif ($column['type'] != 'boolean')
                 {{$column['type']}}
                 @endif
