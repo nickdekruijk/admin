@@ -314,7 +314,7 @@ function modelCreate(slug, cloneFromId) {
         if (xhr.status == 422) {
             modelValidationError(xhr);
         } else {
-            alert(status);
+            alert(status + ': ' + xhr.responseJSON.message);
         }
         loadingDone();
     });
@@ -344,7 +344,7 @@ function modelUpdate(slug, id) {
         if (xhr.status == 422) {
             modelValidationError(xhr);
         } else {
-            alert(status);
+            alert(status + ': ' + xhr.responseJSON.message);
         }
         loadingDone();
     });
