@@ -151,7 +151,6 @@ class ModelController extends BaseController
         $file = rtrim($this->columns('data')['storage_path'] ?? storage_path(), '/') . '/' . $array->$data->store;
         abort_if(!file_exists($file), 404);
         return response()->download($file, $array->$data->name);
-        dd($array->$data,$file);
     }
 
     /**
