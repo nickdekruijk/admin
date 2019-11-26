@@ -251,7 +251,7 @@ class BaseController extends Controller
         $response = $this->module('treeview') ? '<i></i>' : '';
         foreach (explode(',', $this->module('index')) as $column) {
             if ($row[$column] === true) {
-                $response .= '<span class="center"><i class="fa fa-check"></i></span>';
+                $response .= '<span><i class="fa fa-check"></i></span>';
             } elseif ($this->columns($column, 'type') == 'pivot') {
                 $value = '';
                 foreach($row[$column] as $opt) {

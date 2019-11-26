@@ -83,6 +83,7 @@ nav li:hover > ul > li {max-height:40px}
 #listview .button.add {margin:7px}
 #listview SPAN.center {text-align:center}
 #listview SPAN.right {text-align:right}
+#listview SPAN .fa-check {padding-left:1em}
 
 #listview .table .canfilter > I {padding:5px 10px 5px 5px;opacity:0.2}
 #listview .table .canfilter.activeFilter > I {opacity:1}
