@@ -25,7 +25,7 @@ trait Images {
         if ($array) {
             $array = [];
             foreach($images as $image) {
-                $image = explode('|', $image);
+                $image = explode('|', $image, 2);
                 $array[] = [
                     'file' => trim($image[0]),
                     'caption' => trim($image[1] ?? null),
