@@ -27,8 +27,9 @@ trait Images {
             foreach($images as $image) {
                 $image = explode('|', $image);
                 $array[] = [
-                    'file' => $image[0],
-                    'caption' => $image[1] ?? null,
+                    'file' => trim($image[0]),
+                    'caption' => trim($image[1] ?? null),
+                    'autocaption' => trim($image[1] ?? null) ?: pathinfo($image[0])['filename'],
                 ];
             }
             return $array;
