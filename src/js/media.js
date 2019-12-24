@@ -50,8 +50,8 @@ function mediaDestroy(slug, target) {
     if (confirm($(target).data('confirm')+' '+filename+'?')) {
         loading();
         $.ajax('media/'+slug+'/'+mediaFolder(), {
-            method: 'delete',
-            data: 'filename='+encodeURIComponent(filename),
+            method: 'post',
+            data: '_method=delete&filename='+encodeURIComponent(filename),
             cache: 'false',
         }).done(function(data,status,xhr) {
             $(target).parent().fadeOut();
@@ -70,8 +70,8 @@ function mediaRename(slug, target) {
     if (newname = prompt($(target).data('prompt')+' '+filename, filename)) {
         loading();
         $.ajax('media/'+slug+'/'+mediaFolder(), {
-            method: 'patch',
-            data: 'filename='+encodeURIComponent(filename)+'&newname='+encodeURIComponent(newname),
+            method: 'post',
+            data: '_method=patch&filename='+encodeURIComponent(filename)+'&newname='+encodeURIComponent(newname),
             cache: 'false',
         }).done(function(data,status,xhr) {
             if (data) {
@@ -110,7 +110,8 @@ function mediaDeleteFolder(slug, target) {
     if (confirm($(target).data('confirm')+'?')) {
         loading();
         $.ajax('media/'+slug+'/'+mediaFolder()+'/folder', {
-            method: 'delete',
+            method: 'post',
+            data: '_method=delete',
             cache: 'false',
         }).done(function(data,status,xhr) {
             $('#listview LI.active').detach();
