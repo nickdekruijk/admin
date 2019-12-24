@@ -72,9 +72,9 @@ function modelSortIds(parent) {
 function modelChangeParent(slug, id, parent, oldparent) {
     loading();
     $.ajax(slug + '/' + id + '/changeparent', {
-        method: 'patch',
+        method: 'post',
         cache: 'false',
-        data: 'parent=' + parent + '&oldparent=' + oldparent + '&ids=' + modelSortIds(parent),
+        data: '_method=patch&parent=' + parent + '&oldparent=' + oldparent + '&ids=' + modelSortIds(parent),
     }).done(function (data, status, xhr) {
         sortingDone(data);
     }).fail(function (xhr, status, error) {
@@ -85,9 +85,9 @@ function modelChangeParent(slug, id, parent, oldparent) {
 function modelSaveSorting(slug, parent) {
     loading();
     $.ajax(slug + '/' + parent + '/sort', {
-        method: 'patch',
+        method: 'post',
         cache: 'false',
-        data: 'ids=' + modelSortIds(parent),
+        data: '_method=patch&ids=' + modelSortIds(parent),
     }).done(function (data, status, xhr) {
         sortingDone(data);
     }).fail(function (xhr, status, error) {
@@ -334,8 +334,8 @@ function modelUpdate(slug, id) {
     modelClearErrors();
     $.ajax(slug + '/' + id, {
         cache: false,
-        data: $('#model_form').serialize(),
-        method: 'patch',
+        data: '_method=patch&' + $('#model_form').serialize(),
+        method: 'post',
     }).done(function (data, status, xhr) {
         if (listviewTable())
             $('#listview LI[data-id=' + id + ']').html(data.li);
@@ -360,7 +360,8 @@ function modelDelete(slug, id) {
     loading();
     $.ajax(slug + '/' + id, {
         cache: false,
-        method: 'delete',
+        data: '_method=delete',
+        method: 'post',
     }).done(function (data, status, xhr) {
         if (listviewTable()) {
             $('#listview LI[data-id=' + id + ']').detach();
