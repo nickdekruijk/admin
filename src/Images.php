@@ -39,7 +39,7 @@ trait Images {
 
     public function image($column = null, $index = 0)
     {
-        return trim($this->imagesParse($column, $index)[0]) ?: null;
+        return trim($this->imagesParse($column, $index)[0] ?? null) ?: null;
     }
 
     public function imageCaption($column = null, $index = 0)
