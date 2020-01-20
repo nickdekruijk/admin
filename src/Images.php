@@ -2,8 +2,8 @@
 
 namespace NickDeKruijk\Admin;
 
-trait Images {
-
+trait Images
+{
     public function images($column = null, $index = null)
     {
         return $this->imagesParse($column, $index, true);
@@ -24,7 +24,7 @@ trait Images {
         $images = explode(chr(10), trim($this->$column));
         if ($array) {
             $array = [];
-            foreach($images as $image) {
+            foreach ($images as $image) {
                 $image = explode('|', $image, 2);
                 $array[] = [
                     'file' => trim($image[0]),
@@ -51,5 +51,4 @@ trait Images {
     {
         return count($this->imagesParse($column));
     }
-
 }
