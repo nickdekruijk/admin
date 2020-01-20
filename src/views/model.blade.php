@@ -104,7 +104,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/i18n/jquery-ui-timepicker-addon-i18n.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nestedSortable/2.0.0/jquery.mjs.nestedSortable.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.13/tinymce.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/{{ config('admin.tinymce_defaults.version', '4.7.13') }}/tinymce.min.js"></script>
 <script>
     var trans = {
         'caption': '{{ trans('admin::base.captionfor') }}',
@@ -118,7 +118,7 @@
 @endif
     tinymce.init({
         selector:'textarea.tinymce',
-        theme: 'modern',
+        theme: '{{ config('admin.tinymce_defaults.theme', 'modern') }}',
         menubar: false,
         branding: false,
         paste_as_text: true,
