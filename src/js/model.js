@@ -474,6 +474,13 @@ function modelKeydown() {
 }
 
 var modelAddMediaElement = false;
+var modelAddMediaHelper = {};
+
+function modelAddMedia5(value, filetype, callback) {
+    $('BODY').append('<div id="media_browser"><iframe src="media?browse=true"></iframe></div>');
+    modelAddMediaHelper['active'] = true;
+    modelAddMediaHelper['callback'] = callback;
+}
 
 function modelAddMedia(slug, element) {
     $('BODY').append('<div id="media_browser"><iframe src="media?browse=true"></iframe></div>');
@@ -487,6 +494,11 @@ function modelAddMediaFile(file) {
     $('#media_browser').detach();
     if (typeof modelAddMediaElement == 'object' && modelAddMediaElement.win && modelAddMediaElement.field_name && modelAddMediaElement.media_url) {
         modelAddMediaElement.win.document.getElementById(modelAddMediaElement.field_name).value = modelAddMediaElement.media_url + file;
+        return true;
+    }
+    if (modelAddMediaHelper.active) {
+        modelAddMediaHelper['active'] = false;
+        modelAddMediaHelper.callback(file);
         return true;
     }
     var textarea = $(modelAddMediaElement).parent().prev('textarea');

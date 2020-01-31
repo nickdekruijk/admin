@@ -131,6 +131,11 @@
         file_browser_callback: function(field_name, url, type, win) {
             modelAddMedia(null, {field_name: field_name, win: win, media_url: "{{ rtrim(config('admin.media_url'), '/') }}/"});
         },
+        file_picker_callback: function(callback, value, meta) {
+            modelAddMedia5(value, meta.filetype, function (fileUrl) {
+                callback("{{ rtrim(config('admin.media_url'), '/') }}/" + fileUrl);
+            });
+        },
         plugins: [
             // autoresize advlist autolink link image lists hr anchor searchreplace wordcount visualblocks code table paste contextmenu save textcolor contextmenu emoticons template directionality print preview pagebreak charmap media visualchars fullscreen fullpage visualchars insertdatetime nonbreaking
             "autoresize autolink link anchor image lists wordcount visualblocks code table paste contextmenu"
