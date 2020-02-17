@@ -7,7 +7,7 @@ function modelSortable(slug) {
         opacity: .6,
         forcePlaceholderSize: true,
         placeholder: "ui-state-highlight",
-        update: function (event, ui) {
+        update: function(event, ui) {
             modelSaveSorting(slug);
         }
     }).disableSelection();
@@ -25,19 +25,19 @@ function modelNestedSortable(slug) {
         toleranceElement: '> div',
         startCollapsed: true,
         placeholder: "ui-state-highlight",
-        sort: function (a, b) {
+        sort: function(a, b) {
             // When starting sorting store the current parent in data-oldparent so we can use it on relocate to check if parent changed
             var id = $(b.item).data('id');
             var parent = $('LI[data-id=' + id + ']').parent().parent().data('id');
             $('LI[data-id=' + id + ']').data('oldparent', parent);
         },
-        relocate: function (a, b) {
+        relocate: function(a, b) {
             // Done dragging, see what's changed
             var id = $(b.item).data('id');
             var parent = $('LI[data-id=' + id + ']').parent().parent().data('id');
             var oldparent = $('LI[data-id=' + id + ']').data('oldparent');
             $('LI[data-id=' + id + ']').data('oldparent', null)
-            // Did parent change? Save new parent do database
+                // Did parent change? Save new parent do database
             if (parent != oldparent) {
                 modelChangeParent(slug, id, parent ? parent : modelRoot, oldparent ? oldparent : modelRoot);
             } else {
@@ -56,12 +56,12 @@ function sortingDone(msg) {
 function modelSortIds(parent) {
     var ids = '';
     if (parent > 0 && parent !== modelRoot) {
-        $('LI[data-id=' + parent + '] > UL > LI').each(function () {
+        $('LI[data-id=' + parent + '] > UL > LI').each(function() {
             if (ids) ids += ',';
             ids += parseInt($(this).data('id'));
         });
     } else {
-        $('#listview .content > UL > LI').each(function () {
+        $('#listview .content > UL > LI').each(function() {
             if (ids) ids += ',';
             ids += parseInt($(this).data('id'));
         });
@@ -75,9 +75,9 @@ function modelChangeParent(slug, id, parent, oldparent) {
         method: 'post',
         cache: 'false',
         data: '_method=patch&parent=' + parent + '&oldparent=' + oldparent + '&ids=' + modelSortIds(parent),
-    }).done(function (data, status, xhr) {
+    }).done(function(data, status, xhr) {
         sortingDone(data);
-    }).fail(function (xhr, status, error) {
+    }).fail(function(xhr, status, error) {
         sortingDone(status);
     });
 }
@@ -88,9 +88,9 @@ function modelSaveSorting(slug, parent) {
         method: 'post',
         cache: 'false',
         data: '_method=patch&ids=' + modelSortIds(parent),
-    }).done(function (data, status, xhr) {
+    }).done(function(data, status, xhr) {
         sortingDone(data);
-    }).fail(function (xhr, status, error) {
+    }).fail(function(xhr, status, error) {
         sortingDone(status);
     });
 }
@@ -113,7 +113,7 @@ function modelImageCaption(element) {
 
 function modelUpdateImagesTextarea(element) {
     var text = '';
-    $(element).children('LI').each(function () {
+    $(element).children('LI').each(function() {
         if (text) text += "\n";
         text += $(this).data('image');
         if ($(this).data('caption')) text += '|' + $(this).data('caption');
@@ -128,12 +128,12 @@ function modelImageDelete(element) {
 }
 
 function modelUpdateImages() {
-    $('TEXTAREA.images').each(function () {
+    $('TEXTAREA.images').each(function() {
         var lines = $(this).val().match(/[^\r\n]+/g);
         $(this).next('UL').children('LI').detach();
         $(this).next('UL.sortable').sortable({
             items: "> li",
-            update: function () {
+            update: function() {
                 modelUpdateImagesTextarea(this);
             }
         }).disableSelection().removeClass('sortable');
@@ -143,10 +143,10 @@ function modelUpdateImages() {
             var src = $(this).data('url') + image[0];
             $(this).next('UL').children('.button').before('<li data-image="' + image[0].replace(/\"/g, '&quot;') + '" data-caption="' + image[1].replace(/\"/g, '&quot;') + '"><img src="' + encodeURI(src).replace(/\+/g, '%2B') + '" alt="' + trans['imagenotfound'] + '"><button class="delete button small is-red"><i class="fa fa-trash"></i></button><span>' + (image[1] ? image[1] : modelImageBaseName(image[0])) + '</span></li>');
         }
-        $(this).next('UL').children('LI').click(function () {
+        $(this).next('UL').children('LI').click(function() {
             modelImageCaption(this);
         });
-        $(this).next('UL').children('LI').children('.button.delete').click(function (e) {
+        $(this).next('UL').children('LI').children('.button.delete').click(function(e) {
             modelImageDelete(this);
             return false;
         });
@@ -176,7 +176,7 @@ function modelShow(slug, id) {
     loading();
     $.ajax(slug + '/' + id, {
         cache: false,
-    }).done(function (data, status, xhr) {
+    }).done(function(data, status, xhr) {
         $('#editview .rows .data').remove();
         for (i in data) {
             if (i.substr(0, 7) == '_pivot.') {
@@ -188,7 +188,7 @@ function modelShow(slug, id) {
                     }
                 }
             } else if ($('#editview input[type=radio][name=' + i + ']').length) {
-                $('#editview input[type=radio][name=' + i + ']').each(function () {
+                $('#editview input[type=radio][name=' + i + ']').each(function() {
                     if ($(this).val() == data[i] || (data[i] == null && !$(this).val())) {
                         $(this).prop('checked', true)
                     }
@@ -213,7 +213,7 @@ function modelShow(slug, id) {
         });
         modelUpdateImages();
         loadingDone();
-    }).fail(function (xhr, status, error) {
+    }).fail(function(xhr, status, error) {
         alert(status);
         loadingDone();
     });
@@ -262,7 +262,7 @@ function modelFilterListView(slug) {
         var column = $(this).data('column');
         var data = new Object();
         $('#listview .table > UL > LI').each(function() {
-            var v = $(this).children('SPAN:eq('+column+')').text();
+            var v = $(this).children('SPAN:eq(' + column + ')').text();
             if (!data[v]) {
                 data[v] = 1;
             } else {
@@ -277,7 +277,7 @@ function modelFilterListView(slug) {
         }
         modelFilterListViewApply();
         $(this).children('UL').html(dataLI);
-        $(this).children('UL').html($(this).children('UL').children('LI').sort(function(a,b) {
+        $(this).children('UL').html($(this).children('UL').children('LI').sort(function(a, b) {
             return $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase());
         }));
         $(this).children('UL').prepend('<li data-clear="true">' + trans['showall'] + '</li>');
@@ -310,20 +310,20 @@ function modelCreate(slug, cloneFromId) {
         cache: false,
         data: data,
         method: 'post',
-    }).done(function (data, status, xhr) {
+    }).done(function(data, status, xhr) {
         $('#listview LI.active').removeClass('active');
         $('#listview .content > UL').replaceWith(data.listview);
         modelFilterListView(slug);
         modelId(data.id);
         $('#listview LI[data-id=' + data.id + ']').addClass('active');
-        $('#listview LI').each(function () {
+        $('#listview LI').each(function() {
             modelListViewAddClick(slug, this);
         });
         modelNestedSortable(slug);
         modelSortable(slug);
         listviewSetColumnWidth();
         loadingDone();
-    }).fail(function (xhr, status, error) {
+    }).fail(function(xhr, status, error) {
         if (xhr.status == 422) {
             modelValidationError(xhr);
         } else {
@@ -335,7 +335,7 @@ function modelCreate(slug, cloneFromId) {
 
 function modelUpdate(slug, id) {
     loading();
-    $('.tinymce').each(function () {
+    $('.tinymce').each(function() {
         tinyMCE.get(this.id).save();
     });
     modelClearErrors();
@@ -343,7 +343,7 @@ function modelUpdate(slug, id) {
         cache: false,
         data: '_method=patch&' + $('#model_form').serialize(),
         method: 'post',
-    }).done(function (data, status, xhr) {
+    }).done(function(data, status, xhr) {
         if (listviewTable())
             $('#listview LI[data-id=' + id + ']').html(data.li);
         else {
@@ -353,7 +353,7 @@ function modelUpdate(slug, id) {
         modelInactive(data);
         listviewSetColumnWidth();
         loadingDone();
-    }).fail(function (xhr, status, error) {
+    }).fail(function(xhr, status, error) {
         if (xhr.status == 422) {
             modelValidationError(xhr);
         } else {
@@ -369,25 +369,25 @@ function modelDelete(slug, id) {
         cache: false,
         data: '_method=delete',
         method: 'post',
-    }).done(function (data, status, xhr) {
+    }).done(function(data, status, xhr) {
         if (listviewTable()) {
             $('#listview LI[data-id=' + id + ']').detach();
         } else {
-            $('#listview LI[data-id=' + id + ']').animate({ height: 0 }, function () {
+            $('#listview LI[data-id=' + id + ']').animate({ height: 0 }, function() {
                 $('#listview LI[data-id=' + id + ']').detach();
                 listviewSetColumnWidth();
             });
         }
         modelEditViewReset(false);
         loadingDone();
-    }).fail(function (xhr, status, error) {
+    }).fail(function(xhr, status, error) {
         alert(status);
         loadingDone();
     });
 }
 
 function modelListViewAddClick(slug, element) {
-    $(element).click(function () {
+    $(element).click(function() {
         if ($('.ui-sortable-helper').length) return false;
         modelEditViewReset(true, true);
         $(element).addClass('active');
@@ -396,17 +396,19 @@ function modelListViewAddClick(slug, element) {
         return false;
     });
 }
+
 function modelListViewClick(slug) {
-    $('#listview LI').each(function () {
+    $('#listview LI').each(function() {
         modelListViewAddClick(slug, this);
     });
-    $('BUTTON.model_create').click(function () {
+    $('BUTTON.model_create').click(function() {
         modelEditViewReset(true);
         modelUpdateImages();
     });
 }
 
 var modelListviewExpandingTimeout;
+
 function modelEditViewReset(checked, dontreset) {
     modelClearErrors();
     modelId(-1);
@@ -443,24 +445,24 @@ function modelId(setId) {
 }
 
 function modelEditViewClick(slug) {
-    $('#model_form').submit(function (e) {
+    $('#model_form').submit(function(e) {
         e.preventDefault();
     });
-    $('#model_save').click(function () {
+    $('#model_save').click(function() {
         $(this).addClass('is-loading');
         if (modelId())
             modelUpdate(slug, modelId());
         else
             modelCreate(slug);
     });
-    $('#model_clone').click(function () {
+    $('#model_clone').click(function() {
         $(this).addClass('is-loading');
         modelCreate(slug, modelId());
     });
-    $('#model_close').click(function () {
+    $('#model_close').click(function() {
         modelEditViewReset(false);
     });
-    $('#model_delete').click(function () {
+    $('#model_delete').click(function() {
         if (confirm($(this).data('confirm'))) {
             $(this).addClass('is-loading');
             modelDelete(slug, modelId());
@@ -469,7 +471,7 @@ function modelEditViewClick(slug) {
 }
 
 function modelKeydown() {
-    $(document).keydown(function (e) {
+    $(document).keydown(function(e) {
         var keyCode = e.keyCode || e.which;
         if (keyCode == 27) {
             if ($('#media_browser').length)
@@ -492,7 +494,7 @@ function modelAddMedia5(value, filetype, callback) {
 function modelAddMedia(slug, element) {
     $('BODY').append('<div id="media_browser"><iframe src="media?browse=true"></iframe></div>');
     modelAddMediaElement = element;
-    $('#media_browser').click(function () {
+    $('#media_browser').click(function() {
         $('#media_browser').detach();
     })
 }
@@ -532,22 +534,22 @@ function hideColumns(t) {
     if (hide) {
         $('#editview .content .hiddenBySelect').removeClass('hiddenBySelect');
         hide.split(',').forEach(function(hide) {
-            $('LABEL[for=input_'+hide+']').addClass('hiddenBySelect');
-            $('#input_'+hide).addClass('hiddenBySelect');
+            $('LABEL[for=input_' + hide + ']').addClass('hiddenBySelect');
+            $('#input_' + hide).addClass('hiddenBySelect');
         });
     }
 }
 
 function modelAddLine(slug, element, data, column) {
     var tr = $(element).find('TR.template').clone().removeClass('template').addClass('data');
-    tr.appendTo($(element)).find('.pivot-delete').click(function () {
+    tr.appendTo($(element)).find('.pivot-delete').click(function() {
         $(this).parent().parent().remove();
     });
     if (data) {
         for (n in data) {
-            tr.find('INPUT[data-column='+column+'_'+n+']').val(data[n]);
-            tr.find('SELECT[data-column='+column+'_'+n+']').val(data[n]);
-            console.log(n,data[n]);
+            tr.find('INPUT[data-column=' + column + '_' + n + ']').val(data[n]);
+            tr.find('SELECT[data-column=' + column + '_' + n + ']').val(data[n]);
+            console.log(n, data[n]);
         }
     }
     // Fix rendering bug that prevents TH from being shown after deleting
@@ -582,19 +584,19 @@ function modelInit(slug) {
         href = href.replace('#id#', modelId());
         window.open(href);
     });
-    $('UL.input_images .button.add').click(function () {
+    $('UL.input_images .button.add').click(function() {
         modelAddMedia(slug, this);
     });
-    $('DIV.rows .button.add').click(function () {
+    $('DIV.rows .button.add').click(function() {
         modelAddLine(slug, $(this).prev());
     });
-    $('.header .search INPUT').keyup(function (e) {
+    $('.header .search INPUT').keyup(function(e) {
         modelSearch(this.value);
     });
     $('.header .search I.fa').click(function() {
         $('.header .search INPUT').focus();
     });
-    $('.header .search INPUT').keydown(function (e) {
+    $('.header .search INPUT').keydown(function(e) {
         var keyCode = e.keyCode || e.which;
         if (keyCode == 13) return false;
     });
