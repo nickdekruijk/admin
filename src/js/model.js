@@ -159,7 +159,14 @@ function updateArray(slug, element) {
     element.text('');
     for (n in array) {
         if (typeof array[n] === 'object' && array[n] !== null && array[n]['size'] && array[n]['name']) {
-            array[n] = '<a target=\"_blank\" href="' + slug + '/' + modelId() + '/download/' + i + '/' + n + '">' + array[n]['name'] + ' (' + Math.ceil(array[n]['size']/1024) + ' kB)</a>';
+            array[n] = '<a target=\"_blank\" href="' + slug + '/' + modelId() + '/download/' + i + '/' + n + '">' + array[n]['name'] + ' (' + Math.ceil(array[n]['size'] / 1024) + ' kB)</a>';
+        } else if (typeof array[n] === 'object') {
+            var t = new Array();
+            for (i in array[n]) {
+                t.push(array[n][i]);
+            }
+            console.log(t);
+            array[n] = t.join('</td><td>');
         }
         element.append('<tr><td>' + n.replace('_', '&nbsp;') + '</td><td>' + (array[n] ? array[n] : '') + '</td></tr>');
     }

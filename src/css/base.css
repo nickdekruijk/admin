@@ -200,7 +200,8 @@ nav li:hover > ul > li {max-height:40px}
 #editview .content TABLE.rows INPUT {padding:1px 4px 2px}
 
 #editview .content TABLE.array {border-spacing:0;border-collapse:collapse}
-#editview .content TABLE.array TD:first-child {color:rgba(0,0,0,0.5);padding-right:0.5em;font-size:0.95em}
+#editview .content TABLE.array TD:first-child {color:rgba(0,0,0,0.5);font-size:0.95em}
+#editview .content TABLE.array TD:not(:first-child) {padding-left:0.5em}
 #editview .content TABLE.array TD:first-child:first-letter {text-transform:uppercase}
 #editview .content TABLE.array A {text-decoration:none;color:inherit}
 #editview .content TABLE.array A:hover {text-decoration:underline}
