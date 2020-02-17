@@ -207,6 +207,13 @@ nav li:hover > ul > li {max-height:40px}
 #editview .content TABLE.array A:hover {text-decoration:underline}
 #editview .content TEXTAREA.array {position:absolute;right:200%}
 #editview .content TEXTAREA.array:focus {position:relative;right:auto}
+
+#editview .content TEXTAREA.htmlview {position:absolute;right:200%}
+#editview .content TEXTAREA.htmlview:focus {position:relative;right:auto}
+#editview .content DIV.htmlview TABLE {border-spacing:0;border-collapse:collapse}
+#editview .content DIV.htmlview TH,
+#editview .content DIV.htmlview TD {text-align:left;padding:1px 5px;border:1px solid #ccc}
+
 #media_browser {position:fixed;top:0;bottom:0;left:0;right:0;background-color:rgba(0,0,0,0.6);z-index:70000}
 #media_browser > IFRAME {border:0 none;position:fixed;left:10%;top:10%;width:80%;height:80%;display:block;box-shadow:rgba(0,0,0,0.8) 0 3px 8px}
 

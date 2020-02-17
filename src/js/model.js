@@ -153,6 +153,12 @@ function modelUpdateImages() {
     });
 }
 
+function updateHTMLview(slug, element) {
+    var html = $('#input_' + i).val();
+    var element = $('#input_' + i).next('DIV.htmlview');
+    element.html(html);
+}
+
 function updateArray(slug, element) {
     var array = JSON.parse($('#input_' + i).val());
     var element = $('#input_' + i).next('TABLE.array');
@@ -602,6 +608,9 @@ function modelInit(slug) {
     });
     $('#editview TEXTAREA.array').on('change', function() {
         updateArray(slug, this);
+    });
+    $('#editview TEXTAREA.htmlview').on('change', function() {
+        updateHTMLview(slug, this);
     });
     $('#editview SELECT').change(function() {
         hideColumns(this);

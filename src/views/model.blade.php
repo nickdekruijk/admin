@@ -75,6 +75,9 @@
                 @elseif ($column['type'] == 'array')
                 <textarea class="array" name="{{ $id }}" id="input_{{ $id }}" rows="20" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
                 <table class="array"></table>
+                @elseif ($column['type'] == 'htmlview')
+                <textarea class="htmlview" name="{{ $id }}" id="input_{{ $id }}" rows="20" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
+                <div class="htmlview"></div>
                 @elseif ($column['type'] == 'image' || $column['type'] == 'images')
                 <textarea class="images" name="{{ $id }}" id="input_{{ $id }}" data-url="{{ rtrim(config('admin.media_url'), '/') }}/"></textarea>
                 <ul class="input_images {{ $column['type'] }} {{ $column['type']=='images'?'sortable':'' }}" id="images_{{ $id }}"><button class="button add"><i class="fa fa-plus"></i></button></ul>
