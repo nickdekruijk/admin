@@ -254,7 +254,7 @@ class BaseController extends Controller
                 $response .= '<span><i class="fa fa-check"></i></span>';
             } elseif ($this->columns($column, 'type') == 'pivot') {
                 $value = '';
-                foreach($row[$column] as $opt) {
+                foreach ($row[$column] as $opt) {
                     $value .= ($value ? '; ' : '') . $this->getModelDataColumns($this->columns($column), $opt);
                 }
                 $response .= '<span>' . $value . '</span>';
@@ -308,7 +308,7 @@ class BaseController extends Controller
         }
         // Add with() if needed
         if ($this->module('with')) {
-            foreach(explode(',', $this->module('with')) as $with) {
+            foreach (explode(',', $this->module('with')) as $with) {
                 $model = $model->with(trim($with));
             }
         }
@@ -503,9 +503,9 @@ class BaseController extends Controller
             }
 
             if ($opt['type'] == 'string' || $opt['type'] == 'password' || $opt['type'] == 'date' || $opt['type'] == 'datetime' || $opt['type'] == 'number') {
-                $response .= '<input class="' . ($opt['type'] == 'date' ? 'datepicker' : '') . ($opt['type'] == 'datetime' ? 'datetimepicker' : '' ) . '" type="' . ($opt['type']=='string' || $opt['type'] == 'date' || $opt['type'] == 'datetime' ? 'text' : $opt['type']) . '" name="'. $columnId . '_' . $columnId2 . '[]" data-column="' . $columnId . '_' . $columnId2 . '" placeholder="' . $this->locale('placeholder', $opt, '') . '">';
+                $response .= '<input class="' . ($opt['type'] == 'date' ? 'datepicker' : '') . ($opt['type'] == 'datetime' ? 'datetimepicker' : '') . '" type="' . ($opt['type'] == 'string' || $opt['type'] == 'date' || $opt['type'] == 'datetime' ? 'text' : $opt['type']) . '" name="' . $columnId . '_' . $columnId2 . '[]" data-column="' . $columnId . '_' . $columnId2 . '" placeholder="' . $this->locale('placeholder', $opt, '') . '">';
             } elseif ($opt['type'] == 'foreign') {
-                $response .= $this->foreign($columnId . '_' . $columnId2.'[]', $opt, false);
+                $response .= $this->foreign($columnId . '_' . $columnId2 . '[]', $opt, false);
             } else {
                 $response .= $opt['type'];
             }
