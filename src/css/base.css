@@ -122,7 +122,7 @@ nav li:hover > ul > li {max-height:40px}
 #listview .table UL > LI > SPAN:first-of-type {font-weight:400;color:#000;font-size:1em}
 #listview .table UL > LI > SPAN:last-of-type {width:100%}
 
-#editview .content LABEL.pivot.inactive SPAN,
+#editview .content LABEL.pivot.inactive:not(.treeview) SPAN,
 #listview .table UL LI.inactive > SPAN,
 #listview LI.inactive > DIV > SPAN {text-decoration:line-through;color:rgba(0,0,0,0.3)}
 
@@ -144,11 +144,13 @@ nav li:hover > ul > li {max-height:40px}
 #editview .content LABEL:first-of-type {padding-top:0}
 #editview .content LABEL.radio {display:inline-block;padding-right:10px}
 #editview .content LABEL.pivot {display:inline-block;padding:0 5px 5px 0}
-#editview .content LABEL.pivot SPAN {background-color:rgba(0,0,0,0.1);padding:4px 10px;border-radius:4px;display:inline-block}
+#editview .content LABEL.pivot:not(.treeview.inactive) SPAN {background-color:rgba(0,0,0,0.1);padding:4px 10px;border-radius:4px;display:inline-block}
 #editview .content LABEL.pivot:hover SPAN {background-color:#0cb;cursor:pointer}
 #editview .content LABEL.pivot INPUT[type=checkbox] {display:none}
 #editview .content LABEL.pivot INPUT[type=checkbox]:checked ~ SPAN {background-color:#178;color:#fff}
 #editview .content LABEL.pivot:hover INPUT[type=checkbox]:checked ~ SPAN {background-color:#178;opacity:0.7}
+#editview .content LABEL.pivot.treeview.inactive:after {content:':'}
+#editview .content DIV.pivot-depth {padding-left:20px}
 #editview .content SELECT,
 #editview .content TEXTAREA,
 #editview .content INPUT[type=password],

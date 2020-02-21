@@ -458,13 +458,34 @@ class BaseController extends Controller
         return $response;
     }
 
+    private function pivot_walk($columnId, $column, $data, $parent = 0, $depth = 0)
+    {
+        $response = '';
+        foreach ($data[$parent] as $opt) {
+            $response .= $this->pivot_label($columnId, $column, $opt);
+            if (isset($data[$opt->id])) {
+                $response .= '<div class="pivot-depth ' . ($depth + 1) . '">' . $this->pivot_walk($columnId, $column, $data, $opt->id, $depth + 1) . '</div>';
+            }
+        }
+        return $response;
+    }
+
+    private function pivot_label($columnId, $column, $opt)
+    {
+        return '<label class="pivot' . (($column['treeview'] ?? false) ? ' treeview' : '') . (!empty($column['active']) && !$opt[$column['active']] ? ' inactive' : '') . '"><input type="checkbox" class="pivot-' . $columnId . '" name="' . $columnId . '[]" value="' . $opt->id . '"><span>' . $this->getModelDataColumns($column, $opt) . '</span></label>';
+    }
+
     // Return all labels for a many to many (pivot) relationship
     public function pivot($columnId, $column)
     {
-        $data = $this->getModelData($column);
         $response = '';
-        foreach ($data->get() as $opt) {
-            $response .= '<label class="pivot' . (!empty($column['active']) && !$opt[$column['active']] ? ' inactive' : '') . '"><input type="checkbox" class="pivot-'.$columnId.'" name="'.$columnId.'[]" value="'.$opt->id.'"><span>'.$this->getModelDataColumns($column, $opt).'</span></label>';
+        $data = $this->getModelData($column);
+        if ($column['treeview'] ?? false) {
+            return $this->pivot_walk($columnId, $column, $data);
+        } else {
+            foreach ($data->get() as $opt) {
+                $response .= $this->pivot_label($columnId, $column, $opt);
+            }
         }
         return $response;
     }
