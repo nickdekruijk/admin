@@ -537,8 +537,8 @@ function modelSearch(str) {
 
 function hideColumns(t) {
     var hide = $(t).children('option:selected').data('hide');
+    $('#editview .content .hiddenBySelect').removeClass('hiddenBySelect');
     if (hide) {
-        $('#editview .content .hiddenBySelect').removeClass('hiddenBySelect');
         hide.split(',').forEach(function(hide) {
             $('LABEL[for=input_' + hide + ']').addClass('hiddenBySelect');
             $('#input_' + hide).addClass('hiddenBySelect');
