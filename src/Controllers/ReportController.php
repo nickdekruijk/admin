@@ -3,6 +3,7 @@
 namespace NickDeKruijk\Admin\Controllers;
 
 use DB;
+use Str;
 
 class ReportController extends BaseController
 {
@@ -11,7 +12,7 @@ class ReportController extends BaseController
         $lp->checkSlug($lp->slug, 'read');
         $response = '<ul>';
         foreach ($lp->module('queries') as $queryId => $query) {
-            $response .= '<li data-url="' . route('report', ['slug' => $lp->slug, 'id' => str_slug($queryId)]) . '">';
+            $response .= '<li data-url="' . route('report', ['slug' => $lp->slug, 'id' => Str::slug($queryId)]) . '">';
             $response .= '<div><i></i><span>' . $queryId . '</span></div>';
             $response .= '</li>';
         }
@@ -22,7 +23,7 @@ class ReportController extends BaseController
     private function getQueryData($slug, $id)
     {
         foreach ($this->module('queries') as $queryId => $query) {
-            if (str_slug($queryId) == $id) {
+            if (Str::slug($queryId) == $id) {
                 if (env('DB_CONNECTION') == 'mysql') $set = DB::select('SET SESSION group_concat_max_len = 1024000');
                 if (is_array($query)) {
                     $data =  DB::select($query['query']);

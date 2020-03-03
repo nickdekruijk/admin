@@ -4,6 +4,7 @@ namespace NickDeKruijk\Admin;
 
 use Illuminate\Console\Command;
 use App\User;
+use Str;
 
 class UserCommand extends Command
 {
@@ -40,7 +41,7 @@ class UserCommand extends Command
     public function handle()
     {
         $user = User::where('email', $this->arguments()['email'])->first();
-        $password = str_random(40);
+        $password = Str::random(40);
         echo 'User ' . $this->arguments()['email'] . ' ';
         if ($user) {
             echo 'updated with ';

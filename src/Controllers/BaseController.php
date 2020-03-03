@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\View;
 use Route;
+use Str;
 
 class BaseController extends Controller
 {
@@ -160,7 +161,7 @@ class BaseController extends Controller
 
         // Add each navigation item the user has access to
         foreach ($this->user['modules'] as $id => $item) {
-            $response .= $this->navigationLI($id == $this->slug, str_slug($id), $item['title'], $item['icon']);
+            $response .= $this->navigationLI($id == $this->slug, Str::slug($id), $item['title'], $item['icon']);
             if (isset($item['sub_navigation']) && isset($item['treeview']) && class_exists($item['model'])) {
                 $data = new $item['model'];
                 $data = $this->sortModel($data, @$item['orderByDesc'], 'desc');
@@ -175,9 +176,9 @@ class BaseController extends Controller
                     if ((new $item['model'])->where($item['treeview'], $subitem->id)->count()) {
                         $count++;
                         if ($count == 1 && isset($item['sub_showall']) && $item['sub_showall']) {
-                            $subresponse .= $this->navigationLI($id == $this->slug && !request()->root, str_slug($id), $item['sub_showall'] === true ? trans('admin::base.showall') : $this->locale('sub_showall', $item, false)) . '</li>';
+                            $subresponse .= $this->navigationLI($id == $this->slug && !request()->root, Str::slug($id), $item['sub_showall'] === true ? trans('admin::base.showall') : $this->locale('sub_showall', $item, false)) . '</li>';
                         }
-                        $subresponse .= $this->navigationLI($id == $this->slug && request()->root == $subitem->id, str_slug($id) . '?root=' . $subitem->id, $subitem[$item['sub_navigation']]) . '</li>';
+                        $subresponse .= $this->navigationLI($id == $this->slug && request()->root == $subitem->id, Str::slug($id) . '?root=' . $subitem->id, $subitem[$item['sub_navigation']]) . '</li>';
                     }
                 }
                 $subresponse .= '</ul>';
