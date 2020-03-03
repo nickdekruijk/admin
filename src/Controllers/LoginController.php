@@ -2,8 +2,6 @@
 
 namespace NickDeKruijk\Admin\Controllers;
 
-use Route;
-
 class LoginController extends \App\Http\Controllers\Auth\LoginController
 {
     /**
@@ -13,7 +11,7 @@ class LoginController extends \App\Http\Controllers\Auth\LoginController
      */
     public function __construct()
     {
-        $this->redirectTo = '/'.config('admin.adminpath');
+        $this->redirectTo = '/' . config('admin.adminpath');
     }
 
     /**
@@ -25,5 +23,4 @@ class LoginController extends \App\Http\Controllers\Auth\LoginController
     {
         return view('admin::login');
     }
-
 }
