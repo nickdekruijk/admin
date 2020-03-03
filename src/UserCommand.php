@@ -28,7 +28,7 @@ class UserCommand extends Command
      */
     public function __construct()
     {
-        $this->description = 'Create or update a user with random password. The role is saved in the "'.config('admin.role_column').'" column.';
+        $this->description = 'Create or update a user with random password. The role is saved in the "' . config('admin.role_column') . '" column.';
         parent::__construct();
     }
 
@@ -41,12 +41,12 @@ class UserCommand extends Command
     {
         $user = User::where('email', $this->arguments()['email'])->first();
         $password = str_random(40);
-        echo 'User '.$this->arguments()['email'].' ';
+        echo 'User ' . $this->arguments()['email'] . ' ';
         if ($user) {
             echo 'updated with ';
             if ($this->arguments()['role']) {
                 $user[config('admin.role_column')] = $this->arguments()['role'];
-                echo 'role "'.$this->arguments()['role'].'" and ';
+                echo 'role "' . $this->arguments()['role'] . '" and ';
             }
         } else {
             echo 'created with ';
@@ -54,9 +54,9 @@ class UserCommand extends Command
             $user->email = $this->arguments()['email'];
             $user->name = $this->arguments()['email'];
             $user[config('admin.role_column')] = $this->arguments()['role'] ?: 'admin';
-            echo 'role "'.$user[config('admin.role_column')].'" and ';
+            echo 'role "' . $user[config('admin.role_column')] . '" and ';
         }
-        echo 'password "'.$password.'"'.chr(10);
+        echo 'password "' . $password . '"' . chr(10);
         $user->password = bcrypt($password);
         $user->save();
     }
