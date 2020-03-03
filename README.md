@@ -50,7 +50,7 @@ Role must match one of the roles defined in the configuration. The default role 
 You could use the package [arcanedev/laravel-lang](https://github.com/ARCANEDEV/LaravelLang), just run `composer require arcanedev/laravel-lang`.
 
 ### With Laravel 7 I get an AuthenticatesUsers Trait error
-Laravel 7 doesn't include some Authentication Scaffolding anymore by default. Include the laravel/ui package into your project with `composer require laravel/ui` to solve this.
+Laravel 7 doesn't include the authentication scaffolding anymore by default. Install the laravel/ui package into your project with `composer require laravel/ui` to solve this.
 
 ## License
 Admin is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
