@@ -133,7 +133,11 @@ class ModelController extends BaseController
     {
         $this->checkSlug($slug, 'read');
         // Get the original values and not the altered values from model accessors
-        $row = @$this->model()::findOrFail($id, $this->filter_pivot($this->columns()))->getOriginal();
+        if (method_exists(@$this->model(), 'getRawOriginal')) {
+            $row = @$this->model()::findOrFail($id, $this->filter_pivot($this->columns()))->getRawOriginal();
+        } else {
+            $row = @$this->model()::findOrFail($id, $this->filter_pivot($this->columns()))->getOriginal();
+        }
         foreach ($this->columns() as $columnId => $column) {
             // Output array columns with JSON_PRETTY_PRINT
             if ($column['type'] == 'array') {
