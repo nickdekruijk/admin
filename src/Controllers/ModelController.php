@@ -24,7 +24,7 @@ class ModelController extends BaseController
         $sync = [];
         $morph = [];
         $row = [];
-        foreach($this->columns() as $columnId => $column) {
+        foreach ($this->columns() as $columnId => $column) {
             if (isset($column['type']) && $column['type'] == 'pivot') {
                 $sync[$column['model']] = $request[$columnId];
                 if (!empty($column['morph'])) {
@@ -32,10 +32,10 @@ class ModelController extends BaseController
                 }
             } elseif (isset($column['type']) && $column['type'] == 'rows') {
                 $row[$column['model']]['self'] = $column['self'];
-                foreach($column['columns'] as $columnId2 => $opt) {
+                foreach ($column['columns'] as $columnId2 => $opt) {
                     $r = $request[$columnId . '_' . $columnId2];
                     array_shift($r);
-                    foreach($r as $key => $value) {
+                    foreach ($r as $key => $value) {
                         $row[$column['model']][$key][$columnId2] = $value;
                     }
                 }
@@ -67,22 +67,22 @@ class ModelController extends BaseController
 
         $model->save();
 
-        foreach($row as $foreign => $data) {
+        foreach ($row as $foreign => $data) {
             $fm = new $foreign;
             $self = $data['self'];
             unset($data['self']);
             $fm::where($self, $model->id)->delete();
-            foreach($data as $row) {
+            foreach ($data as $row) {
                 $fm = new $foreign;
                 $fm->$self = $model->id;
-                foreach($row as $column => $value) {
+                foreach ($row as $column => $value) {
                     $fm->$column = $value;
                 }
                 $fm->save();
             }
         }
 
-        foreach($sync as $foreign => $values) {
+        foreach ($sync as $foreign => $values) {
             if (isset($morph[$foreign])) {
                 $model->morphToMany($foreign, $morph[$foreign])->sync($values);
             } else {
@@ -91,7 +91,7 @@ class ModelController extends BaseController
         }
 
         return [
-            'active' => $this->module('active') ? $model[$this->module('active')]==true : true,
+            'active' => $this->module('active') ? $model[$this->module('active')] == true : true,
             'id' => $model->id,
             'listview' => $this->listviewData(request()->__modelRoot),
             'li' => $this->listviewRow($model),
@@ -115,7 +115,7 @@ class ModelController extends BaseController
     public function filter_pivot($columns)
     {
         $filtered = $columns;
-        foreach($filtered as $columnId => $column) {
+        foreach ($filtered as $columnId => $column) {
             if ($column['type'] == 'pivot') {
                 unset($filtered[$columnId]);
             }
@@ -134,19 +134,19 @@ class ModelController extends BaseController
         $this->checkSlug($slug, 'read');
         // Get the original values and not the altered values from model accessors
         $row = @$this->model()::findOrFail($id, $this->filter_pivot($this->columns()))->getOriginal();
-        foreach($this->columns() as $columnId => $column) {
+        foreach ($this->columns() as $columnId => $column) {
             // Output array columns with JSON_PRETTY_PRINT
             if ($column['type'] == 'array') {
                 $row[$columnId] = json_encode(json_decode($row[$columnId]), JSON_PRETTY_PRINT);
             }
             // If column type is rows return those rows
             if ($column['type'] == 'rows') {
-                unset($row['"'.$columnId.'"']);
+                unset($row['"' . $columnId . '"']);
                 $row[$columnId] = $this->model()::findOrFail($id)->hasMany($column['model'])->get(array_keys($column['columns']))->toArray();
             }
             // If column type is pivot return matching ids
             if ($column['type'] == 'pivot') {
-                unset($row['"'.$columnId.'"']);
+                unset($row['"' . $columnId . '"']);
                 $ids = [];
                 if (!empty($column['morph'])) {
                     $pivotData = $this->model()::findOrFail($id)->morphToMany($column['model'], $column['morph'])->get();
@@ -156,7 +156,7 @@ class ModelController extends BaseController
                 foreach ($pivotData as $pivot) {
                     $ids[] = $pivot->id;
                 }
-                $row['_pivot.'.$columnId] = implode(',', $ids);
+                $row['_pivot.' . $columnId] = implode(',', $ids);
             }
             // If column is a password (and maybe even hidden) return it with a 'masked' values of ********
             if (isset($column['type']) && $column['type'] == 'password' && $row[$columnId]) {
@@ -210,21 +210,22 @@ class ModelController extends BaseController
     }
 
     // This method is called after nestedSortable is done and parent changed
-    public function changeParent($slug, Request $request, $id) {
+    public function changeParent($slug, Request $request, $id)
+    {
         $this->checkSlug($slug, 'update');
         $row = $this->model()::findOrFail($id);
 
         // Get the parent and oldparent from Input, make null if needed
-        $parent=$request->input('parent');
-        $oldparent=$request->input('oldparent');
-        if ($oldparent<1) $oldparent=null;
-        if ($parent<1) $parent=null;
+        $parent = $request->input('parent');
+        $oldparent = $request->input('oldparent');
+        if ($oldparent < 1) $oldparent = null;
+        if ($parent < 1) $parent = null;
 
         // Check if oldparent matches the actual id for safety
-        if ($row->parent != $oldparent) die('Invalid oldparent '.$oldparent);
+        if ($row->parent != $oldparent) die('Invalid oldparent ' . $oldparent);
 
         // Save the new parent
-        $row->parent=$parent;
+        $row->parent = $parent;
         $row->save();
 
         // Now sort the items too
@@ -237,10 +238,10 @@ class ModelController extends BaseController
         $this->checkSlug($slug, 'update');
         $ids = $request->input('ids');
         // Get the row for each id and update the sort
-        if ($parent<1) $parent = null;
+        if ($parent < 1) $parent = null;
         $sort = 0;
         $table = $this->model()->getTable();
-        foreach(explode(',', $ids) as $id) {
+        foreach (explode(',', $ids) as $id) {
             $sort++;
             DB::table($table)->where('id', $id)->update(['sort' => $sort]);
         }
