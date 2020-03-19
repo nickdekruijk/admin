@@ -3,7 +3,7 @@
 namespace NickDeKruijk\Admin\Controllers;
 
 use DB;
-use Str;
+use Illuminate\Support\Str;
 
 class ReportController extends BaseController
 {

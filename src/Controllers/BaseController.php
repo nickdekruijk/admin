@@ -6,8 +6,8 @@ use App;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Route;
-use Str;
 
 class BaseController extends Controller
 {

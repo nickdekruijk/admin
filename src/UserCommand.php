@@ -2,9 +2,9 @@
 
 namespace NickDeKruijk\Admin;
 
-use Illuminate\Console\Command;
 use App\User;
-use Str;
+use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class UserCommand extends Command
 {
