@@ -129,7 +129,7 @@ class MediaController extends BaseController
         }
 
         // Check if filesize is allowed
-        if ($upl->getClientSize() > $this->uploadLimit() * 1024 * 1024) {
+        if (method_exists($upl, 'getClientSize') ? $upl->getClientSize() : $upl->getSize() > $this->uploadLimit() * 1024 * 1024) {
             return '{"status":"' . trans('admin::base.filetoobig') . '"}';
         }
 
