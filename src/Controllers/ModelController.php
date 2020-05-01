@@ -39,7 +39,7 @@ class ModelController extends BaseController
                         $row[$column['model']][$key][$columnId2] = $value;
                     }
                 }
-            } elseif (isset($column['type']) && $column['type'] == 'array') {
+            } elseif (isset($column['type']) && $column['type'] == 'array' && $request[$columnId]) {
                 // If column is of type array json decode it
                 $model[$columnId] = json_decode($request[$columnId], true);
                 // If the JSON input is invalid return a 422 validation error
