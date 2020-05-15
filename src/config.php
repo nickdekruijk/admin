@@ -108,12 +108,12 @@ return [
             {title: 'H3', block: 'h3', classes: 'h3'},
             {title: 'H4', block: 'h4', classes: 'h4'}
         ",
-//         'css' => '/css/tinymce.css',
-//         'link_class_list' => "
-//             {title: 'None', value: ''},
-//             {title: 'Button', value: 'button'},
-//             {title: 'Play Button', value: 'play-button'}
-//         ",
+        // 'css' => '/css/tinymce.css',
+        // 'link_class_list' => "
+        //     {title: 'None', value: ''},
+        //     {title: 'Button', value: 'button'},
+        //     {title: 'Play Button', value: 'play-button'}
+        // ",
         'toolbar' => 'code visualblocks | undo redo | styleselect | bold italic | bullist numlist outdent indent | link | image media table',
     ],
 
@@ -145,11 +145,11 @@ return [
             'orderBy' => 'sort',
             'sortable' => true,
             'active' => 'active',
-            'tinymce' => [ # You can overrule the tinymce_defaults here
-//                 'formats' => "{title: 'Intro', block: 'p', styles: {'font-size':'1.2em', 'margin-bottom':'30px', 'line-height':'1.5em'}} , {title: 'H2', block: 'h2'}",
-//                 'css' => '/css/tinymce.css',
-//                 'toolbar' => 'bold italic | link',
-            ],
+            // 'tinymce' => [ # You can overrule the tinymce_defaults here
+            //     'formats' => "{title: 'Intro', block: 'p', styles: {'font-size':'1.2em', 'margin-bottom':'30px', 'line-height':'1.5em'}} , {title: 'H2', block: 'h2'}",
+            //     'css' => '/css/tinymce.css',
+            //     'toolbar' => 'bold italic | link',
+            // ],
             'columns' => [
                 'active' => [
                     'default' => true,
@@ -223,7 +223,7 @@ return [
             'disabled' => false,
             'queries' => [
                 'All pages' => 'SELECT * FROM pages',
-//                 'Admin user' => 'SELECT id,name,email,created_at,updated_at,admin_role FROM users WHERE admin_role NOT NULL',
+                // 'Admin user' => 'SELECT id,name,email,created_at,updated_at,admin_role FROM users WHERE admin_role NOT NULL',
                 'Settings' => 'SELECT * FROM settings',
             ],
         ],
@@ -303,22 +303,22 @@ return [
             'title' => 'Content manager',
             'title_nl' => 'Content bewerker',
             'permissions' => [
-                'dashboard' => [ 'read' ],
-                'pages' => [ 'create', 'read', 'update', 'delete' ],
-                'media' => [ 'create', 'read', 'update', 'delete' ],
-                'settings' => [ 'read', 'update' ],
-                'reports' => [ 'read' ],
+                'dashboard' => ['read'],
+                'pages' => ['create', 'read', 'update', 'delete'],
+                'media' => ['create', 'read', 'update', 'delete'],
+                'settings' => ['read', 'update'],
+                'reports' => ['read'],
             ],
         ],
         'demo' => [
             'title' => 'Demo user',
             'title_nl' => 'Demo gebruiker',
             'permissions' => [
-                'dashboard' => [ 'read' ],
-                'pages' => [ 'read' ],
-                'media' => [ 'read' ],
-                'settings' => [ 'read' ],
-                'reports' => [ 'read' ],
+                'dashboard' => ['read'],
+                'pages' => ['read'],
+                'media' => ['read'],
+                'settings' => ['read'],
+                'reports' => ['read'],
             ],
         ],
     ],
