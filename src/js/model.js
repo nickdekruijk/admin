@@ -536,9 +536,14 @@ function modelSearch(str) {
 }
 
 function hideColumns(t) {
+    $(t).children('option').each(function() {
+        if ($(this).data('hide')) {
+            $('#editview .content .hiddenBySelect').removeClass('hiddenBySelect');
+            return false;
+        }
+    });
     var hide = $(t).children('option:selected').data('hide');
     if (hide) {
-        $('#editview .content .hiddenBySelect').removeClass('hiddenBySelect');
         hide.split(',').forEach(function(hide) {
             $('LABEL[for=input_' + hide + ']').addClass('hiddenBySelect');
             $('#input_' + hide).addClass('hiddenBySelect');
