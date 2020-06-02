@@ -547,6 +547,9 @@ function hideColumns(t) {
         hide.split(',').forEach(function(hide) {
             $('LABEL[for=input_' + hide + ']').addClass('hiddenBySelect');
             $('#input_' + hide).addClass('hiddenBySelect');
+            if ($('#input_' + hide).hasClass('tinymce')) {
+                $('#input_' + hide + ' + .tox-tinymce').addClass('hiddenBySelect');
+            }
         });
     }
 }
