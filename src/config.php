@@ -101,7 +101,7 @@ return [
     | Default tinymce options for all modules, can be overruled per module
     */
     'tinymce_defaults' => [
-        'version' => '5.1.2',
+        'version' => '5.4.2',
         'theme' => 'silver',
         'formats' => "
             {title: 'H2', block: 'h2', classes: 'h2'},

@@ -297,6 +297,8 @@ TABLE.report TR:hover > TD {background-color:#0cb;border-color:#0cb}
 .mce-panel {border-radius:3px}
 .mce-first {position:-webkit-sticky !important;position:sticky !important;top:-7px}
 .mce-tinymce {box-shadow:none !important;box-sizing:border-box !important}
+.tox-toolbar-overlord,
+.tox-tinymce {border-radius:3px !important;overflow:hidden}
 
 @media (min-width:651px) {
     nav.expanded ~ .fullpage {left:270px}

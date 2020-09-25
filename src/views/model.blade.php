@@ -130,6 +130,7 @@
         @endif
         browser_spellcheck: true,
         convert_urls : false,
+        toolbar_sticky: true,
         image_caption: true,
         file_browser_callback: function(field_name, url, type, win) {
             modelAddMedia(null, {field_name: field_name, win: win, media_url: "{{ rtrim(config('admin.media_url'), '/') }}/"});
@@ -141,7 +142,7 @@
         },
         plugins: [
             // autoresize advlist autolink link image lists hr anchor searchreplace wordcount visualblocks code table paste contextmenu save textcolor contextmenu emoticons template directionality print preview pagebreak charmap media visualchars fullscreen fullpage visualchars insertdatetime nonbreaking
-            "autoresize autolink link anchor image lists wordcount visualblocks code table paste contextmenu"
+            "autoresize autolink link anchor image lists wordcount visualblocks code table paste"
         ],
         @if ($lp->module('tinymce', 'toolbar', config('admin.tinymce_defaults')))
         toolbar: "{{ $lp->module('tinymce', 'toolbar', config('admin.tinymce_defaults')) }}",
