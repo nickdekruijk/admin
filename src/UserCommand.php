@@ -2,7 +2,6 @@
 
 namespace NickDeKruijk\Admin;
 
-use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
@@ -34,13 +33,24 @@ class UserCommand extends Command
     }
 
     /**
+     * Get the user model instance from admin config
+     *
+     * @return User;
+     */
+    public static function userModel()
+    {
+        $model = config('admin.modules.users.model');
+        return new $model;
+    }
+
+    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle()
     {
-        $user = User::where('email', $this->arguments()['email'])->first();
+        $user = self::userModel()->where('email', $this->arguments()['email'])->first();
         $password = Str::random(40);
         echo 'User ' . $this->arguments()['email'] . ' ';
         if ($user) {
@@ -51,7 +61,7 @@ class UserCommand extends Command
             }
         } else {
             echo 'created with ';
-            $user = new User;
+            $user = self::userModel();
             $user->email = $this->arguments()['email'];
             $user->name = $this->arguments()['email'];
             $user[config('admin.role_column')] = $this->arguments()['role'] ?: 'admin';
