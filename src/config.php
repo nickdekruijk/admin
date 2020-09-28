@@ -231,7 +231,7 @@ return [
             'view' => 'admin::model',
             'icon' => 'fa-users',
             'title_nl' => 'Gebruikers',
-            'model' => 'App\User',
+            'model' => 'App\Models\User',
             'index' => 'email,name,admin_role',
             'orderBy' => 'created_at',
             'columns' => [
