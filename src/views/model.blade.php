@@ -71,12 +71,12 @@
                 <label class="radio"><input type="radio" name="{{ $id }}" id="input_{{ $id }}_{{ $key }}" value="{{ $key }}">{{ $value }}</label>
                 @endforeach
                 @elseif ($column['type'] == 'tinymce' || $column['type'] == 'text' || $column['type'] == 'mediumtext' || $column['type'] == 'longtext')
-                <textarea class="{{ $column['type'] == 'tinymce' || isset($column['tinymce']) ? 'tinymce' : '' }}" name="{{ $id }}" id="input_{{ $id }}" rows="{{$column['type'] == 'mediumtext' ? 10 : ($column['type'] == 'longtext' ? 15 : 5)}}" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
+                <textarea class="{{ $column['type'] == 'tinymce' || isset($column['tinymce']) ? 'tinymce' : '' }}" name="{{ $id }}" id="input_{{ $id }}" rows="{{$column['type'] == 'mediumtext' ? 10 : ($column['type'] == 'longtext' ? 15 : 5)}}" placeholder="{!! $lp->locale('placeholder', $column, '') !!}"></textarea>
                 @elseif ($column['type'] == 'array')
-                <textarea class="array" name="{{ $id }}" id="input_{{ $id }}" rows="20" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
+                <textarea class="array" name="{{ $id }}" id="input_{{ $id }}" rows="20" placeholder="{!! $lp->locale('placeholder', $column, '') !!}"></textarea>
                 <table class="array"></table>
                 @elseif ($column['type'] == 'htmlview')
-                <textarea class="htmlview" name="{{ $id }}" id="input_{{ $id }}" rows="20" placeholder="{{ $lp->locale('placeholder', $column, '') }}"></textarea>
+                <textarea class="htmlview" name="{{ $id }}" id="input_{{ $id }}" rows="20" placeholder="{!! $lp->locale('placeholder', $column, '') !!}"></textarea>
                 <div class="htmlview"></div>
                 @elseif ($column['type'] == 'image' || $column['type'] == 'images')
                 <textarea class="images" name="{{ $id }}" id="input_{{ $id }}" data-url="{{ rtrim(config('admin.media_url'), '/') }}/"></textarea>
