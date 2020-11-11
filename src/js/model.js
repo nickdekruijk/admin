@@ -171,7 +171,6 @@ function updateArray(slug, element) {
             for (i in array[n]) {
                 t.push(array[n][i]);
             }
-            console.log(t);
             array[n] = t.join('</td><td>');
         }
         element.append('<tr><td>' + n.replace('_', '&nbsp;') + '</td><td>' + (array[n] ? array[n] : '') + '</td></tr>');
@@ -563,7 +562,6 @@ function modelAddLine(slug, element, data, column) {
         for (n in data) {
             tr.find('INPUT[data-column=' + column + '_' + n + ']').val(data[n]);
             tr.find('SELECT[data-column=' + column + '_' + n + ']').val(data[n]);
-            console.log(n, data[n]);
         }
     }
     // Fix rendering bug that prevents TH from being shown after deleting
