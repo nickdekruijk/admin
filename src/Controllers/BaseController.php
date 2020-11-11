@@ -495,10 +495,14 @@ class BaseController extends Controller
     public function rows($columnId, $column)
     {
         $data = $this->getModelData($column);
-        $response = '<table class="rows" id="input_' . $columnId . '">';
+        $response = '<table class="rows" id="input_' . $columnId . '"' . (isset($column['width']) ? ' width="' . $column['width'] . '"' : '') . '>';
         $response .= '<tr class="template">';
         foreach ($column['columns'] as $columnId2 => $opt) {
-            $response .= '<td>';
+            if (isset($opt['width'])) {
+                $response .= '<td width="' . $opt['width'] . '">';
+            } else {
+                $response .= '<td>';
+            }
             if (empty($opt['type'])) {
                 $opt['type'] = 'string';
             }
@@ -513,7 +517,7 @@ class BaseController extends Controller
             $response .= '</td>';
         }
         if ($this->can('delete')) {
-            $response .= '<td><button type="button" data-confirm="' . trans('admin::base.deleteconfirm') . '" class="pivot-delete button is-red"><i class="fa fa-trash"></i></button></td>';
+            $response .= '<td width="1"><button type="button" data-confirm="' . trans('admin::base.deleteconfirm') . '" class="pivot-delete button is-red"><i class="fa fa-trash"></i></button></td>';
         }
         $response .= '</tr>';
         $response .= '<tr>';
