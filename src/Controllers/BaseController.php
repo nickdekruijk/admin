@@ -509,6 +509,8 @@ class BaseController extends Controller
 
             if ($opt['type'] == 'string' || $opt['type'] == 'password' || $opt['type'] == 'date' || $opt['type'] == 'datetime' || $opt['type'] == 'number') {
                 $response .= '<input class="' . ($opt['type'] == 'date' ? 'datepicker' : '') . ($opt['type'] == 'datetime' ? 'datetimepicker' : '') . '" type="' . ($opt['type'] == 'string' || $opt['type'] == 'date' || $opt['type'] == 'datetime' ? 'text' : $opt['type']) . '" name="' . $columnId . '_' . $columnId2 . '[]" data-column="' . $columnId . '_' . $columnId2 . '" placeholder="' . $this->locale('placeholder', $opt, '') . '">';
+            } elseif ($opt['type'] == 'boolean') {
+                $response .= '<input type="hidden" hidden-type="checkbox" name="' . $columnId . '_' . $columnId2 . '[]" data-column="' . $columnId . '_' . $columnId2 . '" value="0"><input type="checkbox" onclick="this.previousSibling.value=1-this.previousSibling.value">';
             } elseif ($opt['type'] == 'foreign') {
                 $response .= $this->foreign($columnId . '_' . $columnId2 . '[]', $opt, false);
             } else {

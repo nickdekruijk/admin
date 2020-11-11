@@ -560,7 +560,11 @@ function modelAddLine(slug, element, data, column) {
     });
     if (data) {
         for (n in data) {
-            tr.find('INPUT[data-column=' + column + '_' + n + ']').val(data[n]);
+            var e = tr.find('INPUT[data-column=' + column + '_' + n + ']');
+            if (e.attr('hidden-type') == 'checkbox') {
+                e.next().prop('checked', data[n] == true);
+            }
+            e.val(data[n]);
             tr.find('SELECT[data-column=' + column + '_' + n + ']').val(data[n]);
         }
     }
