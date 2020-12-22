@@ -195,6 +195,10 @@ return [
                     'validate' => 'nullable|date',
                     'title_nl' => 'Datum',
                 ],
+                // 'video_id' => [
+                //     'placeholder' => 'Youtube: id directy after https://www.youtube.com/watch?v= Vimeo: id directly after https://vimeo.com/',
+                //     'placeholder_nl' => 'Youtube: id direct na https://www.youtube.com/watch?v= Vimeo: id direct na https://vimeo.com/',
+                // ],
                 'images' => [
                     'title_nl' => 'Afbeeldingen',
                     'type' => 'images',
