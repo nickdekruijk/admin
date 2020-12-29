@@ -303,11 +303,9 @@ function modelFilterListView(slug) {
 
 function modelCreate(slug, cloneFromId) {
     loading();
-    if (cloneFromId) {
-        $('.tinymce').each(function() {
-            tinyMCE.get(this.id).save();
-        });
-    }
+    $('.tinymce').each(function() {
+        tinyMCE.get(this.id).save();
+    });
     var data = $('#model_form').serialize();
     if (cloneFromId) {
         data += '&__cloneFromId=' + cloneFromId;
