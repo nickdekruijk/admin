@@ -16,8 +16,22 @@ class ReportController extends BaseController
             $response .= '<div><i></i><span>' . $queryId . '</span></div>';
             $response .= '</li>';
         }
+        foreach ($lp->module('views') as $queryId => $view) {
+            $response .= '<li data-url="' . route('report_view', ['slug' => $lp->slug, 'id' => Str::slug($queryId)]) . '">';
+            $response .= '<div><i></i><span>' . $queryId . '</span></div>';
+            $response .= '</li>';
+        }
         $response .= '</ul>';
         return $response;
+    }
+
+    private function getViewData($slug, $id)
+    {
+        foreach ($this->module('views') as $viewId => $view) {
+            if (Str::slug($viewId) == $id) {
+                return view($view);
+            }
+        }
     }
 
     private function getQueryData($slug, $id)
@@ -81,6 +95,14 @@ class ReportController extends BaseController
             }
         }
         abort(404);
+    }
+
+    public function showView($slug, $id)
+    {
+        $this->checkSlug($slug, 'read');
+        $data = $this->getViewData($slug, $id);
+        return $data;
+        dd($data);
     }
 
     public function show($slug, $id)

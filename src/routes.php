@@ -23,6 +23,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get(config('admin.adminpath'), 'NickDeKruijk\Admin\Controllers\BaseController@view');
     Route::get(config('admin.adminpath') . '/{slug}', 'NickDeKruijk\Admin\Controllers\BaseController@view');
 
+    Route::get(config('admin.adminpath') . '/reports/view/{slug}/{id}', 'NickDeKruijk\Admin\Controllers\ReportController@showView')->name('report_view');
     Route::get(config('admin.adminpath') . '/reports/{slug}/{id}', 'NickDeKruijk\Admin\Controllers\ReportController@show')->name('report');
     Route::get(config('admin.adminpath') . '/reports/{slug}/{id}/csv', 'NickDeKruijk\Admin\Controllers\ReportController@csv')->name('report_csv');
 
