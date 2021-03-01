@@ -114,6 +114,7 @@ return [
         //     {title: 'Button', value: 'button'},
         //     {title: 'Play Button', value: 'play-button'}
         // ",
+        'plugins' => 'autoresize autolink link anchor image lists wordcount visualblocks code table paste',
         'toolbar' => 'code visualblocks | undo redo | styleselect | bold italic | bullist numlist outdent indent | link | image media table',
     ],
 
