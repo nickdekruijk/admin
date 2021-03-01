@@ -140,10 +140,12 @@
                 callback("{{ rtrim(config('admin.media_url'), '/') }}/" + fileUrl);
             });
         },
-        plugins: [
-            // autoresize advlist autolink link image lists hr anchor searchreplace wordcount visualblocks code table paste contextmenu save textcolor contextmenu emoticons template directionality print preview pagebreak charmap media visualchars fullscreen fullpage visualchars insertdatetime nonbreaking
-            "autoresize autolink link anchor image lists wordcount visualblocks code table paste"
-        ],
+        @if ($lp->module('tinymce', 'plugins', config('admin.tinymce_defaults')))
+        plugins: ["{{ $lp->module('tinymce', 'plugins', config('admin.tinymce_defaults')) }}"],
+        @else
+        // autoresize advlist autolink link image lists hr anchor searchreplace wordcount visualblocks code table paste contextmenu save textcolor contextmenu emoticons template directionality print preview pagebreak charmap media visualchars fullscreen fullpage visualchars insertdatetime nonbreaking
+        plugins: ["autoresize autolink link anchor image lists wordcount visualblocks code table paste"],
+        @endif
         @if ($lp->module('tinymce', 'toolbar', config('admin.tinymce_defaults')))
         toolbar: "{{ $lp->module('tinymce', 'toolbar', config('admin.tinymce_defaults')) }}",
         @else
