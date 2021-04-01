@@ -100,6 +100,7 @@ nav li:hover > ul > li {max-height:40px}
 #listview .content {position:absolute;top:0;bottom:0;left:0;right:0;overflow:hidden;overflow-y:auto}
 #listview UL {display:block;margin:0;padding:0;white-space:nowrap}
 #listview LI {display:block;margin:0;padding:0;cursor:pointer}
+#listview LI.hidden {display:none}
 #listview LI > DIV  {margin:0 -4px 0 0;padding:6px 7px 7px;border-bottom:1px solid rgba(0,0,0,0.05);border-top:1px solid rgba(255,255,255,0.35);background-color:#eee;position:relative;height:20px;transition:height .25s,padding .25s,opacity .25s}
 #listview LI > DIV > SPAN {display:inline-block;color:rgba(0,0,0,0.4);font-size:0.85em;font-weight:400;margin:0 6px}
 #listview LI > DIV > SPAN:first-of-type {font-weight:400;color:#000;font-size:1em}

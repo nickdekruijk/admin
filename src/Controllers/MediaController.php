@@ -47,7 +47,7 @@ class MediaController extends BaseController
             if (!$response) {
                 $response .= '<ul' . (config('admin.modules.' . $slug . '.expanded') > 0 && config('admin.modules.' . $slug . '.expanded') <= $depth ? ' class="closed"' : '') . '>';
             }
-            $response .= '<li data-id="' . urlencode($id . basename($directory)) . '">';
+            $response .= '<li class="' . (in_array($id . basename($directory), config('admin.modules.' . $slug . '.hidden') ?? []) ? 'hidden' : '') . '" data-id="' . urlencode($id . basename($directory)) . '">';
             $response .= MediaController::folderRow($directory);
             $response .= MediaController::folders($slug, $directory, $id . basename($directory) . '/', $depth + 1);
             $response .= '</li>';
