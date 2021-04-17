@@ -5,7 +5,7 @@ if (config('admin.auth_routes', true)) {
     Route::group(['middleware' => 'web'], function () {
         if (!Route::has('login')) {
             Route::get(config('admin.adminpath') . '/login', '\NickDeKruijk\Admin\Controllers\LoginController@showLoginForm')->name('login');
-            Route::post(config('admin.adminpath') . '/login', '\NickDeKruijk\Admin\Controllers\LoginController@login');
+            Route::post(config('admin.adminpath') . '/login', '\NickDeKruijk\Admin\Controllers\LoginController@authenticate');
         }
         if (!Route::has('logout')) {
             Route::post(config('admin.adminpath') . '/logout', '\NickDeKruijk\Admin\Controllers\LoginController@logout')->name('logout');
