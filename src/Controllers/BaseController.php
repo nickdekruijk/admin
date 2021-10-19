@@ -5,6 +5,7 @@ namespace NickDeKruijk\Admin\Controllers;
 use App;
 use App\Http\Controllers\Controller;
 use Auth;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Route;
@@ -274,6 +275,9 @@ class BaseController extends Controller
                     if (is_null($value)) {
                         break;
                     }
+                }
+                if ($value instanceof Collection) {
+                    $value = $value->count() ?: '';
                 }
                 $response .= '<span>' . htmlspecialchars($value) . '</span>';
             }
