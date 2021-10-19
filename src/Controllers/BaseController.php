@@ -398,6 +398,12 @@ class BaseController extends Controller
         if (isset($column['treeview'])) {
             $data = $data->where($column['treeview'], $parent);
         }
+        // Add with() if needed
+        if (isset($column['with'])) {
+            foreach (explode(',', $column['with']) as $with) {
+                $data = $data->with(trim($with));
+            }
+        }
         foreach ($data->get() as $opt) {
             $response .= '<option value="' . $opt['id'] . '">';
             $response .= str_repeat('&nbsp', $depth * 4);
