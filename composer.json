@@ -15,7 +15,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "NickDeKruijk\\Admin\\ServiceProvider"
+                "NickDeKruijk\\Admin\\AdminServiceProvider"
             ]
         }
     },
