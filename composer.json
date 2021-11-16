@@ -10,7 +10,8 @@
     }],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.3.0"
+        "php": ">=7.3.0",
+        "livewire/livewire": "^2.7.0"
     },
     "extra": {
         "laravel": {
