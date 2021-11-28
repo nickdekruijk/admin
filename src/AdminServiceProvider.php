@@ -23,10 +23,12 @@ class AdminServiceProvider extends ServiceProvider
 
         // Hint path for admin views.
         $this->loadViewsFrom(__DIR__ . '/views', 'admin');
+
+        // Load the translations JSON files.
+        $this->loadJSONTranslationsFrom(__DIR__ . '/lang');
         // if (config('admin.role_column_migration')) {
         //     $this->loadMigrationsFrom(__DIR__ . '/migrations/role_column');
         // }
-        // $this->loadTranslationsFrom(__DIR__ . '/lang', 'admin');
         // if ($this->app->runningInConsole()) {
         //     $this->commands([
         //         UserCommand::class,
