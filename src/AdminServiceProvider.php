@@ -3,6 +3,9 @@
 namespace NickDeKruijk\Admin;
 
 use \Illuminate\Support\ServiceProvider;
+use Livewire;
+use NickDeKruijk\Admin\Commands\UserCommand;
+use NickDeKruijk\Admin\Livewire\Login;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -26,6 +29,9 @@ class AdminServiceProvider extends ServiceProvider
 
         // Load the translations JSON files.
         $this->loadJSONTranslationsFrom(__DIR__ . '/lang');
+
+        // Register all Livewire admin components.
+        Livewire::component('admin.login', Login::class);
         // if (config('admin.role_column_migration')) {
         //     $this->loadMigrationsFrom(__DIR__ . '/migrations/role_column');
         // }
