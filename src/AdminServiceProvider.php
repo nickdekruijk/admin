@@ -32,13 +32,16 @@ class AdminServiceProvider extends ServiceProvider
 
         // Register all Livewire admin components.
         Livewire::component('admin.login', Login::class);
+
+        // Add artisan commands.
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                UserCommand::class,
+            ]);
+        }
+
         // if (config('admin.role_column_migration')) {
         //     $this->loadMigrationsFrom(__DIR__ . '/migrations/role_column');
-        // }
-        // if ($this->app->runningInConsole()) {
-        //     $this->commands([
-        //         UserCommand::class,
-        //     ]);
         // }
     }
 
