@@ -13,7 +13,6 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $this->loadViewsFrom(__DIR__ . '/views', 'admin');
         // Enable publishing of config file.
         $this->publishes([
             __DIR__ . '/config.php' => config_path('admin.php'),
@@ -21,6 +20,9 @@ class AdminServiceProvider extends ServiceProvider
 
         // Load the routes needed for admin.
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
+
+        // Hint path for admin views.
+        $this->loadViewsFrom(__DIR__ . '/views', 'admin');
         // if (config('admin.role_column_migration')) {
         //     $this->loadMigrationsFrom(__DIR__ . '/migrations/role_column');
         // }
