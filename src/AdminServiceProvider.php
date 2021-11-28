@@ -14,10 +14,11 @@ class AdminServiceProvider extends ServiceProvider
     public function boot()
     {
         // $this->loadViewsFrom(__DIR__ . '/views', 'admin');
-        // $this->publishes([
-        //     __DIR__ . '/config.php' => config_path('admin.php'),
-        // ], 'config');
         // $this->loadRoutesFrom(__DIR__ . '/routes.php');
+        // Enable publishing of config file.
+        $this->publishes([
+            __DIR__ . '/config.php' => config_path('admin.php'),
+        ], 'config');
         // if (config('admin.role_column_migration')) {
         //     $this->loadMigrationsFrom(__DIR__ . '/migrations/role_column');
         // }
@@ -36,6 +37,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // $this->mergeConfigFrom(__DIR__ . '/config.php', 'admin');
+        // Get default config values
+        $this->mergeConfigFrom(__DIR__ . '/config.php', 'admin');
     }
 }
