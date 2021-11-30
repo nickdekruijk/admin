@@ -219,14 +219,12 @@ class ModelController extends BaseController
         $this->checkSlug($slug, 'update');
         $row = $this->model()::findOrFail($id);
 
-        // Get the parent and oldparent from Input, make null if needed
-        $parent = $request->input('parent');
-        $oldparent = $request->input('oldparent');
-        if ($oldparent < 1) $oldparent = null;
-        if ($parent < 1) $parent = null;
+        // Get the parent and oldparent from Input as integer
+        $parent = (int)$request->input('parent');
+        $oldparent = (int)$request->input('oldparent');
 
         // Check if oldparent matches the actual id for safety
-        if ($row->parent != $oldparent) die('Invalid oldparent ' . $oldparent);
+        if ($row->parent != $oldparent) return ('Invalid oldparent "' . $row->parent . '" != "' . $oldparent . '"');
 
         // Save the new parent
         $row->parent = $parent;
