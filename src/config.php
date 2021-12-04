@@ -15,6 +15,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | table_prefix
+    |--------------------------------------------------------------------------
+    | The package inclused migrations to create tables. The created tables name
+    | will use this prefix, e.g. 'admin_' for admin_permissions.
+    */
+    'table_prefix' => 'admin_',
+
+    /*
+    |--------------------------------------------------------------------------
     | logo
     |--------------------------------------------------------------------------
     | This html code is shown in the upper left corner
