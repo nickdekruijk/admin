@@ -3,9 +3,9 @@
 namespace NickDeKruijk\Admin\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use NickDeKruijk\Admin\Helpers;
 
 class UserCommand extends Command
 {
@@ -41,18 +41,6 @@ class UserCommand extends Command
     }
 
     /**
-     * Get the user model instance from admin config
-     *
-     * @return User;
-     */
-    public static function userModel()
-    {
-        Auth::shouldUse(config('admin.guard'));
-        $model = Auth::getProvider()->getModel();
-        return new $model;
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -60,7 +48,7 @@ class UserCommand extends Command
     public function handle()
     {
         $password = Str::random(40);
-        $user = self::userModel()->where($this->getUsernameColumn(), $this->arguments()[$this->getUsernameColumn()])->first();
+        $user = Helpers::userModel()->where($this->getUsernameColumn(), $this->arguments()[$this->getUsernameColumn()])->first();
         if ($user) {
             // Existing user, update name and password
             $password = $this->ask('New password (leave blank to leave unchanged');
@@ -74,7 +62,7 @@ class UserCommand extends Command
             $status = 'updated';
         } else {
             // Create new user
-            $user = self::userModel()::create([
+            $user = Helpers::userModel()::create([
                 $this->getUsernameColumn() => $this->arguments()[$this->getUsernameColumn()],
                 'name' => $this->arguments()['name'] ?: ucfirst(explode('@', $this->arguments()[$this->getUsernameColumn()])[0]),
                 'password' => Hash::make($this->ask('Password (blank for ' . $password . ')') ?: Str::random(40)),
