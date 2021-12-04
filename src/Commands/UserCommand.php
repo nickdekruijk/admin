@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use NickDeKruijk\Admin\Helpers;
+use NickDeKruijk\Admin\Models\Permission;
 
 class UserCommand extends Command
 {
@@ -70,5 +71,21 @@ class UserCommand extends Command
             $status = 'created';
         }
         $this->info('User ' . $user[$this->getUsernameColumn()] . ' "' . $user->name . '" ' . $status);
+
+        // Give the user all permissions when requested
+        if (strtolower($this->ask('Do you want to give this user all permissions? (y/n)', 'n'))[0] == 'y') {
+            if (Permission::where('user_id', $user->id)->count()) {
+                $this->warn('User already has some permissions. Skipping.');
+            } else {
+                Permission::create([
+                    'user_id' => $user->id,
+                    'component' => '*',
+                    'create' => true,
+                    'read' => true,
+                    'update' => true,
+                    'delete' => true,
+                ]);
+            }
+        }
     }
 }
