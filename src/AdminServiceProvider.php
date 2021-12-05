@@ -5,6 +5,7 @@ namespace NickDeKruijk\Admin;
 use \Illuminate\Support\ServiceProvider;
 use Livewire;
 use NickDeKruijk\Admin\Commands\UserCommand;
+use NickDeKruijk\Admin\Livewire\AdminDashboard;
 use NickDeKruijk\Admin\Livewire\Login;
 
 class AdminServiceProvider extends ServiceProvider
@@ -32,6 +33,7 @@ class AdminServiceProvider extends ServiceProvider
 
         // Register all Livewire admin components.
         Livewire::component('admin.login', Login::class);
+        Livewire::component('admin.dashboard', AdminDashboard::class);
 
         // Add artisan commands.
         if ($this->app->runningInConsole()) {
