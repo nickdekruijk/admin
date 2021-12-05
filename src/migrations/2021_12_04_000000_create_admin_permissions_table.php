@@ -16,14 +16,14 @@ class CreateAdminPermissionsTable extends Migration
     {
         Schema::create(config('admin.table_prefix') . 'permissions', function (Blueprint $table) {
             $table->foreignIdFor(Helpers::userModel()::class, 'user_id')->constrained()->cascadeOnDelete();
-            $table->string('component');
+            $table->string('module');
             $table->boolean('create')->default(false);
             $table->boolean('read')->default(false);
             $table->boolean('update')->default(false);
             $table->boolean('delete')->default(false);
             $table->timestamps();
 
-            $table->primary(['user_id', 'component']);
+            $table->primary(['user_id', 'module']);
         });
     }
 

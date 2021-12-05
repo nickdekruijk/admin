@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use NickDeKruijk\Admin\Livewire\Dashboard;
 
 return [
 
@@ -50,21 +52,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | components
+    | modules
     |--------------------------------------------------------------------------
-    | All components available to admin users. The navigation structure will 
-    | also be generated from this array. The first component will be the 
-    | default a user sees after login.
+    | All modules available to admin users. The navigation structure will 
+    | also be generated from this array. The first module will be the default
+    | a user sees after login. Each module must implement the 
+    | AdminModule interface.
     */
-    'components' => [
-        'Dashboard' => 'admin-dashboard',
-        'Content' => [
-            'Pages' => 'admin-crud:App\Models\Page',
-        ],
-        'User Management' => [
-            'Users' => 'admin-crud:App\Models\User',
-            'Permissions' => 'admin-crud:NickDeKruijk\Admin\Models\Permissions',
-        ],
+    'modules' => [
+        Dashboard::class,
+        User::class,
+        // 'App\Models\Page',
     ],
 
 ];

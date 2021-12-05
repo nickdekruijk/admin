@@ -4,7 +4,7 @@ namespace NickDeKruijk\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use NickDeKruijk\Admin\Livewire\AdminDashboard;
+use NickDeKruijk\Admin\Helpers;
 use NickDeKruijk\Admin\Middleware\Admin;
 
 class AdminController extends Controller
@@ -15,31 +15,12 @@ class AdminController extends Controller
         $this->middleware(Admin::class);
     }
 
-    public static function nav(): string
+    public function index($slug = null)
     {
-        function walk(array $nav, int $depth = 0): string
-        {
-            $html = '<ul>';
-            foreach ($nav as $key => $value) {
-                $html .= '<li>';
-                $html .= '<a href="">' . __($key) . '</a>';
-                if (is_array($value)) {
-                    $html .= walk($value, $depth + 1);
-                }
-                $html .= '</li>';
-            }
-            if ($depth == 0) {
-                $html .= '<li><form method="post" action="' . route('admin.logout') . '" onclick="this.submit()">' . csrf_field() . __('Logout') . '</form></li>';
-            }
-            $html .= '</ul>';
-            return $html;
-        }
-        return walk(config('admin.components'));
-    }
-
-    public function index()
-    {
-        return AdminDashboard::render();
+        $module = Helpers::getModule($slug);
+        abort_if(!$module, 404);
+        $config = $module->getAdminConfig();
+        return view('admin::layouts.app', ['component' => $config->component]);
     }
 
     public function logout()

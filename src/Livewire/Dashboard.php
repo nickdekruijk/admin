@@ -1,0 +1,16 @@
+<?php
+
+namespace NickDeKruijk\Admin\Livewire;
+
+use Livewire\Component;
+use NickDeKruijk\Admin\Traits\AdminModule;
+
+class Dashboard extends Component
+{
+    use AdminModule;
+
+    public static function render()
+    {
+        return view('admin::livewire.dashboard');
+    }
+}

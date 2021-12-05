@@ -10,11 +10,27 @@
     <body>
         @auth(config('admin.guard'))
             <nav>
-                {!! NickDeKruijk\Admin\Controllers\AdminController::nav() !!}
+                <ul>
+                    @foreach(NickDeKruijk\Admin\Helpers::getAllModules() as $module)
+                        <li>
+                            <a href="{{ route('admin.index', $module->getAdminConfig()->slug) }}">
+                                <i class="{{ $module->getAdminConfig()->icon }}"></i>@lang($module->getAdminConfig()->title)
+                            </a>
+                        </li>
+                    @endforeach
+                    <li>
+                        <form method="post" action="{{ route('admin.logout') }}" onclick="this.submit()">
+                            @csrf
+                            <i class="fa-solid fa-right-from-bracket"></i>@lang('Logout')
+                        </form>
+                    </li>
+                </ul>
             </nav>
         @endif
         {{ $slot ?? '' }}
-        @yield('component')
+        @if (isset($component))
+            @livewire($component)
+        @endif
         @livewireScripts
     </body>
 </html>

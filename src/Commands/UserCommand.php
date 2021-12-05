@@ -79,7 +79,7 @@ class UserCommand extends Command
             } else {
                 Permission::create([
                     'user_id' => $user->id,
-                    'component' => '*',
+                    'module' => '*',
                     'create' => true,
                     'read' => true,
                     'update' => true,

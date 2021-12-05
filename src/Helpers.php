@@ -17,4 +17,20 @@ class Helpers
         $model = Auth::getProvider()->getModel();
         return new $model;
     }
+
+    public static function getAllModules()
+    {
+        foreach (config('admin.modules') as $module) {
+            $modules[] = new $module;
+        }
+        return $modules;
+    }
+    public static function getModule($slug)
+    {
+        foreach (Helpers::getAllModules() as $module) {
+            if ($module->getAdminConfig()->slug === $slug || !$slug) {
+                return new $module;
+            }
+        };
+    }
 }
