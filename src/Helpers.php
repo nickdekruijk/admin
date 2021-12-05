@@ -25,6 +25,7 @@ class Helpers
         }
         return $modules;
     }
+
     public static function getModule($slug)
     {
         foreach (Helpers::getAllModules() as $module) {
@@ -32,5 +33,10 @@ class Helpers
                 return new $module;
             }
         };
+    }
+
+    public static function getModuleOrFail($slug)
+    {
+        return Helpers::getModule($slug) ?? abort(404);
     }
 }

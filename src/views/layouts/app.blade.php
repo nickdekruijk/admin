@@ -31,8 +31,8 @@
             </nav>
         @endif
         {{ $slot ?? '' }}
-        @if (isset($component))
-            @livewire($component)
+        @if (isset($module))
+            @livewire($module->getAdminConfig()->component)
         @endif
         @livewireScripts
     </body>
