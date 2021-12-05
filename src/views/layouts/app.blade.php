@@ -8,7 +8,7 @@
         @livewireStyles
     </head>
     <body>
-        @auth
+        @auth(config('admin.guard'))
             <nav>
                 {!! NickDeKruijk\Admin\Controllers\AdminController::nav() !!}
             </nav>
