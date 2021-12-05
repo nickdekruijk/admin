@@ -15,6 +15,11 @@ class Login extends Component
         'password' => 'required',
     ];
 
+    public function __construct()
+    {
+        Auth::shouldUse(config('admin.guard'));
+    }
+
     protected function rules()
     {
         $rules = [];
@@ -35,12 +40,23 @@ class Login extends Component
         foreach (config('admin.credentials') as $column) {
             $credentials[$column] = $this->$column;
         }
-        Auth::shouldUse(config('admin.guard'));
         if (Auth::attempt($credentials)) {
-            request()->session()->regenerate();
-            return redirect()->intended(route('admin.index'));
+            return $this->redirectIntended();
         } else {
             $this->addError('login', trans('auth.failed'));
+        }
+    }
+
+    private function redirectIntended()
+    {
+        request()->session()->regenerate();
+        return redirect()->intended(route('admin.index'));
+    }
+
+    public function mount()
+    {
+        if (Auth::check()) {
+            return $this->redirectIntended();
         }
     }
 
