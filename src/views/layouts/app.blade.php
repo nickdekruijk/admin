@@ -7,14 +7,17 @@
         <link rel="stylesheet" href="{{ route('admin.css') }}">
         @livewireStyles
     </head>
-    <body>
+    <body class="app">
         @auth(config('admin.guard'))
             <nav>
+                <div class="logo">
+                    {!! config('admin.logo') !!}
+                </div>
                 <ul>
-                    @foreach(NickDeKruijk\Admin\Helpers::getAllModules() as $module)
+                    @foreach(NickDeKruijk\Admin\Helpers::getAllModules() as $item)
                         <li>
-                            <a href="{{ route('admin.index', $module->getAdminConfig()->slug) }}">
-                                <i class="{{ $module->getAdminConfig()->icon }}"></i>@lang($module->getAdminConfig()->title)
+                            <a href="{{ route('admin.index', $item->getAdminConfig()->slug) }}">
+                                <i class="{{ $item->getAdminConfig()->icon }}"></i>@lang($item->getAdminConfig()->title)
                             </a>
                         </li>
                     @endforeach

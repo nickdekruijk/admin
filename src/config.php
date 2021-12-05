@@ -30,7 +30,7 @@ return [
     |--------------------------------------------------------------------------
     | This html code is shown in the upper left corner
     */
-    'logo' => '<a href="/" target="_blank"><i class="fa-brands fa-laravel" style="font-size:32px;float:left;margin-right:5px"></i>Admin</a>',
+    'logo' => '<a href="/" target="_blank"><i class="fa-brands fa-laravel"></i>Admin</a>',
 
     /*
     |--------------------------------------------------------------------------
