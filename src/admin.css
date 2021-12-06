@@ -41,7 +41,9 @@ nav .logo I {line-height:50px;width:50px;font-size:32px;float:left}
 nav UL {font-weight:normal;line-height:40px}
 nav I {width:50px;text-align:center;font-size:0.95em}
 nav UL A,
-nav FORM {display:block;cursor:pointer;opacity:.6;padding-right:20px}
+nav FORM {display:block;cursor:pointer;padding-right:20px}
+nav LI {opacity:.6}
+nav LI.active {background-color:rgba(1,1,1,.15);color:var(--text-light);opacity:1;font-weight:600}
 nav LI:hover {background-color:rgba(255,255,255,.06)}
 
 @media (max-width:750px) {

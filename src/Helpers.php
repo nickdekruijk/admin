@@ -26,7 +26,7 @@ class Helpers
         return $modules;
     }
 
-    public static function getModule($slug)
+    public static function getModule($slug = null)
     {
         foreach (Helpers::getAllModules() as $module) {
             if ($module->getAdminConfig()->slug === $slug || !$slug) {

@@ -17,7 +17,7 @@ class AdminController extends Controller
 
     public function index($slug = null)
     {
-        return view('admin::layouts.app', ['module' => Helpers::getModuleOrFail($slug)]);
+        return view('admin::layouts.app', ['module' => Helpers::getModuleOrFail($slug), 'slug' => $slug ?: Helpers::getModule()->getAdminConfig()->slug]);
     }
 
     public function logout()
