@@ -2,9 +2,10 @@
 
 namespace NickDeKruijk\Admin\Classes;
 
+use ArrayAccess;
 use Illuminate\Contracts\Support\Arrayable;
 
-class AdminConfig implements Arrayable
+class AdminConfig implements Arrayable, ArrayAccess
 {
     /**
      * The title for the menu item.
@@ -49,5 +50,23 @@ class AdminConfig implements Arrayable
     public function toArray()
     {
         return (array) $this;
+    }
+
+    // Required for ArrayAccess
+    public function offsetSet($offset, $value)
+    {
+        $this->$offset = $value;
+    }
+    public function offsetExists($offset)
+    {
+        return isset($this->$offset);
+    }
+    public function offsetUnset($offset)
+    {
+        unset($this->$offset);
+    }
+    public function offsetGet($offset)
+    {
+        return $this->$offset ?? null;
     }
 }
