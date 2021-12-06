@@ -9,6 +9,11 @@ class Crud extends Component
 {
     use AdminModule;
 
+    public function mount($module = null)
+    {
+        $this->admin_config = $module->getAdminConfig();
+    }
+
     public static function render()
     {
         return view('admin::livewire.crud');

@@ -30,9 +30,10 @@
                 </ul>
             </nav>
         @endif
-        {{ $slot ?? '' }}
         @if (isset($module))
-            @livewire($module->getAdminConfig()->component)
+            <div class="module">@livewire($module->getAdminConfig()->component, ['module' => $module])</div>
+        @else
+            <div class="slot">{{ $slot ?? '' }}</div>
         @endif
         @livewireScripts
     </body>
