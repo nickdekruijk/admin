@@ -36,7 +36,7 @@ If your application has no users Admin provides an artisan console command to cr
 
 `php artisan admin:user <email> [<name>]`
 
-If the name of the user contains spaces you should use quotes around it, e.g. `php artisan admin:user git@nickdekruijk.nl "Nick de Kruijk"`. When using this command you will be prompted for a password and if you want to give the user all availabe permissions.
+If the name of the user contains spaces you should use quotes around it, e.g. `php artisan admin:user name@domain.com "Nick de Kruijk"`. When using this command you will be prompted for a password and if you want to give the user all available permissions.
 
 ## FAQ
 
