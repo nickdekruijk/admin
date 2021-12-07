@@ -21,7 +21,9 @@ class Helpers
     public static function getAllModules()
     {
         foreach (config('admin.modules') as $module) {
-            $modules[] = new $module;
+            if (class_exists($module)) {
+                $modules[] = new $module;
+            }
         }
         return $modules;
     }

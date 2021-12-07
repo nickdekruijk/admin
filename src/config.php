@@ -62,7 +62,7 @@ return [
     'modules' => [
         Dashboard::class,
         User::class,
-        // 'App\Models\Page',
+        'App\Models\Page',
     ],
 
 ];
