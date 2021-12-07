@@ -63,6 +63,7 @@ return [
         Dashboard::class,
         User::class,
         'App\Models\Page',
+        NickDeKruijk\Settings\Setting::class,
     ],
 
 ];
