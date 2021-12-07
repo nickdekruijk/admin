@@ -61,8 +61,8 @@ return [
     */
     'modules' => [
         Dashboard::class,
-        User::class,
         'App\Models\Page',
+        User::class,
         NickDeKruijk\Settings\Setting::class,
     ],
 
