@@ -52,6 +52,13 @@ class AdminConfig implements Arrayable, ArrayAccess
         return (array) $this;
     }
 
+    public function __construct(array $attributes = [])
+    {
+        foreach ($attributes as $key => $value) {
+            $this->$key = $value;
+        }
+    }
+
     // Required for ArrayAccess
     public function offsetSet($offset, $value)
     {
