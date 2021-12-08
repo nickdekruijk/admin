@@ -9,9 +9,14 @@ class Dashboard extends Component
 {
     use AdminModule;
 
+
+    public string $greeting = '';
+
     public function mount($module = null)
     {
         $this->admin_config = $module->getAdminConfig();
+        $hour = date('H');
+        $this->greeting = __('Good ' . (($hour >= 18) ? "evening" : (($hour >= 12) ? "afternoon" : "morning")));
     }
 
     public static function render()
