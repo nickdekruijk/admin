@@ -12,9 +12,8 @@ class Dashboard extends Component
 
     public string $greeting = '';
 
-    public function mount($module = null)
+    public function mount()
     {
-        $this->admin_config = $module->getAdminConfig();
         $hour = date('H');
         $this->greeting = __('Good ' . (($hour >= 18) ? "evening" : (($hour >= 12) ? "afternoon" : "morning")));
     }
