@@ -3,7 +3,7 @@
         <h2>@lang($this->getAdminConfig()->title)</h2>
     </header>
     <div class="module-content">
-        <h2>{{ $this->greeting }} {{ Auth::user()->name }}.</h2>
+        <h2>{{ $this->greeting }}</h2>
         <ul class="dashboard-buttons">
             @foreach(NickDeKruijk\Admin\Helpers::getAllModules() as $item)
                 @if ($item->getAdminConfig()->slug !== $this->getAdminConfig()->slug)
