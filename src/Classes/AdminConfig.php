@@ -19,7 +19,7 @@ class AdminConfig implements Arrayable, ArrayAccess
      *
      * @var string
      */
-    public string $icon;
+    public ?string $icon;
 
     /**
      * Thw url slug that will identify the module.
