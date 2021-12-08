@@ -24,6 +24,7 @@ class CreateAdminPermissionsTable extends Migration
             $table->timestamps();
 
             $table->primary(['user_id', 'module']);
+            $table->index(['user_id', 'module', 'create', 'read', 'update', 'delete']);
         });
     }
 
