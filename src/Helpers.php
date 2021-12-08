@@ -2,7 +2,9 @@
 
 namespace NickDeKruijk\Admin;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use NickDeKruijk\Admin\Models\Permission;
 
 class Helpers
 {
@@ -18,10 +20,28 @@ class Helpers
         return new $model;
     }
 
+    public static function can(string $module, string $permission = null, User $user = null): bool
+    {
+        $permissions = Permission::where(function ($query) use ($module) {
+            $query->where('module', '*')->orWhere('module', $module);
+        })->where('user_id', $user ? $user->id : Auth::user()->id);
+        if ($permission) {
+            return $permissions->where($permission, true)->count();
+        } else {
+            return $permissions->where(function ($query) {
+                $query->where('create', true)
+                    ->orWhere('read', true)
+                    ->orWhere('update', true)
+                    ->orWhere('delete', true);
+            })->count();
+        }
+    }
+
     public static function getAllModules()
     {
+        $modules = [];
         foreach (config('admin.modules') as $module) {
-            if (class_exists($module)) {
+            if (class_exists($module) && Helpers::can($module)) {
                 $modules[] = new $module;
             }
         }
