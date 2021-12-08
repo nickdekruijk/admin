@@ -9,7 +9,6 @@ class Dashboard extends Component
 {
     use AdminModule;
 
-
     public string $greeting = '';
 
     public function mount()
