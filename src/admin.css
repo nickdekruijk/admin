@@ -47,8 +47,9 @@ nav {color:var(--text-light);background-color:var(--dark);overflow:hidden;white-
 nav UL {font-weight:500;line-height:4rem}
 nav I {width:var(--header-height);text-align:center;font-size:0.95em}
 nav UL A,
-nav FORM {display:block;cursor:pointer;padding-right:2rem}
+nav FORM {display:block;cursor:pointer;padding-right:1.5rem}
 nav LI {opacity:.6}
+nav LI I {width:4rem}
 nav LI.active {background-color:rgba(1,1,1,.15);opacity:1;font-weight:500}
 nav LI:hover {background-color:rgba(255,255,255,.06)}
 
@@ -76,6 +77,7 @@ nav LI:hover {background-color:rgba(255,255,255,.06)}
 
 @media (max-width:1240px) {
     nav {position:fixed;min-height:100vh;z-index:1000;transition:max-width .4s}
+    nav LI I {width:var(--header-height)}
     nav:not(:hover) {max-width:var(--header-height)}
     .module {margin-left:var(--header-height)}
 }
