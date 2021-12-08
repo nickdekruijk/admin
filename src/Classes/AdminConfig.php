@@ -36,6 +36,13 @@ class AdminConfig implements Arrayable, ArrayAccess
     public string $component;
 
     /**
+     * The title of the navigation group the module should belong to.
+     *
+     * @var string|null
+     */
+    public ?string $group;
+
+    /**
      * THe columns that will be editable with the CRUD component.
      *
      * @var array
