@@ -9,7 +9,7 @@ class Crud extends Component
 {
     use AdminModule;
 
-    public function mount($admin = null)
+    public function mount($admin)
     {
         $this->admin_config = $admin->module->getAdminConfig();
     }
