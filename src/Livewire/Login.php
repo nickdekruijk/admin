@@ -4,9 +4,12 @@ namespace NickDeKruijk\Admin\Livewire;
 
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use NickDeKruijk\Admin\Traits\AdminModule;
 
 class Login extends Component
 {
+    use AdminModule;
+
     public $email;
     public $password;
 
