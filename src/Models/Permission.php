@@ -54,7 +54,7 @@ class Permission extends Model
         return $query->where('user_id', Auth::guard(config('admin.guard'))->user()->id);
     }
 
-    public function scopeCanAnything($query, string $module)
+    public function scopeCanAny($query, string $module)
     {
         return $query->any()->where('module', $module);
     }
