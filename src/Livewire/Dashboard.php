@@ -11,9 +11,12 @@ class Dashboard extends Component
     use AdminModule;
 
     public string $greeting = '';
+    public array $modules;
 
-    public function mount()
+    public function mount($admin)
     {
+        $this->modules = $admin->modules;
+
         // Determine evening, afternoon or morning.
         $hour = date('H');
         $this->greeting = __('Good ' . (($hour >= 18) ? "evening" : (($hour >= 12) ? "afternoon" : "morning")));

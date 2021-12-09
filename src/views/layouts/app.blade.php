@@ -14,8 +14,8 @@
                     {!! config('admin.logo') !!}
                 </div>
                 <ul>
-                    @foreach(NickDeKruijk\Admin\Helpers::getAllModules() as $item)
-                        <li class="{{ $item->getAdminConfig()->slug === $slug ? 'active' : '' }}">
+                    @foreach($admin->modules as $item)
+                        <li class="{{ $item->getAdminConfig()->slug === $admin->slug ? 'active' : '' }}">
                             <a href="{{ route('admin.index', $item->getAdminConfig()->slug) }}">
                                 <i class="{{ $item->getAdminConfig()->icon }}"></i>@lang($item->getAdminConfig()->title)
                             </a>
@@ -30,11 +30,9 @@
                 </ul>
             </nav>
         @endif
-        @if (isset($module))
-            <div class="module">@livewire($module->getAdminConfig()->component, ['module' => $module])</div>
-        @else
-            <div class="slot">{{ $slot ?? '' }}</div>
-        @endif
+        <div class="module">
+            @livewire($admin->component, ['admin' => $admin])
+        </div>
         @livewireScripts
     </body>
 </html>

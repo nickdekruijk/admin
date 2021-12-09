@@ -5,7 +5,7 @@
     <div class="module-content">
         <h2>{{ $this->greeting }}</h2>
         <ul class="dashboard-buttons">
-            @foreach(NickDeKruijk\Admin\Helpers::getAllModules() as $item)
+            @foreach($modules as $item)
                 @if ($item->getAdminConfig()->slug !== $this->getAdminConfig()->slug)
                     <li>
                         <a href="{{ route('admin.index', $item->getAdminConfig()->slug) }}">
