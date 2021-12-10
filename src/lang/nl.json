@@ -8,5 +8,12 @@
     "Good evening": "Goedenavond",
     "Good morning": "Goedemorgen",
     "Good afternoon": "Goedemiddag",
-    "Welcome back": "Welkom terug"
+    "Welcome back": "Welkom terug",
+
+    "email": "e-mail",
+    "name": "naam",
+    "key": "sleutel",
+    "value": "waarde",
+    "description": "omschrijving",
+    "password": "wachtwoord"
 }
