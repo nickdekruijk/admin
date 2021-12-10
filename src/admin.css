@@ -97,7 +97,7 @@ nav LI:hover {background-color:rgba(255,255,255,.06)}
 .editor {position:absolute;top:var(--header-height);width:75%;bottom:0;right:0;overflow:auto;transform:translateX(100%);transition:transform .4s;z-index:20}
 
 .editor .buttons {background-color:var(--normal);height:4rem;color:var(--text-light);font-size:0.9em;padding:.5rem 1rem;line-height:3rem}
-.editor .buttons BUTTON {display:inline-block;border:0 none;background:var(--bg-input);font:inherit;padding:0 1rem;border-radius:var(--border-radius);cursor:pointer;color:inherit;margin-right:.5rem}
+.editor .buttons BUTTON {display:inline-block;border:0 none;background:var(--bg-input);font:inherit;padding:0 1rem;border-radius:var(--border-radius);cursor:pointer;color:inherit;margin-right:.1rem}
 .editor .buttons BUTTON:hover {background:var(--bg-input-focus)}
 .editor .buttons BUTTON I {margin-right:.5em;font-size:0.9em;opacity:0.7}
 .editor .buttons BUTTON:hover I {opacity:1}

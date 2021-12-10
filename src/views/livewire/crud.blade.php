@@ -21,6 +21,11 @@
     </section>
     <section class="editor">
         <div class="buttons">
+            <button wire:click="save"><i class="fa-solid fa-save"></i>@lang('Save')</button>
+            @if ($editing)
+                <button wire:click="clone"><i class="fa-solid fa-copy"></i>@lang('Save as copy')</button>
+                <button wire:click="delete"><i class="fa-solid fa-trash"></i>@lang('Delete')</button>
+            @endif
             <button wire:click="close"><i class="fa-solid fa-ban"></i>@lang('Close')</button>
             @if ($editing)
                 <span class="id">{{ $editing }}</id>
