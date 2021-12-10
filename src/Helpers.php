@@ -3,7 +3,6 @@
 namespace NickDeKruijk\Admin;
 
 use Illuminate\Support\Facades\Auth;
-use NickDeKruijk\Admin\Models\Permission;
 
 class Helpers
 {
