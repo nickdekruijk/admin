@@ -27,20 +27,20 @@
     --fs-logo: 32px;
 }
 
-BODY {background:var(--dark);font-family:'Open Sans',sans-serif;font-size:var(--fs-body);-webkit-font-smoothing:antialiased;-moz-font-smoothing:grayscale;-moz-osx-font-smoothing:grayscale;font-weight:300}
+BODY {background:var(--dark);font-family:'Open Sans',sans-serif;font-size:var(--fs-body);-webkit-font-smoothing:antialiased;-moz-font-smoothing:grayscale;-moz-osx-font-smoothing:grayscale}
 A {color:inherit;text-decoration:none}
 
 .app {display:flex}
 .module {background-color:var(--grey);min-height:100vh;flex:1 1 auto}
 .module HEADER {background-color:var(--dark);line-height:var(--header-height);padding:0 1.5rem;color:var(--text-light)}
-.module H2 {font-size:var(--fs-header);font-weight:inherit}
+.module H2 {font-size:var(--fs-header);font-weight:300}
 .module-content {padding:1.5rem}
 
 .logo {background-color:var(--light);font-size:var(--fs-header);padding-right:1.5rem}
 .logo I {font-size:var(--fs-logo);float:left}
 
 nav .logo,
-nav .logo I {line-height:var(--header-height)}
+nav .logo I {line-height:var(--header-height);font-weight:300}
 
 nav {color:var(--text-light);background-color:var(--dark);overflow:hidden;white-space:nowrap;max-width:300px}
 nav UL {font-weight:500;line-height:4rem}
@@ -55,7 +55,7 @@ nav LI:hover {background-color:rgba(255,255,255,.06)}
 .login {display:flex;height:100%;align-items:center;justify-content:center;padding:1.5rem;background-color:var(--dark)}
 .login .popup {background:var(--normal);color:var(--text-light);border-radius:var(--border-radius);overflow:hidden;flex-basis:38rem}
 .login HEADER {background:var(--light);padding:.75rem 1.5rem;line-height:normal}
-.login .logo {font-weight:inherit}
+.login .logo {font-weight:300}
 .login .logo I {margin-right:.5rem}
 .login .form {padding:1.5rem}
 .login BUTTON,
@@ -70,7 +70,7 @@ nav LI:hover {background-color:rgba(255,255,255,.06)}
 .dashboard-buttons {display:flex;flex-wrap:wrap;margin:.75rem -.75rem}
 .dashboard-buttons LI {flex:0 0 15rem;background-color:var(--normal);color:var(--text-light);text-align:center;border-radius:var(--border-radius);margin:.75rem}
 .dashboard-buttons FORM,
-.dashboard-buttons A {display:block;padding:1.5rem;cursor:pointer;opacity:0.8;font-weight:400}
+.dashboard-buttons A {display:block;padding:1.5rem;cursor:pointer;opacity:0.8}
 .dashboard-buttons LI I {font-size:2em;margin-bottom:1rem;display:block}
 .dashboard-buttons LI:hover {background-color:var(--light)}
 
