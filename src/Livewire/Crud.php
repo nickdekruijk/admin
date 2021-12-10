@@ -14,7 +14,10 @@ class Crud extends Component
     {
         Gate::authorize('admin.any', $this);
 
-        $this->listview = $admin->module->getAdminConfig()->getListview() ?: $admin->module->getFillable();
+        // Get columns for listview, if not set, use all fillable columns except hidden.
+        $this->listview = $admin->module->getAdminConfig()->getListview() ?: array_diff($admin->module->getFillable(), $admin->module->getHidden());
+
+        // Save module so Livewire can access it.
         $this->module = $admin->module;
     }
 
