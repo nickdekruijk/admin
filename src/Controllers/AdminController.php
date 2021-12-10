@@ -4,7 +4,6 @@ namespace NickDeKruijk\Admin\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use NickDeKruijk\Admin\Helpers;
 use NickDeKruijk\Admin\Middleware\Admin;
 use NickDeKruijk\Admin\Models\Permission;
 
