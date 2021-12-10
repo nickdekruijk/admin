@@ -90,10 +90,11 @@ nav LI:hover {background-color:rgba(255,255,255,.06)}
 .listview TD:not(:first-child) {font-size:0.85em;color:var(--text-medium)}
 .listview TH:first-child,
 .listview TD:first-child {position:sticky;left:0;position:-webkit-sticky;padding-left:1.5rem}
+.listview TD:first-child {background-color:var(--grey-light)}
 .listview TR:not(:first-child):hover TD {background-color:var(--light);cursor:pointer;box-shadow:none}
 .listview TR:not(:first-child).active TD {background-color:var(--light);box-shadow:none;color:var(--text-light)}
 
-.editor {position:absolute;top:var(--header-height);width:75%;bottom:0;right:0;overflow:auto;transform:translateX(100%);transition:transform .4s}
+.editor {position:absolute;top:var(--header-height);width:75%;bottom:0;right:0;overflow:auto;transform:translateX(100%);transition:transform .4s;z-index:20}
 
 .editor .buttons {background-color:var(--normal);height:4rem;color:var(--text-light);font-size:0.9em;padding:.5rem 1rem;line-height:3rem}
 .editor .buttons BUTTON {display:inline-block;border:0 none;background:var(--bg-input);font:inherit;padding:0 1rem;border-radius:var(--border-radius);cursor:pointer;color:inherit;margin-right:.5rem}
@@ -111,4 +112,6 @@ nav LI:hover {background-color:rgba(255,255,255,.06)}
     nav LI I {width:var(--header-height)}
     nav:not(:hover) {max-width:var(--header-height)}
     .module {margin-left:var(--header-height)}
+    .editor {width:100%}
+    .editing .listview {width:0}
 }
