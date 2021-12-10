@@ -43,7 +43,15 @@ class AdminConfig implements Arrayable, ArrayAccess
     public ?string $group;
 
     /**
-     * THe columns that will be editable with the CRUD component.
+     * The columns that will be show in the CRUD component listview, e.g. ['name', 'email'] or 'name,email'.
+     * Can only be accessed with getListview() method.
+     *
+     * @var array|string
+     */
+    public array|string $listview = [];
+
+    /**
+     * The columns that will be editable with the CRUD component.
      *
      * @var array
      */
@@ -57,6 +65,11 @@ class AdminConfig implements Arrayable, ArrayAccess
     public function toArray()
     {
         return (array) $this;
+    }
+
+    public function getListview()
+    {
+        return is_array($this->listview) ? $this->listview : explode(',', $this->listview);
     }
 
     public function __construct(array $attributes = [])

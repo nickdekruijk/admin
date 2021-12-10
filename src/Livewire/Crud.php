@@ -10,10 +10,15 @@ class Crud extends Component
 {
     use AdminModule;
 
+    public $module;
+    public $listview;
+
     public function mount($admin)
     {
         Gate::authorize('admin.any', $this);
 
+        $this->listview = $admin->module->getAdminConfig()->getListview() ?: $admin->module->getFillable();
+        $this->module = $admin->module;
         $this->admin_config = $admin->module->getAdminConfig();
     }
 
