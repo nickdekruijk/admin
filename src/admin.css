@@ -10,7 +10,7 @@
     --text-light: #fff;
     --text-dark: #000;
     --text-medium: rgba(0,0,0,0.4);
-    --grey: #d3d3d3;
+    --grey: #ddd;
     --grey-light: #eee;
     --red: #f66;
     --bg-input: rgba(255,255,255,0.15);
@@ -32,9 +32,13 @@ BODY {background:var(--dark);font-family:'Open Sans',sans-serif;font-size:var(--
 A {color:inherit;text-decoration:none}
 
 .app {display:flex}
-.module {background-color:var(--grey);min-height:100vh;flex:1 1 auto;position:relative}
-.module HEADER {background-color:var(--dark);line-height:var(--header-height);padding:0 1.5rem;color:var(--text-light)}
-.module H2 {font-size:var(--fs-header);font-weight:300}
+.module {background-color:var(--grey);min-height:100vh;flex:1 1 auto;position:relative;overflow:hidden}
+.module HEADER {background-color:var(--dark);line-height:var(--header-height);padding:0 1.5rem;color:var(--text-light);height:var(--header-height)}
+.module H2 {font-size:var(--fs-header);font-weight:300;float:left}
+.module HEADER BUTTON {border:0 none;font:inherit;line-height:3rem;border-radius:var(--border-radius);background:var(--bg-input);color:var(--text-light);margin-left:1rem;padding:0 1rem;cursor:pointer;font-size:0.9em}
+.module HEADER BUTTON I {opacity:0.5;margin-right:.5rem}
+.module HEADER BUTTON:hover {background:var(--light)}
+.module HEADER BUTTON:hover I {opacity:1}
 .module-content {padding:1.5rem}
 
 .logo {background-color:var(--light);font-size:var(--fs-header);padding-right:1.5rem}
@@ -75,19 +79,32 @@ nav LI:hover {background-color:rgba(255,255,255,.06)}
 .dashboard-buttons LI I {font-size:2em;margin-bottom:1rem;display:block}
 .dashboard-buttons LI:hover {background-color:var(--light)}
 
-.listview {position:absolute;top:var(--header-height);right:0;bottom:0;left:0;overflow:auto}
+.listview {position:absolute;top:var(--header-height);width:100%;bottom:0;left:0;overflow:auto;transition:width .4s;background-color:var(--grey-light)}
 .listview TH {color:var(--text-light);font-weight:inherit;line-height:4rem;text-transform:capitalize}
 .listview TR:first-child, .listview TH {background-color:var(--normal);position:sticky;top:0;position:-webkit-sticky;z-index:2}
 .listview TH:last-child {width:100%}
+.listview TH:first-child {z-index:3}
 .listview TH,
 .listview TD {white-space:nowrap;text-align:left;padding-right:1.5rem}
 .listview TD {line-height:2.6rem;padding-top:.5vh;padding-bottom:.5vh;max-width:50vw;text-overflow:ellipsis;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),inset 0 -1px 0 rgba(0,0,0,0.05)}
-.listview TD, .listview TR {background-color:var(--grey-light)}
 .listview TD:not(:first-child) {font-size:0.85em;color:var(--text-medium)}
 .listview TH:first-child,
 .listview TD:first-child {position:sticky;left:0;position:-webkit-sticky;padding-left:1.5rem}
-.listview TH:first-child {z-index:3}
 .listview TR:not(:first-child):hover TD {background-color:var(--light);cursor:pointer;box-shadow:none}
+.listview TR:not(:first-child).active TD {background-color:var(--light);box-shadow:none;color:var(--text-light)}
+
+.editor {position:absolute;top:var(--header-height);width:75%;bottom:0;right:0;overflow:auto;transform:translateX(100%);transition:transform .4s}
+
+.editor .buttons {background-color:var(--normal);height:4rem;color:var(--text-light);font-size:0.9em;padding:.5rem 1rem;line-height:3rem}
+.editor .buttons BUTTON {display:inline-block;border:0 none;background:var(--bg-input);font:inherit;padding:0 1rem;border-radius:var(--border-radius);cursor:pointer;color:inherit;margin-right:.5rem}
+.editor .buttons BUTTON:hover {background:var(--bg-input-focus)}
+.editor .buttons BUTTON I {margin-right:.5em;font-size:0.9em;opacity:0.7}
+.editor .buttons BUTTON:hover I {opacity:1}
+.editor .buttons .id {float:right;opacity:0.7}
+.editor .buttons .id::before {content:'#';opacity:0.4}
+
+.editing .listview {width:25%}
+.editing .editor {transform:none}
 
 @media (max-width:1240px) {
     nav {position:fixed;min-height:100vh;z-index:1000;transition:max-width .4s}
