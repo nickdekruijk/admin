@@ -15,14 +15,14 @@ class AdminConfig implements Arrayable, ArrayAccess
     public string $title;
 
     /**
-     * The font awesome icon for the menu item, e.g. 'fa-solid fa-dashboard'.
+     * The font-awesome 6.0 icon for the menu item, e.g. 'fa-solid fa-dashboard'.
      *
      * @var string
      */
     public ?string $icon;
 
     /**
-     * Thw url slug that will identify the module.
+     * The url slug that will identify the module.
      *
      * @var string
      */
