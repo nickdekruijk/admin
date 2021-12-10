@@ -12,7 +12,6 @@ class AdminController extends Controller
     public array $modules;
     public string $component;
     public $module;
-    public string $slug;
 
     public function __construct()
     {
@@ -55,7 +54,6 @@ class AdminController extends Controller
             if ($module->getAdminConfig()->slug === $slug || !$slug) {
                 $this->component = $module->getAdminConfig()->component;
                 $this->module = $module;
-                $this->slug = $slug ?: $module->getAdminConfig()->slug;
                 return view('admin::layouts.app', ['admin' => $this]);
             }
         }

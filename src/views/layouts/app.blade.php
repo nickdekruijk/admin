@@ -15,7 +15,7 @@
                 </div>
                 <ul>
                     @foreach($admin->modules as $item)
-                        <li class="{{ $item->getAdminConfig()->slug === $admin->slug ? 'active' : '' }}">
+                        <li class="{{ $item->getAdminConfig()->slug === $admin->module->getAdminConfig()->slug ? 'active' : '' }}">
                             <a href="{{ route('admin.index', $item->getAdminConfig()->slug) }}">
                                 <i class="{{ $item->getAdminConfig()->icon }}"></i>@lang($item->getAdminConfig()->title)
                             </a>

@@ -1,6 +1,6 @@
 <div>
     <header>
-        <h2>@lang($this->getAdminConfig()->title)</h2>
+        <h2>@lang($module->getAdminConfig()->title)</h2>
     </header>
     <section class="listview">
         <table>
