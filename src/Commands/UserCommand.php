@@ -63,11 +63,12 @@ class UserCommand extends Command
             $status = 'updated';
         } else {
             // Create new user
-            $user = Helpers::userModel()::create([
-                $this->getUsernameColumn() => $this->arguments()[$this->getUsernameColumn()],
-                'name' => $this->arguments()['name'] ?: ucfirst(explode('@', $this->arguments()[$this->getUsernameColumn()])[0]),
-                'password' => Hash::make($this->ask('Password (blank for ' . $password . ')') ?: Str::random(40)),
-            ]);
+            $user = Helpers::userModel();
+            $user->name = $this->arguments()['name'] ?: ucfirst(explode('@', $this->arguments()[$this->getUsernameColumn()])[0]);
+            $column = $this->getUsernameColumn();
+            $user->$column = $this->arguments()[$this->getUsernameColumn()];
+            $user->password = Hash::make($this->ask('Password (blank for ' . $password . ')') ?: Str::random(40));
+            $user->save();
             $status = 'created';
         }
         $this->info('User ' . $user[$this->getUsernameColumn()] . ' "' . $user->name . '" ' . $status);
