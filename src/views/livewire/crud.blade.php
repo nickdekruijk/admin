@@ -1,7 +1,9 @@
 <div class="{{ $editing !== false ? 'editing' : '' }}">
     <header>
         <h2>@lang($module->getAdminConfig()->title)</h2>
-        <button wire:click="create"><i class="fa-solid fa-plus"></i>@lang('New')</button>
+        @if (Gate::allows('admin.create', $module))
+            <button wire:click="create"><i class="fa-solid fa-plus"></i>@lang('Add')</button>
+        @endif
     </header>
     <section class="listview">
         <table>
@@ -21,10 +23,18 @@
     </section>
     <section class="editor">
         <div class="buttons">
-            <button wire:click="save"><i class="fa-solid fa-save"></i>@lang('Save')</button>
             @if ($editing)
-                <button wire:click="clone"><i class="fa-solid fa-copy"></i>@lang('Save as copy')</button>
-                <button wire:click="delete"><i class="fa-solid fa-trash"></i>@lang('Delete')</button>
+                @if (Gate::allows('admin.update', $module))
+                    <button wire:click="update"><i class="fa-solid fa-save"></i>@lang('Save')</button>
+                @endif
+                @if (Gate::allows('admin.create', $module))
+                    <button wire:click="clone"><i class="fa-solid fa-copy"></i>@lang('Save as copy')</button>
+                @endif
+                @if (Gate::allows('admin.delete', $module))
+                    <button wire:click="delete"><i class="fa-solid fa-trash"></i>@lang('Delete')</button>
+                @endif
+            @elseif (Gate::allows('admin.create', $module))      
+                <button wire:click="create"><i class="fa-solid fa-save"></i>@lang('Add')</button>
             @endif
             <button wire:click="close"><i class="fa-solid fa-ban"></i>@lang('Close')</button>
             @if ($editing)
