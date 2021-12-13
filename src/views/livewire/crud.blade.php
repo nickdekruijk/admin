@@ -1,12 +1,12 @@
-<div class="{{ $editing !== false ? 'editing' : '' }}">
-    <header>
-        <h2>@lang($module->getAdminConfig()->title)</h2>
+<div class="w-full bg-grey-light{{ $editing !== false ? ' editing' : '' }}">
+    <header class="bg-dark t-white lh-h fs-header fw-300 px-3">
+        @lang($module->getAdminConfig()->title)
         @if (Gate::allows('admin.create', $module))
-            <button wire:click="create"><i class="fa-solid fa-plus"></i>@lang('Add')</button>
+            <button class="button" wire:click="create"><i class="fa-solid fa-plus"></i>@lang('Add')</button>
         @endif
     </header>
-    <section class="listview">
-        <table>
+    <section class="scroll">
+        <table class="listview">
             <tr>
                 @foreach($listview as $column)
                     <th>@lang($column)</th>
@@ -22,21 +22,21 @@
         </table>
     </section>
     <section class="editor">
-        <div class="buttons">
+        <div class="bg-normal t-white lh-40 px-2">
             @if ($editing)
                 @if (Gate::allows('admin.update', $module))
-                    <button wire:click="update"><i class="fa-solid fa-save"></i>@lang('Save')</button>
+                    <button class="button" wire:click="update"><i class="fa-solid fa-save"></i>@lang('Save')</button>
                 @endif
                 @if (Gate::allows('admin.create', $module))
-                    <button wire:click="clone"><i class="fa-solid fa-copy"></i>@lang('Save as copy')</button>
+                    <button class="button" wire:click="clone"><i class="fa-solid fa-copy"></i>@lang('Save as copy')</button>
                 @endif
                 @if (Gate::allows('admin.delete', $module))
-                    <button wire:click="delete"><i class="fa-solid fa-trash"></i>@lang('Delete')</button>
+                    <button class="button" wire:click="delete"><i class="fa-solid fa-trash"></i>@lang('Delete')</button>
                 @endif
             @elseif (Gate::allows('admin.create', $module))      
-                <button wire:click="create"><i class="fa-solid fa-save"></i>@lang('Add')</button>
+                <button class="button" wire:click="create"><i class="fa-solid fa-save"></i>@lang('Add')</button>
             @endif
-            <button wire:click="close"><i class="fa-solid fa-ban"></i>@lang('Close')</button>
+            <button class="button" wire:click="close"><i class="fa-solid fa-ban"></i>@lang('Close')</button>
             @if ($editing)
                 <span class="id">{{ $editing }}</id>
             @endif

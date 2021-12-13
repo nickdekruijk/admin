@@ -7,22 +7,22 @@
         <link rel="stylesheet" href="{{ route('admin.css') }}">
         @livewireStyles
     </head>
-    <body class="app">
+    <body class="flex bg-dark">
         @auth(config('admin.guard'))
-            <nav>
-                <div class="logo">
+            <nav class="t-white nowrap bg-dark">
+                <div class="logo lh-h bg-light fs-header px-2 fw-300">
                     {!! config('admin.logo') !!}
                 </div>
                 <ul>
                     @foreach($admin->modules as $item)
                         <li class="{{ $item->getAdminConfig()->slug === $admin->module->getAdminConfig()->slug ? 'active' : '' }}">
-                            <a href="{{ route('admin.index', $item->getAdminConfig()->slug) }}">
+                            <a class="block pr-2 py-2" href="{{ route('admin.index', $item->getAdminConfig()->slug) }}">
                                 <i class="{{ $item->getAdminConfig()->icon }}"></i>@lang($item->getAdminConfig()->title)
                             </a>
                         </li>
                     @endforeach
                     <li>
-                        <form method="post" action="{{ route('admin.logout') }}" onclick="this.submit()">
+                        <form method="post" action="{{ route('admin.logout') }}" class="pr-2 py-2" onclick="this.submit()">
                             @csrf
                             <i class="fa-solid fa-right-from-bracket"></i>@lang('Logout')
                         </form>
@@ -30,7 +30,7 @@
                 </ul>
             </nav>
         @endif
-        <div class="module">
+        <div class="flex f-auto mw-full">
             @livewire($admin->component, ['admin' => $admin])
         </div>
         @livewireScripts

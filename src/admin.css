@@ -12,106 +12,128 @@
     --text-medium: rgba(0,0,0,0.4);
     --grey: #ddd;
     --grey-light: #eee;
-    --red: #f66;
-    --bg-input: rgba(255,255,255,0.15);
-    --bg-input-focus: rgba(255,255,255,0.3);
-
-    /* Root font size for rem units */
-    font-size:10px;
-
-    --border-radius: 4px;
+    --red: #f77;
     --header-height: 50px;
-
-    /* Font sizes */
-    --fs-body: 15px;
-    --fs-header: 1.5em;
-    --fs-logo: 32px;
 }
 
-BODY {background:var(--dark);font-family:'Open Sans',sans-serif;font-size:var(--fs-body);-webkit-font-smoothing:antialiased;-moz-font-smoothing:grayscale;-moz-osx-font-smoothing:grayscale}
+/* Global styling */
+BODY {min-height:100vh;font-family:'Open Sans',sans-serif;font-size:15px;-webkit-font-smoothing:antialiased;-moz-font-smoothing:grayscale;-moz-osx-font-smoothing:grayscale}
 A {color:inherit;text-decoration:none}
 
-.app {display:flex}
-.module {background-color:var(--grey);min-height:100vh;flex:1 1 auto;position:relative;overflow:hidden}
-.module HEADER {background-color:var(--dark);line-height:var(--header-height);padding:0 1.5rem;color:var(--text-light);height:var(--header-height)}
-.module H2 {font-size:var(--fs-header);font-weight:300;float:left}
-.module HEADER BUTTON {border:0 none;font:inherit;line-height:3rem;border-radius:var(--border-radius);background:var(--bg-input);color:var(--text-light);margin-left:1rem;padding:0 1rem;cursor:pointer;font-size:0.9em}
-.module HEADER BUTTON I {opacity:0.5;margin-right:.5rem}
-.module HEADER BUTTON:hover {background:var(--light)}
-.module HEADER BUTTON:hover I {opacity:1}
-.module-content {padding:1.5rem}
+/* Input & buttons */
+.button,
+.input {display:block;font:inherit;border:0 none;padding:5px 10px;margin:5px 0;background-color:rgba(255,255,255,0.15);border-radius:4px;color:inherit;max-width:100%}
+.button:focus,
+.input:focus {outline:none;background-color:rgba(255,255,255,0.3)}
+.button {display:inline-block;line-height:1.2;font-size:14px;margin:0;vertical-align:middle;}
+.button I {margin-right:.5em}
+.button:hover {background-color:rgba(255,255,255,0.3);cursor:pointer}
+.button-big {text-align:center;padding:15px;color:rgba(255,255,255,0.7);background-color:var(--normal);width:100%}
+.button-big I {display:block;font-size:3em;margin:auto;color:rgba(255,255,255,0.8);margin-bottom:15px}
+.button-big:hover {color:var(--text-light)}
+HEADER .button {vertical-align:4px}
+.button-big:hover,
+HEADER .button:hover {background-color:var(--light)}
 
-.logo {background-color:var(--light);font-size:var(--fs-header);padding-right:1.5rem}
-.logo I {font-size:var(--fs-logo);float:left}
+/* Utility classes */
+.bg-light {background-color:var(--light)}
+.bg-normal {background-color:var(--normal)}
+.bg-dark {background-color:var(--dark)}
+.bg-grey {background-color:var(--grey)}
+.bg-grey-light {background-color:var(--grey-light)}
+.t-white {color:var(--text-light)}
+.t-red {color:var(--red)}
+.fw-300 {font-weight:300}
+.fw-400 {font-weight:400}
+.fw-700 {font-weight:700}
+.capitalize {text-transform:capitalize}
+.h-h {height:var(--header-height)}
+.lh-h {line-height:var(--header-height)}
+.lh-40 {line-height:40px}
+.flex {display:flex}
+.flex-center {justify-content:center;align-items:center;flex-basis:100%}
+.flex-wrap {flex-wrap:wrap}
+.fs-header {font-size:1.5em}
+.p-1, .px-1, .pl-1 {padding-left:5px}
+.p-1, .px-1, .pr-1 {padding-right:5px}
+.p-2, .px-2, .pl-2 {padding-left:10px}
+.p-2, .px-2, .pr-2 {padding-right:10px}
+.p-3, .px-3, .pl-3 {padding-left:15px}
+.p-3, .px-3, .pr-3 {padding-right:15px}
+.p-1, .py-1, .pt-1 {padding-top:5px}
+.p-1, .py-1, .pb-1 {padding-bottom:5px}
+.p-2, .py-2, .pt-2 {padding-top:10px}
+.p-2, .py-2, .pb-2 {padding-bottom:10px}
+.p-3, .py-3, .pt-3 {padding-top:15px}
+.p-3, .py-3, .pb-3 {padding-bottom:15px}
+.m-3 {margin:15px}
+.-m-3 {margin:-15px}
+.rounded {border-radius:4px;overflow:hidden}
+.nowrap {white-space:nowrap}
+.block {display:block}
+.inline-block {display:inline-block}
+.w-full {width:100%}
+.mw-full {max-width:100%}
+.f-auto {flex:1 1 auto}
 
-nav .logo,
-nav .logo I {line-height:var(--header-height);font-weight:300}
+/* Logo */
+.logo I {margin-right:.25em;font-size:1.4em;vertical-align:-3px}
 
-nav {color:var(--text-light);background-color:var(--dark);overflow:hidden;white-space:nowrap;max-width:300px}
-nav UL {font-weight:500;line-height:4rem}
-nav I {width:var(--header-height);text-align:center;font-size:0.95em}
-nav UL A,
-nav FORM {display:block;cursor:pointer;padding-right:1.5rem}
-nav LI {opacity:.6}
-nav LI I {width:4rem}
-nav LI.active {background-color:rgba(1,1,1,.15);opacity:1;font-weight:500}
-nav LI:hover {background-color:rgba(255,255,255,.06)}
+/* Navigation specific */
+NAV LI I {width:40px;text-align:center;font-size:0.95em}
+NAV LI {opacity:0.6}
+NAV LI.active {background-color:rgba(1,1,1,.15);opacity:1}
+NAV LI:hover {background-color:rgba(255,255,255,.06)}
 
-.login {display:flex;height:100%;align-items:center;justify-content:center;padding:1.5rem;background-color:var(--dark)}
-.login .popup {background:var(--normal);color:var(--text-light);border-radius:var(--border-radius);overflow:hidden;flex-basis:38rem}
-.login HEADER {background:var(--light);padding:.75rem 1.5rem;line-height:normal}
-.login .logo {font-weight:300}
-.login .logo I {margin-right:.5rem}
-.login .form {padding:1.5rem}
-.login BUTTON,
-.login INPUT {border:0 none;font:inherit;background:var(--bg-input);border-radius:var(--border-radius);margin:.5rem 0 1.5rem;padding:.5rem .75rem;color:var(--text-light)}
-.login INPUT {display:block;width:100%}
-.login INPUT:focus {outline:none;background-color:var(--bg-input-focus)}
-.login BUTTON {margin-bottom:0}
-.login BUTTON I {margin-right:.75rem}
-.login BUTTON:hover {background-color:var(--bg-input-focus);cursor:pointer}
-.login .error {color:var(--red);font-weight:700;margin-bottom:.75rem}
-
-.dashboard-buttons {display:flex;flex-wrap:wrap;margin:.75rem -.75rem}
-.dashboard-buttons LI {flex:0 0 15rem;background-color:var(--normal);color:var(--text-light);text-align:center;border-radius:var(--border-radius);margin:.75rem}
-.dashboard-buttons FORM,
-.dashboard-buttons A {display:block;padding:1.5rem;cursor:pointer;opacity:0.8}
-.dashboard-buttons LI I {font-size:2em;margin-bottom:1rem;display:block}
-.dashboard-buttons LI:hover {background-color:var(--light)}
-
-.listview {position:absolute;top:var(--header-height);width:100%;bottom:0;left:0;overflow:auto;transition:width .4s;background-color:var(--grey-light)}
-.listview TH {color:var(--text-light);font-weight:inherit;line-height:4rem;text-transform:capitalize}
-.listview TR:first-child, .listview TH {background-color:var(--normal);position:sticky;top:0;position:-webkit-sticky;z-index:2}
-.listview TH:last-child {width:100%}
-.listview TH:first-child {z-index:3}
-.listview TH,
-.listview TD {white-space:nowrap;text-align:left;padding-right:1.5rem}
-.listview TD {line-height:2.6rem;padding-top:.5vh;padding-bottom:.5vh;max-width:50vw;text-overflow:ellipsis;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),inset 0 -1px 0 rgba(0,0,0,0.05)}
-.listview TD:not(:first-child) {font-size:0.85em;color:var(--text-medium)}
-.listview TH:first-child,
-.listview TD:first-child {position:sticky;left:0;position:-webkit-sticky;padding-left:1.5rem}
-.listview TD:first-child {background-color:var(--grey-light)}
-.listview TR:not(:first-child):hover TD {background-color:var(--light);cursor:pointer;box-shadow:none}
-.listview TR:not(:first-child).active TD {background-color:var(--light);box-shadow:none;color:var(--text-light)}
-
-.editor {position:absolute;top:var(--header-height);width:75%;bottom:0;right:0;overflow:auto;transform:translateX(100%);transition:transform .4s;z-index:20}
-
-.editor .buttons {background-color:var(--normal);height:4rem;color:var(--text-light);font-size:0.9em;padding:.5rem 1rem;line-height:3rem}
-.editor .buttons BUTTON {display:inline-block;border:0 none;background:var(--bg-input);font:inherit;padding:0 1rem;border-radius:var(--border-radius);cursor:pointer;color:inherit;margin-right:.1rem}
-.editor .buttons BUTTON:hover {background:var(--bg-input-focus)}
-.editor .buttons BUTTON I {margin-right:.5em;font-size:0.9em;opacity:0.7}
-.editor .buttons BUTTON:hover I {opacity:1}
-.editor .buttons .id {float:right;opacity:0.7}
-.editor .buttons .id::before {content:'#';opacity:0.4}
-
-.editing .listview {width:25%}
+/* Editor */
+.editor {position:fixed;top:var(--header-height);width:75%;bottom:0;right:0;overflow:auto;transform:translateX(100%);transition:transform .4s;z-index:20;background-color:var(--grey)}
 .editing .editor {transform:none}
+.editor .id {float:right;opacity:0.7}
+.editor .id::before {content:'#';opacity:0.4}
 
+/* Scrollbars */
+NAV UL, .scroll {height:calc(100vh - var(--header-height));overflow-y:auto;overflow-x:hidden}
+NAV UL {scrollbar-width:thin;scrollbar-color:var(--normal) var(--dark)}
+NAV UL::-webkit-scrollbar, .scroll::-webkit-scrollbar {width:11px;height:11px}
+NAV UL::-webkit-scrollbar-track {background:var(--dark)}
+NAV UL::-webkit-scrollbar-thumb {background-color:var(--light);border:2px solid var(--dark);border-radius:100px;opacity:0.25}
+NAV UL::-webkit-scrollbar-thumb:hover {opacity:.5}
+.scroll {overflow:auto}
+.scroll {scrollbar-width:thin;scrollbar-color:var(--normal) var(--grey-light)}
+.scroll::-webkit-scrollbar-thumb {background-color:var(--normal);border-left:4px solid var(--grey-light)}
+.scroll::-webkit-scrollbar-track {background:var(--grey-light)}
+.scroll::-webkit-scrollbar-thumb {background-color:var(--text-dark);border:2px solid var(--grey-light);border-radius:100px;opacity:0.25}
+.scroll::-webkit-scrollbar-thumb:hover {opacity:.5}
+
+/* Auto hide navigation on small screens */
 @media (max-width:1240px) {
-    nav {position:fixed;min-height:100vh;z-index:1000;transition:max-width .4s}
-    nav LI I {width:var(--header-height)}
-    nav:not(:hover) {max-width:var(--header-height)}
-    .module {margin-left:var(--header-height)}
-    .editor {width:100%}
+    NAV {position:fixed;z-index:1000;transition:max-width .4s;max-width:300px;left:0;overflow:hidden}
+    NAV:not(:hover) {max-width:var(--header-height)}
+    NAV LI I {width:var(--header-height)}
+    BODY NAV + DIV {padding-left:var(--header-height)}
+}
+
+@media (max-width:740px) {
+    .editor {width:calc(100% - var(--header-height))}
     .editing .listview {width:0}
 }
+
+.listview TR:first-child,
+.listview TH {color:var(--text-light);font-weight:inherit;line-height:40px;text-transform:capitalize;background-color:var(--normal)}
+.listview TH,
+.listview TD {white-space:nowrap;text-align:left;padding-right:15px}
+.listview TH:last-child {width:100%}
+.listview TH:first-child,
+.listview TR:first-child,
+.listview TD:first-child {position:sticky;position:-webkit-sticky}
+.listview TH:first-child,
+.listview TD:first-child {left:0;padding-left:15px}
+.listview TD:first-child {z-index:2;background-color:var(--grey-light)}
+.listview TR:first-child,
+.listview TH {top:0;z-index:3}
+.listview TR:first-child TH:first-child,
+.listview TH:first-child {z-index:4}
+.listview TD {line-height:26px;padding-top:.4vh;padding-bottom:.4vh;max-width:10%;text-overflow:ellipsis;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),inset 0 -1px 0 rgba(0,0,0,0.05)}
+.listview TD:not(:first-child) {font-size:0.85em;color:var(--text-medium)}
+.listview TR:hover TD {background-color:var(--light);box-shadow:none;cursor:pointer}
+.listview TR.active TD {background-color:var(--light);box-shadow:none;color:var(--text-light)}
