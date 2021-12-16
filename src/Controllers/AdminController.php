@@ -37,6 +37,9 @@ class AdminController extends Controller
                 }
             }
 
+            // User has no permissions, pretend we're not here.
+            abort_if(!isset($all_modules), 404);
+
             // From the available modules, get the ones that are actually available and create instance.
             foreach ($all_modules as $module) {
                 if (class_exists($module)) {
