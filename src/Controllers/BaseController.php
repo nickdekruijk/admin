@@ -261,7 +261,7 @@ class BaseController extends Controller
                 }
                 $response .= '<span>' . $value . '</span>';
             } elseif ($this->columns($column, 'type') == 'date') {
-                $response .= '<span>' . str_replace(' 00:00:00', '', $row[$column]) . '</span>';
+                $response .= '<span>' . str_replace(' 00:00:00', '', $row[$column] ?: '') . '</span>';
             } elseif ($this->columns($column, 'type') == 'select' && isset($this->columns($column, 'values')[$row[$column]])) {
                 $value = $this->columns($column, 'values')[$row[$column]];
                 if (is_array($value)) {
@@ -279,7 +279,7 @@ class BaseController extends Controller
                 if ($value instanceof Collection) {
                     $value = $value->count() ?: '';
                 }
-                $response .= '<span>' . htmlspecialchars($value) . '</span>';
+                $response .= '<span>' . htmlspecialchars($value ?: '') . '</span>';
             }
         }
         return $response;
