@@ -28,8 +28,8 @@ trait Images
                 $image = explode('|', $image, 2);
                 $array[] = [
                     'file' => trim($image[0]),
-                    'caption' => trim($image[1] ?? null),
-                    'autocaption' => trim($image[1] ?? null) ?: pathinfo($image[0])['filename'],
+                    'caption' => trim($image[1] ?? ''),
+                    'autocaption' => trim($image[1] ?? '') ?: pathinfo($image[0])['filename'],
                 ];
             }
             return $array;
@@ -39,12 +39,12 @@ trait Images
 
     public function image($column = null, $index = 0)
     {
-        return trim($this->imagesParse($column, $index)[0] ?? null) ?: null;
+        return trim($this->imagesParse($column, $index)[0] ?? '') ?: null;
     }
 
     public function imageCaption($column = null, $index = 0)
     {
-        return trim($this->imagesParse($column, $index)[1] ?? null) ?: null;
+        return trim($this->imagesParse($column, $index)[1] ?? '') ?: null;
     }
 
     public function imageCount($column = null)
