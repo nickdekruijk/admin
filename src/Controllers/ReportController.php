@@ -122,7 +122,7 @@ class ReportController extends BaseController
             }
             $response .= '<tr>';
             foreach ($row as $column) {
-                $response .= '<td><div>' . htmlspecialchars($column) . '</div></td>';
+                $response .= '<td><div>' . htmlspecialchars($column ?: '') . '</div></td>';
             }
             $response .= '</tr>';
         }
