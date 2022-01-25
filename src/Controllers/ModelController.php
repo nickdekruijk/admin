@@ -180,11 +180,11 @@ class ModelController extends BaseController
         $this->checkSlug($slug, 'read');
         $row = @$this->model()::findOrFail($id, $this->filter_pivot($this->columns()))->getOriginal();
         abort_if(empty($row[$column]), 404);
-        $array = json_decode($row[$column]);
-        abort_if(empty($array->$data) || !isset($array->$data->name) || !isset($array->$data->type) || !isset($array->$data->size) || !isset($array->$data->store), 404);
-        $file = rtrim($this->columns('data')['storage_path'] ?? storage_path(), '/') . '/' . $array->$data->store;
-        abort_if(!file_exists($file), 404);
-        return response()->download($file, $array->$data->name);
+        $file = (object)$row[$column][$data];
+        abort_if(empty($file) || !isset($file->name) || !isset($file->type) || !isset($file->size) || !isset($file->store), 404);
+        $file_path = rtrim($this->columns('data')['storage_path'] ?? storage_path(), '/') . '/' . $file->store;
+        abort_if(!file_exists($file_path), 404);
+        return response()->download($file_path, $file->name);
     }
 
     /**
