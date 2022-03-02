@@ -116,7 +116,7 @@ class ModelController extends BaseController
     {
         $filtered = $columns;
         foreach ($filtered as $columnId => $column) {
-            if ($column['type'] == 'pivot') {
+            if ($column['type'] == 'pivot' || $column['type'] == 'rows') {
                 unset($filtered[$columnId]);
             }
         }
