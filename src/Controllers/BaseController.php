@@ -472,10 +472,12 @@ class BaseController extends Controller
     private function pivot_walk($columnId, $column, $data, $parent = 0, $depth = 0)
     {
         $response = '';
-        foreach ($data[$parent] as $opt) {
-            $response .= $this->pivot_label($columnId, $column, $opt);
-            if (isset($data[$opt->id])) {
-                $response .= '<div class="pivot-depth ' . ($depth + 1) . '">' . $this->pivot_walk($columnId, $column, $data, $opt->id, $depth + 1) . '</div>';
+        if (is_array($data)) {
+            foreach ($data[$parent] as $opt) {
+                $response .= $this->pivot_label($columnId, $column, $opt);
+                if (isset($data[$opt->id])) {
+                    $response .= '<div class="pivot-depth ' . ($depth + 1) . '">' . $this->pivot_walk($columnId, $column, $data, $opt->id, $depth + 1) . '</div>';
+                }
             }
         }
         return $response;
