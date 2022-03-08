@@ -285,7 +285,7 @@ return [
                 'value' => [
                     'title_nl' => 'Waarde',
                     'type' => 'longtext',
-                    'validate' => 'required',
+                    'validate' => 'nullable',
                 ],
             ],
         ],
