@@ -130,7 +130,8 @@
         @endif
         browser_spellcheck: true,
         convert_urls : false,
-        toolbar_sticky: true,
+        toolbar_sticky: {{ config('admin.tinymce_defaults.toolbar_sticky', 'true') }},
+        toolbar_sticky_offset: {{ config('admin.tinymce_defaults.toolbar_sticky_offset', 40) }},
         image_caption: true,
         file_browser_callback: function(field_name, url, type, win) {
             modelAddMedia(null, {field_name: field_name, win: win, media_url: "{{ rtrim(config('admin.media_url'), '/') }}/"});

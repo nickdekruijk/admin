@@ -101,8 +101,10 @@ return [
     | Default tinymce options for all modules, can be overruled per module
     */
     'tinymce_defaults' => [
-        'version' => '5.4.2',
+        'version' => '5.10.4',
         'theme' => 'silver',
+        'toolbar_sticky' => 'true',
+        'toolbar_sticky_offset' => 40,
         'formats' => "
             {title: 'H2', block: 'h2', classes: 'h2'},
             {title: 'H3', block: 'h3', classes: 'h3'},
