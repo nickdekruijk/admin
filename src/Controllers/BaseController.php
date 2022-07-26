@@ -542,4 +542,13 @@ class BaseController extends Controller
         $response .= '</table>';
         return $response;
     }
+
+    public function help(array $section): string
+    {
+        $help = $this->locale('help', $section, null);
+        if ($help) {
+            $help = '<span class="help"><i class="fa fa-info-circle"></i><span>' . $help . '</span></span>';
+        }
+        return $help;
+    }
 }

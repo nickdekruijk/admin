@@ -49,7 +49,7 @@
                 <input type="hidden" name="{{ $id }}" value="0">
                 <input type="checkbox" name="{{ $id }}" id="input_{{ $id }}" value="1">
                 @endif
-                {{ $lp->locale('title', $column, $id) }}</label>
+                {{ $lp->locale('title', $column, $id) }}{!! $lp->help($column) !!}</label>
                 @if ($column['type'] == 'string' || $column['type'] == 'password' || $column['type'] == 'date' || $column['type'] == 'datetime' || $column['type'] == 'number')
                 <input class="{{ $column['type'] == 'date' ? 'datepicker' : '' }}{{ $column['type'] == 'datetime' ? 'datetimepicker' : '' }}" type="{{ $column['type']=='string' || $column['type'] == 'date' || $column['type'] == 'datetime'?'text':$column['type'] }}" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
                 @if (isset($column['validate']) && in_array('confirmed',explode('|', $column['validate'])))
