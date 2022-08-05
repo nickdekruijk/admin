@@ -182,7 +182,7 @@ class ModelController extends BaseController
         abort_if(empty($row[$column]), 404);
         $file = (object)$row[$column][$data];
         abort_if(empty($file) || !isset($file->name) || !isset($file->type) || !isset($file->size) || !isset($file->store), 404);
-        $file_path = rtrim($this->columns('data')['storage_path'] ?? storage_path(), '/') . '/' . $file->store;
+        $file_path = rtrim($this->columns($column)['storage_path'] ?? storage_path(), '/') . '/' . $file->store;
         abort_if(!file_exists($file_path), 404);
         return response()->download($file_path, $file->name);
     }
