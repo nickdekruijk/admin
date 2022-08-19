@@ -46,7 +46,7 @@ class BaseController extends Controller
             return $item[$key];
         }
 
-        return ucfirst(str_replace('_', ' ', $default));
+        return ucfirst(str_replace('_', ' ', $default ?: ''));
     }
 
     // Check if authenticated user has a valid role
