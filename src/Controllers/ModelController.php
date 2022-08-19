@@ -227,7 +227,7 @@ class ModelController extends BaseController
         if ($row->parent != $oldparent) return ('Invalid oldparent "' . $row->parent . '" != "' . $oldparent . '"');
 
         // Save the new parent
-        $row->parent = $parent;
+        $row->parent = $parent === 0 ? null : $parent;
         $row->save();
 
         // Now sort the items too
