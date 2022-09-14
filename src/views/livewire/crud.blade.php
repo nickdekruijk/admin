@@ -41,5 +41,17 @@
                 <span class="id">{{ $editing }}</id>
             @endif
         </div>
+        <div class="columns p-2">
+            @foreach($module->getAdminConfig()->getCrudColumns() as $column)
+                <label>
+                    @lang($column->label)
+                    @if ($column->type == 'media')
+                        Add media here
+                    @else
+                        <input class="input" wire:model.lazy="data.{{ $column->column }}" placeholder="{{ __($column->placeholder ?? null) ?: Str::slug($data['title'] ?? null) }}" />
+                    @endif
+                </label>
+            @endforeach
+        </div>
     </section>
 </div>

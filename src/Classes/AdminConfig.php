@@ -98,6 +98,11 @@ class AdminConfig implements Arrayable, ArrayAccess
         }
     }
 
+    private static function makeLabel(string $string): string
+    {
+        return ucfirst(str_replace('_', ' ', $string));
+    }
+
     /**
      * Return the icon as html
      *
@@ -112,6 +117,22 @@ class AdminConfig implements Arrayable, ArrayAccess
         } else {
             return '<img class="icon" src="' . $this->icon . '" alt="' . $this->title . '">';
         }
+    }
+
+    public function getCrudColumns()
+    {
+        $columns = [];
+        foreach ($this->crudColumns as $column => $options) {
+            if (is_string($options)) {
+                $column = $options;
+                $options = [];
+            }
+            $options['column'] = $column;
+            $options['label'] = __($options['label'] ?? self::makeLabel($column));
+            $options['type'] = null;
+            $columns[] = (object)$options;
+        }
+        return $columns;
     }
 
     // Required for ArrayAccess
