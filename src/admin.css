@@ -26,10 +26,10 @@ A {color:inherit;text-decoration:none}
 .button:focus,
 .input:focus {outline:none;background-color:rgba(255,255,255,0.3)}
 .button {display:inline-block;line-height:1.2;font-size:14px;margin:0;vertical-align:middle;}
-.button I {margin-right:.5em}
+.button .icon {margin-right:.5em;max-height:14px}
 .button:hover {background-color:rgba(255,255,255,0.3);cursor:pointer}
 .button-big {text-align:center;padding:15px;color:rgba(255,255,255,0.7);background-color:var(--normal);width:100%}
-.button-big I {display:block;font-size:3em;margin:auto;color:rgba(255,255,255,0.8);margin-bottom:15px}
+.button-big .icon {display:block;font-size:3em;margin:auto;color:rgba(255,255,255,0.8);margin-bottom:15px;max-height:42px}
 .button-big:hover {color:var(--text-light)}
 HEADER .button {vertical-align:4px}
 .button-big:hover,
@@ -77,10 +77,10 @@ HEADER .button:hover {background-color:var(--light)}
 .f-auto {flex:1 1 auto}
 
 /* Logo */
-.logo I {margin-right:.25em;font-size:1.4em;vertical-align:-3px}
+.logo .icon {margin-right:.25em;font-size:1.4em;vertical-align:-3px}
 
 /* Navigation specific */
-NAV LI I {width:40px;text-align:center;font-size:0.95em}
+NAV LI .icon {width:40px;text-align:center;font-size:0.95em;max-height:14px}
 NAV LI {opacity:0.6}
 NAV LI.active {background-color:rgba(1,1,1,.15);opacity:1}
 NAV LI:hover {background-color:rgba(255,255,255,.06)}
@@ -109,7 +109,7 @@ NAV UL::-webkit-scrollbar-thumb:hover {opacity:.5}
 @media (max-width:1240px) {
     NAV {position:fixed;z-index:1000;transition:max-width .4s;max-width:300px;left:0;overflow:hidden}
     NAV:not(:hover) {max-width:var(--header-height)}
-    NAV LI I {width:var(--header-height)}
+    NAV LI .icon {width:var(--header-height)}
     BODY NAV + DIV {padding-left:var(--header-height)}
 }
 

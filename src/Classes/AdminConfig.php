@@ -98,6 +98,22 @@ class AdminConfig implements Arrayable, ArrayAccess
         }
     }
 
+    /**
+     * Return the icon as html
+     *
+     * @return string
+     */
+    public function icon(): string
+    {
+        if (str_starts_with($this->icon, 'fa')) {
+            return '<i class="icon ' . $this->icon . '"></i>';
+        } elseif (str_starts_with($this->icon, '<')) {
+            return $this->icon;
+        } else {
+            return '<img class="icon" src="' . $this->icon . '" alt="' . $this->title . '">';
+        }
+    }
+
     // Required for ArrayAccess
     public function offsetSet($offset, $value): void
     {

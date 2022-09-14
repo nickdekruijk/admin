@@ -17,14 +17,14 @@
                     @foreach($admin->modules as $item)
                         <li class="{{ $item->getAdminConfig()->slug === $admin->module->getAdminConfig()->slug ? 'active' : '' }}">
                             <a class="block pr-2 py-2" href="{{ route('admin.index', $item->getAdminConfig()->slug) }}">
-                                <i class="{{ $item->getAdminConfig()->icon }}"></i>@lang($item->getAdminConfig()->title)
+                                {!! $item->getAdminConfig()->icon() !!}@lang($item->getAdminConfig()->title)
                             </a>
                         </li>
                     @endforeach
                     <li>
                         <form method="post" action="{{ route('admin.logout') }}" class="pr-2 py-2" onclick="this.submit()">
                             @csrf
-                            <i class="fa-solid fa-right-from-bracket"></i>@lang('Logout')
+                            <i class="icon fa-solid fa-right-from-bracket"></i>@lang('Logout')
                         </form>
                     </li>
                 </ul>
