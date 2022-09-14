@@ -9,8 +9,8 @@ class Crud extends Component
 {
     public $module;
     public $listview;
-    public $editing = false;
-    public $data;
+    public $editing = 0;
+    public $data = [];
 
     public function mount($admin)
     {
