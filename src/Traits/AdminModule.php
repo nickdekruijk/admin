@@ -27,4 +27,22 @@ trait AdminModule
     {
         return $this->admin_config;
     }
+
+    /**
+     * Merge the current AdminConfig object with new and/or updated attributes.
+     * Useful for usage in overwriting the getAdminConfig function.
+     *
+     * @param array $attributes
+     * @return AdminConfig
+     */
+    public function mergeAdminConfig(array $attributes = []): AdminConfig
+    {
+        $config = $this->admin_config;
+
+        foreach ($attributes as $key => $value) {
+            $config->$key = $value;
+        }
+
+        return $config;
+    }
 }
