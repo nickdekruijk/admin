@@ -4,6 +4,8 @@ namespace NickDeKruijk\Admin\Classes;
 
 use ArrayAccess;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class AdminConfig implements Arrayable, ArrayAccess
 {
@@ -72,8 +74,25 @@ class AdminConfig implements Arrayable, ArrayAccess
         return is_array($this->listview) ? $this->listview : explode(',', $this->listview);
     }
 
-    public function __construct(array $attributes = [])
+    public function __construct(object $module, array $attributes = [])
     {
+        // Create default config based on class name.
+        $this->title = class_basename(is_string($module) ? $module : $module::class);
+
+        // If the module is a Model use the plural of the model name as the title and use CRUD component other wise use the title for the component.
+        if ($module instanceof Model) {
+            $this->component = 'admin.crud';
+            $this->title = Str::plural($this->title);
+            $this->crudColumns = $module->getFillable();
+        } else {
+            $this->component = 'admin.' . Str::slug($this->title);
+        }
+
+        // Determine slug and use it for default icon.
+        $this->slug = Str::slug($this->title);
+        $this->icon = 'fa-solid fa-' . $this->slug;
+
+        // Set or override other passed attributes.
         foreach ($attributes as $key => $value) {
             $this->$key = $value;
         }
