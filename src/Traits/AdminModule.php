@@ -18,7 +18,12 @@ trait AdminModule
         $this->admin_config = new AdminConfig($this);
     }
 
-    public function getAdminConfig()
+    /**
+     * Returns the AdminConfig object, modules can overwrite this function.
+     *
+     * @return AdminConfig
+     */
+    public function getAdminConfig(): AdminConfig
     {
         return $this->admin_config;
     }
