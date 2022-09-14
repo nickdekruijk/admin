@@ -92,7 +92,7 @@ class AdminConfig implements Arrayable, ArrayAccess
     {
         unset($this->$offset);
     }
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->$offset ?? null;
     }
