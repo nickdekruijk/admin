@@ -10,7 +10,7 @@
     <body class="flex bg-dark">
         @auth(config('admin.guard'))
             <nav class="t-white nowrap bg-dark">
-                <div class="logo lh-h bg-light fs-header px-2 fw-300">
+                <div class="logo logo-width lh-h bg-light fs-header fw-300">
                     {!! config('admin.logo') !!}
                 </div>
                 <ul>

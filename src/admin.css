@@ -77,7 +77,8 @@ HEADER .button:hover {background-color:var(--light)}
 .f-auto {flex:1 1 auto}
 
 /* Logo */
-.logo .icon {margin-right:.25em;font-size:1.4em;vertical-align:-3px}
+.logo .icon {font-size:1.4em;vertical-align:-3px;text-align:center;margin-right:.25em}
+.logo-width .icon {width:var(--header-height);margin-right:0}
 
 /* Navigation specific */
 NAV LI .icon {width:40px;text-align:center;font-size:0.95em;max-height:14px}
