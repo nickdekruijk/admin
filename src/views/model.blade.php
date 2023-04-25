@@ -121,6 +121,7 @@
 @endif
     tinymce.init({
         selector:'textarea.tinymce',
+        {!! config('admin.tinymce_config') !!}
         theme: '{{ config('admin.tinymce_defaults.theme', 'modern') }}',
         menubar: false,
         branding: false,
