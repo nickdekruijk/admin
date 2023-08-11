@@ -24,9 +24,11 @@ class ModelController extends BaseController
         $sync = [];
         $morph = [];
         $row = [];
+        $using = [];
         foreach ($this->columns() as $columnId => $column) {
             if (isset($column['type']) && $column['type'] == 'pivot') {
                 $sync[$column['model']] = $request[$columnId];
+                $using[$column['model']] = $column['using'] ?? null;
                 if (!empty($column['morph'])) {
                     $morph[$column['model']] = $column['morph'];
                 }
@@ -86,7 +88,7 @@ class ModelController extends BaseController
             if (isset($morph[$foreign])) {
                 $model->morphToMany($foreign, $morph[$foreign])->sync($values);
             } else {
-                $model->belongsToMany($foreign)->sync($values);
+                $model->belongsToMany($foreign)->using($using[$foreign])->sync($values);
             }
         }
 
