@@ -126,6 +126,9 @@
         menubar: false,
         branding: false,
         paste_as_text: true,
+        @if ($lp->module('tinymce', 'extended_valid_elements', config('admin.tinymce_defaults')))
+            extended_valid_elements : "{{ $lp->module('tinymce', 'extended_valid_elements', config('admin.tinymce_defaults')) }}",
+        @endif
         @if ($lp->module('tinymce', 'css', config('admin.tinymce_defaults')))
         content_css: "{{ $lp->module('tinymce', 'css', config('admin.tinymce_defaults')) }}",
         @endif
