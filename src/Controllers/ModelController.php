@@ -25,10 +25,12 @@ class ModelController extends BaseController
         $morph = [];
         $row = [];
         $using = [];
+        $relationship = [];
         foreach ($this->columns() as $columnId => $column) {
             if (isset($column['type']) && $column['type'] == 'pivot') {
                 $sync[$column['model']] = $request[$columnId];
                 $using[$column['model']] = $column['using'] ?? null;
+                $relationship[$column['model']] = $column['relationship'] ?? null;
                 if (!empty($column['morph'])) {
                     $morph[$column['model']] = $column['morph'];
                 }
@@ -87,6 +89,8 @@ class ModelController extends BaseController
         foreach ($sync as $foreign => $values) {
             if (isset($morph[$foreign])) {
                 $model->morphToMany($foreign, $morph[$foreign])->sync($values);
+            } elseif (isset($relationship[$foreign])) {
+                $model->{$relationship[$foreign]}()->sync($values);
             } else {
                 $model->belongsToMany($foreign)->using($using[$foreign])->sync($values);
             }
@@ -156,6 +160,8 @@ class ModelController extends BaseController
                 $ids = [];
                 if (!empty($column['morph'])) {
                     $pivotData = $this->model()::findOrFail($id)->morphToMany($column['model'], $column['morph'])->get();
+                } elseif (isset($column['relationship'])) {
+                    $pivotData = $this->model()::findOrFail($id)->{$column['relationship']};
                 } else {
                     $pivotData = $this->model()::findOrFail($id)->belongsToMany($column['model'])->get();
                 }
