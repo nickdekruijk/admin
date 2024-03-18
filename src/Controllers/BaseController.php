@@ -4,8 +4,8 @@ namespace NickDeKruijk\Admin\Controllers;
 
 use App;
 use App\Http\Controllers\Controller;
-use Auth;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Route;
@@ -19,14 +19,13 @@ class BaseController extends Controller
 
     public function __construct()
     {
-        // Admin requires authentication and a valid role
-        $this->middleware(['auth', function ($request, $next) {
-            if (!$this->user = $this->checkRole()) {
-                Auth::logout();
-                return redirect(route('login'))->withErrors(['email' => trans('admin::base.missing_role')]);
-            }
-            return $next($request);
-        }]);
+        $this->user = $this->checkRole();
+        if (!$this->user) {
+            Auth::logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+            abort(403);
+        }
     }
 
     // Return the slug
