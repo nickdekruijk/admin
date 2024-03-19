@@ -113,7 +113,7 @@ class ModelController extends BaseController
     public function store($slug, Request $request)
     {
         $this->checkSlug($slug, 'create');
-        $this->validate($request, $this->validationRules());
+        $request->validate($this->validationRules());
         return $this->save($this->model(), $request);
     }
 
@@ -205,7 +205,7 @@ class ModelController extends BaseController
     public function update($slug, Request $request, $id)
     {
         $this->checkSlug($slug, 'update');
-        $this->validate($request, $this->validationRules(['id' => $id]));
+        $request->validate($this->validationRules(['id' => $id]));
         return $this->save($this->model()::findOrFail($id), $request);
     }
 
