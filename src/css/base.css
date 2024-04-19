@@ -87,7 +87,7 @@ nav li:hover > ul > li {max-height:40px}
 
 #listview .table .canfilter > I {padding:5px 10px 5px 5px;opacity:0.2}
 #listview .table .canfilter.activeFilter > I {opacity:1}
-#listview .table .canfilter > UL {display:none;position:absolute;overflow:hidden;padding-top:20px;color:#fff}
+#listview .table .canfilter > UL {display:none;position:absolute;overflow:auto;padding-top:20px;color:#fff;max-height:calc(100vh - 150px)}
 #listview .table .canfilter > UL > LI {display:block;background-color:#178;padding:5px 10px}
 #listview .table .canfilter > UL > LI:first-child {border-radius:5px 5px 0 0}
 #listview .table .canfilter > UL > LI:first-child:before {content:'';display:block;position:absolute;background-color:#178;width:15px;height:15px;transform:rotate(45deg) translateY(-17px);z-index:-1}
