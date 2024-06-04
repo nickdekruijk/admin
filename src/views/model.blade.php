@@ -13,7 +13,7 @@
                 <div class="header">
                     {!! $lp->listviewIndex() !!}
                 </div>
-                {!! $lp->listviewData(request()->root) ?: '<ul></ul>' !!}
+                {!! $lp->listviewData((int) request()->root) ?: '<ul></ul>' !!}
                 @endif
                 @if ($lp->can('create'))
                 <button class="button add model_create"><i class="fa fa-plus-circle"></i><span>{{ $lp->locale('new', $lp->module(), trans('admin::base.new')) }}</span></button>
@@ -117,7 +117,7 @@
     };
     modelInit('{{ $lp->slug() }}');
 @if (request()->root)
-    modelRoot = {{ request()->root }};
+    modelRoot = {{ (int) request()->root }};
 @endif
     tinymce.init({
         selector:'textarea.tinymce',
