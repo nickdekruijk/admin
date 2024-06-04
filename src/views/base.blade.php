@@ -18,7 +18,7 @@
             <h2>
                 {{ $lp->module('title') }}
                 @if (request()->root && $lp->module('sub_navigation'))
-                ({{$lp->model()->find(request()->root)[$lp->module('sub_navigation')]}})
+                ({{$lp->model()->find((int) request()->root)[$lp->module('sub_navigation')]}})
                 @endif
                 {!! $lp->help($lp->module()) !!}
             </h2>
