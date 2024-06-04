@@ -169,6 +169,8 @@ class MediaController extends BaseController
         $folder = urldecode($folder);
         $file = config('admin.media_path') . '/' . $folder . '/' . $request->filename;
         $newname = config('admin.media_path') . '/' . $folder . '/' . $request->newname;
+        if (substr_count($request->newname, '..') > 1) die('Too many dots');
+        if (substr_count($request->newname, '/') > 1) die('Too many slashes');
         if (!file_exists($file)) return 'File not found ' . $file;
         if ($file == $newname) return;
         if (file_exists($newname)) return 'File already exists ' . $newname;
