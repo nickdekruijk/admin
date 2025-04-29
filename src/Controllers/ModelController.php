@@ -88,7 +88,7 @@ class ModelController extends BaseController
 
         foreach ($sync as $foreign => $values) {
             if (isset($morph[$foreign])) {
-                $model->morphToMany($foreign, $morph[$foreign])->sync($values);
+                $model->morphToMany($foreign, $morph[$foreign], $using[$foreign] ?? null)->sync($values);
             } elseif (isset($relationship[$foreign])) {
                 $model->{$relationship[$foreign]}()->sync($values);
             } else {
@@ -159,7 +159,7 @@ class ModelController extends BaseController
                 unset($row['"' . $columnId . '"']);
                 $ids = [];
                 if (!empty($column['morph'])) {
-                    $pivotData = $this->model()::findOrFail($id)->morphToMany($column['model'], $column['morph'])->get();
+                    $pivotData = $this->model()::findOrFail($id)->morphToMany($column['model'], $column['morph'], $column['using'] ?? null)->get();
                 } elseif (isset($column['relationship'])) {
                     $pivotData = $this->model()::findOrFail($id)->{$column['relationship']};
                 } else {
