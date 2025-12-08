@@ -21,6 +21,12 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::get(config('admin.adminpath'), 'NickDeKruijk\Admin\Controllers\BaseController@view');
+
+    // Load log viewer routes if package is installed
+    if (class_exists(\Rap2hpoutre\LaravelLogViewer\LogViewerController::class)) {
+        Route::get(config('admin.adminpath') . '/logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+    }
+
     Route::get(config('admin.adminpath') . '/{slug}', 'NickDeKruijk\Admin\Controllers\BaseController@view');
 
     Route::get(config('admin.adminpath') . '/reports/view/{slug}/{id}', 'NickDeKruijk\Admin\Controllers\ReportController@showView')->name('report_view');
