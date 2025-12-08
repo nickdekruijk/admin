@@ -13,12 +13,12 @@ if (config('admin.auth_routes', true)) {
     });
 }
 
+// Assets, this way we don't need to publish them to public
 Route::group(['middleware' => ['web']], function () {
     Route::get(config('admin.adminpath') . '/all-js', 'NickDeKruijk\Admin\Controllers\AssetController@js');
     Route::get(config('admin.adminpath') . '/all-css', 'NickDeKruijk\Admin\Controllers\AssetController@css');
 });
 Route::group(['middleware' => ['web', 'auth']], function () {
-    // Assets, this way we don't need to publish them to public
 
     Route::get(config('admin.adminpath'), 'NickDeKruijk\Admin\Controllers\BaseController@view');
     Route::get(config('admin.adminpath') . '/{slug}', 'NickDeKruijk\Admin\Controllers\BaseController@view');
