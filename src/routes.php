@@ -18,8 +18,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get(config('admin.adminpath') . '/all-js', 'NickDeKruijk\Admin\Controllers\AssetController@js');
     Route::get(config('admin.adminpath') . '/all-css', 'NickDeKruijk\Admin\Controllers\AssetController@css');
 });
-Route::group(['middleware' => ['web', 'auth']], function () {
 
+Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get(config('admin.adminpath'), 'NickDeKruijk\Admin\Controllers\BaseController@view');
 
     // Load log viewer routes if package is installed
