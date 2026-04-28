@@ -74,7 +74,7 @@ class MediaController extends BaseController
         $files = File::files(config('admin.media_path') . '/' . $folder);
         natcasesort($files);
 
-        $preview = ['jpg', 'png', 'gif', 'jpeg', 'svg'];
+        $preview = ['jpg', 'png', 'gif', 'jpeg', 'svg', 'webp'];
         // Check if Safari version is 9 or higher so we can preview PDF thumbnails
         $ua = @$_SERVER['HTTP_USER_AGENT'];
         $safari = strpos($ua, 'Safari') && !strpos($ua, 'Chrome');

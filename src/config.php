@@ -92,7 +92,7 @@ return [
     |--------------------------------------------------------------------------
     | The following file extensions are allowed when uploading
     */
-    'media_allowed_extensions' => ['png', 'jpg', 'jpeg', 'gif', 'svg', 'zip', 'pdf', 'doc', 'docx', 'csv', 'xls', 'xlsx', 'pages', 'numbers', 'psd', 'ai', 'eps', 'mp4', 'mp3', 'mpg', 'm4a', 'ogg', 'sketch', 'json', 'rtf', 'md'],
+    'media_allowed_extensions' => ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'zip', 'pdf', 'doc', 'docx', 'csv', 'xls', 'xlsx', 'pages', 'numbers', 'psd', 'ai', 'eps', 'mp4', 'mp3', 'mpg', 'm4a', 'ogg', 'sketch', 'json', 'rtf', 'md'],
 
     /*
     |--------------------------------------------------------------------------
