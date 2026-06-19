@@ -303,27 +303,40 @@ class BaseController extends Controller
     }
 
     // Return the listview data formated with <ul>
-    public function listviewData($parent = null, $depth = 0)
+    public function listviewData($parent = null, $depth = 0, $allRows = null)
     {
-        // Get model
-        $model = $this->model();
-        // Does model have treeview then only fetch the children
-        if ($this->module('treeview')) {
-            $model = $model->where($this->module('treeview'), $parent);
-        }
-        // Add with() if needed
-        if ($this->module('with')) {
-            foreach (explode(',', $this->module('with')) as $with) {
-                $model = $model->with(trim($with));
+        // On first call with treeview, load all rows at once to avoid N+1 queries
+        if ($allRows === null && $this->module('treeview')) {
+            $model = $this->model();
+            if ($this->module('with')) {
+                foreach (explode(',', $this->module('with')) as $with) {
+                    $model = $model->with(trim($with));
+                }
             }
+            $model = $this->sortModel($model, $this->module('orderBy'));
+            $model = $this->sortModel($model, $this->module('orderByDesc'), 'desc');
+            $allRows = $model->get()->groupBy($this->module('treeview'));
         }
-        // Order the results if needed
-        $model = $this->sortModel($model, $this->module('orderBy'));
-        $model = $this->sortModel($model, $this->module('orderByDesc'), 'desc');
+
+        // For non-treeview, load normally; for treeview use pre-loaded grouped rows
+        if (!$this->module('treeview')) {
+            $model = $this->model();
+            if ($this->module('with')) {
+                foreach (explode(',', $this->module('with')) as $with) {
+                    $model = $model->with(trim($with));
+                }
+            }
+            $model = $this->sortModel($model, $this->module('orderBy'));
+            $model = $this->sortModel($model, $this->module('orderByDesc'), 'desc');
+            $rows = $model->get();
+        } else {
+            $rows = $allRows->get($parent ?? '') ?? collect();
+        }
+
         // Initialize the response
         $response = '';
 
-        foreach ($model->get() as $row) {
+        foreach ($rows as $row) {
             // First row, add <ul>
             if (!$response) {
                 $response .= '<ul' . ($this->module('expanded') > 0 && $this->module('expanded') <= $depth ? ' class="closed"' : '') . '>';
@@ -333,7 +346,7 @@ class BaseController extends Controller
             if ($this->module('treeview')) {
                 $response .= '<div>' . $this->listviewRow($row) . '</div>';
                 // Add children if any
-                $response .= $this->listviewData($row->id, $depth + 1);
+                $response .= $this->listviewData($row->id, $depth + 1, $allRows);
             } else {
                 $response .= $this->listviewRow($row);
             }
