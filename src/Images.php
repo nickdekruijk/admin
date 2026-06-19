@@ -4,6 +4,8 @@ namespace NickDeKruijk\Admin;
 
 trait Images
 {
+    private static array $imagesParseCache = [];
+
     public function images($column = null, $index = null)
     {
         return $this->imagesParse($column, $index, true);
@@ -18,23 +20,34 @@ trait Images
         if ($column === null) {
             $column = $this->imagesColumn ?: 'images';
         }
-        if (empty($this->$column) || !trim($this->$column)) {
-            return null;
+
+        $cacheKey = spl_object_id($this) . '|' . $column . '|' . ($index === null ? 'N' : $index) . '|' . ($array ? 'A' : 'S');
+
+        if (array_key_exists($cacheKey, self::$imagesParseCache)) {
+            return self::$imagesParseCache[$cacheKey];
         }
+
+        if (empty($this->$column) || !trim($this->$column)) {
+            return self::$imagesParseCache[$cacheKey] = null;
+        }
+
         $images = explode(chr(10), trim($this->$column));
+
         if ($array) {
-            $array = [];
+            $result = [];
             foreach ($images as $image) {
                 $image = explode('|', $image, 2);
-                $array[] = [
+                $result[] = [
                     'file' => trim($image[0]),
                     'caption' => trim($image[1] ?? ''),
                     'autocaption' => trim($image[1] ?? '') ?: pathinfo($image[0])['filename'],
                 ];
             }
-            return $array;
+            return self::$imagesParseCache[$cacheKey] = $result;
         }
-        return $index !== null ? explode('|', trim($images[$index] ?? null), 2) : $images;
+
+        $result = $index !== null ? explode('|', trim($images[$index] ?? null), 2) : $images;
+        return self::$imagesParseCache[$cacheKey] = $result;
     }
 
     public function image($column = null, $index = 0)
