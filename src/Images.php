@@ -4,8 +4,6 @@ namespace NickDeKruijk\Admin;
 
 trait Images
 {
-    private static array $imagesParseCache = [];
-
     public function images($column = null, $index = null)
     {
         return $this->imagesParse($column, $index, true);
@@ -21,14 +19,8 @@ trait Images
             $column = $this->imagesColumn ?: 'images';
         }
 
-        $cacheKey = spl_object_id($this) . '|' . $column . '|' . ($index === null ? 'N' : $index) . '|' . ($array ? 'A' : 'S');
-
-        if (array_key_exists($cacheKey, self::$imagesParseCache)) {
-            return self::$imagesParseCache[$cacheKey];
-        }
-
         if (empty($this->$column) || !trim($this->$column)) {
-            return self::$imagesParseCache[$cacheKey] = null;
+            return null;
         }
 
         $images = explode(chr(10), trim($this->$column));
@@ -43,11 +35,10 @@ trait Images
                     'autocaption' => trim($image[1] ?? '') ?: pathinfo($image[0])['filename'],
                 ];
             }
-            return self::$imagesParseCache[$cacheKey] = $result;
+            return $result;
         }
 
-        $result = $index !== null ? explode('|', trim($images[$index] ?? null), 2) : $images;
-        return self::$imagesParseCache[$cacheKey] = $result;
+        return $index !== null ? explode('|', trim($images[$index] ?? null), 2) : $images;
     }
 
     public function image($column = null, $index = 0)
