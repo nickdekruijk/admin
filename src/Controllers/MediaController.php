@@ -188,9 +188,11 @@ class MediaController extends BaseController
         $this->checkSlug($slug, 'create');
         $folder = $this->trailingSlash(config('admin.media_path') . '/' . urldecode($folder));
         $response = [];
+        if (!is_string($request->folder) || $request->folder === '') abort(422, 'Folder name is required');
         $newfolder = $folder . $request->folder;
         if (substr(realpath($folder), 0, strlen(realpath(config('admin.media_path')))) !== realpath(config('admin.media_path'))) abort(400, 'realpath failed');
         if (strpos($request->folder, '.') !== false) abort(422, 'No . allowed in foldername');
+        if (strpbrk($request->folder, '/\\') !== false) abort(422, 'No / or \\ allowed in foldername');
         if (file_exists($newfolder)) abort(409, $request->folder . ' already exists');
         mkdir($newfolder);
         return $this->folders();
