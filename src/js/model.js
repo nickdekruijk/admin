@@ -389,7 +389,7 @@ function modelDelete(slug, id) {
         modelEditViewReset(false);
         loadingDone();
     }).fail(function (xhr, status, error) {
-        alert(status);
+        alert(xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : status);
         loadingDone();
     });
 }
