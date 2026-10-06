@@ -8,6 +8,7 @@ return [
     'welcome_back' => 'Welkom terug',
     'missing_role' => 'Gebruiker heeft geen rol',
     'somethingwrong' => 'Er ging iets fout',
+    'deleteconstrained' => 'Kan niet verwijderen: er zijn nog andere records aan gekoppeld.',
     'notfound' => 'niet gevonden',
     'new' => 'Nieuw',
     'add' => 'Toevoegen',

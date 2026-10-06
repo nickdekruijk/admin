@@ -13,14 +13,20 @@ if (config('admin.auth_routes', true)) {
     });
 }
 
+// Assets, this way we don't need to publish them to public
 Route::group(['middleware' => ['web']], function () {
     Route::get(config('admin.adminpath') . '/all-js', 'NickDeKruijk\Admin\Controllers\AssetController@js');
     Route::get(config('admin.adminpath') . '/all-css', 'NickDeKruijk\Admin\Controllers\AssetController@css');
 });
-Route::group(['middleware' => ['web', 'auth']], function () {
-    // Assets, this way we don't need to publish them to public
 
+Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get(config('admin.adminpath'), 'NickDeKruijk\Admin\Controllers\BaseController@view');
+
+    // Load log viewer routes if package is installed
+    if (class_exists(\Rap2hpoutre\LaravelLogViewer\LogViewerController::class)) {
+        Route::get(config('admin.adminpath') . '/logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+    }
+
     Route::get(config('admin.adminpath') . '/{slug}', 'NickDeKruijk\Admin\Controllers\BaseController@view');
 
     Route::get(config('admin.adminpath') . '/reports/view/{slug}/{id}', 'NickDeKruijk\Admin\Controllers\ReportController@showView')->name('report_view');

@@ -2,6 +2,7 @@
 
 namespace NickDeKruijk\Admin\Controllers;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use DB;
@@ -188,7 +189,7 @@ class ModelController extends BaseController
         $this->checkSlug($slug, 'read');
         $row = @$this->model()::findOrFail($id, $this->filter_pivot($this->columns()))->getOriginal();
         abort_if(empty($row[$column]), 404);
-        $file = (object)$row[$column][$data];
+        $file = (object) ($row[$column][$data] ?? []);
         abort_if(empty($file) || !isset($file->name) || !isset($file->type) || !isset($file->size) || !isset($file->store), 404);
         $file_path = rtrim($this->columns($column)['storage_path'] ?? storage_path(), '/') . '/' . $file->store;
         abort_if(!file_exists($file_path), 404);
@@ -218,7 +219,15 @@ class ModelController extends BaseController
     public function destroy($slug, $id)
     {
         $this->checkSlug($slug, 'delete');
-        $this->model()::findOrFail($id)->delete();
+        try {
+            $this->model()::findOrFail($id)->delete();
+        } catch (QueryException $e) {
+            // SQLSTATE 23000: other records still refer to this one through a foreign key
+            if ((string) $e->getCode() !== '23000') {
+                throw $e;
+            }
+            abort(409, trans('admin::base.deleteconstrained'));
+        }
     }
 
     // This method is called after nestedSortable is done and parent changed

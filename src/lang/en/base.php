@@ -8,6 +8,7 @@ return [
     'welcome_back' => 'Welcome back',
     'missing_role' => 'User role missing',
     'somethingwrong' => 'Something went wrong',
+    'deleteconstrained' => 'Cannot delete: other records are still linked to this item.',
     'notfound' => 'not found',
     'new' => 'New',
     'add' => 'Add',

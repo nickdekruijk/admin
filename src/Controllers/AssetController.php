@@ -5,7 +5,7 @@ namespace NickDeKruijk\Admin\Controllers;
 
 use App;
 use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 
 class AssetController extends Controller
 {

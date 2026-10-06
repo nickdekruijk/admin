@@ -18,22 +18,26 @@ trait Images
         if ($column === null) {
             $column = $this->imagesColumn ?: 'images';
         }
+
         if (empty($this->$column) || !trim($this->$column)) {
             return null;
         }
+
         $images = explode(chr(10), trim($this->$column));
+
         if ($array) {
-            $array = [];
+            $result = [];
             foreach ($images as $image) {
                 $image = explode('|', $image, 2);
-                $array[] = [
+                $result[] = [
                     'file' => trim($image[0]),
                     'caption' => trim($image[1] ?? ''),
                     'autocaption' => trim($image[1] ?? '') ?: pathinfo($image[0])['filename'],
                 ];
             }
-            return $array;
+            return $result;
         }
+
         return $index !== null ? explode('|', trim($images[$index] ?? null), 2) : $images;
     }
 

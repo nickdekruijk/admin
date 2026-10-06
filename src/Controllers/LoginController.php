@@ -2,7 +2,7 @@
 
 namespace NickDeKruijk\Admin\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -22,10 +22,16 @@ class LoginController extends Controller
     /**
      * Where to redirect users after login.
      *
+     * @var string
+     */
+    protected $redirectTo;
+
+    /**
      * Change the value from \App\Http\Controllers\Auth\LoginController to the admin.adminpath config
      */
     public function __construct()
     {
+        $this->middleware('guest')->except('logout');
         $this->redirectTo = '/' . config('admin.adminpath');
     }
 
