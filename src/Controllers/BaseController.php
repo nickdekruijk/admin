@@ -3,7 +3,7 @@
 namespace NickDeKruijk\Admin\Controllers;
 
 use App;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Auth;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\View;

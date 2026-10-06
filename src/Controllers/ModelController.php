@@ -89,7 +89,7 @@ class ModelController extends BaseController
 
         foreach ($sync as $foreign => $values) {
             if (isset($morph[$foreign])) {
-                $model->morphToMany($foreign, $morph[$foreign])->sync($values);
+                $model->morphToMany($foreign, $morph[$foreign], $using[$foreign] ?? null)->sync($values);
             } elseif (isset($relationship[$foreign])) {
                 $model->{$relationship[$foreign]}()->sync($values);
             } else {
@@ -114,7 +114,7 @@ class ModelController extends BaseController
     public function store($slug, Request $request)
     {
         $this->checkSlug($slug, 'create');
-        $this->validate($request, $this->validationRules());
+        $request->validate($this->validationRules());
         return $this->save($this->model(), $request);
     }
 
@@ -160,7 +160,7 @@ class ModelController extends BaseController
                 unset($row['"' . $columnId . '"']);
                 $ids = [];
                 if (!empty($column['morph'])) {
-                    $pivotData = $this->model()::findOrFail($id)->morphToMany($column['model'], $column['morph'])->get();
+                    $pivotData = $this->model()::findOrFail($id)->morphToMany($column['model'], $column['morph'], $column['using'] ?? null)->get();
                 } elseif (isset($column['relationship'])) {
                     $pivotData = $this->model()::findOrFail($id)->{$column['relationship']};
                 } else {
@@ -189,7 +189,7 @@ class ModelController extends BaseController
         $this->checkSlug($slug, 'read');
         $row = @$this->model()::findOrFail($id, $this->filter_pivot($this->columns()))->getOriginal();
         abort_if(empty($row[$column]), 404);
-        $file = (object)$row[$column][$data];
+        $file = (object) ($row[$column][$data] ?? []);
         abort_if(empty($file) || !isset($file->name) || !isset($file->type) || !isset($file->size) || !isset($file->store), 404);
         $file_path = rtrim($this->columns($column)['storage_path'] ?? storage_path(), '/') . '/' . $file->store;
         abort_if(!file_exists($file_path), 404);
@@ -206,7 +206,7 @@ class ModelController extends BaseController
     public function update($slug, Request $request, $id)
     {
         $this->checkSlug($slug, 'update');
-        $this->validate($request, $this->validationRules(['id' => $id]));
+        $request->validate($this->validationRules(['id' => $id]));
         return $this->save($this->model()::findOrFail($id), $request);
     }
 
