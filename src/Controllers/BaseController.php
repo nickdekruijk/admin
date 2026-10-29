@@ -6,6 +6,7 @@ use App;
 use Illuminate\Routing\Controller;
 use Auth;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Route;
@@ -261,7 +262,7 @@ class BaseController extends Controller
                 }
                 $response .= '<span>' . $value . '</span>';
             } elseif ($this->columns($column, 'type') == 'date') {
-                $response .= '<span>' . str_replace(' 00:00:00', '', $row[$column] ?: '') . '</span>';
+                $response .= '<span>' . ($row[$column] ? Carbon::parse($row[$column])->format($this->dateFormat()) : '') . '</span>';
             } elseif ($this->columns($column, 'type') == 'select' && isset($this->columns($column, 'values')[$row[$column]])) {
                 $value = $this->columns($column, 'values')[$row[$column]];
                 if (is_array($value)) {
@@ -554,6 +555,18 @@ class BaseController extends Controller
         $response .= '</tr>';
         $response .= '</table>';
         return $response;
+    }
+
+    // The PHP date format used to show and enter date columns
+    public function dateFormat(): string
+    {
+        return config('admin.date_format', 'Y-m-d');
+    }
+
+    // The date format in jQuery UI datepicker notation
+    public function datepickerFormat(): string
+    {
+        return strtr($this->dateFormat(), ['d' => 'dd', 'j' => 'd', 'm' => 'mm', 'n' => 'm', 'Y' => 'yy', 'y' => 'y']);
     }
 
     public function help(array $section): string

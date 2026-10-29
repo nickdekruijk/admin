@@ -44,6 +44,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | date_format
+    |--------------------------------------------------------------------------
+    | PHP date format used to show and enter date columns, e.g. 'd-m-Y' for
+    | 13-12-2026. Dates are still stored as Y-m-d. Supports d, j, m, n, Y and y
+    */
+    'date_format' => 'Y-m-d',
+
+    /*
+    |--------------------------------------------------------------------------
     | auth_routes
     |--------------------------------------------------------------------------
     | Register authentication routes for login and logout. Disable these if you

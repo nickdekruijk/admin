@@ -576,12 +576,14 @@ function modelAddLine(slug, element, data, column) {
 }
 
 function modelInit(slug) {
-    $('.datepicker').datepicker({
-        showButtonPanel: true,
-        changeMonth: true,
-        changeYear: true,
-        numberOfMonths: 2,
-        dateFormat: 'yy-mm-dd',
+    $('.datepicker').each(function () {
+        $(this).datepicker({
+            showButtonPanel: true,
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 2,
+            dateFormat: $(this).data('format') || 'yy-mm-dd',
+        });
     });
     $('.datetimepicker').datetimepicker({
         showButtonPanel: true,

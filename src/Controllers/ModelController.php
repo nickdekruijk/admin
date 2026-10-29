@@ -5,6 +5,8 @@ namespace NickDeKruijk\Admin\Controllers;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Carbon;
+use DateTime;
 use DB;
 
 class ModelController extends BaseController
@@ -114,8 +116,23 @@ class ModelController extends BaseController
     public function store($slug, Request $request)
     {
         $this->checkSlug($slug, 'create');
+        $this->normalizeDates($request);
         $request->validate($this->validationRules());
         return $this->save($this->model(), $request);
+    }
+
+    // Convert date columns entered in the configured date format back to Y-m-d,
+    // anything that doesn't match is left as is so validation can reject it
+    private function normalizeDates(Request $request)
+    {
+        foreach ($this->columns() as $columnId => $column) {
+            if ($column['type'] == 'date' && is_string($request[$columnId])) {
+                $date = DateTime::createFromFormat('!' . $this->dateFormat(), $request[$columnId]);
+                if ($date && $date->format($this->dateFormat()) === $request[$columnId]) {
+                    $request->merge([$columnId => $date->format('Y-m-d')]);
+                }
+            }
+        }
     }
 
     // Filter out pivot type fields to prevent unknown column database errors
@@ -175,9 +192,9 @@ class ModelController extends BaseController
             if (isset($column['type']) && $column['type'] == 'password' && $row[$columnId]) {
                 $row[$columnId] = '********';
             }
-            // Strip zero time on date columns
+            // Show date columns in the configured date format
             if ($column['type'] == 'date' && $row[$columnId]) {
-                $row[$columnId] = str_replace(' 00:00:00', '', $row[$columnId]);
+                $row[$columnId] = Carbon::parse($row[$columnId])->format($this->dateFormat());
             }
         }
         return $row;
@@ -206,6 +223,7 @@ class ModelController extends BaseController
     public function update($slug, Request $request, $id)
     {
         $this->checkSlug($slug, 'update');
+        $this->normalizeDates($request);
         $request->validate($this->validationRules(['id' => $id]));
         return $this->save($this->model()::findOrFail($id), $request);
     }

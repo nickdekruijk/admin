@@ -51,7 +51,7 @@
                 @endif
                 {{ $lp->locale('title', $column, $id) }}{!! $lp->help($column) !!}</label>
                 @if ($column['type'] == 'string' || $column['type'] == 'password' || $column['type'] == 'date' || $column['type'] == 'datetime' || $column['type'] == 'number')
-                <input class="{{ $column['type'] == 'date' ? 'datepicker' : '' }}{{ $column['type'] == 'datetime' ? 'datetimepicker' : '' }}" type="{{ $column['type']=='string' || $column['type'] == 'date' || $column['type'] == 'datetime'?'text':$column['type'] }}" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
+                <input class="{{ $column['type'] == 'date' ? 'datepicker' : '' }}{{ $column['type'] == 'datetime' ? 'datetimepicker' : '' }}"{!! $column['type'] == 'date' ? ' data-format="' . e($lp->datepickerFormat()) . '"' : '' !!} type="{{ $column['type']=='string' || $column['type'] == 'date' || $column['type'] == 'datetime'?'text':$column['type'] }}" name="{{ $id }}" id="input_{{ $id }}" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
                 @if (isset($column['validate']) && in_array('confirmed',explode('|', $column['validate'])))
                     <label for="input_{{ $id }}_confirmation">{{ trans('admin::base.confirm') }} {{ $lp->locale('title', $column, $id) }}</label>
                     <input type="{{ $column['type']=='string'?'text':$column['type'] }}" name="{{ $id }}_confirmation" id="input_{{ $id }}_confirmation" placeholder="{{ $lp->locale('placeholder', $column, '') }}">
